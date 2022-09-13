@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.compiler.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@cloud/*": ["./*/src"]
+    }
+  }
+}
