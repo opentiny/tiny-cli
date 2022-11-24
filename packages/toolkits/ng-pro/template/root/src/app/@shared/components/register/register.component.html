@@ -1,0 +1,51 @@
+<div class="t-pro-register">
+  <div class="t-pro-register-form">
+    <div class="t-pro-register-logo-wrapper">
+      <div class="t-pro-register-logo">
+        <span class="t-pro-logo-tiny">
+          <img src="assets/img/pro.svg" alt="TinyUI-Logo" />
+        </span>
+        <span class="t-pro-text">TinyUI Pro</span>
+      </div>
+    </div>
+    <div class="t-pro-register-wrapper">
+      <form [formGroup]="registerForm">
+        <ti-formfield vertical>
+          <ti-item label="{{ 'registerPage.email' | translate }}：">
+            <input tiText placeholder="Email" [tiValidation]="validationBlur" formControlName="userEmail" />
+          </ti-item>
+          <ti-item label="{{ 'registerPage.password' | translate }}：">
+            <input tiText placeholder="Password" type="password" [tiValidation]="validationPwd"
+              formControlName="password" />
+          </ti-item>
+          <ti-item label="{{ 'registerPage.confirmPassword' | translate }}：">
+            <input tiText placeholder="Confirm Password" type="password" [tiValidation]="validationBlur"
+              formControlName="confirmPassword" />
+          </ti-item>
+        </ti-formfield>
+      </form>
+
+      <button class="t-pro-submit-button" (click)="register($event)">
+        {{ 'registerPage.submit' | translate }}
+      </button>
+      <a class="t-pro-other" routerLink="/login">{{ 'registerPage.other' | translate }}</a>
+    </div>
+  </div>
+
+  <div class="t-pro-language-wrapper" tProBaseDropDown [trigger]="'hover'" tProBaseDropDownToggle appendToBody>
+    <ti-icon local name="document"></ti-icon>
+    <span class="font-change">{{ 'loginPage.language' | translate }}</span>
+    <ul tProBaseDropDownMenu class="t-pro-dropdown-menu t-pro-scrollbar" role="menu" style="width: 120px">
+      <li *ngFor="let item of languages" role="menuitem" [ngClass]="{ 't-pro-active-lang': language === item.code }"
+        (click)="onLanguageClick(item.code)">
+        <a class="t-pro-base-dropdown-item">
+          <span class="t-pro-language-prefix">{{ item.prefix }}</span>
+          &nbsp;
+          {{ item.lang }}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <t-pro-footer></t-pro-footer>
+</div>

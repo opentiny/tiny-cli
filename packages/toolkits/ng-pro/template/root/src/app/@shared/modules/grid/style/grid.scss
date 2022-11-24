@@ -1,0 +1,10 @@
+@import '~bootstrap/scss/functions';
+@import './config.scss';
+@import '~bootstrap/scss/bootstrap-grid';
+
+/* COMMENT: reset bootstrap default box-sizing to same to default */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

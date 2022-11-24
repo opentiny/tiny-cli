@@ -1,0 +1,32 @@
+{
+  "name": "@opentiny/cli-commands",
+  "version": "1.0.5",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.compiler.json --watch",
+    "clean": "rm -rf lib/ && rm package-lock.json || true",
+    "test": "npm run build && ava"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "@opentiny/cli-devkit": "^1.0.0",
+    "fs-extra": "^8.1.0",
+    "inquirer": "^6.5.0",
+    "node-emoji": "^1.10.0",
+    "yargs": "^13.3.0"
+  },
+  "devDependencies": {
+    "@opentiny/cli-typescript": "^1.0.0",
+    "@types/node": "^12.6.2",
+    "ava": "^4.0.1",
+    "chai": "^4.2.0",
+    "proxyquire": "^2.1.1",
+    "sinon": "^7.3.2",
+    "typescript": "^3.5.3"
+  },
+  "ava": {
+    "snapshotDir": "./snapshots"
+  },
+  "gitHead": "7df28442b47d4dc15cc2285eff3a211c366ec627"
+}

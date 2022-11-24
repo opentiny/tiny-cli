@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"target": "es2017",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"lib": ["es2015", "dom"],
+		"pretty": true,
+		"strictNullChecks": true,
+		"inlineSourceMap": false,
+		"esModuleInterop": true,
+		"declaration": true,
+		"experimentalDecorators": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
+	}
+}

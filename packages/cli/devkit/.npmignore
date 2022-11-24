@@ -1,0 +1,4 @@
+*.ts
+src
+lib/fs/fixtures
+dist/locales

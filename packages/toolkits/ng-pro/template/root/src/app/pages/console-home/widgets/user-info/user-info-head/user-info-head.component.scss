@@ -1,0 +1,58 @@
+@import 'src/app/@shared/styles/common.scss';
+
+.user-panel-head {
+  position: relative;
+  padding-top: 5px;
+  @include t-pro-product-card;
+}
+
+.user-info-head {
+  float: left;
+  cursor: pointer;
+  background-image: url('../../../../../../assets/img/user-head.png');
+  background-repeat: no-repeat;
+  background-size: 36px;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+}
+
+.user-info-name-and-auth {
+  position: relative;
+  margin-left: 48px;
+  width: auto;
+  font-size: 12px;
+  color: var(--ti-common-color-text-primary);
+  line-height: 16px;
+}
+
+.user-info-expense-center {
+  position: absolute;
+  right: 0px;
+  display: inline-block;
+}
+
+.user-info-name {
+  margin: 4px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.user-info-status-ok {
+  color: var(--ti-common-color-success);
+}
+
+.auth-status-style {
+  text-align: left;
+  height: 16px;
+
+  a {
+    color: var(--ti-common-color-icon-normal);
+    margin-left: 4px;
+  }
+
+  a.auth-status-warn {
+    color: var(--ti-common-color-error);
+    text-decoration: underline;
+  }
+}

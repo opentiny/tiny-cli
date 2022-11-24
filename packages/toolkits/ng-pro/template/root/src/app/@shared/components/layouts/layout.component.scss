@@ -1,0 +1,110 @@
+.t-pro-layout {
+  min-height: 100%;
+}
+
+.t-pro-sidebar-tools {
+  position: fixed;
+  bottom: 0;
+  z-index: 990;
+
+  .t-pro-sidebar-tools-list {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .t-pro-sidebar-tools-item {
+    width: 54px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      color: #5e7ce0;
+    }
+
+    ti-icon {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+/* TODO: 阴影色确定 */
+.t-pro-basic-layout-wrapper {
+  min-height: 100%;
+
+  & > t-pro-basic-layout {
+    width: 0;
+  }
+
+  .t-pro-basic-layout-aside-wrapper {
+    display: flex;
+    box-shadow: var(--ti-common-shadow-2-down);
+    z-index: 100;
+
+    &.t-pro-basic-sidebar-top {
+      z-index: 101;
+    }
+
+    &.t-pro-basic-layout-aside-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    .t-pro-layout-sidebar {
+      background-color: var(--ti-default-body-bg);
+      border-right: 1px solid var(--ti-common-color-line-dividing);
+    }
+
+    &.t-pro-basic-no-sec-sidebar .t-pro-layout-sidebar {
+      border-right: none;
+    }
+
+    .t-pro-layout-sec-sidebar {
+      background-color: var(--ti-base-color-bg);
+    }
+  }
+
+  .t-pro-basic-layout-header-wrapper {
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--ti-common-shadow-2-down);
+    z-index: 100;
+
+    &.t-pro-basic-layout-header-fixed {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      right: 0;
+    }
+
+
+    .t-pro-layout-header {
+      background-color: var(--ti-default-body-bg);
+      border-bottom: 1px solid var(--ti-common-color-line-dividing);
+    }
+
+    &.t-pro-basic-no-sec-header .t-pro-layout-header {
+      border-bottom: none;
+    }
+
+    .t-pro-layout-sec-header {
+      background-color: var(--ti-default-body-bg);
+    }
+  }
+
+  .t-pro-basic-layout-content-wrapper {
+    background-color: var(--ti-default-body-bg);
+  }
+
+  .t-pro-basic-layout-footer-wrapper {
+    padding: 24px 0 20px;
+    background-color: var(--ti-default-body-bg);
+  }
+}
+

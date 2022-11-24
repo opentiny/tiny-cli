@@ -1,0 +1,23 @@
+{
+  "name": "tiny-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init": "npx lerna bootstrap",
+    "dev": "lerna run watch --stream --parallel",
+    "build": "lerna run build",
+    "link": "lerna run link",
+    "lint": "eslint . --ext .js,.ts --fix",
+    "format": "prettier --write **/*{.vue,.js,.ts,.html,.json}",
+    "publish": "lerna run build && lerna exec npm publish",
+    "version": "lerna exec npm version 1.0.0 -- --allow-same-version",
+    "clean": "lerna clean && rm -rf node_modules && lerna run clean"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lerna": "^5.4.2"
+  }
+}

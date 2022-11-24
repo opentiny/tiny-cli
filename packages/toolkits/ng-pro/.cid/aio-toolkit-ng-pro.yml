@@ -1,0 +1,25 @@
+version: 1.0
+name: aio-toolkit-ng-pro
+language: nodejs
+
+
+#  构建工具
+dependencies:
+  base:
+    nodejs: best
+
+#  构建机器
+machine:
+  standard:
+    euler:
+      - default
+
+#  构建脚本
+scripts:
+scripts:
+  - if [ $version ]; then npm version ${version}; npm version; fi && npm i && npm run build
+
+#  构建产物
+artifacts:
+  npm_deploy:
+    - config_path: ./package.json

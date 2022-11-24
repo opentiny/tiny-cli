@@ -1,0 +1,235 @@
+import Mock from 'mockjs';
+import debug from './env';
+
+export default ({ mock, setup }: { mock?: boolean; setup: () => void }) => {
+  if (mock !== false && debug) setup();
+};
+
+export const successResponseWrap = (data: unknown) => {
+  return {
+    data,
+    status: 'ok',
+    msg: '请求成功',
+    code: 20000,
+  };
+};
+
+export const failResponseWrap = (data: unknown, msg: string, code = 50000) => {
+  return {
+    data,
+    status: 'fail',
+    msg,
+    code,
+  };
+};
+
+export const initData = Mock.mock({
+  chartData: [
+    {
+      title: '入职两周',
+      value: 1,
+      list: [
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionA',
+          len: 1,
+          bid: 'A',
+          pid: 'A',
+        },
+        {
+          type: 'userInfo.type.optionC',
+          status: 'userInfo.statue.optionB',
+          len: 5,
+          bid: 'B',
+          pid: 'B',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionC',
+          len: 3,
+          bid: 'A',
+          pid: 'C',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionA',
+          len: 1,
+          bid: 'A',
+          pid: 'A',
+        },
+        {
+          type: 'userInfo.type.optionB',
+          status: 'userInfo.statue.optionA',
+          len: 6,
+          bid: 'C',
+          pid: 'A',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionC',
+          len: 1,
+          bid: 'A',
+          pid: 'C',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionA',
+          len: 1,
+          bid: 'A',
+          pid: 'A',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionB',
+          len: 1,
+          bid: 'A',
+          pid: 'B',
+        },
+        {
+          type: 'userInfo.type.optionB',
+          status: 'userInfo.statue.optionA',
+          len: 1,
+          bid: 'C',
+          pid: 'A',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionC',
+          len: 1,
+          bid: 'A',
+          pid: 'C',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionD',
+          len: 1,
+          bid: 'A',
+          pid: 'D',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionD',
+          len: 1,
+          bid: 'A',
+          pid: 'D',
+        },
+        {
+          type: 'userInfo.type.optionA',
+          status: 'userInfo.statue.optionD',
+          len: 1,
+          bid: 'A',
+          pid: 'D',
+        },
+      ],
+    },
+    { title: '入职1个月', value: 0 },
+    { title: '入职2个月', value: 0 },
+    { title: '入职3个月', value: 0 },
+    { title: '入职4个月', value: 0 },
+    { title: '入职5个月', value: 0 },
+    { title: '入职6个月', value: 0 },
+    { title: '入职7个月', value: 0 },
+    { title: '入职8个月', value: 0 },
+    { title: '入职9个月', value: 0 },
+    { title: '入职10个月', value: 0 },
+    { title: '入职11个月', value: 0 },
+    { title: '入职12个月', value: 0 },
+    { title: '入职13个月', value: 0 },
+    { title: '入职14个月', value: 0 },
+    { title: '入职15个月', value: 0 },
+    { title: '入职16个月', value: 0 },
+    { title: '入职17个月', value: 0 },
+  ],
+  tableData: [
+    {
+      id: '1',
+      bid: 'A',
+      pid: 'D',
+      name: 'GFD Company',
+      time: '2021-12-18',
+      type: 'userInfo.type.optionA',
+      statue: 'userInfo.statue.optionD',
+    },
+    {
+      id: '2',
+      bid: 'B',
+      pid: 'A',
+      name: 'WWWW Company',
+      time: '2021-11-18',
+      type: 'userInfo.type.optionB',
+      statue: 'userInfo.statue.optionA',
+    },
+    {
+      id: '3',
+      bid: 'C',
+      pid: 'B',
+      name: 'TGBYX Company',
+      time: '2021-10-18',
+      type: 'userInfo.type.optionC',
+      statue: 'userInfo.statue.optionB',
+    },
+    {
+      id: '4',
+      bid: 'B',
+      pid: 'D',
+      name: 'GF Company',
+      time: '2021-09-18',
+      type: 'userInfo.type.optionB',
+      statue: 'userInfo.statue.optionC',
+    },
+    {
+      id: '5',
+      bid: 'C',
+      pid: 'C',
+      name: 'Property management company',
+      time: '2021-07-18',
+      type: 'userInfo.type.optionA',
+      statue: 'userInfo.statue.optionD',
+    },
+    {
+      id: '6',
+      bid: 'A',
+      pid: 'C',
+      name: 'Property management company',
+      time: '2020-12-23',
+      type: 'userInfo.type.optionA',
+      statue: 'userInfo.statue.optionC',
+    },
+    {
+      id: '7',
+      bid: 'B',
+      pid: 'C',
+      name: 'GF Company',
+      time: '2020-11-08',
+      type: 'userInfo.type.optionB',
+      statue: 'userInfo.statue.optionC',
+    },
+    {
+      id: '8',
+      bid: 'B',
+      pid: 'C',
+      name: 'WWWW Company',
+      time: '2020-10-18',
+      type: 'userInfo.type.optionB',
+      statue: 'userInfo.statue.optionC',
+    },
+    {
+      id: '9',
+      bid: 'C',
+      pid: 'D',
+      name: 'WWWW Company',
+      time: '2020-10-11',
+      type: 'userInfo.type.optionC',
+      statue: 'userInfo.statue.optionD',
+    },
+    {
+      id: '10',
+      bid: 'C',
+      pid: 'D',
+      name: 'TGBYX Company',
+      time: '2020-06-18',
+      type: 'userInfo.type.optionC',
+      statue: 'userInfo.statue.optionD',
+    },
+  ],
+});

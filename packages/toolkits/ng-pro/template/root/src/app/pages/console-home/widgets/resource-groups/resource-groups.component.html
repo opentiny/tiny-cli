@@ -1,0 +1,36 @@
+<div class="home-content-services">
+  <div class="my-resource-title">
+      <span class="title">{{ 'consoleHome.resourceGroup.focusResourcesLabel' | translate }}</span>
+    <a id="rg-my-resource-view-more" class="pull-right my-resources-view-resources-font-set" refrence-href tiNavigation
+      target="_blank" [innerText]="'consoleHome.resourceGroup.viewMore' | translate"></a>
+  </div>
+  <div class="my-resource-list">
+    <div [attr.id]="'favor-' + item.endpointId + '-info'" class="column pull-left" *ngFor="let item of resourceItems">
+      <div class="my-resource-instance-item">
+        <div class="pull-left my-resource-name-font-set" title="{{ item.name | translate }}">
+          {{ item.name | translate }}
+        </div>
+      </div>
+    </div>
+    <div class="my-resource-list-add pull-left">
+      <button type="button" [onlyIcon]="true" tiButton class="my-resource-list-button">
+        <ti-icon local name="add" class="my-resource-list-button-icon"></ti-icon>
+        <span class="my-resource-name-font-set">{{ 'consoleHome.resourceGroup.addResourcesLabel' | translate }}</span>
+      </button>
+    </div>
+  </div>
+  <div class="resource-section-spliter"></div>
+  <div>
+    <div class="home-content-recent-service-new-title">
+      <span class="home-content-service-new-text">{{ 'consoleHome.resourceGroup.recentService' | translate }}</span>
+    </div>
+    <div class="home-content-recent-service">
+      <div>
+        <span *ngFor="let service of rencentServiceList" [attr.id]="'recent-' + service.endpointId + '-info'"
+          ng-if="service.name" class="home-content-recent-service-list-service"
+          title="{{ service.name | translate }}">{{ service.name | translate }}</span>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+dist / locales;
+tsconfig.compiler.json;
+temp
+src

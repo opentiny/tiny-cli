@@ -1,0 +1,24 @@
+<div class="t-pro-content-banner">
+  <div class="t-pro-content-banner-title">
+    {{ 'consoleHome.title' | translate }}
+  </div>
+  <div>{{ 'consoleHome.description' | translate }}</div>
+</div>
+<div class="t-pro-content-wrapper production-card">
+  <t-pro-base-row [tProBaseGutter]="[24, 24]">
+    <t-pro-base-col [tProBaseSpan]="{ sm: 18 }">
+      <div class="resource-groups">
+        <t-pro-resource-groups></t-pro-resource-groups>
+      </div>
+      <div class="marketplace-content">
+        <t-pro-marketplace></t-pro-marketplace>
+      </div>
+    </t-pro-base-col>
+    <t-pro-base-col [tProBaseSpan]="{ sm: 6 }">
+      <t-pro-user-info></t-pro-user-info>
+      <t-pro-side-advertise></t-pro-side-advertise>
+      <t-pro-side-announcement></t-pro-side-announcement>
+      <t-pro-beginner-guide></t-pro-beginner-guide>
+    </t-pro-base-col>
+  </t-pro-base-row>
+</div>

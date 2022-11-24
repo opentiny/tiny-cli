@@ -1,0 +1,22 @@
+<div class="user-panel-head">
+  <div>
+    <a>
+      <div id="user-image-info" class="user-info-head"></div>
+    </a>
+    <div class="user-info-name-and-auth">
+      <div>
+        <div>
+          {{ 'consoleHome.userInfo.helloLabel' | translate }}
+          <span id="user-expense-info" class="user-info-expense-center">
+            <a tiNavigation target="_blank" [innerText]="'consoleHome.userInfo.expenseCenter' | translate"></a>
+          </span>
+        </div>
+        <a tiNavigation target="_blank" [innerText]="user?.userName"></a>
+      </div>
+      <div id="user-auth-info" class="auth-status-style">
+        <ti-icon local name="alert-success" class="user-info-status-ok"> </ti-icon>
+        <a>{{ authStatusLabel }}</a>
+      </div>
+    </div>
+  </div>
+</div>

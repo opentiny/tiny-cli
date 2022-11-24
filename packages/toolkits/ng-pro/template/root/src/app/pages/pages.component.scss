@@ -1,0 +1,24 @@
+
+
+t-pro-layout-header {
+  display: flex;
+}
+
+t-pro-layout-sidebar {
+  display: flex;
+  flex-direction: column;
+
+  & > t-pro-side-menu,
+  & > t-pro-navbar {
+    flex: 1 1 0%;
+    overflow: hidden auto;
+  }
+
+  & > t-pro-navbar {
+    margin-top: 10px;
+  }
+
+  & > t-pro-header-logo {
+    display: inline-block;
+  }
+}

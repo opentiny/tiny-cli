@@ -1,0 +1,13 @@
+{
+  "title": "tiny-plugin-link",
+  "items": [
+    {
+      "featureLinkTo": "https://support.huaweicloud.com/eu-west-0-usermanual-rds/rds_faq_0073.html",
+      "featureTitle": "我是一个标题"
+    },
+    {
+      "featureLinkTo": "https://support.huaweicloud.com/usermanual-rds/rds_switch_ha.html",
+      "featureTitle": "XTPL模板循环DEMO"
+    }
+  ]
+}

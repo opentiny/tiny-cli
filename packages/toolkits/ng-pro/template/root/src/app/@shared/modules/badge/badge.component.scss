@@ -1,0 +1,107 @@
+@mixin status-color {
+  &-danger {
+    background: var(--ti-button-danger-normal-bg-color);
+  }
+
+  &-warning {
+    background: var(--ti-common-color-warn-bg);
+  }
+
+  &-waiting {
+    background: var(--ti-base-color-common-5);
+  }
+
+  &-success {
+    background: var(--ti-common-color-success-bg);
+  }
+
+  &-info {
+    background: var(--ti-base-color-brand-6);
+  }
+
+  &-common {
+    background: var(--ti-collapse-panel-bg-color);
+    color: var(--ti-base-color-common-3);
+  }
+}
+
+:host {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+}
+
+.t-pro-base-badge-content {
+  position: absolute;
+
+  &-count {
+    background: var(--ti-base-color-brand-6);
+    color: var(--ti-base-color-white);
+    min-width: 16px;
+    height: 16px;
+    font-size: var(--ti-common-font-size-base);
+    line-height: 16px;
+    text-align: center;
+    padding: 0 4px;
+    border-radius: 100px;
+  }
+
+  &-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background: var(--ti-base-color-error);
+  }
+
+  &-top-left {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  &-top-right {
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+
+  &-bottom-left {
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, 50%);
+  }
+
+  &-bottom-right {
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+  }
+  @include status-color;
+}
+
+.t-pro-base-badge-count {
+  position: relative;
+  right: 0;
+  background: var(--ti-base-color-brand-6);
+  color: var(--ti-base-color-white);
+  min-width: 16px;
+  height: 16px;
+  font-size: var(--ti-common-font-size-base);
+  line-height: 16px;
+  text-align: center;
+  padding: 0 4px;
+  border-radius: 100;
+  @include status-color;
+}
+
+.t-pro-base-badge-status {
+  line-height: inherit;
+  vertical-align: baseline;
+  position: relative;
+  top: -1px;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  @include status-color;
+}

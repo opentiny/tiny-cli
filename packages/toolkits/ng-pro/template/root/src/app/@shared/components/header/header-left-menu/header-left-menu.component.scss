@@ -1,0 +1,29 @@
+.console-home {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: inherit;
+  fill: currentColor;
+  line-height: 10px;
+  cursor: pointer;
+}
+
+.divide-line {
+  padding-left: 20px;
+  border-left: 1px solid #adb0b8;
+}
+
+.icon-home {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.console-text {
+  font-size: 12px;
+}
+
+.region-select {
+  margin-left: 20px;
+}

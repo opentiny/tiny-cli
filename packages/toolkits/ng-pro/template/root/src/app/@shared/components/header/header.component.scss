@@ -1,0 +1,14 @@
+.t-pro-header {
+  height: 60px;
+  width: 100%;
+  padding: 5px 16px 5px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--ti-common-font-size-1);
+  color: var(--ti-base-color-common);
+}
+
+.router-active {
+  outline: none;
+}

@@ -1,0 +1,61 @@
+.user-info-panel {
+  bottom: 0px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--ti-common-color-bg-emphasize);
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.panel-content-common {
+  flex: 1;
+  overflow: hidden;
+  height: 85px;
+  position: relative;
+  background-color: var(--ti-common-color-bg-emphasize);
+
+  &:hover {
+    background: var(--ti-common-color-icon-darkbg-active);
+    cursor: pointer;
+  }
+}
+
+.panel-last-with-no-line::after {
+  border-right: none;
+}
+
+.panel-number-common {
+  font-size: 32px;
+  color: var(--ti-base-color-white);
+  text-align: center;
+  padding: 6px;
+  line-height: 43px;
+}
+
+@mixin panel-dash-line {
+  content: '';
+  position: absolute;
+  top: 25%;
+  right: 0;
+  height: 50%;
+  border-right: 1px solid var(--ti-base-color-white);
+  opacity: 0.2;
+}
+
+.panel-content-common::after {
+  @include panel-dash-line;
+}
+
+.panel-text-common {
+  color: var(--ti-base-color-white);
+  margin-bottom: 14px;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 0 8px;
+}

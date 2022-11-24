@@ -1,0 +1,57 @@
+.t-pro-content-banner {
+  background-color: var(--ti-default-body-bg);
+  padding: 16px 20px;
+  font-size: var(--ti-common-font-size-1);
+
+  &-title {
+    margin: 12px 0 16px;
+    font-size: var(--ti-common-font-size-3);
+    font-weight: var(--ti-modal-header-font-weight);
+  }
+}
+
+.t-pro-content-wrapper {
+  padding: 12px;
+  background-color: var(--ti-default-body-bg);
+}
+
+.t-pro-content-title {
+  font-size: var(--ti-common-font-size-2);
+  padding: 16px;
+  border-bottom: 1px solid var(--ti-common-color-line-dividing);
+}
+
+.t-pro-content-card {
+  overflow: hidden;
+  background-color: var(--ti-default-body-bg);
+  border-radius: var(--ti-common-border-radius-1);
+  box-shadow: var(--ti-common-shadow-1-down);
+}
+
+@mixin t-pro-product-card {
+  padding: 20px 24px;
+  box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+  background: var(--ti-default-body-bg);
+}
+
+:host ::ng-deep .t-pro-base-tag-item {
+  &.epic {
+    color: var(--ti-common-color-text-gray);
+    background-color: var(--ti-base-color-error);
+  }
+
+  &.High {
+    color: var(--ti-common-color-text-gray);
+    background-color: var(--ti-common-color-error-border);
+  }
+
+  &.Low {
+    color: var(--ti-common-color-text-gray);
+    background-color: var(--ti-base-color-warn);
+  }
+
+  &.Medium {
+    color: var(--ti-common-color-text-gray);
+    background-color: var(--ti-common-color-line-normal);
+  }
+}

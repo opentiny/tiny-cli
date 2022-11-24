@@ -1,0 +1,65 @@
+.side-annoucement-container {
+  font-size: 12px;
+  padding: 20px 24px;
+  margin-top: 20px;
+  box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+  background: var(--ti-default-body-bg);
+  width: 100%;
+
+  .side-annoucement-title {
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+
+    .title {
+      font-size: 14px;
+      color: var(--ti-common-color-text-primary);
+      font-weight: bold;
+    }
+
+    .side-links {
+      position: absolute;
+      right: 0px;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--ti-common-color-bg-hover);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .side-href {
+    display: block;
+    color: var(--ti-common-color-text-primary);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    word-break: keep-all;
+    height: 18px;
+    margin-top: 12px;
+    line-height: 18px;
+
+    span:first-of-type {
+      float: left;
+      color: var(--ti-common-color-icon-normal);
+    }
+
+    .notice-time {
+      margin-right: 12px;
+    }
+
+    &:hover,
+    &:active {
+      color: var(--ti-common-color-dash-line-hover);
+      text-decoration: none;
+    }
+
+    &:link,
+    &:visited {
+      text-decoration: none;
+    }
+  }
+}

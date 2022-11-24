@@ -1,0 +1,19 @@
+@import 'src/app/@shared/styles/common.scss';
+
+.production-card {
+  background: var(--ti-default-body-bg);
+}
+
+.resource-groups {
+  height: 41%;
+  box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+  background: var(--ti-default-body-bg);
+}
+
+.marketplace-content {
+  box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+  background: var(--ti-default-body-bg);
+  height: 56%;
+}
+
+

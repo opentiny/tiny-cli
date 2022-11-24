@@ -1,0 +1,12 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "i18n-ally.displayLanguage": "",
+  "i18n-ally.localesPaths": ["src/locales", "src/assets/i18n"],
+  "i18n-ally.sourceLanguage": "zhCn",
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.theme.annotationMissing": "#6a9955",
+  "i18n-ally.theme.annotation": "#6a9955"
+
+  // "typescript.implementationsCodeLens.enabled": true
+  // "typescript.referencesCodeLens.enabled": true
+}

@@ -1,0 +1,94 @@
+.t-pro-operations {
+  display: flex;
+  line-height: 60px;
+  align-items: center;
+
+  a {
+    color: var(--ti-base-color-common);
+  }
+
+  a:hover {
+    color: var(--ti-base-color-brand-6);
+  }
+
+  .help-center {
+    text-decoration: none;
+    width: 40%;
+    font-size: var(--ti-common-font-size-base);
+    margin-right: 15px;
+  }
+
+  .t-pro-header-search {
+    margin-right: 15px;
+    width: 85%;
+  }
+
+  .tpicon-helping {
+    padding-right: 5px;
+    font-size: var(--ti-common-font-size-4);
+    font-weight: 900;
+  }
+
+  .t-pro-operations-user {
+    outline: none;
+    display: flex;
+    cursor: pointer;
+    margin-right: 15px;
+    width: 10%;
+
+    t-pro-base-avatar {
+      display: flex;
+      align-items: center;
+      margin-right: 8px;
+    }
+  }
+
+  .t-pro-language-wrapper {
+    display: flex;
+    outline: none;
+    height: 60px;
+    margin-right: 15px;
+    width: 30%;
+    font-size: var(--ti-common-font-size-base);
+    align-items: center;
+    cursor: pointer;
+
+    .t-pro-change-language {
+      width: 32px;
+      height: 32px;
+    }
+
+    .tpicon-translation {
+      font-size: var(--ti-common-font-size-3);
+      font-weight: 900;
+    }
+  }
+
+  .t-pro-operations-notice {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    cursor: pointer;
+    width: 10%;
+  }
+}
+
+.authenticated {
+  color: #3ac295;
+}
+
+.item-width {
+  min-width: 120px;
+}
+
+.logout {
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 620px) {
+  .t-pro-operations-user {
+    .t-pro-user-name {
+      display: none;
+    }
+  }
+}

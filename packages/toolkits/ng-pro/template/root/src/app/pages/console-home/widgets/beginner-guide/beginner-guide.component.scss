@@ -1,0 +1,62 @@
+.beginner {
+  padding: 20px 24px;
+  margin-top: 20px;
+  box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+  background: var(--ti-default-body-bg);
+  width: 100%;
+
+  a {
+    text-decoration: none;
+  }
+
+  .beginner-title {
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+
+    .title {
+      font-size: 14px;
+      color: var(--ti-common-color-text-primary);
+      font-weight: bold;
+    }
+
+    .beginner-more {
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      a {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .beginner-content {
+    a {
+      font-size: 12px;
+      color: var(--ti-common-color-text-primary);
+    }
+
+    a span:last-of-type:hover {
+      color: var(--ti-common-color-bg-hover);
+    }
+
+    li {
+      margin-top: 12px;
+      position: relative;
+
+      a {
+        cursor: pointer;
+        padding-left: 10px;
+      }
+    }
+
+    .beginner-icon {
+      font-size: 14px;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: var(--ti-base-color-common-2);
+    }
+  }
+}

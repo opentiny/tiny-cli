@@ -1,0 +1,236 @@
+{
+    "hwcConfig": {
+      "regionId": "cn-south-1",
+      "projectId": "0c0ede263980f29d2fc4c00731e904b1",
+      "obs": {
+        "bucketsList": [
+          {
+            "bucketName": "tiny-pro-cli-obs"
+          },
+          {
+            "bucketName": "tiny-pro-cli-obs-test"
+          }
+        ]
+      },
+      "apigList": [
+        {
+          "name": "apig_contract",
+          "type": 1,
+          "version": "V0.0.1",
+          "req_protocol": "HTTPS",
+          "req_method": "POST",
+          "req_uri": "/contract",
+          "auth_type": "NONE",
+          "auth_opt": {
+            "app_code_auth_type": "DISABLE"
+          },
+          "cors": true,
+          "match_mode": "NORMAL",
+          "backend_type": "FUNCTION",
+          "remark": "",
+          "group_id": "958cca46c781488fb819dd1d98e60cdd",
+          "body_remark": "",
+          "result_normal_sample": "",
+          "result_failure_sample": "",
+          "authorizer_id": "",
+          "tags": [],
+          "tag": "",
+          "roma_app_id": "",
+          "domain_name": "",
+          "id": "e477b5d992544ff2a1789981e6abcafe",
+          "status": 1,
+          "arrange_necessary": 2,
+          "register_time": "2022-09-28T09:35:29Z",
+          "update_time": "2022-10-29T07:22:32.962066Z",
+          "group_name": "DEFAULT",
+          "group_version": "V1",
+          "run_env_name": "RELEASE",
+          "run_env_id": "DEFAULT_ENVIRONMENT_RELEASE_ID",
+          "publish_id": "99633f1e3fae40d9831462e0da2aa6ef",
+          "publish_time": "2022-10-29 07:23:14.709799",
+          "roma_app_name": "",
+          "ld_api_id": "",
+          "backend_api": null,
+          "api_group_info": null,
+          "req_params": null
+        },
+        {
+          "name": "apig_hello_world",
+          "type": 1,
+          "version": "V0.0.1",
+          "req_protocol": "HTTPS",
+          "req_method": "GET",
+          "req_uri": "/",
+          "auth_type": "NONE",
+          "auth_opt": {
+            "app_code_auth_type": "DISABLE"
+          },
+          "cors": true,
+          "match_mode": "NORMAL",
+          "backend_type": "FUNCTION",
+          "remark": "",
+          "group_id": "51ec7e2c3604471499a05aac700dd8f6",
+          "body_remark": "",
+          "result_normal_sample": "",
+          "result_failure_sample": "",
+          "authorizer_id": "",
+          "tags": [],
+          "tag": "",
+          "roma_app_id": "",
+          "domain_name": "",
+          "id": "f7c37445a0014e78a61cb911363303ef",
+          "status": 1,
+          "arrange_necessary": 2,
+          "register_time": "2022-10-31T11:30:39Z",
+          "update_time": "2022-10-31T11:30:39Z",
+          "group_name": "group_hello_world",
+          "group_version": "V1",
+          "run_env_name": "RELEASE",
+          "run_env_id": "DEFAULT_ENVIRONMENT_RELEASE_ID",
+          "publish_id": "2e2949989409404199fec3a8d3ef03ee",
+          "publish_time": "2022-10-31 11:30:39",
+          "roma_app_name": "",
+          "ld_api_id": "",
+          "backend_api": null,
+          "api_group_info": null,
+          "req_params": null
+        },
+        {
+          "name": "group_cors_gate",
+          "type": 1,
+          "version": "V0.0.1",
+          "req_protocol": "BOTH",
+          "req_method": "OPTIONS",
+          "req_uri": "/",
+          "auth_type": "NONE",
+          "auth_opt": {
+            "app_code_auth_type": "DISABLE"
+          },
+          "cors": true,
+          "match_mode": "SWA",
+          "backend_type": "MOCK",
+          "remark": "",
+          "group_id": "51ec7e2c3604471499a05aac700dd8f6",
+          "body_remark": "",
+          "result_normal_sample": "",
+          "result_failure_sample": "",
+          "authorizer_id": "",
+          "tags": [],
+          "tag": "",
+          "roma_app_id": "",
+          "domain_name": "",
+          "id": "b2123539dab24767bd3a3cdb803aeaba",
+          "status": 1,
+          "arrange_necessary": 2,
+          "register_time": "2022-10-31T09:55:13Z",
+          "update_time": "2022-10-31T09:55:13Z",
+          "group_name": "group_hello_world",
+          "group_version": "V1",
+          "run_env_name": "",
+          "run_env_id": "",
+          "publish_id": "",
+          "publish_time": "",
+          "roma_app_name": "",
+          "ld_api_id": "",
+          "backend_api": null,
+          "api_group_info": null,
+          "req_params": null
+        }
+      ],
+      "apigGroupsList": [
+        {
+          "id": "958cca46c781488fb819dd1d98e60cdd",
+          "name": "DEFAULT",
+          "status": 1,
+          "sl_domain": "958cca46c781488fb819dd1d98e60cdd.apic.cn-south-1.huaweicloudapis.com",
+          "register_time": "2022-09-02T07:20:42Z",
+          "update_time": "2022-09-02T07:20:42Z",
+          "on_sell_status": 2,
+          "url_domains": [],
+          "sl_domains": [
+            "958cca46c781488fb819dd1d98e60cdd.apic.cn-south-1.huaweicloudapis.com"
+          ],
+          "remark": "This is an automatically generated group. APIs in this group can be accessed with an EIP or a private IP address.",
+          "call_limits": 0,
+          "time_interval": 0,
+          "time_unit": "",
+          "is_default": 1,
+          "version": "",
+          "roma_app_id": "",
+          "roma_app_name": ""
+        },
+        {
+          "id": "51ec7e2c3604471499a05aac700dd8f6",
+          "name": "group_hello_world",
+          "status": 1,
+          "sl_domain": "51ec7e2c3604471499a05aac700dd8f6.apic.cn-south-1.huaweicloudapis.com",
+          "register_time": "2022-10-31T09:55:12Z",
+          "update_time": "2022-10-31T09:55:12Z",
+          "on_sell_status": 2,
+          "url_domains": [],
+          "sl_domains": [
+            "51ec7e2c3604471499a05aac700dd8f6.apic.cn-south-1.huaweicloudapis.com"
+          ],
+          "remark": "",
+          "call_limits": 0,
+          "time_interval": 0,
+          "time_unit": "",
+          "is_default": 2,
+          "version": "",
+          "roma_app_id": "",
+          "roma_app_name": ""
+        }
+      ],
+      "functiongraph": {
+        "functions": [
+          {
+            "func_urn": "urn:fss:cn-south-1:0c0ede263980f29d2fc4c00731e904b1:function:default:fg_hello_world",
+            "func_name": "fg_hello_world",
+            "domain_id": "0b9a1ca1f080f5e20f19c007dadb6240",
+            "namespace": "0c0ede263980f29d2fc4c00731e904b1",
+            "project_name": "cn-south-1",
+            "package": "default",
+            "runtime": "Node.js14.18",
+            "timeout": 300,
+            "handler": "index.handler",
+            "memory_size": 256,
+            "cpu": 400,
+            "code_type": "zip",
+            "code_filename": "index.zip",
+            "code_size": 315,
+            "digest": "3f7de493fa4d89ab751f8734b2e7baa06fda564fa3bdd03e1fa97f059eb78fdfc10a636fbac024f1d55bf78e836198a4a5242a3f3c4e19751155502845638d21",
+            "version": "latest",
+            "image_name": "latest-221031192729@note2",
+            "description": "auto generated",
+            "last_modified": "2022-10-31T19:27:29+08:00",
+            "func_code": {},
+            "FuncCode": {},
+            "concurrency": 400,
+            "concurrent_num": 1,
+            "strategy_config": {
+              "concurrency": 400,
+              "concurrent_num": 1
+            },
+            "enterprise_project_id": "0",
+            "long_time": false,
+            "log_config": {
+              "group_name": "",
+              "group_id": "",
+              "stream_name": "",
+              "stream_id": "",
+              "switch_time": 0
+            },
+            "type": "v2",
+            "enable_cloud_debug": "DISABLED",
+            "enable_dynamic_memory": false,
+            "custom_image": {},
+            "is_stateful_function": false,
+            "is_return_stream": false,
+            "enable_auth_in_header": false,
+            "reserved_instance_idle_mode": false
+          }
+        ]
+      }
+    }
+  }
+  

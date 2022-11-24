@@ -1,0 +1,47 @@
+.t-pro-logo {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  line-height: 60px;
+  padding-left: 15px;
+
+  &.t-pro-logo-shrink {
+    width: 54px;
+    padding-left: 0;
+    justify-content: center;
+
+    .t-pro-logo-tiny {
+      margin-right: 0;
+    }
+  }
+
+  .t-pro-logo-tiny {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .t-pro-logo-text {
+    margin-left: 20px;
+    font-size: var(--ti-common-font-size-3);
+    font-weight: 600;
+    white-space: nowrap;
+    margin-right: 20px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .console-margin {
+    margin-left: 200px;
+  }
+}
+
+.router-active {
+  outline: none;
+}

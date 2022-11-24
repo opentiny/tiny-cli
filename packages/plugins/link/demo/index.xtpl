@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TinyPluginLink demo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet"
+    href="https://res-static1.huaweicloud.com/content/dam/cloudbu-site/archive/china/static/v2_resources/css/global.css?sttl=201909122000" />
+  <link rel="stylesheet"
+    href="https://res-static2.huaweicloud.com/content/dam/cloudbu-site/archive/china/static/header/css/index.css" />
+  <link rel="stylesheet"
+    href="https://res-static3.huaweicloud.com/etc/clientlibs/cloudbu-site/clientlib-home-hc.4038a97b5b244e87ec2eb2db085aa46e.css" />
+  <link rel="stylesheet" href="./index.css" />
+  <script src="http://g.alicdn.com/sj/lib/jquery.min.js"></script>
+</head>
+
+<body>
+  <div id="header" class="loaded" meta-data-adjust-app="hide">
+    <div class="header-container">
+      <div class="header-wrapper">
+        <div class="header-inner header-backdrop-filter header-pure">
+          <div class="header-top header-wrapper-bg">
+            <div class="header-main">
+              <h2 class="header-logo-outer">
+                <a class="header-logo" bi_name="logo"
+                  href="https://www.huaweicloud.com/"
+                  style="font-size:0">华为云<img
+                    src="//res-img3.huaweicloud.com/content/dam/cloudbu-site/archive/china/static/header/images/header-logo.svg" /></a>
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="mountNode">
+      {{include("../src/index.xtpl", $data.mock)}}
+  </div>
+
+  <link rel="stylesheet" href="https://res.hc-cdn.com/cnpm-prismjs/1.0.1/index.css" />
+  <script src="https://res.hc-cdn.com/cnpm-prismjs/1.0.1/Prismjs.index.umd.js"></script>
+  <el-row class='code-sample'>
+    <pre><code class="language-javascript">
+      {{! 需要高亮的代码文件在这里include进来}}
+      {{include('./index.ts')}}
+    </code></pre>
+  </el-row>
+  <script>
+    // 代码高亮
+    $(function(){
+      window.Prism.highlightElement($('.language-javascript')[0]);
+    })
+  </script>
+
+  <script id="script" type="text/javascript" src="./index.js">
+  </script>
+  <script>
+    console.log('page $data =>', {{{ $utils.JSON.stringify($data) }}})
+    console.log('page $seed =>', {{{ $utils.JSON.stringify($seed) }}})
+    console.log('page $pep =>', {{{ $utils.JSON.stringify($pep) }}})
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+.left-menu {
+  top: 70px;
+  box-shadow: none;
+
+  ::ng-deep .ti3-leftmenu-level1-item.ti3-leftmenu-level1-active-item {
+    background-color: var(--ti-common-color-bg-light-normal);
+
+    &:hover {
+      background-color: var(--ti-common-color-bg-light-normal);
+      color: var(--ti-leftmenu-item-text-color-hover);
+    }
+  }
+
+  ::ng-deep .ti3-leftmenu-level1-item:hover {
+    background-color: var(--ti-common-color-bg-light-normal);
+    color: var(--ti-common-color-text-secondary);
+  }
+
+  ::ng-deep .ti3-leftmenu-level2.ti3-leftmenu-level2-active {
+    background-color: var(--ti-common-color-bg-light-normal);
+
+    &:hover {
+      background-color: var(--ti-common-color-bg-light-normal);
+      color: var(--ti-leftmenu-item-text-color-hover);
+    }
+  }
+
+  ::ng-deep .ti3-leftmenu-level2:hover {
+    background-color: var(--ti-common-color-bg-white-emphasize);
+    color: var(--ti-common-color-text-secondary);
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.menu-icon {
+  margin-right: 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}

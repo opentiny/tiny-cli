@@ -1,0 +1,153 @@
+<div class="t-pro-content-wrapper">
+  <t-pro-base-row [tProBaseGutter]="[24, 24]">
+    <t-pro-base-col [tProBaseSpan]="24">
+      <div class="table-head">
+        <ti-alert class="alert" [(open)]="alertOpen" [dismissOnTimeout]="3000">
+          <span *ngIf="flag === 'create'">
+            {{ 'contracts.modal.createSuccess' | translate }}
+          </span>
+          <span *ngIf="flag === 'edit'">
+            {{ 'contracts.modal.editSuccess' | translate }}
+          </span></ti-alert
+        >
+        <div class="t-pro-content-banner-title">
+          {{ 'contracts.title' | translate }}
+        </div>
+
+        <button type="button" color="danger" autofocus (click)="createContract()" tiButton>
+          {{ 'contracts.modal.create' | translate }}
+        </button>
+      </div>
+
+      <div class="list-content">
+        <ti-table [(displayedData)]="displayed" [srcData]="srcData" [columns]="columns | tProTranslate" (stateUpdate)="onStateUpdate($event)">
+          <table>
+            <thead>
+              <tr>
+                <ng-container *ngFor="let column of columns">
+                  <ng-container *ngIf="column.show !== false">
+                    <th tiOverflow width="{{ column.width }}">
+                      <ti-cell-text> {{ column.title }}</ti-cell-text>
+                      <ng-container *ngIf="column.sortKey">
+                        <ti-head-sort [sortKey]="column.sortKey"></ti-head-sort>
+                      </ng-container>
+                    </th>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody *ngIf="loading">
+              <tr>
+                <td class="loadPosition" tiColspan>
+                  <ti-loading size="middle"></ti-loading>
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr *ngFor="let row of displayed">
+                <td>
+                  <div tiOverflow>
+                    <a tiNavigation>{{ row.name }}</a>
+                  </div>
+                </td>
+                <td tiOverflow>
+                  {{ row.id }}
+                </td>
+                <td tiOverflow>{{ row.customer }}</td>
+                <td tiOverflow>
+                  {{ row.description }}
+                </td>
+                <td tiOverflow>{{ row.createdAt }}</td>
+                <td>
+                  <ti-actionmenu [data]="row" [dataToItemsFn]="dataToItemsFn" [maxShowNum]="3" (select)="onSelect($event, row)"> </ti-actionmenu>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ti-pagination [(currentPage)]="currentPage" [pageSize]="pageSize" [(totalNumber)]="totalNumber"></ti-pagination>
+        </ti-table>
+      </div>
+    </t-pro-base-col>
+  </t-pro-base-row>
+</div>
+
+<!--创建、编辑弹窗-->
+<ng-template #modifyModal let-context="context">
+  <ti-modal-header>
+    <div *ngIf="context.name === 'create'">
+      {{ 'contracts.modal.create' | translate }}
+    </div>
+    <div *ngIf="context.name === 'edit'">
+      {{ 'contracts.modal.edit' | translate }}
+    </div></ti-modal-header
+  >
+  <ti-modal-body>
+    <ti-formfield>
+      <form [formGroup]="serviceForm">
+        <ti-item [label]="'contracts.modal.projectName' | translate" [required]="true">
+          <input
+            type="text"
+            tiText
+            tiValidation
+            formControlName="nameInput"
+            class="input"
+            tiMinLength="3"
+            [placeholder]="'contracts.modal.namePlaceholder' | translate"
+          />
+          <p class="name-format">
+            {{ 'contracts.modal.nameFormat' | translate }}
+          </p>
+        </ti-item>
+        <ti-item [label]="'contracts.detailTable.customerName' | translate">
+          <input
+            type="text"
+            tiText
+            tiValidation
+            class="input"
+            formControlName="customerInput"
+            [placeholder]="'contracts.modal.customerPlaceholder' | translate"
+          />
+        </ti-item>
+        <ti-item [label]="'contracts.modal.description' | translate">
+          <textarea
+            tiTextarea
+            tiValidation
+            class="description"
+            maxlength="255"
+            formControlName="descInput"
+            [placeholder]="'contracts.modal.descriptionPlaceholder' | translate"
+          ></textarea>
+        </ti-item>
+      </form>
+    </ti-formfield>
+  </ti-modal-body>
+  <ti-modal-footer>
+    <button type="button" color="danger" autofocus (click)="context.close()" tiButton>
+      {{ 'contracts.detailTable.sure' | translate }}
+    </button>
+    <button type="button" (click)="context.dismiss()" tiButton>{{ 'contracts.detailTable.cancel' | translate }}</button>
+  </ti-modal-footer>
+</ng-template>
+
+<!-- 删除弹窗-->
+<ng-template #deleteModal let-context="context">
+  <ti-modal-header>{{ 'contracts.detailTable.deleteConstract' | translate }}</ti-modal-header>
+  <ti-modal-body>
+    <div class="current-modal-container">
+      <span
+        >{{ 'contracts.detailTable.deleteAsk' | translate }}<b>{{ 'contracts.detailTable.splice' | translate }}</b
+        >？</span
+      >
+      <span>{{ 'contracts.detailTable.input' | translate }}<label>DELETE</label>{{ 'contracts.detailTable.click' | translate }}</span>
+      <input class="w-48" id="text-basic" [(ngModel)]="textInput" maxlength="10" tiText />
+      <span>{{ currentName }}</span>
+    </div>
+  </ti-modal-body>
+  <ti-modal-footer>
+    <button type="button" color="danger" autofocus (click)="context.close()" tiButton>
+      {{ 'contracts.detailTable.sure' | translate }}
+    </button>
+    <button type="button" (click)="context.dismiss()" tiButton>{{ 'contracts.detailTable.cancel' | translate }}</button>
+  </ti-modal-footer>
+</ng-template>
+<ti-alert class="alert" type="error" [(open)]="deleteOpen" [dismissOnTimeout]="3000">{{ 'contracts.detailTable.alert' | translate }}</ti-alert>
