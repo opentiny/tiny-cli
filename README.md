@@ -1,8 +1,7 @@
-# OpentinyCli
+# Tiny CLI
 
-> OpentinyCli是前端工程化cli工具
+> Tiny CLI是前端工程化cli工具
 
-官网：<https://tinyops.cloudbu.huawei.com/tinystage/home>
 
 
 ## Installation
@@ -10,12 +9,12 @@
 打开命令行工具，输入如下命令后回车：
 
 ```bash
-npm i @opentiny/cli -g
+npm i @opentiny/cli npminstall -g
 ```
 
 等待片刻，待安装完成之后在终端执行 `$ tiny -v`，正常返回版本信息，表示安装成功。
 
-注意：tiny依赖 nodejs > 12.x 、 npm 环境，在安装tiny时，请确保本机已安装了nodejs和npm
+注意：tiny依赖 nodejs > 10.x 、 npm 环境，在安装tiny时，请确保本机已安装了nodejs和npm
 
 ## Docs
 
