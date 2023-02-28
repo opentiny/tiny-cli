@@ -1,0 +1,75 @@
+.list-content {
+  padding: 20px 9px 0 0;
+  background-color: var(--ti-common-color-bg-white-normal);
+}
+
+.current-modal-container {
+  display: flex;
+  font-size: 14px;
+  input {
+    width: 360px;
+    height: 36px !important;
+    margin-bottom: 10px;
+  }
+  label {
+    color: red;
+  }
+  button {
+    width: 100px;
+    height: 34px;
+    border-radius: 4px;
+    margin-right: 28px;
+    margin-top: 10px;
+  }
+}
+
+.delete-warning-icon {
+  font-size: 35px;
+  color: #faad14;
+  margin: -1px 40px 0px 22px;
+}
+
+.delete-warning {
+  font-size: 24px;
+  color: #202e54;
+}
+
+.constract-name{
+  font-size: 16px;
+  color: #4e5969;
+  margin: 20px 0;
+}
+
+.input-prompt{
+  margin: 10px 0;
+  color: #4e5969;;
+}
+
+.input-alert{
+  height: 20px;
+  color: red;
+  margin-bottom: 10px;
+  span {
+    margin-left: 10px;
+  }
+  ti-icon {
+    font-size: 20px;
+    vertical-align: middle;
+  }
+}
+
+.loadPosition {
+  height: 430px;
+  margin-left: 36%;
+  margin-top: 10%;
+  text-align: center;
+  position: absolute;
+}
+
+.delete-modal-class {
+  .ti3-modal-content {
+    width: 558px;
+    border-radius: 8px !important;
+    box-shadow: 0px 0px 30px 15px rgba(37, 43, 58, 0.15) !important;
+  }
+}

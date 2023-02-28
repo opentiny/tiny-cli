@@ -1,0 +1,40 @@
+<ti-formfield id="image-setting" labelWidth="80px">
+  <ti-item [label]="'servicePurchase.configuration.title' | translate" verticalAlign="top">
+    <div class="flex-boxes-container">
+      <div *ngFor="let item of specModel" class="flex-box" (click)="selectSpec(item)"
+        [ngClass]="{ 'color-card-active-border': item.checked }">
+        <div class="detail-title" [ngClass]="{ 'color-card-active-bg': item.checked }">
+          <span class="common-font-size-big4-1">¥{{ item.price | translate }}</span>
+          <span class="common-font-size-big2">/{{ 'servicePurchase.configuration.monthUnit' | translate }}</span>
+        </div>
+        <div class="detail-block">
+          <div class="detail-block-default-dashed">
+            <div class="detail-block-title">
+              <span>{{ item.label | translate }}</span>
+            </div>
+            <div class="detail-block-body">
+              <div class="detail-item">
+                <span>{{ item.diskSize }}{{ 'servicePurchase.configuration.gbUnit' | translate }},
+                  {{ 'servicePurchase.configuration.hignIO' | translate }}</span>
+                <span>{{ 'servicePurchase.configuration.systemDisk' | translate }}</span>
+              </div>
+              <div class="detail-item">
+                <span>{{ item.bandWidth }}Mbit/s</span>
+                <span>{{ 'servicePurchase.configuration.bandwidth' | translate }}</span>
+              </div>
+              <div class="detail-item">
+                <span>{{ item.storageSize }}G</span>
+                <span>{{ 'servicePurchase.configuration.storageSize' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="color-text-secondary">
+            <span>{{ item.descriptionTitle | translate }}: </span>
+            <span>{{ item.description | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ti-item>
+</ti-formfield>
+

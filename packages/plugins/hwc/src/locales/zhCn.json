@@ -1,0 +1,12 @@
+{
+  "public": {},
+  "obs": {},
+  "mysql": {},
+  "vpc": {},
+  "fg": {},
+  "apig": {
+    "createTitle": "开始创建API网关, 请按下面提示进行操作",
+    "createSuccess": "创建API网关成功",
+    "createErr": "创建API网关失败：${err}"
+  }
+}

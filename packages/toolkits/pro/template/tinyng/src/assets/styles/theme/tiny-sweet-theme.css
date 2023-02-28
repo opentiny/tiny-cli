@@ -1,0 +1,15 @@
+/*主题 基础变量定义*/
+:root {
+    --ti-base-color-white: #fff;
+    --ti-base-color-brand: #ec66ab; /*主色蓝/下拉菜单、选块选中色*/
+    --ti-base-color-brand-1: #ec66ab; /*主色悬浮色/文字按钮、链接悬浮色*/
+    --ti-base-color-brand-2: #ec66ab; /*文字按钮颜色/链接颜色*/
+    --ti-base-color-brand-3: #ec66ab; /*深色背景下图标*/
+    --ti-base-color-brand-4: #ec66ab; /*深色背景链接色*/
+    --ti-base-color-brand-5: #ec66ab; /*选块悬浮色/深色背景链接悬浮色/提示边框色/开关组件“开”禁用背景色*/
+    --ti-base-color-brand-6: #f9fafb; /*选块默认色/滑块背景色/分页悬浮色*/
+    --ti-base-color-bg-3: #ec66ab; /*主要按钮-背景色*/
+    --ti-base-color-bg-4: #ec66ab; /*主要按钮-hover/Focus背景色*/
+    --ti-base-color-bg-5: #ec66ab; /*主要按钮-active背景色*/
+  }
+  

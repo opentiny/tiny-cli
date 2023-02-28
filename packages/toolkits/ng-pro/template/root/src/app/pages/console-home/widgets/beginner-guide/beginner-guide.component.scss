@@ -1,0 +1,64 @@
+.beginner {
+  padding: 20px 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 8px rgba(169,174,184,0.05); 
+  background: var(--ti-common-color-bg-white-normal);
+  width: 100%;
+
+  a {
+    text-decoration: none;
+  }
+
+  .beginner-title {
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    position: relative;
+
+    .title {
+      font-size: 16px;
+      color: var(--ti-common-color-text-primary);
+      font-weight: bold;
+    }
+
+    .beginner-more {
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      a {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .beginner-content {
+    a {
+      font-size: 12px;
+      color: var(--ti-common-color-text-primary);
+    }
+
+    a span:last-of-type:hover {
+      color: var(--ti-common-color-bg-hover);
+    }
+
+    > li:not(:last-of-type) {
+      margin-bottom: 18px;
+    }
+    li {
+      a {
+        cursor: pointer;
+        font-size: 14px;
+      }
+    }
+
+    .beginner-icon {
+      font-size: 14px;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: var(--ti-base-color-common-2);
+    }
+  }
+}

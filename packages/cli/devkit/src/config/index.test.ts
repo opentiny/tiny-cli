@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2022 - present Tiny CLI Authors.
+ * Copyright (c) 2022 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 'use strict';
 
 import * as path from 'path';
@@ -5,12 +16,10 @@ import * as path from 'path';
 import fs from 'fs-extra';
 import test, { ExecutionContext } from 'ava';
 import * as config from './index';
-import { DEFAULT_CONFIG_FILE } from '../cli-config/index'
+import { DEFAULT_CONFIG_FILE } from '../cli-config/index';
 import { expect } from 'chai';
 
-
-
-test.before((t: ExecutionContext<{ mockCwd: string; source: string, mock: string, config?: object }>) => {
+test.before((t: ExecutionContext<{ mockCwd: string; source: string; mock: string; config?: object }>) => {
   const mockCwd = path.resolve(__dirname, 'fixtures');
   const source = path.resolve(mockCwd, 'mock.config.js');
   const mock = path.resolve(mockCwd, DEFAULT_CONFIG_FILE);
@@ -18,12 +27,11 @@ test.before((t: ExecutionContext<{ mockCwd: string; source: string, mock: string
   t.context = {
     mockCwd,
     source,
-    mock,
+    mock
     // config
-  }
+  };
   fs.copySync(source, mock);
 });
-
 
 test.after((t: ExecutionContext<{ mock: string }>) => {
   if (fs.existsSync(t.context.mock)) {
@@ -33,16 +41,16 @@ test.after((t: ExecutionContext<{ mock: string }>) => {
 
 test('# get 获取数据', (t: ExecutionContext<{ mockCwd: string }>) => {
   t.deepEqual(config.get('abc', t.context.mockCwd), {
-    xyz: 22,
-  })
+    xyz: 22
+  });
 });
 
 test('# set 设置数据', (t: ExecutionContext<{ mockCwd: string }>) => {
   const value = {
-    xyz: 23,
+    xyz: 23
   };
   config.set('abc', value, t.context.mockCwd);
-  t.deepEqual(config.get('abc', t.context.mockCwd), value)
+  t.deepEqual(config.get('abc', t.context.mockCwd), value);
 });
 
 test('# set value是一个字符串对象', (t: ExecutionContext<{ mockCwd: string }>) => {
@@ -57,14 +65,14 @@ test('# set value是一个字符串对象', (t: ExecutionContext<{ mockCwd: stri
     t.context.mockCwd
   );
   t.deepEqual(config.get('gg', t.context.mockCwd), {
-    good: 'yes',
-  })
+    good: 'yes'
+  });
 });
 
 test('# set value是一个带.的字符串', (t: ExecutionContext<{ mockCwd: string }>) => {
   config.set('xx.yy', '123', t.context.mockCwd);
   t.deepEqual(config.get('xx', t.context.mockCwd), {
-    yy: 123,
+    yy: 123
   });
 });
 
@@ -73,8 +81,8 @@ test('# set value是一个带.的字符串，复杂对象', (t: ExecutionContext
     'tasks.build',
     [
       {
-        command: 'echo 44',
-      },
+        command: 'echo 44'
+      }
     ],
     t.context.mockCwd
   );
@@ -85,12 +93,12 @@ test('# set value是一个带.的字符串，复杂对象', (t: ExecutionContext
 
 test('# getToolkitName 获取套件的名字', (t: ExecutionContext<{ mockCwd: string }>) => {
   const toolkit = config.getToolkitName(t.context.mockCwd);
-  expect(toolkit).to.be.equal('@cloud/aio-toolkit-dev');
+  expect(toolkit).to.be.equal('@opentiny/tiny-toolkit-dev');
   t.pass();
 });
 
-test('# getConfigName 获取配置文件的名称', t => {
+test('# getConfigName 获取配置文件的名称', (t) => {
   const name = config.getConfigName();
-  expect(name).to.be.equal('aio.config.js');
+  expect(name).to.be.equal('tiny.config.js');
   t.pass();
 });

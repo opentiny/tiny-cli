@@ -1,0 +1,30 @@
+.basic-info-title {
+  color: var(--ti-common-color-text-primary);
+  font-size: var(--ti-common-font-size-1);
+}
+
+.common-color-number {
+  color: var(--ti-common-color-error-text);
+  margin: var(--ti-common-space-6) 0;
+  font-size: 14px;
+}
+
+.basic-info-content {
+  padding: var(--ti-common-space-2x) var(--ti-common-space-5x) var(--ti-common-space-4x) 0;
+}
+
+::ng-deep .ti3-picture-card-item-not-img {
+  display: none;
+}
+
+.upload {
+  margin-top: 10px;
+}
+
+.upload-alert {
+  height: 20px;
+  font-size: 14px;
+  color: #adb0b8;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}

@@ -1,0 +1,58 @@
+<t-pro-basic-layout class="t-pro-basic-layout-wrapper">
+  <!--aside fixed固定模式占位-->
+  <t-pro-basic-aside
+    *ngIf="config?.sidebar?.fixed"
+    class="t-pro-basic-layout-aside-wrapper"
+    [ngStyle]="{
+      display: config.sidebar.hidden ? 'none' : null,
+      width: getSidebarWidth(),
+      flex: '0 0 ' + getSidebarWidth()
+    }"
+  ></t-pro-basic-aside>
+  <t-pro-basic-aside
+    class="t-pro-basic-layout-aside-wrapper"
+    [class.t-pro-basic-no-sec-sidebar]="config.sidebar?.secSidebar?.hidden"
+    [class.t-pro-basic-layout-aside-fixed]="config?.sidebar?.fixed"
+    [class.t-pro-basic-sidebar-top]="config.mode === 'sidebarTop'"
+    [ngStyle]="{
+      display: config.sidebar.hidden ? 'none' : null,
+      zIndex: config.sidebar.zIndex,
+      paddingTop: config.mode === 'headerTop' ? getHeaderHeight() : 0
+    }"
+  >
+    <ng-content select="t-pro-layout-sidebar"></ng-content>
+    <ng-content select="t-pro-layout-sec-sidebar"></ng-content>
+  </t-pro-basic-aside>
+  <t-pro-basic-layout>
+
+    <!--header fixed固定模式占位-->
+    <div
+      *ngIf="config?.header?.fixed"
+      class="t-pro-basic-layout-header-wrapper"
+      [ngStyle]="{
+        display: config.header?.hidden ? 'none' : null,
+        height: getHeaderHeight()
+      }"
+    ></div>
+    <t-pro-basic-header
+      class="t-pro-basic-layout-header-wrapper"
+      [class.t-pro-basic-no-sec-header]="config.header?.secHeader?.hidden"
+      [class.t-pro-basic-layout-header-fixed]="config?.header?.fixed"
+      [ngStyle]="{
+        width: config?.header?.fixed && config.mode === 'sidebarTop' ? 'calc(100% - ' + getSidebarWidth() + ')' : null,
+        display: config.header?.hidden ? 'none' : null,
+        zIndex: config.header?.zIndex
+      }"
+    >
+      <ng-content select="t-pro-layout-header"></ng-content>
+      <ng-content select="t-pro-layout-sec-header"></ng-content>
+    </t-pro-basic-header>
+    
+    <t-pro-basic-content class="t-pro-basic-layout-content-wrapper">
+      <ng-content></ng-content>
+    </t-pro-basic-content>
+    <t-pro-basic-footer class="t-pro-basic-layout-footer-wrapper">
+      <ng-content select="t-pro-layout-footer"></ng-content>
+    </t-pro-basic-footer>
+  </t-pro-basic-layout>
+</t-pro-basic-layout>

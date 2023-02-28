@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2022 - present Tiny CLI Authors.
+ * Copyright (c) 2022 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 'use strict';
 
 import * as esprima from 'esprima';
@@ -5,10 +16,9 @@ import esquery from 'esquery';
 import * as escodegen from 'escodegen';
 import toSource from 'tosource';
 
-
 /**
- * 分析一下aio.config.js,搜索key值,写入value,最终合并后输出源码
- * @param code aio.config.js文件源码
+ * 分析一下tiny.config.js,搜索key值,写入value,最终合并后输出源码
+ * @param code tiny.config.js文件源码
  * @param key 需要插入或者修改的 key
  * @param value key对应的值
  * @returns {*}
@@ -17,7 +27,7 @@ export default function (code, key, value) {
   let ast;
   // 支持 tasks.start 这种写法
   const keyArr = key.split('.');
-  const keySelect = keyArr.map(item => `ObjectExpression > [key.name="${item}"]`);
+  const keySelect = keyArr.map((item) => `ObjectExpression > [key.name="${item}"]`);
 
   if (typeof value !== 'string') {
     value = toSource(value);
@@ -30,13 +40,10 @@ export default function (code, key, value) {
   // 提取value的ast对象
   const keyMatches = esquery(valueAST, 'Program > VariableDeclaration > VariableDeclarator');
   const pushAST = keyMatches[0].init;
-  // 查找aio.config中是否存在这个key
+  // 查找tiny.config中是否存在这个key
   const matches = esquery(ast, keySelect.join('>'));
-  // aio 最外层的对象
-  const topMatches = esquery(
-    ast,
-    'Program > ExpressionStatement > AssignmentExpression > ObjectExpression'
-  );
+  // tiny 最外层的对象
+  const topMatches = esquery(ast, 'Program > ExpressionStatement > AssignmentExpression > ObjectExpression');
   // 如果已经存在key的话,则替换值
   if (matches.length && matches[0].value) {
     matches[0].value = pushAST;
@@ -46,9 +53,9 @@ export default function (code, key, value) {
       type: 'Property',
       key: {
         type: 'Identifier',
-        name: key,
+        name: key
       },
-      value: pushAST,
+      value: pushAST
     });
   } else {
     // 不存在key的情况
@@ -60,9 +67,9 @@ export default function (code, key, value) {
         type: 'Property',
         key: {
           type: 'Identifier',
-          name: keyArr[1],
+          name: keyArr[1]
         },
-        value: pushAST,
+        value: pushAST
       });
     } else {
       // 不存在xxx 且不存在 yyy
@@ -70,7 +77,7 @@ export default function (code, key, value) {
         type: 'Property',
         key: {
           type: 'Identifier',
-          name: keyArr[0],
+          name: keyArr[0]
         },
         value: {
           type: 'ObjectExpression',
@@ -79,15 +86,15 @@ export default function (code, key, value) {
               type: 'Property',
               key: {
                 type: 'Identifier',
-                name: keyArr[1],
+                name: keyArr[1]
               },
-              value: pushAST,
-            },
-          ],
-        },
+              value: pushAST
+            }
+          ]
+        }
       });
     }
   }
   // 最后返回源码
   return escodegen.generate(ast, { comment: true });
-};
+}

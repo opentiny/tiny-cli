@@ -1,0 +1,35 @@
+<div class="t-pro-content-banner">
+  <div class="t-pro-content-banner-title">
+    {{ 'page.serviceList.title' | translate }}
+    &gt;
+    {{ 'serviceList.contracts.title' | translate }}
+  </div>
+</div>
+<div class="t-pro-content-wrapper">
+  <t-pro-base-row [tProBaseGutter]="[24, 24]">
+    <t-pro-base-col [tProBaseSpan]="24">
+      <div class="contracts">
+        <!-- 分组操作成功提示 -->
+        <ti-alert class="alert" [(open)]="alertOpen" [dismissOnTimeout]="3000">{{ alertMessage }}</ti-alert>
+        <t-pro-list-guide-head
+          [label]="'serviceList.contracts.title' | translate"
+          [feedbackList]="feedbackList"
+          [config]="contractsConfig"
+          [flag]="flag"
+        ></t-pro-list-guide-head>
+        <t-pro-contracts-table (openModal)="openHalfModal($event)" [isRefreshTable]="isRefreshTable">
+        </t-pro-contracts-table>
+      </div>
+    </t-pro-base-col>
+  </t-pro-base-row>
+</div>
+
+<ng-template #modal let-context="context">
+  <t-pro-contracts-modal
+    (closeModal)="context.close()"
+    (refreshTable)="refreshTable()"
+    (openAlert)="openAlert()"
+    [operation]="operation"
+    [rowData]="rowData"
+  ></t-pro-contracts-modal>
+</ng-template>

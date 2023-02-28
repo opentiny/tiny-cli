@@ -1,0 +1,84 @@
+<div class="t-pro-drawer-menu">
+  <!-- 页面配置 -->
+  <div class="t-pro-options">
+    <h3>
+      {{ 'side-setting.layout' | translate }}
+      <ti-icon name="help-circle-outline" [tiTip]="helpContent"></ti-icon>
+    </h3>
+    <ti-alert [type]="'error'" [closeIcon]="false" [typeIcon]=false>{{ 'side-setting.notice' | translate }}</ti-alert>
+  </div>
+  <!-- 推荐配置 -->
+  <div class="t-pro-options">
+    <div class="t-pro-options-header">
+      <h4>
+        {{ 'side-setting.recommend' | translate }}
+      </h4>
+    </div>
+    <div class="t-pro-option-items">
+      <div class="t-pro-option-item t-pro-side-bar-layout-item" (click)="handleLayoutClicked('sidebar')">
+        <ti-icon name="checkmark-circle" class="icon-green" [ngStyle]="{ display: layout === 'sidebar' ? '' : 'none' }"></ti-icon>
+        <ti-icon name="checkmark-circle" class="icon-grey"></ti-icon>
+        <div class="option-desc">{{ 'side-setting.desc-sidebar' | translate }}</div>
+      </div>
+      <div class="t-pro-option-item t-pro-topnav-layout-item" (click)="handleLayoutClicked('topNav')">
+        <ti-icon name="checkmark-circle" class="icon-green" [ngStyle]="{ display: layout === 'topNav' ? '' : 'none' }"></ti-icon>
+        <ti-icon name="checkmark-circle" class="icon-grey"></ti-icon>
+        <span class="icon-bg-white"></span>
+        <div class="option-desc">{{ 'side-setting.desc-header' | translate }}</div>
+      </div>
+      <div class="t-pro-option-item t-pro-left-right-layout-item" (click)="handleLayoutClicked('left-right')">
+        <ti-icon name="checkmark-circle" class="icon-green" [ngStyle]="{ display: layout === 'left-right' ? '' : 'none' }"></ti-icon>
+        <ti-icon name="checkmark-circle" class="icon-grey"></ti-icon>
+        <div class="option-desc">{{ 'side-setting.desc-header-sidebar' | translate }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- 自定义配置 -->
+  <div class="t-pro-options">
+    <div class="t-pro-options-header">
+      <h4>{{ 'side-setting.free-area' | translate }}</h4>
+    </div>
+    <div class="t-pro-option-multiple t-pro-no-option-items">
+      <div class="t-pro-multiple-item">
+        <span>{{ 'side-setting.fix-header' | translate }}</span>
+        <ti-switch [(ngModel)]="layoutConfig.header!.fixed" [disabled]="layout === 'sidebar'" (ngModelChange)="updateLayout()"></ti-switch>
+      </div>
+      <div class="t-pro-multiple-item" [title]="layout !== 'left-right' ? sidebarNotice['cannotConfig'] : sidebarNotice['canConfig']">
+        <span>{{ 'side-setting.fix-sidebar' | translate }}</span>
+        <ti-switch [(ngModel)]="layoutConfig.sidebar.fixed" [disabled]="layout === 'topNav'" (ngModelChange)="updateLayout()"></ti-switch>
+      </div>
+    </div>
+  </div>
+  <!-- 内容区域配置 -->
+  <div class="t-pro-options">
+    <div class="t-pro-options-header">
+      <h4>{{ 'side-setting.content-area' | translate }}</h4>
+    </div>
+    <div class="t-pro-option-multiple t-pro-no-option-items">
+      <div class="t-pro-multiple-item">
+        <span>{{ 'side-setting.hide-footer' | translate }}</span>
+        <ti-switch [(ngModel)]="layoutConfig.footer!.hidden" (ngModelChange)="updateLayout()"></ti-switch>
+      </div>
+      <div class="t-pro-multiple-item">
+        <span>{{ 'side-setting.hide-top' | translate }}</span>
+        <ti-switch [(ngModel)]="layoutConfig.header!.hidden" (ngModelChange)="updateLayout()"></ti-switch>
+      </div>
+      <div class="t-pro-multiple-item">
+        <span>{{ 'side-setting.hide-menu' | translate }}</span>
+        <ti-switch [(ngModel)]="layoutConfig.sidebar.hidden" [disabled]="layout === 'topNav'" (ngModelChange)="updateLayout()"></ti-switch>
+      </div>
+      <div class="t-pro-multiple-item">
+        <span>{{ 'side-setting.hide-menu-head' | translate }}</span>
+        <ti-switch [(ngModel)]="layoutConfig.hideLogo" (ngModelChange)="updateLayout()"></ti-switch>
+      </div>
+    </div>
+  </div>
+  <!-- 拷贝设置 -->
+  <div class="t-pro-options">
+    <button tiButton (click)="onCopyClicked()" color="primary">
+      {{ 'side-setting.copy-config' | translate }}
+      <ti-icon name="copy-outline"></ti-icon>
+    </button>
+    <ti-alert class="alert-copy" [dismissOnTimeout]="3000" [(open)]="open" size="small">{{ 'side-setting.copy-summary' | translate }}</ti-alert>
+  </div>
+</div>

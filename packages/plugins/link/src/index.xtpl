@@ -1,0 +1,10 @@
+<div class="tiny-plugin-link">
+  <h2>{{title}} Module</h2>
+  <ul>
+      {{#each(items)}}
+      <li>
+        <a href="{{featureLinkTo}}"><span>{{featureTitle}}</span></a>
+      </li>
+      {{/each}}
+  </ul>
+</div>

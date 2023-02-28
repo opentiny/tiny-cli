@@ -1,2 +1,9 @@
 node_modules/
 package-lock.json
+/packages/cli/**/lib/*
+temp
+dist
+/packages/toolkits/docs/template/ng/public/assets
+/packages/toolkits/docs/template/ng/public/overviewimage
+/packages/toolkits/docs/.npmrc
+/packages/toolkits/docs/template/ng/tinyng

@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2019",
+    "lib": ["es2020"],
+    "baseUrl": "",
+    "rootDirs": ["."],
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"],
+    "paths": {},
+    "plugins": []
+  },
+  "exclude": []
+}

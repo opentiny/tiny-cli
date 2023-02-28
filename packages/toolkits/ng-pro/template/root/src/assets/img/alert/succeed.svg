@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>提示/成功</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-982.000000, -109.000000)" id="提示图标">
+            <g transform="translate(982.000000, 33.000000)">
+                <g id="提示/成功" transform="translate(0.000000, 76.000000)">
+                    <circle id="Oval" fill="#3DCCA6" cx="8" cy="8" r="8"></circle>
+                    <path d="M7.3890873,9.97487373 L12.363961,5 L13.7781746,6.41421356 L7.41421356,12.7781746 L6.56066017,11.9246212 L6.53553391,11.9497475 L3,8.41421356 L4.41421356,7 L7.3890873,9.97487373 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

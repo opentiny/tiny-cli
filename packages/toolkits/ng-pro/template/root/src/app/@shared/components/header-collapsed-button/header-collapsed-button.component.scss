@@ -1,0 +1,90 @@
+.t-pro-header-collapsed-button {
+  width: 24px;
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.left-menu-container {
+  position: absolute;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  z-index: -10;
+  background-color: #fff;
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 10%);
+}
+
+.left-menu {
+  top: 70px;
+  width: 250px;
+  box-shadow: none;
+
+  .ti3-leftmenu-level1 {
+    margin: 3px 0;
+  }
+
+  .ti3-leftmenu-level1-active-item:before, .ti3-leftmenu-level2-active:before {
+    background-color: var(--ti-base-color-brand-6);
+  }
+
+  ::ng-deep .ti3-leftmenu-panel {
+    color: var(--ti-common-color-text-primary);
+    font-size: 14px;
+    
+  }
+
+  ::ng-deep .ti3-leftmenu-level1-item.ti3-leftmenu-level1-active-item {
+    background-color: var(--ti-common-color-bg-light-normal);
+
+    &:hover {
+      background-color: var(--ti-common-color-bg-light-normal);
+      color: var(--ti-common-color-text-highlight);
+    }
+  }
+
+  ::ng-deep .ti3-leftmenu-level1-item:hover {
+    background-color: var(--ti-common-color-bg-white-emphasize);
+    color: var(--ti-common-color-text-primary);
+  }
+
+  ::ng-deep .ti3-leftmenu-level1-label {
+    padding-left: 28px;
+  }
+
+  ::ng-deep .ti3-leftmenu-level2.ti3-leftmenu-level2-active {
+    background-color: var(--ti-common-color-bg-light-normal);
+
+    &:hover {
+      background-color: var(--ti-common-color-bg-light-normal);
+      color: var(--ti-common-color-text-highlight);
+    }
+  }
+
+  ::ng-deep .ti3-leftmenu-level2:hover {
+    background-color: var(--ti-common-color-bg-white-emphasize);
+    color: var(--ti-common-color-text-primary);
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    height: 20px;
+  }
+}
+
+.menu-icon {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  & .item-text {
+    font-size: 14px;
+  }
+  ::ng-deep .ionicon {
+    width: 1.3em;
+    height: 1.3em;
+  }
+}

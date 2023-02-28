@@ -1,0 +1,148 @@
+@import 'src/app/@shared/styles/common.scss';
+
+:host {
+  ::ng-deep button.ti3-btn-item {
+    font-size: 14px;
+    width: 192px;
+  }
+}
+
+.image-box {
+  width: 192px;
+  height: auto;
+}
+
+.item-hover:hover {
+  border: 1px solid var(--ti-common-color-bg-emphasize);
+  box-shadow: 0 2px 8px 0 rgb(94 124 224 / 30%);
+}
+
+.select-item-box {
+  display: inline-block;
+  cursor: pointer;
+  padding: 9px 9px 9px 16px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  margin-right: 12px;
+  position: relative;
+  box-shadow: none;
+  margin-top: 20px;
+}
+
+.select-item-unChecked {
+  border: 1px solid #adb0b8;
+}
+
+.select-item-checked {
+  background-color: var(--ti-common-color-bg-light-normal);
+  ti-select{
+  --ti-input-bg-color: var(--ti-common-color-bg-light-normal);
+}
+  border: 1px solid var(--ti-base-color-brand-4);
+  box-shadow: 0 2px 8px 0 rgb(94 124 224 / 30%);
+}
+
+
+.light-image-icon {
+  position: relative;
+  height: 30px;
+  width: 30px;
+}
+
+.select-item-lefticon {
+  float: left;
+  margin-right: 12px;
+}
+
+.select-item-right {
+  line-height: 30px;
+  float: left;
+  width: calc(100% - 50px);
+}
+
+.select-item-title {
+  font-size: 14px;
+}
+
+.select-group-dominator {
+  width: 189px;
+  position: relative;
+  left: -8px;
+  bottom: -4.5px;
+}
+
+.ti-select-dominator-container-focused {
+  border: 1px solid var(--ti-base-color-brand-2);
+}
+
+.ti-select-dominator-container {
+  width: 198px;
+  margin-left: 1px;
+  border-radius: 0;
+  border-color: #dfe1e6 transparent transparent;
+  background: transparent;
+}
+
+.select-container-border {
+  border-top: 1px solid var(--ti-common-color-line-normal);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.select-hover:hover {
+  border-top: 1px solid var(--ti-common-color-line-normal);
+}
+
+
+
+.ti-select-wrapper {
+  display: inline-block;
+  width: 192px;
+  line-height: normal;
+}
+
+.ti-select-dominator-wrapper {
+  display: inline-block;
+  width: 100%;
+}
+
+.public-image {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.help-tip {
+  display: inline-block;
+  vertical-align: middle;
+  height: 20px;
+}
+
+.common-color-number {
+  color: #de504e;
+  font-size: 14px;
+  line-height: 16px;
+  padding-left: 10px;
+}
+
+.security-service {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.click-alarm {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+::ng-deep .ti3-checkbox-label {
+  font-size: 14px !important;
+}

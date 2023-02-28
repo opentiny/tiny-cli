@@ -1,15 +1,56 @@
 {
-  "name": "opentiny-cli",
-  "version": "1.0.0-beta0",
+  "name": "tiny-cli",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "npm i && npx lerna bootstrap",
+    "dev": "lerna run watch --stream --parallel",
+    "build": "lerna run build",
+    "link": "lerna run link",
+    "lint": "eslint . --ext .js,.ts --fix",
+    "format": "prettier --write **/*{.vue,.js,.ts,.html,.json}",
+    "publish": "lerna run build && lerna exec npm publish",
+    "clean": "lerna clean && rm -rf node_modules && lerna run clean",
+    "commit": "git-cz",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lerna": "^5.4.2"
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "@typescript-eslint/eslint-plugin": "5.33.1",
+    "@typescript-eslint/parser": "5.33.1",
+    "babel-eslint": "^10.1.0",
+    "chalk": "^5.2.0",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^7.0.4",
+    "lerna": "^5.4.2",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.8.0",
+    "typescript": "4.7.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }

@@ -1,0 +1,131 @@
+@import 'src/app/@shared/styles/common.scss';
+
+.close-container {
+  height: 385px;
+}
+
+ti-halfmodal {
+  margin-top: -10px;
+  margin-right: 34px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0px 0px 30px 15px rgba(37,43,58,0.15); 
+}
+
+// 覆盖组件行内样式
+::ng-deep .ti3-halfmodal-animation {
+  padding: 20px 30px !important;
+}
+
+.box-content-title {
+  height: 45px;
+  line-height: 27px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--ti-common-color-line-dividing);
+}
+
+.box-title-lable {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 700;
+  float: left;
+  margin: 0;
+}
+
+.box-title-links {
+  line-height: 25px;
+  float: right;
+  font-weight: 400;
+
+  .icon-grey {
+    font-size: 16px;
+    line-height: 16px;
+    color: #86909c;
+  }
+
+  >a {
+    color: var(--ti-base-color-brand-7);
+    height: 16px;
+    text-decoration: none;
+    margin: 0;
+  }
+
+  >a:not(:last-of-type) {
+    border-right: 1px solid #ccc;
+  }
+}
+
+.message-items {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-size: 12px;
+  margin-top: 10px;
+  max-height: 860px;
+}
+
+.close-text {
+  max-height: 250px;
+}
+
+.message-item:last-of-type {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ti-common-color-line-dividing);
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  color: var(--ti-base-color-common-7);
+  text-decoration: none;
+  width: 100%;
+  overflow: hidden;
+  line-height: 20px;
+  position: relative;
+
+  &:hover {
+    background-color: var(--ti-base-color-prompt-1-bg);
+  }
+}
+
+.item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  color: #202e54;
+  line-height: 25px;
+  width: 60%;
+  max-width: calc(100% - 136px);
+  float: left;
+
+  &:hover {
+    color: #8a8e99;
+    text-decoration: none;
+  }
+}
+
+.item-time {
+  color: #8a8e99;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.footer-box {
+  position: absolute;
+  bottom: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 400px;
+  background-color: #fff;
+}
+.menu-footer {
+  font-size: 14px;
+  color: #2f5bea;
+  line-height: 20px;
+}

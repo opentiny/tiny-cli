@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "paths": {
-      "@cloud/*": ["./*/src"]
+      "@opentiny/*": ["./*/src"]
     }
   }
 }

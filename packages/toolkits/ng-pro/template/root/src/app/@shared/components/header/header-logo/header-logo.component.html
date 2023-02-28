@@ -1,0 +1,15 @@
+<div class="t-pro-logo" [ngClass]="{ 't-pro-logo-shrink': shrink }" routerLink="/">
+  <span class="t-pro-logo-tiny">
+    <img src="assets/img/opentiny-logo.svg" alt="Tiny-Logo" />
+  </span>
+  <span class="t-pro-logo-text">OpenTiny</span>
+  <span *ngIf="!shrink" class="t-pro-logo-page">
+    <span class="divide-line"></span>
+    <img src="assets/img/page-logo.png" alt="Page-Logo" />
+    <span *ngIf="!shrink" class="t-pro-page-logo-text">TinyUI Pro of NG</span>
+  </span>
+  <!-- 导航栏头部左侧控制台和region下拉框, leftRight布局下不展示 -->
+  <ng-container *ngIf="!shrink && config.id !== 'leftRight'">
+    <t-pro-header-left-menu></t-pro-header-left-menu>
+  </ng-container>
+</div>

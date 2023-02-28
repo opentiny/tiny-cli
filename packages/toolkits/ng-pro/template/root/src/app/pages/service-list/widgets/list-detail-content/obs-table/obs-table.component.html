@@ -1,0 +1,77 @@
+<div class="list-content">
+  <ti-table
+    [(displayedData)]="displayed"
+    [srcData]="srcData"
+    [columns]="columns | tProTranslate"
+  >
+    <table>
+      <thead>
+        <tr>
+          <ng-container *ngFor="let column of columns">
+            <ng-container *ngIf="column.show !== false">
+              <th tiOverflow width="{{ column.width }}">
+                <ti-cell-text> {{ column.title }}</ti-cell-text>
+                <ng-container *ngIf="column.sortKey">
+                  <ti-head-sort [sortKey]="column.sortKey"></ti-head-sort>
+                </ng-container>
+              </th>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of displayed">
+          <td>
+            <div tiOverflow (click)="showDetail(row.bucketName, myModal)">
+              <a tiNavigation>{{ row.bucketName }}</a>
+            </div>
+          </td>
+          <td tiOverflow *ngIf="columns[1].show">
+            <div class="icon-list">
+              <ng-container *ngFor="let config of featureInfoList">
+                <ti-icon
+                  class="obs-common-mr8"
+                  [class]="config.extraClass"
+                  [name]="config.iconName"
+                  [tiTip]="config.tip | translate"
+                ></ti-icon>
+              </ng-container>
+            </div>
+          </td>
+          <td tiOverflow>{{ obsStorageClass[row.storage] || none | translate}}</td>
+          <td tiOverflow>
+            {{ row.region || none }}
+          </td>
+          <td tiOverflow>{{ row.capaticity || none }}</td>
+          <td tiOverflow>{{ row.objects || none }}</td>
+          <td tiOverflow>{{ row.version || none }}</td>
+          <td>
+            <ti-actionmenu
+              [data]="row"
+              [dataToItemsFn]="dataToItemsFn"
+              [maxShowNum]="2"
+            >
+            </ti-actionmenu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ti-table>
+  <ti-pagination
+    [(currentPage)]="currentPage"
+    [pageSize]="pageSize"
+    [(totalNumber)]="totalNumber"
+    class="obs-pagination"
+  ></ti-pagination>
+</div>
+
+<ng-template #myModal let-context="context" class="detail-card">
+  <ti-modal-header>{{ 'serviceList.buckets.obsObjects.overview' | translate }}</ti-modal-header>
+  <ti-modal-body>
+    <t-pro-bucket-info [bucketInfoInput]="bucketInfoInput"></t-pro-bucket-info>
+    <t-pro-obs-file-drop
+      [bucketInfoInput]="bucketInfoInput"
+      (refreshTable)="refreshTable()">
+    </t-pro-obs-file-drop>
+  </ti-modal-body>
+</ng-template>

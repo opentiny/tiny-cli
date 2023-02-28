@@ -1,0 +1,50 @@
+<div [attr.class]="'t-pro-nav t-pro-nav-' + mode">
+  <div class="t-pro-nav-menu">
+    <ng-container *ngFor="let item of data">
+      <div class="t-pro-nav-item" tProBaseDropDown [trigger]="'hover'" appendToBody
+        [appendToBodyDirections]="dropdownDirections[mode]">
+        <span tProBaseDropDownToggle class="t-pro-nav-title" [routerLink]="item.router"
+          [routerLinkActive]="['t-pro-active-link']" [ngClass]="{
+            't-pro-active-title': currentUrl.indexOf(item.router) !== -1
+          }">
+          <ti-icon [name]="item.menuIcon"></ti-icon>
+          <span *ngIf="showTitle" style="margin-left: 8px">{{ item.title }}</span>
+        </span>
+        <ul tProBaseDropDownMenu [attr.class]="'t-pro-base-dropdown-menu t-pro-scrollbar t-pro-nav-' + mode"
+          role="menu">
+          <li role="menuitem" *ngFor="let child of item.children">
+            <span class="t-pro-base-dropdown-item" [routerLink]="child.router"
+              [routerLinkActive]="['t-pro-active-link']">
+              {{ child.title }}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+    <div *ngIf="packData && packData.length > 0" class="t-pro-nav-pack-item-wrapper" tProBaseDropDown appendToBody
+      [trigger]="'hover'">
+      <span tProBaseDropDownToggle class="t-pro-nav-title" [ngClass]="{
+          't-pro-active-title': packItemsActive
+        }">···</span>
+      <ul tProBaseDropDownMenu role="menu" class="t-pro-dropdown-menu t-pro-scrollbar">
+        <li *ngFor="let item of packData" role="menuitem" tProBaseDropDown appendToBody
+          [appendToBodyDirections]="subMenuDirections" [trigger]="'hover'">
+          <span tProBaseDropDownToggle class="t-pro-nav-title t-pro-base-dropdown-item" [ngClass]="{
+              't-pro-active-link': currentUrl.indexOf(item.router) !== -1
+            }">
+            <ti-icon [name]="item.menuIcon"></ti-icon>
+            <span *ngIf="showTitle" style="margin-left: 8px; flex: 1 1 0%">{{ item.title }}</span>
+            <ti-icon name="angle-right"></ti-icon>
+          </span>
+          <ul tProBaseDropDownMenu [attr.class]="'t-pro-dropdown-menu t-pro-scrollbar t-pro-nav-' + mode" role="menu">
+            <li role="menuitem" *ngFor="let child of item.children">
+              <span class="t-pro-base-dropdown-item" [routerLink]="child.router"
+                [routerLinkActive]="['t-pro-active-link']"> {{ child.title }}
+              </span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

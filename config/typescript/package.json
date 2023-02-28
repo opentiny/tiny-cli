@@ -1,6 +1,9 @@
 {
   "name": "@opentiny/cli-typescript",
-  "version": "1.0.0-beta0",
+  "version": "1.0.0-alpha.0",
+  "scripts": {
+    "clean": "rm package-lock.json || true"
+  },
   "devDependencies": {
     "tslint": "5.9.1",
     "tslint-config-airbnb": "5.7.0",

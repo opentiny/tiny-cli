@@ -1,10 +1,11 @@
 {
-  "name": "@opentiny/cli-devkit-core",
-  "version": "1.0.0-beta0",
+  "name": "@opentiny/cli-devkit",
+  "version": "1.0.0-alpha.0",
   "scripts": {
     "build": "tsc -p tsconfig.compiler.json",
     "build:dist": "node ./scripts/build.js",
     "watch": "tsc -p tsconfig.compiler.json --watch",
+    "clean": "rm -rf lib/  && rm package-lock.json || true",
     "test": "npm run build && ava -v",
     "ava": "ava -v"
   },
@@ -45,7 +46,7 @@
     "yargs": "^13.3.0"
   },
   "devDependencies": {
-    "@opentiny/cli-typescript": "^0.1.7",
+    "@opentiny/cli-typescript": "^1.0.0-alpha.0",
     "@vercel/ncc": "^0.27.0",
     "ava": "^3.15.0",
     "typescript": "^3.5.3"
