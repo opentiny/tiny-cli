@@ -1,0 +1,49 @@
+@import "src/app/@shared/styles/common.scss";
+
+.result-success {
+  @include t-pro-product-card;
+  text-align: center;
+  height: 620px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
+}
+
+.pay-succeed-icon-container {
+  position: relative;
+  .pay-succeed-icon-bg {
+    margin: 150px auto 0;
+    width: 84px;
+    height: 84px;
+    background: #cffcee;
+    border-radius: 50%;
+    .pay-succeed-icon {
+      font-size: 84px;
+      color: #50d4ab;
+      display: inline-block;
+    }
+  }
+}
+
+.pay-succeed-text-container {
+  margin-bottom: 20px;
+  .pay-succeed-text {
+    font-size: 24px;
+    margin-top: 30px;
+    line-height: 36px;
+  }
+
+  .pay-succeed-detail {
+    font-size: 14px;
+    margin: 25px 0;
+  }
+  .amount-money {
+    color: #de504e;
+  }
+}
+
+.pay-succeed-button {
+  width: 124px;
+  height: 36px;
+  border-radius: 4px;
+  margin-top: 10px;
+}

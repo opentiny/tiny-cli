@@ -1,0 +1,8 @@
+<div class="user-info-panel">
+  <div *ngFor="let item of panelData; last as isLast" class="panel-content-common">
+    <div [ngClass]="{ 'panel-last-with-no-line': isLast }">
+      <div class="panel-number-common">{{ item.count }}</div>
+      <div class="panel-text-common" title="{{ item.text }}">{{ item.text }}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+.t-pro-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.t-pro-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.t-pro-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #adb0b8;
+}
+
+.t-pro-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #8a8e99;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--ti-common-color-bg-white-normal);
+}
+
+.t-pro-notice-modal {
+  width: 320px;
+  max-height: 380px;
+}
+
+@media only screen and (max-width: 450px) {
+  .t-pro-notice-modal {
+    left: 40px !important;
+  }
+}
+
+@media only screen and (max-width: 395px) {
+  .t-pro-notice-modal {
+    left: 60px !important;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .modal-dialog {
+    max-width: 400px !important;
+  }
+}
+
+

@@ -1,0 +1,53 @@
+@import 'src/app/@shared/styles/common.scss';
+
+.recommend-activity {
+  margin-top: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 8px rgba(169,174,184,.05);
+  height: 240px;
+  @include t-pro-product-card;
+}
+
+.section-title {
+  position: relative;
+  width: 100%;
+  color: #252b3a;
+  padding-bottom: 30px;
+  font-size: 16px;
+  line-height: 16px;
+  font-family: PingFang SC, PingFang SC-PingFang SC;
+}
+
+
+.smart-recommends-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.smart-recommends-col {
+  box-sizing: border-box;
+  width: 33.3%;
+  padding: 0 8px;
+  min-width: 0;
+  max-width: 600px;
+}
+
+.smart-recommends-card {
+  box-sizing: border-box;
+  display: block;
+  position: relative;
+  height: 100%;
+  padding: 0;
+  font-size: 0;
+  color: #575d6c;
+  text-decoration: none;
+  transition: box-shadow 0.2s;
+}
+
+.smart-recommends-card-img {
+  width: 100%;
+  box-shadow: 0px 1px 4px 0px rgb(0 0 0 / 6%);
+}

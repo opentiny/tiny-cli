@@ -1,0 +1,77 @@
+@import 'src/app/@shared/styles/common.scss';
+.growth-map {
+  min-height: 600px;
+  @include t-pro-product-card;
+}
+
+::ng-deep .ti3-tab-li {
+  // 覆盖组件行内样式
+  margin: 0 27px 0 0 !important;
+}
+
+.box-title {
+  color: #252b3a;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: left;
+}
+
+.mb12 {
+  margin-bottom: 26px;
+}
+
+.tab-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #8a8e99;
+  line-height: 24px;
+}
+
+.mt16 {
+  margin: 20px 0 116px;
+}
+
+.mt12 {
+  margin-top: 11px;
+}
+
+.overview_label_text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #202e54;
+  line-height: 24px;
+}
+
+.overview_label_text:nth-child(n+2) {
+  margin-top: 10px;
+}
+
+.link-flex-box {
+  font-size: 14px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+  .round-box {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    background-color: #252b3a;
+  }
+
+  > a {
+    color: #252b3a;
+  }
+
+  &:hover {
+    .round-box {
+      background-color: #5e7ce0;
+    }
+    > a {
+      color: #5e7ce0;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<p class="basic-info-title">{{ 'serviceList.buckets.detailTable.basicInfo' | translate }}</p>
+<div class="basic-info-content">
+  <ti-formfield id="bucket-info" labelWidth="150px">
+    <ti-item [label]="'serviceList.buckets.detailTable.bucketName' | translate" verticalAlign="middle">
+      <span>{{ bucketInfoInput.bucketName }}</span>
+    </ti-item>
+    <ti-item [label]="'serviceList.buckets.detailTable.storage' | translate" verticalAlign="middle">
+      <span>{{ (bucketInfoInput.storage ? obsStorageClass[bucketInfoInput.storage] : '') || none | translate }}</span>
+    </ti-item>
+    <ti-item [label]="'serviceList.buckets.detailTable.version' | translate" verticalAlign="middle">
+      <span>{{ bucketInfoInput.version || none }}</span>
+    </ti-item>
+    <ti-item [label]="'serviceList.buckets.detailTable.region' | translate" verticalAlign="middle">
+      <span>{{ bucketInfoInput.region || none }}</span>
+    </ti-item>
+  </ti-formfield>
+</div>

@@ -1,0 +1,12 @@
+<div class="recommend-activity">
+  <div class="section-title">{{ 'result.recommends.title' | translate }}</div>
+  <div class="smart-recommends-container">
+    <div class="smart-recommends-wrapper">
+      <div *ngFor="let item of recommends" class="smart-recommends-col">
+        <a class="smart-recommends-card" [href]="item.href" target="_blank" rel="noopener noreferrer">
+          <img class="smart-recommends-card-img" [src]="item.src" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+@import 'src/app/@shared/styles/common.scss';
+
+.user-panel-head {
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 8px rgba(169,174,184,0.05); 
+  background: var(--ti-common-color-bg-white-normal);
+  padding: 30px 25px 22px 30px;
+}
+
+.user-info-head {
+  float: left;
+  cursor: pointer;
+  background-image: url('../../../../../../assets/img/avatar.png');
+  background-repeat: no-repeat;
+  background-size: 52px;
+  height: 52px;
+  width: 52px;
+  border-radius: 50%;
+}
+
+.user-info-name-and-auth {
+  position: relative;
+  margin-left: 48px;
+  width: auto;
+  font-size: 12px;
+  color: var(--ti-common-color-text-primary);
+  line-height: 16px;
+}
+
+.user-info-expense-center {
+  position: absolute;
+  right: 0px;
+  display: inline-block;
+  
+  & > a {
+    color: var(--ti-common-color-text-highlight);
+  }
+}
+
+.user-info-name {
+  margin: 4px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.user-info-status-ok {
+  color: var(--ti-common-color-success);
+}
+
+.auth-status-style {
+  position: relative;
+  padding: 8px 10px 5px 20px;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: left;
+  height: 16px;
+
+  .real-name {
+    position: absolute;
+    top: 8px;
+    left: 70px;
+    background-image: url('../../../../../../assets/img/real-name.png');
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 54px;
+  }
+
+  > a {
+    color: var(--ti-common-color-icon-normal);
+    margin-right: 8px;
+  }
+
+  a.auth-status-warn {
+    color: var(--ti-common-color-error);
+    text-decoration: underline;
+  }
+}
+
+.hello-lable {
+  color: #86909c;
+  margin: 12px 0 0 20px;
+  line-height: 20px;
+  font-size: 14px;
+}

@@ -1,0 +1,279 @@
+@import "~@opentiny/ng/themes/theme-default.css";
+
+:host {
+  display: inline-block;
+  position: relative;
+}
+
+.t-pro-base-tag-item {
+  padding: 0 8px;
+  min-height: 20px;
+  font-size: var(--ti-common-font-size-base);
+  line-height: 20px;
+  color: var(--ti-base-color-common-7);
+  background-color: var(--ti-base-color-bg-6);
+  border-radius: var(--ti-common-border-radius-normal);
+  border-width: 0;
+  border-style: solid;
+  border-color: inherit;
+  display: block;
+  align-items: center;
+  position: relative;
+  cursor: default;
+
+  .content-wrapper {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  span {
+    // 设置为0来调整IE下因为基线不同导致的不居中
+    vertical-align: 0;
+  }
+
+  &:hover:not(.t-pro-base-colorful-tag):not(.t-pro-base-selected-tag).t-pro-base-checkable-tag {
+    color: var(--ti-base-color-brand-5);
+
+    .remove-button svg polygon {
+      fill: var(--ti-base-color-brand-5);
+    }
+  }
+
+  &:hover.t-pro-base-checkable-tag {
+    .content-wrapper {
+      opacity: 0.08;
+    }
+  }
+
+  &.t-pro-base-selected-tag {
+    color: var(--ti-base-color-brand-7);
+
+    .remove-button svg polygon {
+      fill: var(--ti-base-color-brand-7);
+    }
+  }
+
+  .remove-button {
+    margin-left: 12px;
+    font-size: var(--ti-common-font-size-2);
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    svg polygon {
+      fill: var(--ti-base-color-common-2);
+    }
+
+    &:hover {
+      text-decoration: none;
+      font-size: var(--ti-common-font-size-2);
+    }
+  }
+
+  .default-button {
+    margin-left: 12px;
+    font-size: var(--ti-common-font-size-2);
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    background-color: var(--ti-base-color-common-2);
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+
+    svg path {
+      fill: var(--ti-base-color-white);
+    }
+
+    &:hover {
+      text-decoration: none;
+      background-color: var(--ti-base-color-brand-2);
+    }
+  }
+}
+
+.t-pro-base-deletable-tag {
+  padding-right: 32px;
+}
+
+.t-pro-base-colorful-tag {
+  height: 18px;
+  line-height: 18px;
+  border-width: 1px;
+  background-color: var(--ti-base-color-bg-8);
+}
+
+.blue-w98 {
+  color: #0b81f6;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #0b81f6;
+
+  .remove-button svg polygon {
+    fill: #0b81f6;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #0b81f6;
+  }
+}
+
+.aqua-w98 {
+  color: #39afcc;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #39afcc;
+
+  .remove-button svg polygon {
+    fill: #39afcc;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #39afcc;
+  }
+}
+
+.olivine-w98 {
+  color: #2fa898;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #2fa898;
+
+  .remove-button svg polygon {
+    fill: #2fa898;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #2fa898;
+  }
+}
+
+.green-w98 {
+  color: #4eb15e;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #4eb15e;
+
+  .remove-button svg polygon {
+    fill: #4eb15e;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #4eb15e;
+  }
+}
+
+.yellow-w98 {
+  color: #b08d1a;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #b08d1a;
+
+  .remove-button svg polygon {
+    fill: #b08d1a;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #b08d1a;
+  }
+}
+
+.orange-w98 {
+  color: #d47f35;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #d47f35;
+
+  .remove-button svg polygon {
+    fill: #d47f35;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #d47f35;
+  }
+}
+
+.red-w98 {
+  color: #e05a46;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #e05a46;
+
+  .remove-button svg polygon {
+    fill: #e05a46;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #e05a46;
+  }
+}
+
+.pink-w98 {
+  color: #f3689a;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #f3689a;
+
+  .remove-button svg polygon {
+    fill: #f3689a;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #f3689a;
+  }
+}
+
+.purple-w98 {
+  color: #b05bc1;
+  background-color: var(--ti-base-color-bg-8);
+  border-width: 1px;
+  border-color: #b05bc1;
+
+  .remove-button svg polygon {
+    fill: #b05bc1;
+  }
+
+  &.t-pro-base-selected-tag {
+    background-color: #b05bc1;
+  }
+}
+
+.t-pro-base-selected-tag.t-pro-base-colorful-tag {
+  color: var(--ti-base-color-bg-8);
+
+  .remove-button svg polygon {
+    fill: var(--ti-base-color-bg-8);
+  }
+}
+
+.remove-button svg {
+  vertical-align: text-top;
+}
+
+.t-pro-base-tag-item {
+  &.t-pro-base-checkable-tag {
+    transition: color 300ms cubic-bezier(0.645, 0.045, 0.355, 1), background-color 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    .content-wrapper {
+      transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    .remove-button svg polygon {
+      transition: fill 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+  }
+}

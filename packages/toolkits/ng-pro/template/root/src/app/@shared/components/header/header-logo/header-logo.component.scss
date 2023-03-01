@@ -1,0 +1,76 @@
+.t-pro-logo {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  line-height: 60px;
+  padding-left: 10px;
+
+  &.t-pro-logo-shrink {
+    padding-left: 0;
+    justify-content: center;
+
+    .t-pro-logo-tiny {
+      margin-right: 0;
+    }
+  }
+
+  .t-pro-logo-tiny {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 53px;
+      height: 32px;
+      vertical-align: middle;
+    }
+  }
+
+  .t-pro-logo-page {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .divide-line {
+    height: 18px;
+    padding-left: 32px;
+    border-left: 1px solid #dfe1e6;
+  }
+  
+  .t-pro-logo-text {
+    margin: 0 32px 0 12px;
+    line-height: 32px;
+    font-size: 23px;
+    color: #202e54;
+    font-weight: 700;
+    vertical-align: middle;
+    letter-spacing: 0.7px;
+  }
+
+  .t-pro-page-logo-text {
+    font-size: 16px;
+    font-family: PingFang SC, PingFang SC-PingFang SC;
+    font-weight: 400;
+    text-align: left;
+    color: #202e54;
+    line-height: 22px;
+    margin: 0 28px 0 10px;
+    min-width: 130px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .console-margin {
+    margin-left: 200px;
+  }
+}
+
+.router-active {
+  outline: none;
+}

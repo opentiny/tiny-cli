@@ -1,0 +1,29 @@
+<ti-formfield id="purchase-times" labelWidth="80px">
+  <ti-item [label]="'servicePurchase.settings.times' | translate" verticalAlign="top">
+    <ti-button-group width="100%" [items]="timesOptions | tProTranslate" [(ngModel)]="selectedTimes"
+      [ngModelOptions]="{ standalone: true }">
+      <ng-template #sup let-sup>
+        <span *ngIf="sup" [ngClass]="sup.class" class="sup">
+          <ti-icon *ngIf="sup.iconName" local [name]="sup.iconName"></ti-icon>
+        </span>
+      </ng-template>
+    </ti-button-group>
+    <div class="auto-reneualfee">
+      <input type="checkbox" [label]="autoreneualfeeLabel | translate" id="autoreneualfeeId" tiCheckbox />
+      <t-pro-helptip class="help-tip" iconTip="{{ 'servicePurchase.settings.autoRenewalTip' | translate }}"
+        iconTipPosition="top-left">
+        <span class="reneualfee-explain">{{ 'servicePurchase.settings.explain' | translate }}</span>
+      </t-pro-helptip>
+    </div>
+  </ti-item>
+</ti-formfield>
+<div class="purchase-count">
+  <ti-formfield class="purchase-count" labelWidth="80px">
+    <ti-item [label]="'servicePurchase.settings.count' | translate" verticalAlign="top">
+      <ti-spinner [max]="lightVmCountModel.max" [min]="lightVmCountModel.min" [format]="lightVmCountModel.format"
+        [(ngModel)]="lightVmCountModel.value">
+      </ti-spinner>
+      <span class="unit-tai">{{ 'servicePurchase.settings.unitTai' | translate }}</span>
+    </ti-item>
+  </ti-formfield>
+</div>

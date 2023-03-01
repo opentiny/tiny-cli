@@ -1,0 +1,20 @@
+<div class="t-pro-content-banner">
+  <div class="t-pro-content-banner-title">
+    {{ 'serviceOverview.title' | translate }}
+  </div>
+</div>
+<div class="t-pro-content-wrapper">
+  <t-pro-base-row [tProBaseGutter]="[24, 24]">
+    <t-pro-base-col [tProBaseSpan]="24">
+      <t-pro-service-introduce></t-pro-service-introduce>
+    </t-pro-base-col>
+  </t-pro-base-row>
+  <t-pro-base-row [tProBaseGutter]="[24, 24]">
+    <t-pro-base-col [tProBaseSpan]="{ sm: 18 }">
+      <t-pro-service-creation></t-pro-service-creation>
+    </t-pro-base-col>
+    <t-pro-base-col [tProBaseSpan]="{ sm: 6 }">
+      <t-pro-growth-map></t-pro-growth-map>
+    </t-pro-base-col>
+  </t-pro-base-row>
+</div>

@@ -1,0 +1,95 @@
+@import 'src/app/@shared/styles/common.scss';
+
+.service-creation {
+  height: 100%;
+  @include t-pro-product-card;
+}
+
+.new-user-content {
+  margin-bottom: 30px;
+
+  .content-head {
+    font-size: 24px;
+    font-weight: 400;
+    text-align: left;
+    color: #252b3a;
+    line-height: 33px;
+  }
+
+  .content-des {
+    text-align: left;
+    line-height: 25px;
+    font-size: 16px;
+    padding-top: 10px;
+    color: #86909c;
+  }
+}
+
+.content-item-box {
+  display: flex;
+  flex-wrap: wrap;
+
+  .content-item {
+    width: calc((100% - 20px) / 2);
+    padding: var(--ti-common-space-5x) 30px 30px;
+    background-color: rgba($color: #eff2f8, $alpha: 0.5);
+    border-radius: 8px;
+
+    .content-item-head {
+      display: flex;
+      align-items: center;
+
+      .head-left {
+        margin-right: 7px;
+        width: 32px;
+        height: 32px;
+      }
+
+      .head-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: #202e54;
+        line-height: 25px;
+      }
+
+      .create-csbs-icon {
+        background: url('../../../../../assets/img/service-overview/create_icon_csbs.png') 0 0 no-repeat;
+      }
+
+      .create-vbs-icon {
+        background: url('../../../../../assets/img/service-overview/create_icon_vbs.png') 0 0 no-repeat;
+      }
+
+      .create-sfs-icon {
+        background: url('../../../../../assets/img/service-overview/create_icon_sfs.png') 0 0 no-repeat;
+      }
+
+      .create-vmware-icon {
+        background: url('../../../../../assets/img/service-overview/create_icon_vmware.png') 0 0 no-repeat;
+      }
+    }
+    .content-down-box {
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .content-item-des {
+        padding: 10px 0 20px;
+        color: #86909c;
+        font-size: 14px;
+        line-height: 20px;
+        line-height: 18px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.mr12 {
+  margin-right: var(--ti-common-space-5x);
+}
+
+.mt12 {
+  margin-top: var(--ti-common-space-5x);
+}

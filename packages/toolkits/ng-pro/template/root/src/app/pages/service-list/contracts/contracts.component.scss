@@ -1,0 +1,29 @@
+@import "src/app/@shared/styles/common.scss";
+
+.service-list {
+  @include t-pro-product-card;
+}
+
+.contracts {
+  @include t-pro-product-card;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 8px rgba(169,174,184,.05); 
+  height: 780px;
+}
+
+::ng-deep .ti3-modal-content{
+  width: 589px;
+  border-radius: 8px !important;
+  box-shadow: 0px 0px 30px 15px rgba(37,43,58,.15) !important; 
+}
+
+.alert {
+  position: fixed;
+  display: block;
+  z-index: 1400;
+  width: 400px;
+  height: auto;
+  left: 40%;
+  top: 70px;
+}

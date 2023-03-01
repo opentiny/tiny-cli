@@ -1,0 +1,58 @@
+.buy-layer {
+  width: 100%;
+  height: 50px;
+}
+
+.buy-layer-left {
+  width: calc(100% - 400px);
+  min-width: 225px;
+  float: left;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.buyLayer-vertical-middle {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.buyLayer-price-item {
+  padding-right: 4px;
+  font-size: 14px;
+  color: #575d6c;
+}
+
+.buyLayer-label {
+  margin-right: 6px;
+}
+
+.buyLayer-price-num {
+  font-size: 20px;
+  color: #de504e;
+  display: inline-block;
+}
+
+.msg-top {
+  margin-top: 4px;
+  line-height: 18px;
+  font-size: 14px;
+  color: #575d6c;
+
+  > span {
+    margin-right: 10px;
+  }
+}
+
+.buy-layer-right {
+  text-align: right;
+  float: right;
+  height: 100%;
+
+  > button {
+    margin-top: 9px;
+    width: 96px;
+    font-size: 14px;
+  }
+}

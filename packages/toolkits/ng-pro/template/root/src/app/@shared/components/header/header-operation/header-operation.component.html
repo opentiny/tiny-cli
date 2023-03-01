@@ -1,0 +1,62 @@
+<div class="t-pro-operations">
+  <ti-searchbox *ngIf="!shrink" class="t-pro-header-search" (search)="onSearch($event)"
+  [placeholder]="'header.searchPlaceholder' | translate">
+  </ti-searchbox>
+  <!-- 分割线 -->
+  <div class="line-right"></div>
+  <!-- 语言切换 -->
+  <div class="t-pro-language-wrapper" tProBaseDropDown [trigger]="'hover'" appendToBody tProBaseDropDownToggle>
+    <span *ngIf="!shrink" class="language-text">{{ curLang }}
+      <img src="assets/img/slected-up.png" class="slected-icon" />
+    </span>
+    <!-- 小分辨率下显示为icon图标 -->
+    <span *ngIf="shrink" class="language-icon">
+      <ti-icon *ngIf="shrink" name="language-outline" class="tpicon-translation"></ti-icon>
+    </span>
+    <ul tProBaseDropDownMenu class="t-pro-dropdown-menu t-pro-scrollbar item-width" role="menu">
+      <li *ngFor="let item of languages" role="menuitem" class="menu-item"
+        [ngClass]="{ 't-pro-active-lang': language === item.code }" (click)="onLanguageClick(item.code)">
+        <a class="t-pro-base-dropdown-item">
+          <span class="t-pro-language-prefix">{{ item.prefix }}</span>
+          &nbsp;
+          {{ item.lang }}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- 帮助中心 -->
+  <a tiNavigation [href]="helpCenter" target="_blank" rel="noopener noreferrer" class="help-center">
+    <span *ngIf="!shrink">{{ 'header.helpCenter' | translate }}</span>
+    <!-- 小分辨率下显示为icon图标 -->
+    <ti-icon *ngIf="shrink" name="help-circle-outline" class="tpicon-helping"></ti-icon>
+  </a>
+  <!-- 个人中心 -->
+  <div class="t-pro-operations-user" tProBaseDropDown [trigger]="'hover'" appendToBody tProBaseDropDownToggle>
+    <t-pro-base-avatar *ngIf="shrink" [name]="user.userName" [width]="18" [height]="18"></t-pro-base-avatar>
+    <span class="t-pro-user-name" *ngIf="!shrink">{{ user?.userName }}</span>
+    <ul tProBaseDropDownMenu class="t-pro-dropdown-menu t-pro-scrollbar item-width" role="menu">
+      <ng-container *ngIf="haveLoggedIn">
+        <li role="menuitem">
+          <a class="t-pro-base-dropdown-item">
+            <span>{{ 'header.basicInfo' | translate }}</span>
+            &nbsp;&nbsp;&nbsp;
+            <span class="authenticated">{{ 'header.authenticated' | translate }}</span>
+          </a>
+        </li>
+        <li role="menuitem" (click)="handleUserOps('logout')">
+          <a class="t-pro-base-dropdown-item">
+            <span class="logout">{{ 'header.logout' | translate }}</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <div class="t-pro-operations-notice" tProBaseDropDown [trigger]="'click'" tProBaseDropDownToggle appendToBody
+    [closeScope]="'blank'" (mouseenter)="showNoticeModal(true)" (mouseleave)="showNoticeModal(false)">
+    <t-pro-base-badge [count]="noticeCount">
+      <ti-icon name="mail-outline" class="email-icon"></ti-icon>
+    </t-pro-base-badge>
+    <t-pro-header-notice [show]="isShowNoticeModal" (showStatus)="parentStatus($event)" (countEvent)="handleNoticeCount($event)"></t-pro-header-notice>
+  </div>
+</div>

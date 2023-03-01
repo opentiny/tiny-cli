@@ -1,0 +1,6 @@
+package.json
+package-lock.json
+dist
+/packages/cli/**/lib/*
+*.md
+assets

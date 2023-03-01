@@ -1,0 +1,41 @@
+{
+  "name": "@opentiny/cli",
+  "version": "1.0.0-alpha.0",
+  "bin": {
+    "tiny": "./lib/index.js"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.compiler.json",
+    "link": "npm link",
+    "watch": "tsc -p tsconfig.compiler.json --watch",
+    "clean": "npm uninstall @opentiny/cli -g && rm -rf lib/ && rm package-lock.json || true",
+    "test": "npm run build && ava"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "devDependencies": {
+    "@types/node": "^12.6.2",
+    "@vercel/ncc": "^0.27.0",
+    "ava": "^4.0.1",
+    "chai": "^4.2.0",
+    "sinon": "^7.3.2",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@opentiny/cli-commands": "^1.0.0-alpha.0",
+    "@opentiny/cli-devkit": "^1.0.0-alpha.0",
+    "@opentiny/cli-typescript": "^1.0.0-alpha.0",
+    "cross-spawn": "^7.0.3",
+    "shelljs": "^0.8.3",
+    "sudo-block": "^3.0.0",
+    "v8-compile-cache": "^2.1.0"
+  },
+  "ava": {
+    "snapshotDir": "./snapshots"
+  },
+  "gitHead": "7df28442b47d4dc15cc2285eff3a211c366ec627"
+}

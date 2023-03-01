@@ -1,0 +1,64 @@
+.t-pro-footer {
+  height: 80px;
+  padding-top: 8px;
+  background-color: #f6f8f9;
+
+  .t-pro-footer-intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    
+    .t-pro-production-name {
+      a {
+        color: var(--ti-base-color-common-5);
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
+        text-decoration: none;
+
+        &:hover {
+          color: var(--ti-base-color-common-7);
+        }
+      }
+    }
+
+    .split-line {
+      display: inline-block;
+      width: 1px;
+      height: 14px;
+      background-color: #8a8e99;
+      margin: 0 16px;
+    }
+
+    .github-icon {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      vertical-align: bottom;
+    }
+
+    .t-pro-organization {
+      a {
+        color: var(--ti-base-color-common-5);
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
+        text-decoration: none;
+
+        &:hover {
+          color: var(--ti-base-color-common-7);
+        }
+      }
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .t-pro-presented {
+    text-align: center;
+    color: var(--ti-base-color-common-5);
+    padding-top: 12px;
+  }
+}

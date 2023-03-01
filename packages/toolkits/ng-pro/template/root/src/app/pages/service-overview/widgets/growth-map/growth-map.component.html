@@ -1,0 +1,30 @@
+<div class="growth-map">
+<div class="box-title">{{ 'serviceOverview.growthMap.title' | translate }}</div>
+<div class="mt16">
+  <ti-tabs tipPosition="left">
+    <ti-tab *ngFor="let tab of tabs" [(active)]="tab.active">
+      <ti-tab-header>{{ tab.title }}</ti-tab-header>
+      <ng-container *ngIf="tab.description">
+        <div class="tab-desc">{{ tab.description }}</div>
+      </ng-container>
+      <div>
+        <ng-container *ngFor="let item of tab.children; index as $index">
+          <div [ngClass]="{ mb12: $index !== tab.children.length - 1 }">
+            <div class="overview_label_text mt12">{{ item.label }}</div>
+            <div>
+              <ng-container *ngFor="let linkItem of item.childrenItem">
+                <div class="mt12 link-flex-box">
+                  <span class="round-box"></span>
+                  <a tiNavigation [href]="linkItem.link" target="_blank" rel="noopener noreferrer">{{
+                    linkItem.linkText
+                  }}</a>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ti-tab>
+  </ti-tabs>
+</div>
+</div>

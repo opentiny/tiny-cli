@@ -1,0 +1,27 @@
+<div class="service-creation">
+  <div class="new-user-content">
+    <div class="content-head">{{ 'serviceOverview.creation.title' | translate }}</div>
+    <div class="content-des">{{ 'serviceOverview.creation.description' | translate }}</div>
+  </div>
+  <div class="content-item-box">
+    <ng-container *ngFor="let item of createGuides; index as $index">
+      <div class="content-item" [ngClass]="{
+        mr12: !($index % 2),
+        mt12: !($index == 0 || $index == 1)
+      }">
+        <div class="content-item-head">
+          <div class="head-left" [ngClass]="item.icon"></div>
+          <span class="head-title">{{ item.label | translate }}</span>
+        </div>
+        <div class="content-down-box">
+          <div class="content-item-des mb12">{{ item.description | translate }}</div>
+          <div>
+            <button type="button" color="danger" tiButton size="large">
+              {{ 'serviceOverview.creation.btnValue' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

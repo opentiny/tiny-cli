@@ -1,0 +1,11 @@
+{
+  "name": "@opentiny/cli-module-list",
+  "version": "1.0.0-alpha.0",
+  "tiny": {
+    "@opentiny/tiny-toolkit-dev": "开发tiny-cli套件和插件",
+    "@opentiny/tiny-plugin-link": "快速调试本地node_modules中的依赖包",
+    "@opentiny/tiny-plugin-hwc": "快速管理和访问华为云服务资源",
+    "@opentiny/tiny-toolkit-ng-pro": "基于TinyNG的开箱即用前端解决方案",
+    "@opentiny/tiny-toolkit-vue-pro": "基于TinyVue的开箱即用前端解决方案"
+  }
+}

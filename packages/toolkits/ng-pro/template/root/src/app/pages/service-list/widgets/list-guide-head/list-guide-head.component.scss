@@ -1,0 +1,104 @@
+.guide-head {
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #DFE1E6;
+  margin-right: 20px;
+  div {
+    padding-right: 20px;
+  }
+}
+.contracts-guide-head{
+  justify-content: space-between;
+}
+
+.contracts-select{
+  margin-right: 20px;
+}
+
+.list-guide-head-container{
+  display: flex
+}
+
+.guide-head-content{
+  flex: 1; 
+  align-self: center
+}
+
+.guide-head-button {
+  margin-right:10px;
+  border-radius: 4px;
+}
+
+.guide-head-expand {
+  align-items: center;
+}
+
+.common-link {
+  margin-left: var(--ti-common-space-5x);
+  font-weight: 700;
+}
+
+.alert-head {
+  margin-top: 10px;
+  width: 100%;
+  display: block;
+}
+
+.feedback-container {
+  cursor: pointer;
+  :hover {
+    color: var(--ti-common-color-text-highlight);
+  }
+}
+
+.mr5 {
+  margin-right: 5px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.link {
+  color: #7693f5;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #96adfa;
+  text-decoration: underline;
+}
+
+.guide-head-container {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+
+  .guide-head-right {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+
+  .guide-head-helptip-label {
+    line-height: 1.5;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .guide-head-helptip-icon {
+    font-size: 18px;
+    color: #575d6c;
+    margin-left: 6px;
+    margin-top: 3px;
+    cursor: help;
+    &:hover {
+      color: #5e7ce0;
+    }
+  }
+
+  .guide-head-button-left-space {
+    margin-left: 8px;
+  }
+}

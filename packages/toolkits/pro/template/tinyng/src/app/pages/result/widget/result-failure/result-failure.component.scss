@@ -1,0 +1,57 @@
+@import "src/app/@shared/styles/common.scss";
+
+.result-failure {
+  @include t-pro-product-card;
+  text-align: center;
+  height: 620px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
+}
+
+.pay-failure-icon-container {
+  .pay-failure-icon-bg {
+    margin: 150px auto 0;
+    width: 84px;
+    height: 84px;
+    background: #ffd5d4;
+    border-radius: 50%;
+    .pay-failure-icon {
+      font-size: 84px;
+      color: #f66f6a;
+      display: inline-block;
+    }
+  }
+}
+
+.pay-failure-text-container {
+  margin-bottom: 20px;
+  .pay-failure-text {
+    font-size: 24px;
+    margin-top: 30px;
+    line-height: 36px;
+  }
+}
+
+.tip {
+  font-size: 14px;
+  margin: 25px 0;
+}
+
+.tip-price {
+  color: #de504e;
+}
+
+.re-payments {
+  margin-right: 8px;
+}
+
+.view-order {
+  margin-top: 16px;
+}
+
+.pay-failure-button {
+  width: 124px;
+  height: 36px;
+  border-radius: 4px;
+  margin-top: 10px;
+}

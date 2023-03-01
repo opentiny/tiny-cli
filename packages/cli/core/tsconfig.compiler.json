@@ -1,0 +1,7 @@
+{
+  "extends": "./node_modules/@opentiny/cli-typescript/tsconfig.compiler.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib"
+  }
+}

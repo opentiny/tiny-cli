@@ -1,0 +1,32 @@
+@import 'src/app/@shared/styles/common.scss';
+
+.new-user-head {
+  @include t-pro-product-card;
+  padding-right: 13px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .head-text {
+    width: 72%;
+
+    .head-text-title {
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 33px;
+    }
+
+    .head-text-des {
+      line-height: 25px;
+      font-size: 16px;
+      padding-top: 30px;
+      color: #86909c;
+    }
+  }
+
+  .head-image {
+    width: 390px;
+    height: 160px;
+    background: url('../../../../../assets/img/service-overview/overview_image.svg') 0 0 no-repeat;
+  }
+}
