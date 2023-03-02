@@ -135,7 +135,7 @@ export class SideSettingsComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }

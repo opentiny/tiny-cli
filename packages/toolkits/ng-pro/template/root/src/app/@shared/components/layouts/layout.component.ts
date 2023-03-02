@@ -39,7 +39,7 @@ export class TProLayoutHeaderComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
@@ -79,7 +79,7 @@ export class TProLayoutSecHeaderComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
@@ -119,7 +119,7 @@ export class TProLayoutSidebarComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
@@ -159,7 +159,7 @@ export class TProLayoutSecSidebarComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
@@ -202,7 +202,7 @@ export class TProLayoutSidebarToolsComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
@@ -237,7 +237,7 @@ export class TProLayoutFooterComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
@@ -302,7 +302,7 @@ export class TProLayoutComponent implements OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
