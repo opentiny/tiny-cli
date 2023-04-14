@@ -1,6 +1,6 @@
 {
   "name": "@opentiny/tiny-toolkit-dev",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.1",
   "description": "tiny-cli 模块开发脚手架",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
