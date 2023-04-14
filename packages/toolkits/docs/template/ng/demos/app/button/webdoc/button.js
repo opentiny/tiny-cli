@@ -231,4 +231,5 @@ export default {
       ],
     },
   ],
-};
+}
+

@@ -15,4 +15,5 @@ export default {
       codeFiles: ['buttongroup-basic.vue'],
     },
   ],
-};
+}
+
