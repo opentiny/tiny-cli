@@ -22,7 +22,7 @@
           <div v-for="(cell, cellIndex) in menu.children" :label="cell" :key="cellIndex" class="my10 text-center overview-card-container">
             <router-link :to="getTo(cell.key)" class="decoration-none">
               <n-card hoverable class="br-4">
-                <img class="h125 w125" :src="$getImageUrl(`${cell.key}.svg`)" />
+                <img class="h125 w125" :src="$pub(`@demos/overviewimage/${cell.key}.svg`)" :onerror="`this.src='${$pub(`@demos/overviewimage/dev.svg`)}'`" />
                 <h2 class="f16 overview-card-label">
                   {{ cell.name }}
                   <span>{{ cell.nameCn }}</span>
@@ -41,9 +41,8 @@
 
 <script lang="js">
 import { defineComponent, reactive, toRefs, onMounted } from 'vue';
-import { $getImageUrl } from '@/tools';
+import { $pub } from '@/tools';
 import { cmpMenus } from '@demos/webdoc/menus.js';
-
 export default defineComponent({
   name: 'Overview',
   setup() {
@@ -93,6 +92,7 @@ export default defineComponent({
 .overview-layout {
   padding-left: 10%;
   padding-right: 10%;
+  min-height: 100%;
 }
 
 .cell-title {

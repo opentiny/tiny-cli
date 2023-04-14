@@ -1,0 +1,11 @@
+<h3>1.描述</h3>
+<p>id和组件id配合,用于自定义按钮id。</p>
+<h3>2.示例</h3>
+<p>(2.1)设置组件id = abc 和item.id</p>
+<ti-button-group id="buttongroup" [items]="items" [(ngModel)]="selected"> </ti-button-group>
+<p>按钮块id依次为：{{idArray1 | json}}</p>
+<br />
+<br />
+<p>(2.2)不设置组件id，只设置item.id</p>
+<ti-button-group multiple="true" [items]="items" [(ngModel)]="selected1"> </ti-button-group>
+<p>按钮块id依次为：{{idArray2 | json}}</p>

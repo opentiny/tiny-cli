@@ -1,3 +1,7 @@
+.markdown-body hr,
+.markdown-body hr + h2 {
+  display: none;
+}
 .theme-dark .markdown-body {
   color-scheme: dark;
   --color-prettylights-syntax-comment: #8b949e;

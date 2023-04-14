@@ -1,0 +1,22 @@
+<h3>1.描述</h3>
+<p>focus、blur、modelChange等事件执行</p>
+<h3>2.示例</h3>
+<p>(2.1)单选：</p>
+<ti-button-group [items]="items" [(ngModel)]="selected" (focus)="focus()" (blur)="blur()" (ngModelChange)="modelChange($event)">
+</ti-button-group>
+<p>选中项：{{selected | json}}</p>
+<br />
+<br />
+<p>(2.2)多选：</p>
+<ti-button-group
+  multiple="true"
+  [items]="items1"
+  [(ngModel)]="selected1"
+  (focus)="focus()"
+  (blur)="blur()"
+  (ngModelChange)="modelChange($event)"
+>
+</ti-button-group>
+<p>选中项：{{selected1 | json}}</p>
+<h4>事件日志：</h4>
+<demo-log [logs]="myLogs"></demo-log>

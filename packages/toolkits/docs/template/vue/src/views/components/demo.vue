@@ -7,15 +7,13 @@
         <div>
           <n-tooltip trigger="hover">
             <template #trigger>
-              <i :class="copyIcon" class="h:c-success w16 h16 cur-hand" @click="copyCode(demo)"
-                @mouseout="resetTip()" />
+              <i :class="copyIcon" class="h:c-success w16 h16 cur-hand" @click="copyCode(demo)" @mouseout="resetTip()" />
             </template>
             {{ copyTip }}
           </n-tooltip>
           <n-tooltip trigger="hover">
             <template #trigger>
-              <i :class="!!demo.isOpen ? 'i-ti-codeslash' : 'i-ti-code'" class="ml8 h:c-success w16 h16 cur-hand"
-                @click="toggleDemoCode(demo)" />
+              <i :class="!!demo.isOpen ? 'i-ti-codeslash' : 'i-ti-code'" class="ml8 h:c-success w16 h16 cur-hand" @click="toggleDemoCode(demo)" />
             </template>
             {{ demo.isOpen ? $t('hideCode') : $t('showCode') }}
           </n-tooltip>
@@ -24,15 +22,15 @@
       <component :is="getDescMd(demo)" class="mb16 f14" />
       <div v-if="demoConfig.isMobile" class="phone-container">
         <div class="mobile-view-container">
-          <component :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]"/>
+          <component :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]" />
         </div>
-      </div> 
-      <component v-else :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]"/>
+      </div>
+      <component v-else :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]" />
     </div>
     <!-- demo 打开后的示例代码  细滚动时，width:fit-content; -->
     <div v-if="demo.isOpen" class="px24 py20 b-t-lightless">
       <n-config-provider :theme-overrides="themeOverrides">
-        <n-tabs v-model:value="tabValue" type="line" size="large" justify-content="space-evenly">
+        <n-tabs v-model:value="tabValue" type="line" size="large" justify-content="space-evenly" @update:value="handleUpdateValue(demo)">
           <n-tab-pane v-for="(file, idx) in demo.files" :key="file.fileName" :name="'tab' + idx" :tab="file.fileName">
             <n-layout :native-scrollbar="true" :content-style="`overflow-x:auto; padding: 20px 5px; background-color:#f5f6f8;`">
               <n-code :code="file.code" :language="file.language" />
@@ -46,42 +44,53 @@
 <script lang="jsx">
 import { defineComponent, reactive, computed, toRefs } from 'vue';
 import { $t, $t2 } from '@/i18n';
-import { $split, appData } from '@/tools';
-import { allMD, allJson, allSource, languageMap, themeOverrides, vueComponents } from './cmpConfig';
+import { $split, appData, fetchDemosFile } from '@/tools';
+import { languageMap, themeOverrides, vueComponents } from './cmpConfig';
 import { router } from '@/router.js';
-import demoConfig  from '@demos/config.js';
+import demoConfig from '@demos/config.js';
 
-const getDemoCodeFn = (demo) => { // 获取code代码文本
+const getDemoCodeFn = demo => {
+  // 获取code代码文本
   if (!demo.files) {
     const cmpId = router.currentRoute.value.params.cmpId;
-    demo.files = demo.codeFiles.map((fileName) => {
-      const code = allSource[`${cmpId}/${fileName}`];
+    demo.files = demo.codeFiles.map(fileName => {
       const ext = $split(fileName, '.', -1);
       const language = languageMap[ext] || '';
-      return { code, fileName, language };
+
+      return { fileName, language, files: [] };
     });
   }
-}
+};
 
 export default defineComponent({
-  name: 'OneDemo_vue',
+  name: 'Demo',
   props: ['demo'],
   setup(props) {
     const state = reactive({
       tabValue: 'tab0',
       cmpId: router.currentRoute.value.params.cmpId,
       langKey: $t2('zh-CN', 'en-US'),
-      currDemoId: computed(() => router.currentRoute.value.hash?.slice(1)),
+      currDemoId: computed(() => {
+        let hash = router.currentRoute.value.hash?.slice(1);
+
+        // 兼容/#hashName这种模式
+        if (hash.indexOf('/') > -1) {
+          hash = hash.slice(1);
+        }
+        return hash;
+      }),
       copyTip: $t('copyCode'),
       copyIcon: 'i-ti-copy',
       themeOverrides: themeOverrides,
     });
     const fn = {
-      getDescMd(demo) { // desc字段可能是md,也可能是html。 返回md组件或者html组件
+      getDescMd(demo) {
+        // desc字段可能是md,也可能是html。 返回md组件或者html组件
         const desc = demo.desc[state.langKey].trim();
         return <div class="demo-desc" v-html={desc}></div>;
       },
-      toggleDemoCode(demo) { // 第一次打开时，要请求一下相应的codeFiles .存储到files属性下
+      toggleDemoCode(demo) {
+        // 第一次打开时，要请求一下相应的codeFiles .存储到files属性下
         if (!demo.files) {
           this.getDemoCode(demo);
           demo.isOpen = true;
@@ -89,13 +98,15 @@ export default defineComponent({
           demo.isOpen = !demo.isOpen;
         }
       },
-      copyCode(demo) {
+      async copyCode(demo) {
         if (demo.isOpen) {
-          const idx = +state.tabValue.slice(3);
+          const idx = parseInt(state.tabValue.slice(3));
+
           navigator.clipboard.writeText(demo.files[idx].code);
         } else {
-          this.getDemoCode(demo);
-          navigator.clipboard.writeText(demo.files[0].code);
+          const code = await this.getDemoCode(demo);
+
+          navigator.clipboard.writeText(code);
         }
         state.copyTip = $t('copyCodeOk');
         state.copyIcon = 'i-ti-check';
@@ -106,9 +117,31 @@ export default defineComponent({
           state.copyIcon = 'i-ti-copy';
         }, 300);
       },
-      getDemoCode(demo) { // 获取code代码文本
-        return getDemoCodeFn(demo);
-      }
+      handleUpdateValue(demo) {
+        const idx = parseInt(state.tabValue.slice(3));
+
+        if (!demo.files[idx].code) {
+          const path = `@demos/app/${state.cmpId}/${demo.files[idx].fileName}`;
+          fetchDemosFile(path)
+            .then(code => {
+              demo.files[idx].code = code;
+            })
+            .catch(error => {});
+        }
+      },
+      getDemoCode(demo) {
+        // 获取code代码文本
+        getDemoCodeFn(demo);
+
+        const path = `@demos/app/${state.cmpId}/${demo.files[0].fileName}`;
+
+        return fetchDemosFile(path)
+          .then(code => {
+            demo.files[0].code = code;
+            return code;
+          })
+          .catch(error => {});
+      },
     };
     return { ...toRefs(state), ...fn, appData, vueComponents, demoConfig };
   },
@@ -141,23 +174,22 @@ export default defineComponent({
 }
 
 .b-a-success {
- animation: border-trans 3s;
+  animation: border-trans 3s;
 }
 @keyframes border-trans {
-	0% {
+  0% {
     border: 1px solid #5073e5;
     background: none;
   }
-	50% {
+  50% {
     background: rgba(255, 95, 85, 0.1);
     border: 1px solid rgba(255, 95, 88, 0.6);
   }
-	100% {
+  100% {
     border: 1px solid #5073e5;
     background: none;
   }
 }
-
 .phone-container {
   margin: auto;
   width: 395px;

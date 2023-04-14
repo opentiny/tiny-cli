@@ -1,0 +1,13 @@
+<h3>1.描述</h3>
+<p>activeClass接口测试（此接口是否多余）</p>
+<h3>2.示例</h3>
+<p>(2.1)单选按钮组测试</p>
+<ti-button-group
+  [items]="items"
+  id="buttongroup"
+  [(ngModel)]="selected"
+  [activeClass]="activeClass"
+  (ngModelChange)="radioChangeFn($event)"
+>
+</ti-button-group>
+<p>选中项：{{selected | json}}</p>

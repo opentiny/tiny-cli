@@ -5,12 +5,7 @@
       <!-- 目录列表 -->
       <div class="catalog w128 sticky top32 ml24">
         <n-anchor :show-rail="true" offset-target="#doc-layout" :ignore-gap="true" :show-background="true">
-          <n-anchor-link
-            v-for="cat in catalog"
-            :key="cat.id"
-            :title="cat.text"
-            :href="`#${cat.id}`"
-          />
+          <n-anchor-link v-for="cat in catalog" :key="cat.id" :title="cat.text" :href="`#${cat.id}`" />
         </n-anchor>
       </div>
     </div>
@@ -18,9 +13,8 @@
   </div>
 </template>
 <script setup>
-import { ref, nextTick, effectScope, watch, onMounted, onUnmounted } from "vue"
-import { $t2 } from "@/tools"
-
+import { ref, nextTick, effectScope, watch, onMounted, onUnmounted } from 'vue';
+import { $t2 } from '@/tools';
 import docMDs from './docConfig.js';
 import { router } from '@/router.js';
 const currPage = ref('');
@@ -31,9 +25,9 @@ function loadPage() {
 
   nextTick(() => {
     if (document.getElementById('doc_wrap')) {
-      catalog.value = Array.from(document.getElementById('doc_wrap').querySelectorAll('h2[id],h3[id]')).map((h3) => ({
+      catalog.value = Array.from(document.getElementById('doc_wrap').querySelectorAll('h2[id],h3[id]')).map(h3 => ({
         id: h3.id,
-        text: h3.dataset.label || decodeURIComponent(h3.id)
+        text: h3.dataset.label || decodeURIComponent(h3.id),
       }));
     }
   });
@@ -75,10 +69,9 @@ onUnmounted(() => scope.stop());
   font-size: 12px;
 }
 
-@media (max-width:1279px) {
+@media (max-width: 1279px) {
   .catalog {
     display: none;
   }
 }
-
 </style>

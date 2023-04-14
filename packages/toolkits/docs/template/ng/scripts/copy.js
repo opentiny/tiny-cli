@@ -4,7 +4,7 @@ const chalk = require('chalk');
 
 // tiny3 和 ui-ng 的 npm 包中静态资源文件有差异，先进行清除
 const baseDir = process.cwd();
-const toRemovefiles = [path.resolve(baseDir, './public/assets'), path.resolve(baseDir, './tinyng/overviewimage')];
+const toRemovefiles = [path.resolve(baseDir, './public/@demos')];
 
 toRemovefiles.forEach(file => {
   if (fs.pathExistsSync(file)) {
@@ -14,12 +14,9 @@ toRemovefiles.forEach(file => {
 
 const copyfiles = [
   {
-    source: 'node_modules/@huawei/tinydoc-ng-images/images/overviewimage',
-    target: './tinyng/overviewimage',
-  },
-  {
-    source: 'node_modules/@huawei/tinydoc-ng-tiny/scripts/assets',
-    target: `./public/assets`,
+    // 组件示例源码、组件描述markdown和组件示例配置
+    source: 'demos',
+    target: './public/@demos',
   },
 ];
 
