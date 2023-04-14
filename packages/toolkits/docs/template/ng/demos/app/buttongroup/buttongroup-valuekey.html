@@ -1,0 +1,9 @@
+<ti-button-group [items]="items" [(ngModel)]="selected" valueKey="english"></ti-button-group>
+<div class="current-value-container">
+  <pre>Current value: {{ selected | json }}</pre>
+</div>
+<br />
+<ti-button-group multiple="true" [items]="items1" [(ngModel)]="selected1" valueKey="english"></ti-button-group>
+<div class="current-value-container">
+  <pre>Current value: {{ selected1 | json }}</pre>
+</div>

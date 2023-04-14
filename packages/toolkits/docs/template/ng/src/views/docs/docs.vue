@@ -15,7 +15,6 @@
 <script setup>
 import { ref, nextTick, effectScope, watch, onMounted, onUnmounted } from 'vue';
 import { $t2 } from '@/tools';
-
 import docMDs from './docConfig.js';
 import { router } from '@/router.js';
 const currPage = ref('');

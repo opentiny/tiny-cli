@@ -1,3 +1,5 @@
+const baseUrl = import.meta.env.BASE_URL;
+
 /**
  * json clone， 会丢失函数等。
  * @param obj 普通对象或reactive对象
@@ -25,13 +27,28 @@ const $delay = time => new Promise(resolve => setTimeout(resolve, time));
  */
 const $idle = () => new Promise(resolve => (window.requestIdleCallback || window.requestAnimationFrame)(resolve));
 
-/**
- * 返回动态路径拼接
- * @param {string} fileName
- * @returns
- */
-const $getImageUrl = fileName => {
-  return new URL(`/${import.meta.env.VITE_DEMOS}/overviewimage/imglist/${fileName}`, import.meta.url).href;
+const $pub = url => {
+  return baseUrl + url;
 };
 
-export { $clone, $split, $delay, $idle, $getImageUrl };
+/**
+ * fetch组件库示例静态文件，包括markdown、示例源码和示例配置
+ * @param {string} path
+ * @returns
+ */
+const fetchDemosFile = path => {
+  return fetch(baseUrl + path, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'text/plain;charset=UTF-8',
+    },
+  }).then(res => {
+    if (res.ok) {
+      return res.text();
+    } else {
+      throw new Error(res.statusText);
+    }
+  });
+};
+
+export { $clone, $split, $delay, $idle, $pub, fetchDemosFile };

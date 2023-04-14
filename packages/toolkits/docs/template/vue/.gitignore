@@ -21,3 +21,4 @@ pnpm-lock.yaml
 *.sln
 *.sw?
 /package-lock.json
+/public/@demos

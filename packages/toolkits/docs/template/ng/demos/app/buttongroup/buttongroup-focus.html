@@ -1,0 +1,23 @@
+<h3>1.描述</h3>
+<p>通过方法或tab键获取焦点</p>
+<h3>2.示例</h3>
+<p>(2.1)单选：</p>
+<ti-button-group #buttongroup [items]="items" [(ngModel)]="selected" tabindex="2" (focus)="focus()" (blur)="blur()"> </ti-button-group>
+<p>选中项：{{selected | json}}</p>
+<br />
+<button id="comp_focus" (click)="buttongroup.focus()">组件focus()</button>
+&nbsp;
+<button id="comp_blur" (click)="buttongroup.blur()">组件blur()</button>
+&nbsp;
+<button id="element_focus" (click)="buttongroup.nativeElement.focus()">标签元素focus()</button>
+&nbsp;
+<button id="element_blur" (click)="buttongroup.nativeElement.blur()">标签元素blur()</button>
+<br /><br />
+<br />
+<br />
+<p>(2.2)多选：</p>
+<ti-button-group multiple="true" tabindex="1" [items]="items1" [(ngModel)]="selected1" (focus)="focus1()" (blur)="blur1()">
+</ti-button-group>
+<p>选中项：{{selected1 | json}}</p>
+<h4>事件日志：</h4>
+<demo-log [logs]="myLogs"></demo-log>

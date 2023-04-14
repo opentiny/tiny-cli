@@ -1,6 +1,6 @@
 {
   "name": "@opentiny/tiny-toolkit-docs",
-  "version": "1.0.10",
+  "version": "1.0.9",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -15,18 +15,18 @@
     "tiny-toolkit"
   ],
   "author": {
-    "name": "huanghaihua4@huawei.com",
-    "email": "huanghaihua4@huawei.com"
+    "name": "h-ivy",
+    "email": "opentiny@sina.com"
   },
   "maintainers": [
     {
-      "name": "huanghaihua4@huawei.com",
-      "email": "huanghaihua4@huawei.com"
+      "name": "h-ivy",
+      "email": "opentiny@sina.com"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git@git.huawei.com:2222/tiny/@/tiny-toolkit-docs.git"
+    "url": "git@github.com:opentiny/tiny-cli.git"
   },
   "scripts": {
     "describe": "npm-scripts-info",
@@ -72,7 +72,11 @@
     "cross-spawn": "^6.0.5",
     "fs-extra": "^8.1.0",
     "inquirer": "^6.5.2",
-    "open": "^6.4.0"
+    "open": "^6.4.0",
+    "escodegen": "^1.11.1",
+    "esprima": "^4.0.1",
+    "esquery": "^1.0.1",
+    "tosource": "^1.0.0"
   },
   "devDependencies": {
     "@bitjson/npm-scripts-info": "^1.0.0",

@@ -1,0 +1,18 @@
+<h3>1.描述</h3>
+<p>测试items初始为空数组场景</p>
+<h3>2.示例</h3>
+<span>单选和多选初始化没有选项数据，点击添加数据：</span><button (click)="setItems()">add items</button><br />
+<span>清空items为空数组：</span><button (click)="items = []">clear items</button><br />
+
+<h4>2.1 单选</h4>
+<ti-button-group [items]="items" id="buttongroup" [(ngModel)]="selected" (ngModelChange)="ngmodelChange($event)"> </ti-button-group>
+<p>ngModel:{{selected | json}}</p>
+<button (click)="clearModel()">清空选中值</button>&nbsp; <button (click)="setModel()">设置选中值</button>&nbsp;
+
+<h4>2.2 多选</h4>
+<ti-button-group [multiple]="true" [items]="items" [(ngModel)]="selected1" (ngModelChange)="ngmodelChange($event)"> </ti-button-group>
+<p>ngModel:{{selected1 | json}}</p>
+<button (click)="clearModel1()">清空选中值</button>&nbsp; <button (click)="setModel1()">设置选中值</button>&nbsp;
+
+<h4>事件日志：</h4>
+<demo-log [logs]="myLogs"></demo-log>

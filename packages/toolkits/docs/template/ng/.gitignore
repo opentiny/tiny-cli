@@ -21,4 +21,4 @@ pnpm-lock.yaml
 *.sln
 *.sw?
 /package-lock.json
-/tinyng
+/public/@demos

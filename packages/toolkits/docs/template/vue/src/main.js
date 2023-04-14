@@ -14,7 +14,7 @@ import { i18n } from './i18n/index';
 import { router } from './router';
 import App from './App.vue';
 import { $t, $t2 } from './i18n';
-import { $getImageUrl } from './tools';
+import { $pub } from './tools';
 import demoConfig from '@demos/config.js';
 
 let app = createApp(App);
@@ -23,10 +23,10 @@ app
   .use(router)
   .use(i18n)
   .use(createHead()) // 支持md修改title
-  .mixin({ methods: { $t, $t2, $getImageUrl } })
+  .mixin({ methods: { $t, $t2, $pub } });
 
 if (typeof demoConfig.initApp === 'function') {
-   demoConfig.initApp(app);
+  demoConfig.initApp(app);
 }
 
 app.mount('#app');

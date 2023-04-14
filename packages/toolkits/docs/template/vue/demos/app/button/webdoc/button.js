@@ -1,6 +1,5 @@
 export default {
   column: '2',
-  owner: '郑志超 30020544',
   demos: [
     {
       demoId: 'button-type',

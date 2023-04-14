@@ -6,8 +6,6 @@
   "doc": "Docs",
   "component": "Components",
   "common": "Common",
-  "apiPreference": "Framework",
-  "apiTiny": "Vue",
   "yan-shi": "Demo",
   "name": "Name",
   "propType": "Type",
@@ -18,6 +16,5 @@
   "hideCode": "Hide Code",
   "copyCode": "Copy Code",
   "doc-owner": "Owner",
-  "copyCodeOk": "Copy Success",
-  "frameAngular": "Angular"
+  "copyCodeOk": "Copy Success"
 }

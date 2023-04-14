@@ -1,0 +1,31 @@
+<h3>描述</h3>
+<p>hasBorder接口：默认值为true，配置为false，兼容undefined显示为有边框按钮（接口值为：true）</p>
+<h3>示例</h3>
+<h4>1.不带边框的文本按钮</h4>
+<button tiButton id="mybutton1" [hasBorder]="false">Button</button>
+
+<h4>2.不同颜色</h4>
+<button tiButton id="mybutton2" [hasBorder]="hasborder">Button</button>
+<button color="danger" tiButton id="mybutton3" [hasBorder]="hasborder">danger</button>
+<h4>3.不同大小</h4>
+<button size="large" tiButton id="mybutton4" [hasBorder]="hasborder">large</button>
+<button tiButton id="mybutton5" [hasBorder]="hasborder">middle</button>
+<button size="small" tiButton id="mybutton6" [hasBorder]="hasborder">small</button>
+<button size="xs" tiButton id="mybutton7" [hasBorder]="hasborder">xs</button>
+
+<h4>4. 带图标+正常状态</h4>
+<button [onlyIcon]="true" tiButton id="mybutton8" [hasBorder]="hasborder">
+  <ti-icon name="search"></ti-icon>
+</button>
+<button icon="true" tiButton id="mybutton9" [hasBorder]="hasborder">
+  <ti-icon name="search"></ti-icon>
+  Default Button
+</button>
+<h4>5.加载状态</h4>
+<button tiButton color="primary" [loading]="true" [hasBorder]="hasborder">button</button>
+
+<style>
+  button {
+    margin-right: 20px;
+  }
+</style>

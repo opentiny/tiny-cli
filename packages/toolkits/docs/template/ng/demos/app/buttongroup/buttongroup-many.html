@@ -1,0 +1,16 @@
+<h3>1.描述</h3>
+<p>单选块：type接口，支持三种类型'large','small','noBorder'</p>
+<h3>2.示例</h3>
+<p>(2.1)大尺寸（默认）：文本距左右边框padding为30px，高28px</p>
+<ti-button-group [items]="items" [(ngModel)]="selected"> </ti-button-group>
+<p>选中项：{{selected | json}}</p>
+<br />
+<br />
+<p>(2.2)小尺寸：文本距左右边框padding为20px，高20px</p>
+<ti-button-group [items]="items1" type="small" [(ngModel)]="selected1"> </ti-button-group>
+<p>选中项：{{selected1 | json}}</p>
+<br />
+<br />
+<p>(2.3)无边框：文本距左右边框padding为20px，高28px</p>
+<ti-button-group [items]="items2" type="noBorder" [(ngModel)]="selected2"> </ti-button-group>
+<p>选中项：{{selected2 | json}}</p>
