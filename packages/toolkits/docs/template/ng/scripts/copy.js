@@ -2,7 +2,6 @@ const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 
-// tiny3 和 ui-ng 的 npm 包中静态资源文件有差异，先进行清除
 const baseDir = process.cwd();
 const toRemovefiles = [path.resolve(baseDir, './public/@demos')];
 
