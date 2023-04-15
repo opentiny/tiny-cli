@@ -1,6 +1,6 @@
 {
   "name": "@opentiny/cli-devkit",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "tsc -p tsconfig.compiler.json",
     "build:dist": "node ./scripts/build.js",
@@ -40,7 +40,6 @@
     "shelljs": "^0.8.5",
     "sinon": "^7.3.2",
     "tosource": "^1.0.0",
-    "typescript": "^3.5.3",
     "winston": "^3.6.0",
     "write-file-atomic": "^3.0.0",
     "yargs": "^13.3.0"
@@ -49,7 +48,7 @@
     "@opentiny/cli-typescript": "^1.0.0-alpha.0",
     "@vercel/ncc": "^0.27.0",
     "ava": "^3.15.0",
-    "typescript": "^3.5.3"
+    "typescript": "^4.7.4"
   },
   "gitHead": "7df28442b47d4dc15cc2285eff3a211c366ec627"
 }

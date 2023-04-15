@@ -1,6 +1,6 @@
 {
   "name": "@opentiny/cli-commands",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.compiler.json --watch",
