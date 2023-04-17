@@ -7,7 +7,6 @@ import { TProBaseScreenMediaQueryService } from './screen-media-query.service';
 @Directive({
   selector: `[tProBaseSpace]`,
 })
-
 export class TProBaseSpaceDirective implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   private executedSpace: [number, number] = [0, 0];
@@ -15,14 +14,11 @@ export class TProBaseSpaceDirective implements OnInit, OnDestroy {
   @Input() tProBaseSpace: TProBaseResponseParameter<number | [number, number]>;
   @Input() tProBaseSpaceDirection: TProBaseResponseParameter<'vertical' | 'horizontal'>;
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private screenQueryService: TProBaseScreenMediaQueryService
-  ) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private screenQueryService: TProBaseScreenMediaQueryService) {}
 
   ngOnInit(): void {
-    this.screenQueryService.getPoint()
+    this.screenQueryService
+      .getPoint()
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ currentPoint }) => {
         this.updateSpace(currentPoint);
@@ -81,7 +77,7 @@ export class TProBaseSpaceDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }

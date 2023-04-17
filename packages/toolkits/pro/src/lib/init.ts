@@ -2,19 +2,63 @@ import * as path from 'path';
 import utils from './utils';
 import chalk from 'chalk';
 import spawn from 'cross-spawn';
-import inquirer from 'inquirer';
+import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
+import * as fsNode from 'fs';
+import { InitAnswers } from './interfaces';
 
 const log = logs('tiny-toolkit-pro');
 const cwd = process.cwd();
 const vueTemplatePath = 'tinyvue';
 const ngTemplatePath = 'tinyng';
 
-export default async () => {
+/**
+ * 询问创建项目的描述，使用的技术栈
+ *
+ * @returns pbject { description: 项目描述,framework: 框架, name: 项目名称 }
+ */
+const getInitAnswers = (): Promise<InitAnswers> => {
+  const basename = path.basename(utils.getDistPath());
+
+  const question: QuestionCollection<InitAnswers> = [
+    {
+      type: 'input',
+      name: 'name',
+      message: '请输入项目名称：',
+      default: basename,
+      // 必填校验
+      validate: (input: string) => Boolean(input),
+    },
+    {
+      type: 'input',
+      name: 'description',
+      message: '请输入项目描述：',
+      default: 'Based on @opentiny/tiny-toolkit-pro',
+    },
+    {
+      type: 'list',
+      name: 'framework',
+      message: '请选择你希望使用的技术栈：',
+      choices: [
+        { name: 'vue', value: vueTemplatePath },
+        { name: 'angular', value: ngTemplatePath },
+      ],
+      default: vueTemplatePath,
+    },
+  ] as const;
+
+  return inquirer.prompt(question);
+};
+
+/**
+ * 同步创建项目文件目录、文件
+ * @answers 询问问题的选择值
+ */
+const createProjectSync = (answers: InitAnswers) => {
   const prefix = cliConfig.getBinName();
 
   // 当前项目名称集合
-  const dirName = cwd.split(path.sep).pop();
+  const dirName = cwd.split(path.sep).pop() as string;
   const names = utils.generateNames(dirName);
   const fullName = modules.utils.toolkitFullName(dirName);
 
@@ -26,30 +70,21 @@ export default async () => {
     // tslint:disable-next-line
     prefix,
     pluginShortName: dirName,
-    pluginFullname: fullName
+    pluginFullname: fullName,
   };
 
-  // 询问技术栈选择
-  const question: Array<any> = [
-    {
-      type: 'list',
-      name: 'type',
-      message: '请选择你希望使用的技术栈',
-      choices: [
-        { name: 'vue', value: vueTemplatePath },
-        { name: 'angular', value: ngTemplatePath }
-      ],
-      default: vueTemplatePath
-    }
-  ];
-
-  const answer = await inquirer.prompt(question);
+  const { framework, description, name: packageJsonName } = answers;
 
   const TemplatePath =
-    answer.type === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
+    framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
 
+  // 模板来源目录
   const from = utils.getTemplatePath(TemplatePath);
+
+  // 复制模板的目标目录
   const to = utils.getDistPath();
+
+  // 项目名称，跟当前目录保持一致
 
   fs.copyTpl(from, to, data, {
     // 改一下名称，兼容其他cli工具的情况
@@ -60,18 +95,36 @@ export default async () => {
       }
 
       return filename;
-    }
+    },
   });
+
+  // 将项目名称、描述写入 package.json中
+  {
+    const packageJsonPath = path.join(to, 'package.json');
+    const writeOrReadOptions = { encoding: 'utf8' } as const;
+
+    const packageJson = JSON.parse(
+      fsNode.readFileSync(packageJsonPath, writeOrReadOptions)
+    );
+    packageJson.name = packageJsonName;
+    packageJson.description = description;
+
+    fsNode.writeFileSync(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2),
+      writeOrReadOptions
+    );
+  }
+};
+
+// 安装依赖
+export const installDependencies = () => {
+  const prefix = cliConfig.getBinName();
 
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
-  try {
-    spawn.sync('npm', ['install'], { stdio: 'inherit' });
-  } catch (e) {
-    log.error('npm 依赖安装失败');
-    log.error('请手动执行 tiny i 或 npm i');
-    log.debug(e);
-  }
+  spawn.sync('npm', ['install'], { stdio: 'inherit' });
+
   log.success('npm 依赖安装成功');
 
   /* prettier-ignore-start */
@@ -102,5 +155,26 @@ export default async () => {
       '\n-------------------- 技术支持：官方小助手微信opentiny-official --------------------\n'
     )
   );
-  /* prettier-ignore-end */
+};
+
+export default async () => {
+  // 拷贝模板到当前目录
+  try {
+    // 创建项目文件夹及文件
+    const answers = await getInitAnswers();
+    createProjectSync(answers);
+  } catch (e) {
+    log.error('项目模板创建失败');
+    log.debug(e);
+    throw e;
+  }
+  // 安装依赖
+  try {
+    installDependencies();
+  } catch (e) {
+    log.error('npm 依赖安装失败');
+    log.error('请手动执行 tiny i 或 npm i');
+    log.debug(e);
+    throw e;
+  }
 };

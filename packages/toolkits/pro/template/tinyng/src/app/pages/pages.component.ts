@@ -23,7 +23,7 @@ export class PagesComponent implements OnInit {
     private personalizeService: PersonalizeService,
     private layoutService: TProLayoutService,
     private translate: TranslateService,
-    private mediaQueryService: TProBaseScreenMediaQueryService,
+    private mediaQueryService: TProBaseScreenMediaQueryService
   ) {
     this.personalizeService.initTheme();
     this.layoutService
@@ -97,7 +97,7 @@ export class PagesComponent implements OnInit {
   }
 
   destroy() {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }

@@ -7,7 +7,6 @@ import { TProBaseScreenMediaQueryService } from './screen-media-query.service';
 @Directive({
   selector: `[tProBaseGutter]`,
 })
-
 export class TProBaseGutterDirective implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   private executedGutter: [number, number] = [0, 0];
@@ -16,14 +15,11 @@ export class TProBaseGutterDirective implements OnInit, OnDestroy {
   @Input() tProBaseGutterDirection: 'vertical' | 'horizontal';
   @Input() tProBaseGutterNoOuter: TProBaseResponseParameter<boolean>;
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private screenQueryService: TProBaseScreenMediaQueryService
-  ) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private screenQueryService: TProBaseScreenMediaQueryService) {}
 
   ngOnInit(): void {
-    this.screenQueryService.getPoint()
+    this.screenQueryService
+      .getPoint()
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ currentPoint }) => {
         this.updateGutter(currentPoint);
@@ -111,7 +107,7 @@ export class TProBaseGutterDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
