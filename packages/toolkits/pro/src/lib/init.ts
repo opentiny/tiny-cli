@@ -1,11 +1,10 @@
 import * as path from 'path';
-import utils from './utils';
 import chalk from 'chalk';
 import spawn from 'cross-spawn';
 import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
-import * as fsNode from 'fs';
 import { InitAnswers } from './interfaces';
+import utils from './utils';
 
 const log = logs('tiny-toolkit-pro');
 const cwd = process.cwd();
@@ -19,7 +18,6 @@ const ngTemplatePath = 'tinyng';
  */
 const getInitAnswers = (): Promise<InitAnswers> => {
   const basename = path.basename(utils.getDistPath());
-
   const question: QuestionCollection<InitAnswers> = [
     {
       type: 'input',
@@ -33,12 +31,12 @@ const getInitAnswers = (): Promise<InitAnswers> => {
       type: 'input',
       name: 'description',
       message: '请输入项目描述：',
-      default: 'Based on @opentiny/tiny-toolkit-pro',
+      default: '基于TinyPro套件创建的中后台系统',
     },
     {
       type: 'list',
       name: 'framework',
-      message: '请选择你希望使用的技术栈：',
+      message: '请选择您希望使用的技术栈：',
       choices: [
         { name: 'vue', value: vueTemplatePath },
         { name: 'angular', value: ngTemplatePath },
@@ -104,12 +102,12 @@ const createProjectSync = (answers: InitAnswers) => {
     const writeOrReadOptions = { encoding: 'utf8' } as const;
 
     const packageJson = JSON.parse(
-      fsNode.readFileSync(packageJsonPath, writeOrReadOptions)
+      fs.readFileSync(packageJsonPath, writeOrReadOptions)
     );
     packageJson.name = packageJsonName;
     packageJson.description = description;
 
-    fsNode.writeFileSync(
+    fs.writeFileSync(
       packageJsonPath,
       JSON.stringify(packageJson, null, 2),
       writeOrReadOptions

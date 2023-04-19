@@ -5,7 +5,7 @@
     "@opentiny/tiny-toolkit-dev": "开发tiny-cli套件和插件",
     "@opentiny/tiny-plugin-link": "快速调试本地node_modules中的依赖包",
     "@opentiny/tiny-plugin-hwc": "快速管理和访问华为云服务资源",
-    "@opentiny/tiny-toolkit-pro": "基于TinyUI的开箱即用前端解决方案",
+    "@opentiny/tiny-toolkit-pro": "开箱即用的中后台前端/设计解决方案",
     "@opentiny/tiny-toolkit-docs": "组件库官网套件"
   }
 }

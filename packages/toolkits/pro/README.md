@@ -2,7 +2,7 @@
 
 ## 说明
 
-tiny-toolkit-pro 套件，开箱即用的中后台前端解决方案
+tiny-toolkit-pro 套件，开箱即用的中后台前端/设计解决方案
 
 ## 用法
 
@@ -16,8 +16,8 @@ tiny init pro
 
 ```
  ? 请输入项目名称： 
- ? 请输入项目描述： (Based on @opentiny/tiny-toolkit-pro)
- ? 请选择你希望使用的技术栈： (Use arrow keys)
+ ? 请输入项目描述： (基于TinyPro套件创建的中后台系统)
+ ? 请选择您希望使用的技术栈： (Use arrow keys)
  > vue
    angular
 ```
