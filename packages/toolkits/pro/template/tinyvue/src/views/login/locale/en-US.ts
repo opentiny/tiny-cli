@@ -45,5 +45,5 @@ export default {
   'login.tip.info': 'User name: admin; password: admin',
   'login.tip.mail': 'User name: admin@example.com1; password: admin',
   'login.tip.right': 'Enter the correct user name and password',
-  'login.main.text': 'TinyUI Pro Mid-Back-End Front-End Solution',
+  'login.main.text': 'TinyPro Mid-Back-End Front-End Solution',
 };
