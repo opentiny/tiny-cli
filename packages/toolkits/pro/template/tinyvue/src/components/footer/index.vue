@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <a href="/pro/home" class="foot-link">TinyUI Pro</a>
+    <a href="/pro/home" class="foot-link">TinyPro</a>
     <div class="divider"></div>
     <a href="/">{{ $t('setting.foot.title') }}</a>
     <!-- 还未开源 先注释掉 -->

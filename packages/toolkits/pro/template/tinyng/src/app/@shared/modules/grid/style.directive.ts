@@ -7,21 +7,17 @@ import { TProBaseScreenMediaQueryService } from './screen-media-query.service';
 @Directive({
   selector: `[tProBaseStyle]`,
 })
-
 export class TProBaseStyleDirective implements OnInit, OnDestroy {
   @Input() tProBaseStyle: TProBaseResponseParameter<Object>;
 
   private destroy$ = new Subject();
   private styleObject = {};
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private screenQueryService: TProBaseScreenMediaQueryService
-  ) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private screenQueryService: TProBaseScreenMediaQueryService) {}
 
   ngOnInit(): void {
-    this.screenQueryService.getPoint()
+    this.screenQueryService
+      .getPoint()
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ currentPoint }) => {
         this.updateStyle(currentPoint);
@@ -48,11 +44,11 @@ export class TProBaseStyleDirective implements OnInit, OnDestroy {
       }
     }
 
-    Object.keys(this.styleObject).forEach(key => {
+    Object.keys(this.styleObject).forEach((key) => {
       this.renderer.removeStyle(this.elementRef.nativeElement, key);
     });
 
-    Object.keys(finalStyleObject).forEach(key => {
+    Object.keys(finalStyleObject).forEach((key) => {
       this.renderer.setStyle(this.elementRef.nativeElement, key, (finalStyleObject as any)[key]);
     });
 
@@ -60,7 +56,7 @@ export class TProBaseStyleDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }

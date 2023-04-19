@@ -7,21 +7,17 @@ import { TProBaseScreenMediaQueryService } from './screen-media-query.service';
 @Directive({
   selector: `[tProBaseClass]`,
 })
-
 export class TProBaseClassDirective implements OnInit, OnDestroy {
   @Input() tProBaseClass: TProBaseResponseParameter<string[]>;
 
   private destroy$ = new Subject();
   private executedClassList: string[] = [];
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private screenQueryService: TProBaseScreenMediaQueryService
-  ) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private screenQueryService: TProBaseScreenMediaQueryService) {}
 
   ngOnInit(): void {
-    this.screenQueryService.getPoint()
+    this.screenQueryService
+      .getPoint()
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ currentPoint }) => {
         this.updateClass(currentPoint);
@@ -34,7 +30,7 @@ export class TProBaseClassDirective implements OnInit, OnDestroy {
     if (!Array.isArray(this.tProBaseClass)) {
       for (const point of TProBaseBreakpoints) {
         if (this.tProBaseClass[point]) {
-          finalClassList = [...finalClassList, ...this.tProBaseClass[point] || []];
+          finalClassList = [...finalClassList, ...(this.tProBaseClass[point] || [])];
         }
         if (currentPoint === point) {
           break;
@@ -44,7 +40,7 @@ export class TProBaseClassDirective implements OnInit, OnDestroy {
       finalClassList = [...this.tProBaseClass];
     }
 
-    this.executedClassList.forEach(className => {
+    this.executedClassList.forEach((className) => {
       this.renderer.removeClass(this.elementRef.nativeElement, className);
     });
 
@@ -56,7 +52,7 @@ export class TProBaseClassDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }

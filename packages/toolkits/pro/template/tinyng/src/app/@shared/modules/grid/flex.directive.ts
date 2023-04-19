@@ -8,7 +8,6 @@ import { TProBaseScreenMediaQueryService } from './screen-media-query.service';
 @Directive({
   selector: `[tProBaseFlex], t-pro-base-row, t-pro-base-col`,
 })
-
 export class TProBaseFlexDirective implements OnInit, OnChanges, OnDestroy {
   @HostBinding('class.flex-row') get flexRow() {
     return this.tProBaseFlexContainer === 'row';
@@ -32,11 +31,7 @@ export class TProBaseFlexDirective implements OnInit, OnChanges, OnDestroy {
 
   private destroy$ = new Subject();
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private screenQueryService: TProBaseScreenMediaQueryService
-  ) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private screenQueryService: TProBaseScreenMediaQueryService) {}
 
   parseFlex(flex: any): string {
     if (typeof flex === 'number') {
@@ -69,7 +64,8 @@ export class TProBaseFlexDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.screenQueryService.getPoint()
+    this.screenQueryService
+      .getPoint()
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ currentPoint }) => {
         this.updateFlex(currentPoint);
@@ -82,7 +78,7 @@ export class TProBaseFlexDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }
