@@ -35,11 +35,14 @@ async function initLink(options: any) {
     if (!fs.existsSync(path.join(homePath, './LocalCDNPath'))) {
       fs.mkdirSync(`${homePath}` + '/LocalCDNPath');
     }
-    let scope = ''
+    let scope = '';
     if (pkgName.startsWith('@') && pkgName.split('/').length > 1) {
-      scope = pkgName.split('/')[0]
+      scope = pkgName.split('/')[0];
     }
-    if (scope && !fs.existsSync(path.join(homePath, `./LocalCDNPath/${scope}`))) {
+    if (
+      scope &&
+      !fs.existsSync(path.join(homePath, `./LocalCDNPath/${scope}`))
+    ) {
       fs.mkdirSync(`${homePath}` + `/LocalCDNPath/${scope}`);
     }
 

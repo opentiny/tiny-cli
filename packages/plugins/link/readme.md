@@ -10,15 +10,15 @@
 
 1. 第一步：首先将 lazyload 软链到 .tiny/LocalCDNPath 目录去。
    `执行tiny link 或者 tiny link init`
-   ![init](./doc/init.png)  
+   ![init](https://github.com/opentiny/tiny-cli/blob/dev/packages/plugins/link/doc/init.png)  
    此时在个人的用户目录下会存在一份目标组件的软链接:  
-   ![initlink](./doc/initlink.png)
+   ![initlink](https://github.com/opentiny/tiny-cli/blob/dev/packages/plugins/link/doc/initlink.png)
 
 2. 第二步：在.tiny/LocalCDNPath 目录查找 @opentiny/xxxx 组件，找到的话，将页面依赖的@opentiny/xxxx 删除，将.tiny/LocalCDNPath 下的组件软链到页面项目中去。  
    `执行tiny link -m @opentiny/xxx 本例中xxx表示lazyload`  
-   ![insert](./doc/insert.png)  
+   ![insert](https://github.com/opentiny/tiny-cli/blob/dev/packages/plugins/link/doc/insert.png)  
    此时，在测试工程中，就会将目标组件软链接过来，如：  
-   ![insertlink](./doc/insertlink.png)
+   ![insertlink](https://github.com/opentiny/tiny-cli/blob/dev/packages/plugins/link/doc/insertlink.png)
 
 ## 使用场景
 
