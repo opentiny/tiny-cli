@@ -1,7 +1,7 @@
 {
   "name": "@opentiny/tiny-toolkit-pro",
   "version": "1.0.0",
-  "description": "",
+  "description": "TinyPro 开箱即用的中后台前端/设计解决方案",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
@@ -58,7 +58,8 @@
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.1.0",
-    "open": "^8.4.0"
+    "open": "^8.4.0",
+    "inquirer": "^8.0.2"
   },
   "devDependencies": {
     "@bitjson/npm-scripts-info": "^1.0.0",
