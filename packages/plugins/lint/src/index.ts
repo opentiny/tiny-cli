@@ -57,12 +57,12 @@ async function run() {
  * 注入hooks
  */
 function hooks() {
-  if (fs.existsSync(path.join(cwd, '.git'))){
+  if (fs.existsSync(path.join(cwd, '.git'))) {
     // 写入pre-commit
     utils.addPreCommitHook(cwd);
     log.success(`pre-commit git钩子已注入 ${path.join(cwd, '.git/hooks')}`);
-  }else{
-    log.warn('当前项目下未找到.git文件夹，注入hooks失败')
+  } else {
+    log.warn('当前项目下未找到.git文件夹，注入hooks失败');
   }
 }
 
@@ -81,11 +81,19 @@ async function checkInitEnv() {
   }
 }
 
-function report(){
+function report() {
   log.success('正在生成eslint检测报告，请稍后...');
   spawn.sync(
     './node_modules/eslint/bin/eslint.js',
-    ['.', '--ext', '.js,.jsx,.ts,.tsx', '-f', 'html', '-o', 'eslint-report.html'],
+    [
+      '.',
+      '--ext',
+      '.js,.jsx,.ts,.tsx',
+      '-f',
+      'html',
+      '-o',
+      'eslint-report.html'
+    ],
     { stdio: 'inherit' }
   );
   log.success(`已生成eslint检测报告: ${path.join(cwd, 'eslint-report.html')}`);
