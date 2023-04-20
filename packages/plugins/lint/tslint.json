@@ -1,0 +1,37 @@
+{
+  "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
+  "rules": {
+    "strict-boolean-expressions": false,
+    "array-type": [true, "generic"],
+    "prefer-array-literal": false,
+    "arrow-return-shorthand": true,
+    "ban-types": [
+      true,
+      ["{}", "Use custom type instead."],
+      ["Object", "Use custom type instead."],
+      ["String", "Use 'string' instead."],
+      ["Number", "Use 'number' instead."],
+      ["Boolean", "Use 'boolean' instead."]
+    ],
+    "class-name": true,
+    "no-any": false,
+    "no-string-throw": true,
+    "no-unused-expression": true,
+    "no-unused-variable": false,
+    "prefer-const": true,
+    "radix": true,
+    "import-name": false,
+    "variable-name": [
+      true,
+      "check-format",
+      "ban-keywords",
+      "allow-leading-underscore",
+      "allow-trailing-underscore"
+    ]
+  },
+  "linterOptions": {
+    "exclude": [
+      "template"
+    ]
+  }
+}

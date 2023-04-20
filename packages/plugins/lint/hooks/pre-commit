@@ -1,0 +1,102 @@
+#!/usr/bin/env node
+const path = require('path');
+const fs = require('fs');
+const spawn = require('cross-spawn');
+const os = require('os');
+
+const YELLOW = '\033[1;33m';
+const END = '\033[0m';
+const cwd = process.cwd();
+
+function getBin() {
+  const bin = 'tiny';
+  return bin;
+}
+
+const bin = getBin();
+
+function runEslint() {
+  if (fs.existsSync(path.join(cwd, '.eslintrc.js'))) {
+    // git diff --name-only git status --porcelain -b
+    const result = spawn.sync('git', ['diff', '--cached', '--name-status']);
+    const resultFile = [];
+    const diffFile = result.stdout
+      .toString()
+      .trim()
+      .split('\n');
+    diffFile.forEach(item => {
+      // R是重命名，也过滤掉
+      if (
+        item[0] !== 'D' &&
+        item[0] !== 'R' &&
+        ['.js', '.jsx', '.ts', '.tsx'].indexOf(path.extname(item)) !== -1
+      ) {
+        resultFile.push(item.substr(2).trim());
+      }
+    });
+    if (resultFile.length) {
+      console.log(`${YELLOW} Running eslint, please wait...${END}`);
+      const eslintResult = spawn.sync(
+        './node_modules/eslint/bin/eslint.js',
+        ['--fix', '--quiet', '--ext', '.js,.jsx,.ts,.tsx'].concat(resultFile),
+        { stdio: 'inherit', cwd }
+      );
+
+      if (eslintResult.status !== 0) {
+        // has error
+        console.log(
+          `Tips: run ${YELLOW}tiny lint fix ${END}to excute eslint task`
+        );
+        process.exit(1);
+      } else {
+        spawn.sync('git', ['add'].concat(resultFile), { stdio: 'inherit' });
+      }
+    }
+  } else {
+    console.log(
+      `${YELLOW}当前项目没有eslint环境，开始进行环境初始化... ${END}`
+    );
+    spawn.sync(bin, ['lint', 'init', '--js'], { stdio: 'inherit' });
+    // 新文件默认加进去
+    spawn.sync('git', ['add', '.']);
+  }
+}
+
+function runPrettier() {
+  if (fs.existsSync(path.join(cwd, '.prettierrc.js'))) {
+    // git diff --name-only
+    const result = spawn.sync('git', ['diff', '--cached', '--name-status']);
+    const diffFile = result.stdout
+      .toString()
+      .trim()
+      .split('\n');
+    const resultFile = [];
+    diffFile.forEach(item => {
+      if (
+        item[0] !== 'D' &&
+        item[0] !== 'R' &&
+        ['.js', '.jsx', '.ts', '.tsx'].indexOf(path.extname(item)) !== -1
+      ) {
+        resultFile.push(item.substr(2).trim());
+      }
+    });
+    if (resultFile.length) {
+      try {
+        console.log(`${YELLOW} Running prettier, please wait...${END}`);
+        spawn.sync(
+          './node_modules/.bin/prettier',
+          ['--write'].concat(resultFile),
+          { stdio: 'inherit' }
+        );
+      } catch (e) {
+        console.log(`${YELLOW} Running prettier error...${END}`);
+        spawn.sync(bin, ['lint', 'init', '--js'], { stdio: 'inherit' });
+      }
+    }
+  } else {
+    spawn.sync(bin, ['lint', 'init', '--js'], { stdio: 'inherit' });
+  }
+}
+
+runPrettier();
+runEslint();
