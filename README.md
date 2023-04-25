@@ -1,5 +1,7 @@
 # Tiny CLI
 
+English | [简体中文](README.zh-CN.md)
+
 > Tiny CLI is a powerful front-end engineering command line tool.
 
 [Tiny CLI Website](https://opentiny.design/tiny-cli/home)
@@ -123,6 +125,6 @@ Please read [Contribution Guide] (CONTRIBUTING.md) before participating in a con
 - Add the official assistant WeChat `opentiny-official` and join the technical exchange group.
 - Join the mailing list opentiny@googlegroups.com
 
-## Open source protocol
+## License
 
 [MIT](LICENSE)
