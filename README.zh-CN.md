@@ -1,5 +1,7 @@
 # Tiny CLI
 
+简体中文 | [English](README.md)
+
 > Tiny CLI是前端工程化命令行工具
 
 [Tiny CLI官网](https://opentiny.design/tiny-cli/home)
