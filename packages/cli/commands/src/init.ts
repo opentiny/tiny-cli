@@ -94,7 +94,7 @@ async function getName() {
 }
 
 export default async function (args: string[]) {
-  let name = args.pop() || '';
+  let name = args.shift() || '';
   const intl = new Intl(message);
   if (!name) {
     // 未传入套件名,提示并列出可用套件名
