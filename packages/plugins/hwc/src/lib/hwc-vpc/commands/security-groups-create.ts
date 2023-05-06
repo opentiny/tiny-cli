@@ -1,7 +1,12 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { cliConfig as tinyStageCliConfig, logs } from '@opentiny/cli-devkit';
-import { CONSTANTS, fmtDashTitle, getTinyProConfigure, ErrorUtils } from '../../../core';
+import {
+  CONSTANTS,
+  fmtDashTitle,
+  getTinyProConfigure,
+  ErrorUtils,
+} from '../../../core';
 import { EipValidator } from '../../hwc-eip/services/validate';
 import { createSecurityGroups } from '../services/security-groups-service';
 
@@ -27,7 +32,7 @@ async function promptSecurityGroups() {
   return inquirer.prompt(questions);
 }
 
-export const  securityGroupsCreate =  async () => {
+export const securityGroupsCreate = async () => {
   const cliConfig = getTinyProConfigure();
 
   console.log(

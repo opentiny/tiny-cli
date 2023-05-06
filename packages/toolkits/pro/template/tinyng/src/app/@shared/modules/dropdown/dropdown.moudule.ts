@@ -7,23 +7,8 @@ import { TProBaseDropDownAppendToBodyComponent } from './dropdown.component';
 import { TProBaseDropDownDirective } from './dropdown.directive';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    OverlayModule,
-  ],
-  exports: [
-    TProBaseDropDownDirective,
-    TProBaseDropDownMenuDirective,
-    TProBaseDropDownToggleDirective,
-    TProBaseDropDownAppendToBodyComponent
-  ],
-  declarations: [
-    TProBaseDropDownDirective,
-    TProBaseDropDownMenuDirective,
-    TProBaseDropDownToggleDirective,
-    TProBaseDropDownAppendToBodyComponent
-  ],
-
+  imports: [CommonModule, OverlayModule],
+  exports: [TProBaseDropDownDirective, TProBaseDropDownMenuDirective, TProBaseDropDownToggleDirective, TProBaseDropDownAppendToBodyComponent],
+  declarations: [TProBaseDropDownDirective, TProBaseDropDownMenuDirective, TProBaseDropDownToggleDirective, TProBaseDropDownAppendToBodyComponent],
 })
-export class TProBaseDropDownModule {
-}
+export class TProBaseDropDownModule {}

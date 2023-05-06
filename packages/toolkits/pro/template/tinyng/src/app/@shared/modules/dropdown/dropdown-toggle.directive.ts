@@ -21,7 +21,7 @@ export class TProBaseDropDownToggleDirective implements OnInit, AfterViewInit {
   @Input() autoFocus = false;
   isMouseEvent = false;
 
-  constructor(@Host() private dropdown: TProBaseDropDownDirective, private el: ElementRef) { }
+  constructor(@Host() private dropdown: TProBaseDropDownDirective, private el: ElementRef) {}
 
   ngOnInit() {
     this.dropdown.dropDownToggle = this;
@@ -58,7 +58,9 @@ export class TProBaseDropDownToggleDirective implements OnInit, AfterViewInit {
   }
   @HostListener('keydown.enter', ['$event'])
   public toggle(event: any) {
-    if (this.disabled || this.dropdown.trigger === 'manually' || event.defaultPrevented) {return; }
+    if (this.disabled || this.dropdown.trigger === 'manually' || event.defaultPrevented) {
+      return;
+    }
     this.dropdown.toggle();
   }
 }

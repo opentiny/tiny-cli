@@ -10,14 +10,7 @@ import { RecommendActivityComponent } from './widget/recommend-activity/recommen
 import { ResultFailureComponent } from './widget/result-failure/result-failure.component';
 
 @NgModule({
-  declarations: [
-    ResultComponent,
-    PaymentSuccessComponent,
-    PaymentFailureComponent,
-    ResultSuccessComponent,
-    RecommendActivityComponent,
-    ResultFailureComponent,
-  ],
+  declarations: [ResultComponent, PaymentSuccessComponent, PaymentFailureComponent, ResultSuccessComponent, RecommendActivityComponent, ResultFailureComponent],
   imports: [SharedModule, TProLayoutModule, CommonModule, ResultRoutingModule],
 })
 export class ResultModule {}

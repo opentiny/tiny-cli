@@ -35,13 +35,12 @@
 
 .select-item-checked {
   background-color: var(--ti-common-color-bg-light-normal);
-  ti-select{
-  --ti-input-bg-color: var(--ti-common-color-bg-light-normal);
-}
+  ti-select {
+    --ti-input-bg-color: var(--ti-common-color-bg-light-normal);
+  }
   border: 1px solid var(--ti-base-color-brand-4);
   box-shadow: 0 2px 8px 0 rgb(94 124 224 / 30%);
 }
-
 
 .light-image-icon {
   position: relative;
@@ -93,8 +92,6 @@
 .select-hover:hover {
   border-top: 1px solid var(--ti-common-color-line-normal);
 }
-
-
 
 .ti-select-wrapper {
   display: inline-block;

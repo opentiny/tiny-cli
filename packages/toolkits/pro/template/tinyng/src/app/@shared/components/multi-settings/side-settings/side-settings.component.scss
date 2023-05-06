@@ -1,7 +1,7 @@
-::ng-deep ti-halfmodalcontainer.ti3-halfmodal-layout-container{
+::ng-deep ti-halfmodalcontainer.ti3-halfmodal-layout-container {
   padding: 30px;
 }
-  
+
 ::ng-deep ti-icon.ti3-halfmodal-close {
   margin-right: 10px;
   z-index: 100;
@@ -24,11 +24,11 @@
 
     > h3 {
       padding: 10px 0 20px;
-      color: #202E54;
+      color: #202e54;
       font-size: 18px;
       line-height: 25px;
     }
-    &:nth-child(n+2) {
+    &:nth-child(n + 2) {
       margin-top: 30px;
     }
     &:nth-child(3) {
@@ -150,7 +150,6 @@
     }
 
     .t-pro-option-multiple {
-
       .t-pro-multiple-item {
         display: flex;
         justify-content: space-between;

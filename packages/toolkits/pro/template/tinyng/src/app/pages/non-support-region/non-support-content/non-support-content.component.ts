@@ -21,10 +21,7 @@ export class NonSupportContentComponent implements OnInit {
       { displayName: `${RegionI18nPrefix}cnSouthwest2` },
     ],
   };
-  constructor(
-    private translate: TranslateService,
-    private tProTrans: TProTranslatePipe
-  ) {}
+  constructor(private translate: TranslateService, private tProTrans: TProTranslatePipe) {}
 
   ngOnInit(): void {
     this.tProTrans.transform(this.regionData.supportRegions);

@@ -3,7 +3,7 @@
 .user-panel-head {
   position: relative;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px 8px rgba(169,174,184,0.05); 
+  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
   background: var(--ti-common-color-bg-white-normal);
   padding: 30px 25px 22px 30px;
 }
@@ -32,7 +32,7 @@
   position: absolute;
   right: 0px;
   display: inline-block;
-  
+
   & > a {
     color: var(--ti-common-color-text-highlight);
   }

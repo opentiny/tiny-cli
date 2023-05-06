@@ -9,7 +9,7 @@ import {
 } from '../../../core';
 import { commonMsg } from '../../../assets/i18n';
 import { queryFunctions } from '../services/fg-services';
-import { cliConfig as tinyStageCliConfig, logs } from "@opentiny/cli-devkit";
+import { cliConfig as tinyStageCliConfig, logs } from '@opentiny/cli-devkit';
 
 export const commandName = '同步线上函数工作流';
 

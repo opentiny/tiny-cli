@@ -9,5 +9,4 @@ import { TProBaseProgressComponent } from './progress.component';
   declarations: [TProBaseProgressComponent],
   providers: [],
 })
-export class TProBaseProgressModule {
-}
+export class TProBaseProgressModule {}

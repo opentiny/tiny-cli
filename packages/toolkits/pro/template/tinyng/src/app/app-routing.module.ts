@@ -7,8 +7,7 @@ import { MarketplaceComponent } from './pages/console-home/widgets/marketplace/m
 const routes: Routes = [
   {
     path: 'pages',
-    loadChildren: () =>
-      import('./pages/pages.module').then((m) => m.PagesModule),
+    loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
     canActivate: [AuthGuardService],
   },
   {
@@ -32,7 +31,6 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'pages',
   },
-
 ];
 
 @NgModule({

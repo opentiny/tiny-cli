@@ -64,6 +64,8 @@ export const addApig = async (instanceId?: string) => {
 
     setHwcExports('hwcConfig.apigList', apigList);
   } catch (err) {
-    log.error(`${apigMsg.apigTermGetApigListErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${apigMsg.apigTermGetApigListErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+    );
   }
 };

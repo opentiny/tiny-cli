@@ -3,10 +3,9 @@ import { TiLeftmenuItem } from '@opentiny/ng';
 @Component({
   selector: 't-pro-header-collapsed-button',
   templateUrl: './header-collapsed-button.component.html',
-  styleUrls: ['./header-collapsed-button.component.scss']
+  styleUrls: ['./header-collapsed-button.component.scss'],
 })
 export class HeaderCollapsedButtonComponent {
-
   @Input() menu: any;
   @Input() hideLogo: boolean = false;
   public active: TiLeftmenuItem;

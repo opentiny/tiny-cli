@@ -13,14 +13,14 @@ async function fix(options) {
 
   const { clientOptions = {} } = options;
   const optsArr = [];
-  Object.keys(clientOptions).forEach(key => {
+  Object.keys(clientOptions).forEach((key) => {
     optsArr.push(`--${key}`);
     optsArr.push(clientOptions[key]);
   });
   const paramArr = ['.', '--ext', '.js,.jsx,.ts,.tsx', '--fix'].concat(optsArr);
 
   spawn.sync('./node_modules/eslint/bin/eslint.js', paramArr, {
-    stdio: 'inherit'
+    stdio: 'inherit',
   });
   log.success('fixing eslint syntax，please fix the errors/warnings');
 }
@@ -30,7 +30,7 @@ async function prettier() {
     './node_modules/.bin/prettier',
     ['--write', './**/*.{ts,tsx,css,less,scss}'],
     {
-      stdio: 'inherit'
+      stdio: 'inherit',
     }
   );
   log.success('prettier run scccess!');
@@ -74,7 +74,7 @@ async function checkInitEnv() {
     log.warn('你尚未初始化eslint 环境，请进行先初始化');
     const defaultOption: CliOption = {
       clientOptions: {},
-      clientArgs: {}
+      clientArgs: {},
     };
     await init(defaultOption);
     process.exit(1);
@@ -92,7 +92,7 @@ function report() {
       '-f',
       'html',
       '-o',
-      'eslint-report.html'
+      'eslint-report.html',
     ],
     { stdio: 'inherit' }
   );
@@ -107,5 +107,5 @@ export default {
   prettier,
   report,
   hooks,
-  default: run
+  default: run,
 };

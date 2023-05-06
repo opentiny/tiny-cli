@@ -3,8 +3,7 @@ import { cliConfig } from '@opentiny/cli-devkit';
 
 export default function () {
   const tool = cliConfig.getBinName();
-  const help =
-    `
+  const help = `
 <%=pluginName%> Plugin help info:  
 
  $ ${tool} <%= pluginShortName %> go                   # The first command
@@ -12,4 +11,4 @@ export default function () {
  
 `;
   process.stdout.write(chalk.magenta(help));
-};
+}

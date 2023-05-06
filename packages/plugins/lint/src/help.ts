@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { cliConfig } from '@opentiny/cli-devkit';
 
-export default function() {
+export default function () {
   const tool = cliConfig.getBinName();
   const help = `
 tiny-plugin-lint Plugin help info:  

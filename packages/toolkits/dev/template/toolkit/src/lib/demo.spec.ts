@@ -8,7 +8,7 @@ function demoTest(value: string) {
 }
 
 // 简单的单元测试例子
-test('# demo test', t => {
+test('# demo test', (t) => {
   const name = demoTest('abc-def');
   t.is('abc-def1', name);
 });

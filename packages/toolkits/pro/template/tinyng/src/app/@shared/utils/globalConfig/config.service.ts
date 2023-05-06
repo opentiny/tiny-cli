@@ -32,7 +32,6 @@ export class DevConfigService {
   set<T extends TProBaseGlobalConfigKey>(componentName: T, value: TProBaseGlobalConfig[T]): void {
     this.config[componentName] = { ...this.config[componentName], ...value };
     this.configUpdated$.next(componentName);
-
   }
 }
 

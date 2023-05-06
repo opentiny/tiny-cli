@@ -6,16 +6,10 @@ export class CustomThemeService {
   changeCustomTheme(color: string, isDark: boolean) {
     if (isDark) {
       setTimeout(() => {
-        TiTheme.loadCss(
-          `${ThemeAddrPrefix}/tiny-dark-theme.css`,
-          'tiny3theme'
-        );
+        TiTheme.loadCss(`${ThemeAddrPrefix}/tiny-dark-theme.css`, 'tiny3theme');
       });
     } else {
-      TiTheme.loadCss(
-        `${ThemeAddrPrefix}/tiny-hws-theme.css`,
-        'tiny3theme'
-      );
+      TiTheme.loadCss(`${ThemeAddrPrefix}/tiny-hws-theme.css`, 'tiny3theme');
     }
 
     for (const style of CustomStyle) {

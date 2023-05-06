@@ -87,11 +87,10 @@
     border-radius: var(--ti-common-border-radius-normal);
     cursor: pointer;
     margin-left: 12px;
-    transition: box-shadow 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-      transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: box-shadow 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     &:hover {
-      box-shadow: var(--ti-common-shadow-3-down) ;
+      box-shadow: var(--ti-common-shadow-3-down);
     }
     &:first-child {
       margin-left: 0;

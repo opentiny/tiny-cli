@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Input, Output, ViewChild, SimpleChanges, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { TiHalfmodalComponent, TiTipDirective  } from '@opentiny/ng';
+import { TiHalfmodalComponent, TiTipDirective } from '@opentiny/ng';
 import { TProTranslatePipe } from '@shared/tiny-pro';
 import { Notification } from 'src/app/@core/data/noticeData';
 import { NoticeDataService } from 'src/app/@core/mock/notice-data.service';
@@ -21,14 +21,10 @@ export class HeaderNoticeComponent implements OnInit {
 
   notifications: Notification[] = [];
   public tipSwitch: boolean = false;
-  public textEnd:string = this.translate.instant('notice.extend');
+  public textEnd: string = this.translate.instant('notice.extend');
   public modalStatus: boolean = true;
 
-  constructor(
-    private noticeService: NoticeDataService,
-    private translate: TranslateService,
-    private tProTrans: TProTranslatePipe,
-  ) { }
+  constructor(private noticeService: NoticeDataService, private translate: TranslateService, private tProTrans: TProTranslatePipe) {}
 
   ngOnInit() {
     this.noticeService.getNotifications().subscribe((notifications) => {
@@ -40,18 +36,18 @@ export class HeaderNoticeComponent implements OnInit {
     });
   }
 
-  onMouseAction(index:number): void {
-    this.tipDirective.forEach((v:any,i:number) => {
+  onMouseAction(index: number): void {
+    this.tipDirective.forEach((v: any, i: number) => {
       if (index === i) {
         if (this.tipSwitch) {
-          this.tipSwitch= false;
+          this.tipSwitch = false;
           v.hide();
-          setTimeout(()=>{
-            this.toParentStatus(this.tipSwitch)
-          })
+          setTimeout(() => {
+            this.toParentStatus(this.tipSwitch);
+          });
         } else {
-          this.tipSwitch= true;
-          this.toParentStatus(this.tipSwitch)
+          this.tipSwitch = true;
+          this.toParentStatus(this.tipSwitch);
           v.show();
         }
       }
@@ -73,7 +69,7 @@ export class HeaderNoticeComponent implements OnInit {
   }
 
   toParentStatus(status: boolean) {
-    this.showStatus.emit(status)
+    this.showStatus.emit(status);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

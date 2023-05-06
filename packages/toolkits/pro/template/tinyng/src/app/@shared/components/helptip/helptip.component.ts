@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 't-pro-helptip',
   templateUrl: './helptip.component.html',
-  styleUrls: ['./helptip.component.scss']
+  styleUrls: ['./helptip.component.scss'],
 })
 export class HelpTipComponent {
   // 待解释的的文本内容

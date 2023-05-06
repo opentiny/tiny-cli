@@ -56,6 +56,10 @@ export const addApigGroups = async (instanceId?: string) => {
     setHwcExports('hwcConfig.apigGroupsList', groupsList);
     log.success(`${commandName}成功`);
   } catch (err) {
-    log.error(`${apigMsg.groupTermGetGroupListErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${apigMsg.groupTermGetGroupListErrMsg}：${ErrorUtils.getErrorMessage(
+        err
+      )}`
+    );
   }
 };

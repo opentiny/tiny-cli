@@ -8,7 +8,7 @@ import {
   TProLayoutSecHeaderComponent,
   TProLayoutSecSidebarComponent,
   TProLayoutSidebarComponent,
-  TProLayoutSidebarToolsComponent
+  TProLayoutSidebarToolsComponent,
 } from './layout.component';
 import { TProBaseLayoutModule } from '../../modules/layout/layout.module';
 
@@ -20,7 +20,7 @@ import { TProBaseLayoutModule } from '../../modules/layout/layout.module';
     TProLayoutSecHeaderComponent,
     TProLayoutSecSidebarComponent,
     TProLayoutSidebarComponent,
-    TProLayoutSidebarToolsComponent
+    TProLayoutSidebarToolsComponent,
   ],
   imports: [CommonModule, TProBaseLayoutModule, TiIconModule],
   exports: [
@@ -30,7 +30,7 @@ import { TProBaseLayoutModule } from '../../modules/layout/layout.module';
     TProLayoutSecHeaderComponent,
     TProLayoutSecSidebarComponent,
     TProLayoutSidebarComponent,
-    TProLayoutSidebarToolsComponent
-  ]
+    TProLayoutSidebarToolsComponent,
+  ],
 })
 export class TProLayoutModule {}

@@ -1,12 +1,4 @@
-import {
-  Component,
-  ContentChild,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  TemplateRef
-} from '@angular/core';
+import { Component, ContentChild, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 't-pro-base-progress',
@@ -14,7 +6,7 @@ import {
   styleUrls: ['./progress.component.scss'],
   preserveWhitespaces: false,
 })
-export class TProBaseProgressComponent implements OnInit , OnChanges {
+export class TProBaseProgressComponent implements OnInit, OnChanges {
   @Input() percentage = 0;
   @Input() percentageText: string;
   @Input() strokeColor: string;
@@ -26,9 +18,7 @@ export class TProBaseProgressComponent implements OnInit , OnChanges {
   strokePath: { [key: string]: string };
   pathString: string;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
     if (this.type === 'circle') {
@@ -59,13 +49,13 @@ export class TProBaseProgressComponent implements OnInit , OnChanges {
     this.trailPath = {
       strokeDasharray: `${len}px ${len}px`,
       strokeDashoffset: `0`,
-      transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s'
+      transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',
     };
     this.strokePath = {
       stroke: this.strokeColor || (null as any),
-      strokeDasharray: `${(this.percentage / 100) * len }px ${len}px`,
+      strokeDasharray: `${(this.percentage / 100) * len}px ${len}px`,
       strokeDashoffset: `0`,
-      transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s'
+      transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s',
     };
   }
 }

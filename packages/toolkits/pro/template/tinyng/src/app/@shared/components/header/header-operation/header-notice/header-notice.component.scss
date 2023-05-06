@@ -9,7 +9,7 @@ ti-halfmodal {
   margin-right: 34px;
   overflow: hidden;
   border-radius: 8px;
-  box-shadow: 0px 0px 30px 15px rgba(37,43,58,0.15); 
+  box-shadow: 0px 0px 30px 15px rgba(37, 43, 58, 0.15);
 }
 
 // 覆盖组件行内样式
@@ -45,14 +45,14 @@ ti-halfmodal {
     color: #86909c;
   }
 
-  >a {
+  > a {
     color: var(--ti-base-color-brand-7);
     height: 16px;
     text-decoration: none;
     margin: 0;
   }
 
-  >a:not(:last-of-type) {
+  > a:not(:last-of-type) {
     border-right: 1px solid #ccc;
   }
 }

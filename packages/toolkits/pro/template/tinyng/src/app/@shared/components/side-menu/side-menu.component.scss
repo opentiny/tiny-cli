@@ -6,7 +6,8 @@
     margin: 3px 0;
   }
 
-  .ti3-leftmenu-level1-active-item:before, .ti3-leftmenu-level2-active:before {
+  .ti3-leftmenu-level1-active-item:before,
+  .ti3-leftmenu-level2-active:before {
     background-color: var(--ti-base-color-brand-6);
   }
 
@@ -52,7 +53,7 @@
     height: 28px;
     border-radius: 50%;
     background-color: #fff;
-    box-shadow: 0px 4px 12px 0px rgba(0 ,0 ,0 ,.10); 
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.1);
   }
 
   .menu-item {

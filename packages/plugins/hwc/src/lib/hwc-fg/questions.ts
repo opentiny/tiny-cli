@@ -8,7 +8,12 @@ import {
   InstanceInfo,
 } from '../hwc.types';
 import { queryFunctions } from './services/fg-services';
-import { getTinyProConfigure, REG_FG_NAME, REG_FG_DEP_NAME, REG_LETTER_NUMBER } from '../../core';
+import {
+  getTinyProConfigure,
+  REG_FG_NAME,
+  REG_FG_DEP_NAME,
+  REG_LETTER_NUMBER,
+} from '../../core';
 
 export async function getCreateQuestions(fgRuntime) {
   const cliConfig = getTinyProConfigure();
@@ -175,7 +180,8 @@ export function getCreateDepQuestions(
         if (existDeps.find((dep) => dep.name === name)) {
           return '依赖包名称已存在，请重新输入';
         }
-        return REG_FG_DEP_NAME.test(name) && REG_LETTER_NUMBER.test(name.slice(-1))
+        return REG_FG_DEP_NAME.test(name) &&
+          REG_LETTER_NUMBER.test(name.slice(-1))
           ? true
           : '依赖包名称格式错误';
       },
@@ -232,7 +238,8 @@ export function getUpdateDepQuestions(
         ) {
           return '依赖包名称已存在，请重新输入';
         }
-        return REG_FG_DEP_NAME.test(name) && REG_LETTER_NUMBER.test(name.slice(-1))
+        return REG_FG_DEP_NAME.test(name) &&
+          REG_LETTER_NUMBER.test(name.slice(-1))
           ? true
           : '依赖包名称格式错误';
       },

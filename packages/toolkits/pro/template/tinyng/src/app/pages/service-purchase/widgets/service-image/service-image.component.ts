@@ -35,7 +35,7 @@ export class ServiceImageComponent {
           label: '8.0 64bit',
         },
       ],
-      value: '8.2 64bit'
+      value: '8.2 64bit',
     },
     {
       title: 'Ubuntu',
@@ -49,7 +49,7 @@ export class ServiceImageComponent {
           label: '16.04 server 64bit',
         },
       ],
-      value: '18.04 server 64bit'
+      value: '18.04 server 64bit',
     },
     {
       title: 'Windows',
@@ -63,7 +63,7 @@ export class ServiceImageComponent {
           label: '16.04 server 64bit',
         },
       ],
-      value: '18.04 server 64bit'
+      value: '18.04 server 64bit',
     },
   ];
 
@@ -74,10 +74,9 @@ export class ServiceImageComponent {
   public alarmLabel: string = 'servicePurchase.image.oneClickAlarm';
 
   public imageClick(image: any) {
-  
     // 配置只支持单选
     for (let i = 0; i < this.imageModel.length; i++) {
-        this.imageModel[i].isChecked = false;
+      this.imageModel[i].isChecked = false;
     }
     image.isChecked = !image.isChecked;
   }

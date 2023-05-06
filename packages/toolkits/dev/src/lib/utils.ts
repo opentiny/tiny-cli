@@ -15,7 +15,7 @@ import { modules, cache } from '@opentiny/cli-devkit';
 const cwd = process.cwd();
 
 function firstUpperCase(str: string) {
-  return str.replace(/^\S/, s => s.toUpperCase());
+  return str.replace(/^\S/, (s) => s.toUpperCase());
 }
 
 /**
@@ -48,10 +48,7 @@ export function generateNames(name: string) {
     className: camelTrans(name, true),
 
     // 全大写
-    constName: name
-      .split('-')
-      .join('')
-      .toUpperCase()
+    constName: name.split('-').join('').toUpperCase(),
   };
 }
 
@@ -80,14 +77,13 @@ export function setModuleCache(name: string) {
   // 写一下缓存，避免未发布时一直去线上拉数据
   const cacheKey = `${modules.utils.UPDATE_CHECK_PRE}${name}`;
   cache.set(cacheKey, true, {
-    expires: modules.utils.NO_TIP_PERIOD * 10
+    expires: modules.utils.NO_TIP_PERIOD * 10,
   });
 }
-
 
 export default {
   getDistPath,
   getTemplatePath,
   generateNames,
-  setModuleCache
+  setModuleCache,
 };

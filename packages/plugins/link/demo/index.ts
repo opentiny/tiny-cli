@@ -14,7 +14,7 @@ import './index.less';
 
 const tinyPluginLink = new TinyPluginLink('#mountNode', {
   id: 123,
-  user: 'xxx'
+  user: 'xxx',
 });
 
 TinyPluginLink.num = 12; // initialize the static variable

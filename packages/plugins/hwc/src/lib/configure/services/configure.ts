@@ -24,7 +24,9 @@ export const writeAkSkFile = (
       JSON.stringify({ accessKeyId, secretAccessKey })
     );
   } catch (err) {
-    log.error(`${configureMsg.cfgTermWriteAkSkError}:${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${configureMsg.cfgTermWriteAkSkError}:${ErrorUtils.getErrorMessage(err)}`
+    );
   }
 };
 
@@ -51,7 +53,9 @@ export const writeLocalHwcInfo = (akSkFilePath: string) => {
       })
     );
   } catch (err) {
-    log.error(`${configureMsg.cfgTermWriteHwcError}:${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${configureMsg.cfgTermWriteHwcError}:${ErrorUtils.getErrorMessage(err)}`
+    );
   }
 };
 
@@ -73,6 +77,10 @@ export const addGitIgnore = () => {
       fs.writeFileSync(gitignorePath, content);
     }
   } catch (err) {
-    log.error(`${configureMsg.cfgTermAddGitIgnoreError}:${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${configureMsg.cfgTermAddGitIgnoreError}:${ErrorUtils.getErrorMessage(
+        err
+      )}`
+    );
   }
 };

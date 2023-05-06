@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, Rend
 import { NavigationEnd, Router } from '@angular/router';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 
-export type AppendToBodyDirection= 'rightDown'| 'rightUp' | 'leftUp'| 'leftDown' | 'centerDown' | 'centerUp';
+export type AppendToBodyDirection = 'rightDown' | 'rightUp' | 'leftUp' | 'leftDown' | 'centerDown' | 'centerUp';
 
 @Component({
   selector: 't-pro-navbar',

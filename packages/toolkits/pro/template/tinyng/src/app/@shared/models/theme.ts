@@ -51,30 +51,12 @@ export const ThemeColors = [
   {
     name: 'Light',
     isDark: false,
-    colors: [
-      '#343a40',
-      '#24316c',
-      '#673AB7',
-      '#4f7dff',
-      '#4caf78',
-      '#5faa15',
-      '#ff6a0d',
-      '#f36b7f',
-    ],
+    colors: ['#343a40', '#24316c', '#673AB7', '#4f7dff', '#4caf78', '#5faa15', '#ff6a0d', '#f36b7f'],
   },
   {
     name: 'Dark',
     isDark: true,
-    colors: [
-      '#343a40',
-      '#24316c',
-      '#673AB7',
-      '#4f7dff',
-      '#4caf78',
-      '#5faa15',
-      '#ff6a0d',
-      '#f36b7f',
-    ],
+    colors: ['#343a40', '#24316c', '#673AB7', '#4f7dff', '#4caf78', '#5faa15', '#ff6a0d', '#f36b7f'],
   },
 ];
 
