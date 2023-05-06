@@ -1,7 +1,19 @@
-import { cliConfig as tinyStageCliConfig, fs, logs } from '@opentiny/cli-devkit';
+import {
+  cliConfig as tinyStageCliConfig,
+  fs,
+  logs,
+} from '@opentiny/cli-devkit';
 import chalk from 'chalk';
-import { getDBCfgCreateQuestions, getDBListQuestions, getPasswordAndDirQuestions } from '../questions';
-import { databaseCreate, queryDatabaseLists, queryInstances,} from '../../hwc-mysql/services';
+import {
+  getDBCfgCreateQuestions,
+  getDBListQuestions,
+  getPasswordAndDirQuestions,
+} from '../questions';
+import {
+  databaseCreate,
+  queryDatabaseLists,
+  queryInstances,
+} from '../../hwc-mysql/services';
 import { databaseQuestions } from '../../hwc-mysql/questions';
 import {
   CONSTANTS,
@@ -76,7 +88,12 @@ export const createDBCfg = async () => {
   }
 };
 
-async function startCreateDBProcess(msg: string, instanceId: string, cliConfig, ans) {
+async function startCreateDBProcess(
+  msg: string,
+  instanceId: string,
+  cliConfig,
+  ans
+) {
   console.log(chalk.yellow(fmtDashTitle(msg)));
   const databaseQuest = await databaseQuestions();
   const databaseInfo = await inquirer.prompt(databaseQuest, {

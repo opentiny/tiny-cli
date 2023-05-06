@@ -17,15 +17,10 @@ export class PersonalizeComponent implements OnInit {
   public themeColors: any = ThemeColors;
 
   public currentValue: any = {
-    themes: localStorage.getItem('t-pro-theme')
-      ? JSON.parse(localStorage.getItem('t-pro-theme')!)
-      : DefaultTheme,
+    themes: localStorage.getItem('t-pro-theme') ? JSON.parse(localStorage.getItem('t-pro-theme')!) : DefaultTheme,
   };
 
-  constructor(
-    private personalizeService: PersonalizeService,
-    private customThemeService: CustomThemeService
-  ) {
+  constructor(private personalizeService: PersonalizeService, private customThemeService: CustomThemeService) {
     this.customColor = DefaultTheme.brand;
     this.customDark = DefaultTheme.isDark;
   }

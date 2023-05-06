@@ -3,10 +3,6 @@ import { TProBaseDocumentRef } from './document-ref.service';
 import { TProBaseWindowRef } from './window-ref.service';
 
 @NgModule({
-  providers: [
-    TProBaseWindowRef,
-    TProBaseDocumentRef,
-  ],
+  providers: [TProBaseWindowRef, TProBaseDocumentRef],
 })
-export class TProBaseWindowRefModule {
-}
+export class TProBaseWindowRefModule {}

@@ -4,6 +4,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './service-purchase.component.html',
   styleUrls: ['./service-purchase.component.scss'],
 })
-export class ServicePurchaseComponent  {
-
-}
+export class ServicePurchaseComponent {}

@@ -1,11 +1,11 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
- 
+
 export class filterInterface {
   type: '' | undefined;
   value: '' | undefined;
 }
- 
+
 @Injectable({
   providedIn: 'root',
 })

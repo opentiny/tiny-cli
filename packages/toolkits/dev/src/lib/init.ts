@@ -31,13 +31,13 @@ export default async () => {
       choices: [
         {
           name: `${prefix}套件 ---- 用于生成项目模板`,
-          value: 'toolkit'
+          value: 'toolkit',
         },
         {
           name: `${prefix}插件 ---- 用于拓展${prefix}功能`,
-          value: 'plugin'
-        }
-      ]
+          value: 'plugin',
+        },
+      ],
     },
     {
       type: 'input',
@@ -58,8 +58,8 @@ export default async () => {
           return `${prefix} 套件名称需要 ${prefix}-toolkit- 开头`;
         }
         return true;
-      }
-    }
+      },
+    },
   ]);
 
   const from = utils.getTemplatePath(answers.type);
@@ -82,7 +82,7 @@ export default async () => {
     // 完整的插件名称 ， 如 tiny-plugin-npm
     pluginName,
     pluginShortName,
-    pluginFullname: fullName
+    pluginFullname: fullName,
   };
 
   fs.copyTpl(from, to, data, {
@@ -93,7 +93,7 @@ export default async () => {
         filename = `${prefix}.config.js`;
       }
       return filename;
-    }
+    },
   });
 
   if (answers.type === 'plugin') {
@@ -120,7 +120,7 @@ export default async () => {
     await npm.installDependencies();
     // 独立安装devkit ，保证该模块使用的是当前最新版本
     await npm.install('@opentiny/cli-devkit', {
-      save: true
+      save: true,
     });
   } catch (e) {
     log.error('npm 依赖安装失败');

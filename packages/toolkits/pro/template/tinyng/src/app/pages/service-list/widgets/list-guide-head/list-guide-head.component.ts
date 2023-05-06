@@ -1,15 +1,5 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  Output,
-} from '@angular/core';
-import {
-  ContractsDetailTableI18nPrefix,
-  TProTranslatePipe,
-} from '@shared/tiny-pro';
+import { Component, Input, OnInit, TemplateRef, ViewChild, Output } from '@angular/core';
+import { ContractsDetailTableI18nPrefix, TProTranslatePipe } from '@shared/tiny-pro';
 import { TiPositionType } from '@opentiny/ng';
 import { TranslateService } from '@ngx-translate/core';
 import { Filter } from '../service-list-filter';
@@ -56,15 +46,9 @@ export class ListGuideHeadComponent implements OnInit {
     },
   ];
 
-  public placeholder: string = this.translate.instant(
-    'serviceList.contracts.modal.namePlaceholder'
-  );
+  public placeholder: string = this.translate.instant('serviceList.contracts.modal.namePlaceholder');
 
-  constructor(
-    private filter: Filter,
-    private tProTrans: TProTranslatePipe,
-    private translate: TranslateService
-  ) {}
+  constructor(private filter: Filter, private tProTrans: TProTranslatePipe, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.tableOptions = this.tProTrans.transform(this.tableOptions);

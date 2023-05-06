@@ -152,6 +152,8 @@ export const configure = async () => {
 
     log.success(configureMsg.cfgTermResultSuccessMsg);
   } catch (err) {
-    log.error(`${configureMsg.cfgTermResultErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${configureMsg.cfgTermResultErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+    );
   }
 };

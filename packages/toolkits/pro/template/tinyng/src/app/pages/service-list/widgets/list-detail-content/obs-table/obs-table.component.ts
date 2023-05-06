@@ -1,19 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  TiActionmenuItem,
-  TiTableColumns,
-  TiTableRowData,
-  TiTableSrcData,
-  TiHalfmodalComponent,
-  TiModalService
-} from '@opentiny/ng';
-import {
-  BucketDetailTableI18nPrefix,
-  TProTranslatePipe,
-  Bucket,
-  ObsStorageClass,
-} from '@shared/tiny-pro';
+import { TiActionmenuItem, TiTableColumns, TiTableRowData, TiTableSrcData, TiHalfmodalComponent, TiModalService } from '@opentiny/ng';
+import { BucketDetailTableI18nPrefix, TProTranslatePipe, Bucket, ObsStorageClass } from '@shared/tiny-pro';
 import { ObsService } from 'src/app/@core/services/obs.service';
 import { LogicUtilService } from 'src/app/@core/services/util.service';
 
@@ -41,7 +29,7 @@ export class ObsTableComponent implements OnInit {
       tip: `${BucketDetailTableI18nPrefix}imageProcessing`,
     },
   ];
-  public none : string = '--'
+  public none: string = '--';
   public currentPage: number = 1;
   public totalNumber: number = 0;
   public pageSize: { options: Array<number>; size: number } = {
@@ -95,12 +83,7 @@ export class ObsTableComponent implements OnInit {
 
   public obsStorageClass: any = ObsStorageClass;
 
-  constructor(
-    private translate: TranslateService,
-    private tProTrans: TProTranslatePipe,
-    private obsService: ObsService,
-    private tiModal: TiModalService
-  ) {}
+  constructor(private translate: TranslateService, private tProTrans: TProTranslatePipe, private obsService: ObsService, private tiModal: TiModalService) {}
 
   ngOnInit(): void {
     this.columns = this.tProTrans.transform(this.columns);
@@ -119,14 +102,10 @@ export class ObsTableComponent implements OnInit {
     this.srcData.data = this.obsService.getObsTableData();
   }
 
-  public dataToItemsFn: (data: any) => Array<TiActionmenuItem> = (
-    data: any
-  ) => {
+  public dataToItemsFn: (data: any) => Array<TiActionmenuItem> = (data: any) => {
     const items: Array<TiActionmenuItem> = [
       {
-        label: this.translate.instant(
-          `${BucketDetailTableI18nPrefix}createStorage`
-        ),
+        label: this.translate.instant(`${BucketDetailTableI18nPrefix}createStorage`),
       },
       {
         label: this.translate.instant(`${BucketDetailTableI18nPrefix}delete`),

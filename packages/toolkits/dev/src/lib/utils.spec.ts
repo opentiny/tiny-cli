@@ -12,7 +12,7 @@
 import test from 'ava';
 import { generateNames } from './utils';
 
-test('# generateNames', t => {
+test('# generateNames', (t) => {
   const name = generateNames('abc-def');
   t.is('abcDef', name.varName);
   t.is('ABCDEF', name.constName);

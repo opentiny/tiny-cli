@@ -63,11 +63,11 @@ export const publishApig = async (instanceId?: string) => {
         log.success(apigMsg.apigTermPublishSuccessMsg(apiName));
       }
     } else {
-      log.info(
-        chalk.magenta(commonMsg.commandAddNullMsg('API列表', 'apig'))
-      );
+      log.info(chalk.magenta(commonMsg.commandAddNullMsg('API列表', 'apig')));
     }
   } catch (err) {
-    log.error(`${apigMsg.apigTermPublishErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${apigMsg.apigTermPublishErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+    );
   }
 };

@@ -21,7 +21,7 @@ export interface CliOption {
   clientOptions: any;
 }
 
-export default async function(options?: CliOption) {
+export default async function (options?: CliOption) {
   log.info('控制台输入的参数为： %o', options.clientArgs);
   log.info('控制台输入的选项为： %o', options.clientOptions);
   log.info('这是第一条插件命令111');

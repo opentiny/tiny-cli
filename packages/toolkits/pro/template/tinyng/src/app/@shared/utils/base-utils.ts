@@ -1,12 +1,7 @@
-import { CommonError} from '@shared/tiny-pro';
+import { CommonError } from '@shared/tiny-pro';
 
 export function isCommonError(error: unknown): error is CommonError {
-  return (
-    typeof error === 'object' &&
-    error !== null &&
-    'message' in error &&
-    typeof (error as Record<string, unknown>).message === 'string'
-  );
+  return typeof error === 'object' && error !== null && 'message' in error && typeof (error as Record<string, unknown>).message === 'string';
 }
 
 export class BaseUtils {

@@ -1,7 +1,18 @@
 import { DOCUMENT } from '@angular/common';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  TemplateRef,
 } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -19,7 +30,7 @@ export class TProBaseBackTopComponent implements OnInit, OnChanges, OnDestroy {
   @Input() bottom: string = '50px';
   @Input() right: string = '30px';
   @Input() scrollTarget: HTMLElement;
-  @Output() backTopEvent =  new EventEmitter<boolean>();
+  @Output() backTopEvent = new EventEmitter<boolean>();
 
   currScrollTop = 0;
   isVisible = false;
@@ -67,9 +78,9 @@ export class TProBaseBackTopComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   showButton() {
-    this.currScrollTop = this.target === window ?
-      (window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop) : this.scrollTarget.scrollTop;
-    if (this.isVisible !== (this.currScrollTop >= this.visibleHeight)) {
+    this.currScrollTop =
+      this.target === window ? window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop : this.scrollTarget.scrollTop;
+    if (this.isVisible !== this.currScrollTop >= this.visibleHeight) {
       this.isVisible = !this.isVisible;
     }
   }

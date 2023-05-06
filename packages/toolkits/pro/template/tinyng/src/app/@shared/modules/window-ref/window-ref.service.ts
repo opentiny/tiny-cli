@@ -3,9 +3,7 @@ import { TProBaseDocumentRef } from './document-ref.service';
 
 @Injectable()
 export class TProBaseWindowRef {
-
-  constructor(private documentRef: TProBaseDocumentRef) {
-  }
+  constructor(private documentRef: TProBaseDocumentRef) {}
 
   get window(): Window | null {
     return this.document.defaultView;
@@ -38,5 +36,4 @@ export class TProBaseWindowRef {
   getBoundingClientRect(elementRef: ElementRef) {
     return elementRef.nativeElement && elementRef.nativeElement.getBoundingClientRect();
   }
-
 }

@@ -3,10 +3,8 @@ import { NgModule } from '@angular/core';
 import { TProBaseBadgeComponent } from './badge.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   exports: [TProBaseBadgeComponent],
-  declarations: [TProBaseBadgeComponent]
+  declarations: [TProBaseBadgeComponent],
 })
-export class TProBaseBadgeModule { }
+export class TProBaseBadgeModule {}

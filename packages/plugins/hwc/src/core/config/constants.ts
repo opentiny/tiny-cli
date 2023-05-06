@@ -51,7 +51,6 @@ export const REG_FG_DEP_NAME = /^[a-zA-Z][\w|\-|.]{0,95}$/;
 // 大小写字母数字正则表达式
 export const REG_LETTER_NUMBER = /[a-zA-Z0-9]/;
 
-
 export const CONSTANTS = {
   TINY_PRO_DEFAULT_BIN,
   TINY_PRO_DEFAULT_HOME_FOLDER,
@@ -60,4 +59,3 @@ export const CONSTANTS = {
   TINY_PRO_DEFAULT_LOCAL_INFO_FILE,
   TINY_PRO_DEFAULT_HWC_EXPORTS,
 };
-

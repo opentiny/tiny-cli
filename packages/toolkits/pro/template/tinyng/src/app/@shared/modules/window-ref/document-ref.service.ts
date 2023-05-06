@@ -3,9 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 
 @Injectable()
 export class TProBaseDocumentRef {
-
-  constructor(@Inject(DOCUMENT) private doc: any) {
-  }
+  constructor(@Inject(DOCUMENT) private doc: any) {}
 
   get document(): any {
     return this.doc;

@@ -53,6 +53,8 @@ export const addVpc = async () => {
     setHwcExports('hwcConfig.vpc', { vpcsList });
     log.success(`${commandName}成功`);
   } catch (err) {
-    log.error(`${vpcMsg.vpcTermGetVpcsListErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${vpcMsg.vpcTermGetVpcsListErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+    );
   }
 };

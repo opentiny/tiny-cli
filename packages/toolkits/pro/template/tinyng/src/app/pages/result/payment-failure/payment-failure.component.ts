@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './payment-failure.component.html',
   styleUrls: ['./payment-failure.component.scss'],
 })
-export class PaymentFailureComponent {
-}
+export class PaymentFailureComponent {}

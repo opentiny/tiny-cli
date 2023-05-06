@@ -11,8 +11,8 @@ export class TProBaseAvatarComponent implements OnChanges, OnInit {
   isNobody = true;
   isErrorImg = false;
   /**
-  * 自定义头像显示文字
-  */
+   * 自定义头像显示文字
+   */
   @Input() gender: 'male' | 'female' | string;
   /**
    * avatar宽度
@@ -33,8 +33,8 @@ export class TProBaseAvatarComponent implements OnChanges, OnInit {
    */
   @Input() imgSrc: string;
   /**
- * 用户名称
- */
+   * 用户名称
+   */
   @Input() name: string;
   /**
    * 自定义头像显示文字
@@ -44,18 +44,19 @@ export class TProBaseAvatarComponent implements OnChanges, OnInit {
   fontSize = 12;
   code: number;
   nameDisplay: string;
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.calcValues(this.customText ? this.customText : this.name);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['width'] && !changes['width'].isFirstChange()
-      || changes['customText'] && !changes['customText'].isFirstChange()
-      || changes['gender'] && !changes['gender'].isFirstChange()
-      || changes['height'] && !changes['height'].isFirstChange()
-      || changes['name'] && !changes['name'].isFirstChange()
+    if (
+      (changes['width'] && !changes['width'].isFirstChange()) ||
+      (changes['customText'] && !changes['customText'].isFirstChange()) ||
+      (changes['gender'] && !changes['gender'].isFirstChange()) ||
+      (changes['height'] && !changes['height'].isFirstChange()) ||
+      (changes['name'] && !changes['name'].isFirstChange())
     ) {
       this.calcValues(this.customText ? this.customText : this.name);
     }

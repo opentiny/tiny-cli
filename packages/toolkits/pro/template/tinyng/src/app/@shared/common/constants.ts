@@ -26,8 +26,8 @@ export const UNITS = {
 };
 
 export interface ApigInfo {
-  apigName: string,
-  apigGroupName: string,
+  apigName: string;
+  apigGroupName: string;
 }
 
 export type CommonError = {

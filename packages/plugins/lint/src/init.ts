@@ -45,38 +45,38 @@ async function getEslintType(options: EslintOption = {}): Promise<Answer> {
         choices: [
           {
             name: 'javascript',
-            value: 'index'
+            value: 'index',
           },
           {
             name: 'typescript',
-            value: 'typescript'
+            value: 'typescript',
           },
           {
             name: 'angular',
-            value: 'angular'
+            value: 'angular',
           },
           {
             name: 'angularjs',
-            value: 'angularjs'
+            value: 'angularjs',
           },
           {
             name: 'vue(javascript)',
-            value: 'vue'
+            value: 'vue',
           },
           {
             name: 'vue(typescript)',
-            value: 'vue-ts'
+            value: 'vue-ts',
           },
           {
             name: 'react(javascript)',
-            value: 'react'
+            value: 'react',
           },
           {
             name: 'react(typescript)',
-            value: 'react-ts'
-          }
-        ]
-      }
+            value: 'react-ts',
+          },
+        ],
+      },
     ]);
   }
   return answers;
@@ -89,7 +89,7 @@ export interface CliOption {
   clientOptions: any;
 }
 
-export default async function(options?: CliOption) {
+export default async function (options?: CliOption) {
   const answers: Answer = await getEslintType(options.clientOptions);
   const from = utils.getTemplatePath();
   const to = utils.getDistPath();
@@ -112,7 +112,7 @@ export default async function(options?: CliOption) {
       './node_modules/.bin/prettier --write ./**/*.{ts,tsx,css,less,scss}',
     stylelint:
       './node_modules/.bin/stylelint ./src/**/*.scss ./src/**/*.less ./src/**/*.css --fix',
-    lint: 'npm run eslint && npm run prettier && npm run stylelint'
+    lint: 'npm run eslint && npm run prettier && npm run stylelint',
   });
   fs.writePackage(pkg);
   // 额外包写入
@@ -120,7 +120,7 @@ export default async function(options?: CliOption) {
     typescript: [
       'typescript@~4.8.4',
       '@typescript-eslint/parser@5.52.0',
-      '@typescript-eslint/eslint-plugin@5.53.0'
+      '@typescript-eslint/eslint-plugin@5.53.0',
     ],
     react: ['eslint-plugin-react@7.18.3'],
     vue: ['vue-eslint-parser@7.3.0', 'eslint-plugin-vue@7.3.0'],
@@ -129,8 +129,8 @@ export default async function(options?: CliOption) {
       'typescript@~4.8.4',
       '@typescript-eslint/parser@5.52.0',
       '@typescript-eslint/eslint-plugin@5.53.0',
-      'eslint-plugin-rxjs'
-    ]
+      'eslint-plugin-rxjs',
+    ],
   };
   // 完整依赖
   const depen = [
@@ -140,12 +140,12 @@ export default async function(options?: CliOption) {
     'prettier',
     'cross-spawn',
     'stylelint',
-    'stylelint-config-standard'
+    'stylelint-config-standard',
   ].concat(extra[answers.type] || []);
   // 安装最新的eslint依赖
   await npm.install(depen, {
     // 写入 devDependencies
-    'save-dev': true
+    'save-dev': true,
   });
   // 写入pre-commit
   if (fs.existsSync(path.join(cwd, '.git'))) {

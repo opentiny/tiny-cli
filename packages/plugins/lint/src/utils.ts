@@ -4,7 +4,7 @@ import { fs } from '@opentiny/cli-devkit';
 const cwd = process.cwd();
 
 function firstUpperCase(str: string) {
-  return str.replace(/^\S/, s => s.toUpperCase());
+  return str.replace(/^\S/, (s) => s.toUpperCase());
 }
 
 /**
@@ -37,10 +37,7 @@ export function generateNames(name: string) {
     className: camelTrans(name, true),
 
     // 全大写
-    constName: name
-      .split('-')
-      .join('')
-      .toUpperCase()
+    constName: name.split('-').join('').toUpperCase(),
   };
 }
 
@@ -73,5 +70,5 @@ export default {
   getDistPath,
   getTemplatePath,
   generateNames,
-  addPreCommitHook
+  addPreCommitHook,
 };

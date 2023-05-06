@@ -10,7 +10,6 @@ export const createObsClient = (cliConfig: ITinyProConfig) => {
     secret_access_key: cliConfig.secretAccessKey,
     server,
   };
-  let obsClient;
   let options = { ...clientOptions };
 
   if (proxy) {
@@ -20,7 +19,7 @@ export const createObsClient = (cliConfig: ITinyProConfig) => {
     };
     options = { ...clientOptions, ...proxyOptions };
   }
-  obsClient = new ObsClient(options);
+  const obsClient = new ObsClient(options);
 
   return obsClient;
 };

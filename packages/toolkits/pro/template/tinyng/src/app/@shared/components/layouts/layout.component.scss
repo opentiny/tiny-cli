@@ -19,7 +19,7 @@
     top: 20px;
     width: 16px;
     height: 36px;
-    box-shadow: 0px 4px 12px 0px rgba(0 ,0 ,0 ,.10); 
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.1);
     border: 1px solid #ebebeb;
     background-color: #fff;
     border-radius: 0 8px 8px 0;
@@ -35,7 +35,7 @@
 
     &::after {
       display: block;
-      content: "";
+      content: '';
       position: relative;
       width: 0;
       height: 0;
@@ -101,7 +101,7 @@
 
     .t-pro-layout-header {
       background-color: var(--ti-base-color-white);
-      box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, .20); 
+      box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.2);
     }
 
     &.t-pro-basic-no-sec-header .t-pro-layout-header {

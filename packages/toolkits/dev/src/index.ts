@@ -21,5 +21,5 @@ export default {
   help,
   build,
   temp,
-  default: help
+  default: help,
 };

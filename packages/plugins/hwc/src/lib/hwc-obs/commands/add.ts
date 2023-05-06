@@ -77,6 +77,8 @@ export const addObs = async () => {
     setHwcExports('hwcConfig.obs', { bucketsList });
     log.success(`${commandName}成功`);
   } catch (err) {
-    log.error(`${obsMsg.obsTermGetListErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${obsMsg.obsTermGetListErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+    );
   }
 };

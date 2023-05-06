@@ -3,11 +3,11 @@ import { recommendObj } from './constants';
 @Component({
   selector: 't-pro-recommendation',
   templateUrl: './recommendation.component.html',
-  styleUrls: ['./recommendation.component.scss']
+  styleUrls: ['./recommendation.component.scss'],
 })
 export class RecommendationComponent {
   public recommendObj = recommendObj;
-  constructor() { }
+  constructor() {}
 
   openUrl(url: string) {
     const win = window.open(url);

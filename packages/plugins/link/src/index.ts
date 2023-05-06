@@ -17,5 +17,5 @@ export default {
   go,
   help,
   init,
-  default: init
+  default: init,
 };

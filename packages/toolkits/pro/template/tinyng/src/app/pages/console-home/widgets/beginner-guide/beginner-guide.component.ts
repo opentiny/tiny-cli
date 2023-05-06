@@ -25,6 +25,6 @@ export class BeginnerGuideComponent {
     {
       href: `${SupportUrlPrefix}qs-vpc/zh-cn_topic_0017816228.html`,
       text: `${TurorialI18nPrefix}internetTutorial`,
-    }
+    },
   ];
 }

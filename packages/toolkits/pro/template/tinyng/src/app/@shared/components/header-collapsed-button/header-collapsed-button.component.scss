@@ -27,14 +27,14 @@
     margin: 3px 0;
   }
 
-  .ti3-leftmenu-level1-active-item:before, .ti3-leftmenu-level2-active:before {
+  .ti3-leftmenu-level1-active-item:before,
+  .ti3-leftmenu-level2-active:before {
     background-color: var(--ti-base-color-brand-6);
   }
 
   ::ng-deep .ti3-leftmenu-panel {
     color: var(--ti-common-color-text-primary);
     font-size: 14px;
-    
   }
 
   ::ng-deep .ti3-leftmenu-level1-item.ti3-leftmenu-level1-active-item {
