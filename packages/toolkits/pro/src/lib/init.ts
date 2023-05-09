@@ -73,11 +73,11 @@ const createProjectSync = (answers: InitAnswers) => {
 
   const { framework, description, name: packageJsonName } = answers;
 
-  const TemplatePath =
+  const templatePath =
     framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
 
   // 模板来源目录
-  const from = utils.getTemplatePath(TemplatePath);
+  const from = utils.getTemplatePath(templatePath);
 
   // 复制模板的目标目录
   const to = utils.getDistPath();
