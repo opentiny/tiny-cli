@@ -265,7 +265,7 @@ export default async () => {
     if (ans.securityGroupRuleLimit) {
       // 超限了
       const result = await promptDeleteSecurityGroupRule(ans, cliConfig); // 询问是否删除
-      ans = result.ans;
+      ans = result.answer;
       await buyAndSyncInstances(ans);
     } else {
       await buyAndSyncInstances(ans);
