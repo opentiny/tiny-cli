@@ -1,7 +1,7 @@
 export default {
   'login.form.mode': '账号密码登录',
   'login.form.mail': '邮箱登录',
-  'login.form.title': '登录 Arco Design Pro',
+  'login.form.title': '登录 Tiny Pro',
   'login.form.userName.errMsg': '用户名不能为空',
   'login.form.password.errMsg': '密码不能为空',
   'login.form.mailName.errMsg': '邮箱名不能为空',

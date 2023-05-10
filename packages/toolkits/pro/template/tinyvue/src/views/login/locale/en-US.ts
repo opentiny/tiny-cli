@@ -1,7 +1,7 @@
 export default {
   'login.form.mode': 'Account and password login',
   'login.form.mail': 'Email login',
-  'login.form.title': 'Login to Arco Design Pro',
+  'login.form.title': 'Login to Tiny Pro',
   'login.form.userName.errMsg': 'Username cannot be empty',
   'login.form.password.errMsg': 'Password cannot be empty',
   'login.form.mailName.errMsg': 'The mailbox name cannot be empty',
