@@ -136,6 +136,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/fengyon"><img src="https://avatars.githubusercontent.com/u/84690330?v=4?s=100" width="100px;" alt="fengyon"/><br /><sub><b>fengyon</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=fengyon" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/howling-wind"><img src="https://avatars.githubusercontent.com/u/119645349?v=4?s=100" width="100px;" alt="qihe"/><br /><sub><b>qihe</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=howling-wind" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
