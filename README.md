@@ -125,6 +125,26 @@ Please read [Contribution Guide] (CONTRIBUTING.md) before participating in a con
 - Add the official assistant WeChat `opentiny-official` and join the technical exchange group.
 - Join the mailing list opentiny@googlegroups.com
 
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fengyon"><img src="https://avatars.githubusercontent.com/u/84690330?v=4?s=100" width="100px;" alt="fengyon"/><br /><sub><b>fengyon</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=fengyon" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ## License
 
 [MIT](LICENSE)
