@@ -1,6 +1,6 @@
 {
   "name": "@opentiny/tiny-toolkit-pro",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "TinyPro 开箱即用的中后台前端/设计解决方案",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -98,6 +98,12 @@
     ]
   },
   "changeLog": [
+    {
+      "version": "1.0.2",
+      "log": [
+        "feat: 清理vue模板冗余的文件"
+      ]
+    },
     {
       "version": "1.0.0",
       "log": [

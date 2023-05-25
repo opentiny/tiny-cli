@@ -6,8 +6,8 @@
   "author": "Tiny Team",
   "license": "MIT",
   "scripts": {
-    "start": "vite --config ./config/vite.config.preview.dev.ts --mode pages --port 3000",
-    "build": "vite build --config ./config/vite.config.preview.prod.ts",
+    "start": "vite --config ./config/vite.config.dev.ts --port 3000",
+    "build": "vite build --config ./config/vite.config.prod.ts",
     "report": "cross-env REPORT=true npm run build",
     "lint-staged": "npx lint-staged",
     "prepare": "git init && husky install"
