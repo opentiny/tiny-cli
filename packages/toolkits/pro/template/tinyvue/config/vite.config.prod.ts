@@ -1,14 +1,18 @@
 import { mergeConfig } from 'vite';
-import baseConig from './vite.config.preview.base';
+import baseConig from './vite.config.base';
 import configCompressPlugin from './plugin/compress';
 import configVisualizerPlugin from './plugin/visualizer';
+import configArcoResolverPlugin from './plugin/arcoResolver';
 
 export default mergeConfig(
   {
-    mode: 'pages',
+    mode: 'production',
     mock: true,
-    base: `${process.env.static_url_prefix}/tiny-pro-vue/${process.env.staticReleaseVersion}/vue-pro/pages`,
-    plugins: [configCompressPlugin('gzip'), configVisualizerPlugin()],
+    plugins: [
+      configCompressPlugin('gzip'),
+      configVisualizerPlugin(),
+      configArcoResolverPlugin(),
+    ],
     build: {
       rollupOptions: {
         output: {
