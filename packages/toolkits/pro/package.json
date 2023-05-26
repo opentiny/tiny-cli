@@ -54,7 +54,7 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@opentiny/cli-devkit": "^1.0.0-alpha.0",
+    "@opentiny/cli-devkit": "^1.0.1",
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.1.0",

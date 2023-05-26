@@ -36,18 +36,40 @@ const getInitAnswers = (): Promise<InitAnswers> => {
     {
       type: 'list',
       name: 'framework',
-      message: '请选择您希望使用的技术栈：',
+      message: '请选择您希望使用的客户端技术栈：',
       choices: [
         { name: 'vue', value: vueTemplatePath },
         { name: 'angular', value: ngTemplatePath },
       ],
       default: vueTemplatePath,
     },
+    {
+      type: 'list',
+      name: 'useSever',
+      message: '是否需要对接服务端：',
+      choices: [
+        { name: 'Yes', value: true },
+        { name: 'Don`t need', value: false },
+      ],
+      default: true,
+    },
   ] as const;
 
   return inquirer.prompt(question);
 };
-
+const severQuestion: Array<any> = [
+  {
+    type: 'list',
+    name: 'severType',
+    message: '请选择您希望使用的服务端技术栈：',
+    choices: [
+      { name: 'Spring Cloud', value: 'springCloud' },
+      { name: 'Egg.js', value: 'eggJs' },
+      { name: 'Nest.js', value: 'nestJs' },
+    ],
+    default: 'springCloud',
+  },
+];
 /**
  * 同步创建项目文件目录、文件
  * @answers 询问问题的选择值
@@ -71,8 +93,13 @@ const createProjectSync = (answers: InitAnswers) => {
     pluginFullname: fullName,
   };
 
-  const { framework, description, name: packageJsonName } = answers;
-
+  const {
+    framework,
+    description,
+    name: packageJsonName,
+    useSever,
+    severType,
+  } = answers;
   const templatePath =
     framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
 
@@ -80,8 +107,7 @@ const createProjectSync = (answers: InitAnswers) => {
   const from = utils.getTemplatePath(templatePath);
 
   // 复制模板的目标目录
-  const to = utils.getDistPath();
-
+  const to = utils.getDistPath('web');
   // 项目名称，跟当前目录保持一致
 
   fs.copyTpl(from, to, data, {
@@ -95,7 +121,12 @@ const createProjectSync = (answers: InitAnswers) => {
       return filename;
     },
   });
-
+  // 如果对接服务端，复制相关目录
+  if (useSever) {
+    const severFrom = utils.getTemplatePath(`sever/${severType}`);
+    const severTo = utils.getDistPath('sever');
+    fs.copyTpl(severFrom, severTo);
+  }
   // 将项目名称、描述写入 package.json中
   {
     const packageJsonPath = path.join(to, 'package.json');
@@ -121,7 +152,7 @@ export const installDependencies = () => {
 
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
-  spawn.sync('npm', ['install'], { stdio: 'inherit' });
+  spawn.sync('npm', ['install'], { cwd: 'web/', stdio: 'inherit' });
 
   log.success('npm 依赖安装成功');
 
@@ -159,7 +190,11 @@ export default async () => {
   // 拷贝模板到当前目录
   try {
     // 创建项目文件夹及文件
-    const answers = await getInitAnswers();
+    const baseAnswers = await getInitAnswers();
+    let severAnswer: Object = {};
+    if (baseAnswers.useSever)
+      severAnswer = await inquirer.prompt(severQuestion);
+    const answers = Object.assign(baseAnswers, severAnswer);
     createProjectSync(answers);
   } catch (e) {
     log.error('项目模板创建失败');

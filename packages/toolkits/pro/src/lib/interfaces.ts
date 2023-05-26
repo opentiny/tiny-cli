@@ -13,4 +13,6 @@ export interface InitAnswers {
   description: string;
   framework: string;
   name: string;
+  useSever: boolean;
+  severType: string;
 }
