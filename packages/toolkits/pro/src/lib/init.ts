@@ -45,7 +45,7 @@ const getInitAnswers = (): Promise<InitAnswers> => {
     },
     {
       type: 'list',
-      name: 'useSever',
+      name: 'useServer',
       message: '是否需要对接服务端：',
       choices: [
         { name: 'Yes', value: true },
@@ -57,10 +57,10 @@ const getInitAnswers = (): Promise<InitAnswers> => {
 
   return inquirer.prompt(question);
 };
-const severQuestion: Array<any> = [
+const serverQuestion: Array<any> = [
   {
     type: 'list',
-    name: 'severType',
+    name: 'serverType',
     message: '请选择您希望使用的服务端技术栈：',
     choices: [
       { name: 'Spring Cloud', value: 'springCloud' },
@@ -97,8 +97,8 @@ const createProjectSync = (answers: InitAnswers) => {
     framework,
     description,
     name: packageJsonName,
-    useSever,
-    severType,
+    useServer,
+    serverType,
   } = answers;
   const templatePath =
     framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
@@ -107,7 +107,7 @@ const createProjectSync = (answers: InitAnswers) => {
   const from = utils.getTemplatePath(templatePath);
 
   // 复制模板的目标目录
-  const to = utils.getDistPath('web');
+  const to = utils.getDistPath(useServer ? 'web' : '');
   // 项目名称，跟当前目录保持一致
 
   fs.copyTpl(from, to, data, {
@@ -122,10 +122,10 @@ const createProjectSync = (answers: InitAnswers) => {
     },
   });
   // 如果对接服务端，复制相关目录
-  if (useSever) {
-    const severFrom = utils.getTemplatePath(`sever/${severType}`);
-    const severTo = utils.getDistPath('sever');
-    fs.copyTpl(severFrom, severTo);
+  if (useServer) {
+    const serverFrom = utils.getTemplatePath(`server/${serverType}`);
+    const serverTo = utils.getDistPath('server');
+    fs.copyTpl(serverFrom, serverTo);
   }
   // 将项目名称、描述写入 package.json中
   {
@@ -147,12 +147,16 @@ const createProjectSync = (answers: InitAnswers) => {
 };
 
 // 安装依赖
-export const installDependencies = () => {
+export const installDependencies = (useServer: boolean) => {
   const prefix = cliConfig.getBinName();
 
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
-  spawn.sync('npm', ['install'], { cwd: 'web/', stdio: 'inherit' });
+  console.log(cwd, 'cccccwwwwdddd');
+  spawn.sync('npm', ['install'], {
+    cwd: useServer ? 'web/' : null,
+    stdio: 'inherit',
+  });
 
   log.success('npm 依赖安装成功');
 
@@ -188,13 +192,16 @@ export const installDependencies = () => {
 
 export default async () => {
   // 拷贝模板到当前目录
+  let useServerAnswer = false;
   try {
     // 创建项目文件夹及文件
     const baseAnswers = await getInitAnswers();
-    let severAnswer: Object = {};
-    if (baseAnswers.useSever)
-      severAnswer = await inquirer.prompt(severQuestion);
-    const answers = Object.assign(baseAnswers, severAnswer);
+    useServerAnswer = baseAnswers.useServer;
+    let serverAnswer: Object = {};
+    if (baseAnswers.useServer) {
+      serverAnswer = await inquirer.prompt(serverQuestion);
+    }
+    const answers = Object.assign(baseAnswers, serverAnswer);
     createProjectSync(answers);
   } catch (e) {
     log.error('项目模板创建失败');
@@ -203,7 +210,7 @@ export default async () => {
   }
   // 安装依赖
   try {
-    installDependencies();
+    installDependencies(useServerAnswer);
   } catch (e) {
     log.error('npm 依赖安装失败');
     log.error('请手动执行 tiny i 或 npm i');
