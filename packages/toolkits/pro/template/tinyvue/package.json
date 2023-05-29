@@ -6,7 +6,7 @@
   "author": "Tiny Team",
   "license": "MIT",
   "scripts": {
-    "start": "vite --config ./config/vite.config.dev.ts --port 3000",
+    "start": "vite --config ./config/vite.config.dev.ts --port 3031",
     "build": "vite build --config ./config/vite.config.prod.ts",
     "report": "cross-env REPORT=true npm run build",
     "lint-staged": "npx lint-staged",
@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "@opentiny/hwc-client": "^0.0.14",
+    "@opentiny/hwc-client": "^0.0.12",
     "@opentiny/vue": "^3.6.8",
     "@types/mockjs": "^1.0.4",
     "@vueuse/core": "^7.3.0",

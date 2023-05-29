@@ -15,6 +15,7 @@ declare module 'vue/types/vue' {
 
 interface ImportMetaEnv {
   readonly VITE_API_BASE_URL: string;
+  VITE_USE_MOCK :boolean;
 }
 
 declare module '@opentiny/vue-locale';

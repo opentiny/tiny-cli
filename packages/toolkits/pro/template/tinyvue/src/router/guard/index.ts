@@ -11,5 +11,5 @@ function setupPageGuard(router: Router) {
 
 export default function createRouteGuard(router: Router) {
   setupPageGuard(router);
-  setupPermissionGuard(router);
+  if(import.meta.env.VITE_USE_MOCK) setupPermissionGuard(router);
 }
