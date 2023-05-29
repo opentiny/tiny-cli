@@ -16,7 +16,7 @@ import config from '../hwc-exports.json';
 import 'echarts4/map/js/china.js';
 import chinaMap from './assets/chaina.json';
 
-setupProdMockServer();
+if(import.meta.env.VITE_USE_MOCK) setupProdMockServer();
 echarts4.registerMap('china', chinaMap);
 const app = createApp(App);
 

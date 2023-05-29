@@ -1,7 +1,16 @@
-import { mergeConfig } from 'vite';
+import { mergeConfig,loadEnv } from 'vite';
 import eslint from 'vite-plugin-eslint';
 import baseConfig from './vite.config.base';
 
+
+const proxyConfig = {
+  [loadEnv('',process.cwd()).VITE_BASE_API]: {
+    target: loadEnv('',process.cwd()).VITE_SEVER_HOST,
+    changeOrigin: true,
+    logLevel: 'debug',
+    rewrite: path => path.replace(new RegExp(`${loadEnv('',process.cwd()).VITE_BASE_API}`), '')
+  }
+}
 export default mergeConfig(
   {
     mode: 'development',
@@ -10,6 +19,9 @@ export default mergeConfig(
       fs: {
         strict: true,
       },
+      proxy: {
+        ...proxyConfig
+      }
     },
     plugins: [
       eslint({
