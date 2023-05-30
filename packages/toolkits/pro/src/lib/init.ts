@@ -82,6 +82,7 @@ const serverQuestion: QuestionCollection<InitAnswers> = [
     type: 'input',
     name: 'port',
     message: '请输入服务端Port：',
+    default: '7001',
     // 必填校验
     validate: (input: string) => Boolean(input),
     prefix: '*',
