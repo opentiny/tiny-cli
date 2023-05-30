@@ -6,6 +6,6 @@ export default (app: Application) => {
   // todo: init database connect
   // router.post('/v1/database/init');
 
-  router.get('/v1/employee/getEmployee', controller.employee.getEmployee);
+  router.post('/v1/employee/getEmployee', controller.employee.getEmployee);
 
 };

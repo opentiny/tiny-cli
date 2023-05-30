@@ -164,7 +164,6 @@ const createProjectSync = (answers: InitAnswers) => {
         writeOrReadOptions
       );
     } 
-
   }
   // 将项目名称、描述写入 package.json中
   {
@@ -178,19 +177,16 @@ const createProjectSync = (answers: InitAnswers) => {
     packageJson.description = description;
 
     if (useServer) {
-      // 修改vue模板环境变量
       const envPath = path.join(to, '.env');
       const envConfig = dotenv.parse(
         fs.readFileSync(envPath, writeOrReadOptions)
       );
       envConfig.VITE_SEVER_HOST =  `http://${host.indexOf('://')>-1?host.split('://')[1]:host}:${port}`;
+
       const config = Object.keys(envConfig)
         .map((key) => `${key} = ${envConfig[key]}`)
         .join('\n');
       fs.writeFileSync(envPath, config);
-
-       
-
     } else {
       const envPath = path.join(to, '.env');
       const envConfig = dotenv.parse(
