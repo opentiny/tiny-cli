@@ -2,6 +2,10 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modal } from '@opentiny/vue';
 import { getToken } from '@/utils/auth';
 
+export function setcsrf() {
+  return axios.get('/api/v1/setcsrf');
+}
+
 export interface HttpResponse<T = unknown> {
   status: number;
   msg: string;
@@ -22,6 +26,12 @@ axios.interceptors.request.use(
       }
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    const [, csrfToken] = /[;\s+]?csrfToken=([^;]*)/.exec(document.cookie) || [];
+    if (csrfToken) {
+      config.headers = { ...config.headers, 'x-csrf-token': csrfToken };
+    }
+
     return config;
   },
   (error) => {
