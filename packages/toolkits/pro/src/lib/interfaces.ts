@@ -15,4 +15,6 @@ export interface InitAnswers {
   name: string;
   useServer: boolean;
   serverType: string;
+  port: string;
+  host: string;
 }

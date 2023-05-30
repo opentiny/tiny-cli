@@ -5,6 +5,8 @@ import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
 import { InitAnswers } from './interfaces';
 import utils from './utils';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const log = logs('tiny-toolkit-pro');
 const cwd = process.cwd();
@@ -42,22 +44,19 @@ const getInitAnswers = (): Promise<InitAnswers> => {
         { name: 'angular', value: ngTemplatePath },
       ],
       default: vueTemplatePath,
+      prefix: '*',
     },
     {
-      type: 'list',
+      type: 'confirm',
       name: 'useServer',
       message: '是否需要对接服务端：',
-      choices: [
-        { name: 'Yes', value: true },
-        { name: 'Don`t need', value: false },
-      ],
       default: true,
     },
   ] as const;
 
   return inquirer.prompt(question);
 };
-const serverQuestion: Array<any> = [
+const serverQuestion: QuestionCollection<InitAnswers> = [
   {
     type: 'list',
     name: 'serverType',
@@ -68,6 +67,23 @@ const serverQuestion: Array<any> = [
       { name: 'Nest.js', value: 'nestJs' },
     ],
     default: 'springCloud',
+    prefix: '*',
+  },
+  {
+    type: 'input',
+    name: 'host',
+    message: '请输入服务端Host：',
+    // 必填校验
+    validate: (input: string) => Boolean(input),
+    prefix: '*',
+  },
+  {
+    type: 'input',
+    name: 'port',
+    message: '请输入服务端Port：',
+    // 必填校验
+    validate: (input: string) => Boolean(input),
+    prefix: '*',
   },
 ];
 /**
@@ -99,6 +115,8 @@ const createProjectSync = (answers: InitAnswers) => {
     name: packageJsonName,
     useServer,
     serverType,
+    host,
+    port,
   } = answers;
   const templatePath =
     framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
@@ -138,6 +156,28 @@ const createProjectSync = (answers: InitAnswers) => {
     packageJson.name = packageJsonName;
     packageJson.description = description;
 
+    if (useServer) {
+      const envPath = path.join(to, '.env');
+      const envConfig = dotenv.parse(
+        fs.readFileSync(envPath, writeOrReadOptions)
+      );
+      envConfig.VITE_SEVER_HOST = `${host}:${port}`;
+      const config = Object.keys(envConfig)
+        .map((key) => `${key} = ${envConfig[key]}`)
+        .join('\n');
+      fs.writeFileSync(envPath, config);
+    } else {
+      const envPath = path.join(to, '.env');
+      const envConfig = dotenv.parse(
+        fs.readFileSync(envPath, writeOrReadOptions)
+      );
+      envConfig.VITE_USE_MOCK = 'true';
+      const config = Object.keys(envConfig)
+        .map((key) => `${key} = ${envConfig[key]}`)
+        .join('\n');
+      fs.writeFileSync(envPath, config);
+    }
+
     fs.writeFileSync(
       packageJsonPath,
       JSON.stringify(packageJson, null, 2),
@@ -152,13 +192,14 @@ export const installDependencies = (useServer: boolean) => {
 
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
-  console.log(cwd, 'cccccwwwwdddd');
   spawn.sync('npm', ['install'], {
     cwd: useServer ? 'web/' : null,
     stdio: 'inherit',
   });
 
   log.success('npm 依赖安装成功');
+
+  if (useServer) process.chdir('web');
 
   /* prettier-ignore-start */
   console.log(
@@ -208,6 +249,7 @@ export default async () => {
     log.debug(e);
     throw e;
   }
+
   // 安装依赖
   try {
     installDependencies(useServerAnswer);
