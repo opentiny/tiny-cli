@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "@opentiny/hwc-client": "^0.0.12",
+    "@opentiny/hwc-client": "^0.0.14",
     "@opentiny/vue": "^3.6.8",
     "@types/mockjs": "^1.0.4",
     "@vueuse/core": "^7.3.0",
