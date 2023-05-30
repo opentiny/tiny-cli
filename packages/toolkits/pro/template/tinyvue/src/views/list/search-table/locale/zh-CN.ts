@@ -42,6 +42,7 @@ export default {
   'searchTable.columns.status': '状态',
   'searchTable.columns.operations': '操作',
   'searchTable.columns.operations.view': '查看',
+  'searchTable.columns.operations.delete': '删除',
   'searchTable.collapse.restores': '还原',
   'searchTable.collapse.full': '全屏',
 };

@@ -69,6 +69,7 @@
   import { useI18n } from 'vue-i18n';
   import { useUserStore } from '@/store';
   import useLoading from '@/hooks/loading';
+  import { setToken } from '@/utils/auth';
 
   const router = useRouter();
   const { t } = useI18n();
@@ -112,7 +113,20 @@
       if (!valid) {
         return;
       }
+      if(!import.meta.env.VITE_USE_MOCK){
+        window.localStorage.setItem('userRole', 'admin');
+        setToken('12345');
 
+        const { redirect, ...othersQuery } = router.currentRoute.value.query;
+        router.push({
+          name: (redirect as string) || 'Home',
+          query: {
+            ...othersQuery,
+          },
+        });
+        setLoading(false);
+        return
+      }
       setLoading(true);
 
       try {
