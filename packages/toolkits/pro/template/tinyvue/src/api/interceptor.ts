@@ -5,7 +5,7 @@ import { getToken } from '@/utils/auth';
 export interface HttpResponse<T = unknown> {
   status: number;
   msg: string;
-  code: number;
+  code: number| string;
   data: T;
 }
 
@@ -33,7 +33,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data;
-    if (res.code !== 20000) {
+    if (res.code !== '0') {
       if (
         [50008, 50012, 50014].includes(res.code) &&
         response.config.url !== '/api/user/info'

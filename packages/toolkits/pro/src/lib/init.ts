@@ -76,6 +76,7 @@ const serverQuestion: QuestionCollection<InitAnswers> = [
     // 必填校验
     validate: (input: string) => Boolean(input),
     prefix: '*',
+    default:'http://127.0.0.1'
   },
   {
     type: 'input',
@@ -121,6 +122,8 @@ const createProjectSync = (answers: InitAnswers) => {
   const templatePath =
     framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
 
+  
+
   // 模板来源目录
   const from = utils.getTemplatePath(templatePath);
 
@@ -144,6 +147,24 @@ const createProjectSync = (answers: InitAnswers) => {
     const serverFrom = utils.getTemplatePath(`server/${serverType}`);
     const serverTo = utils.getDistPath('server');
     fs.copyTpl(serverFrom, serverTo);
+
+    // 修改egg 服务端口 
+    if(serverType === 'eggJs'){
+      const packageJsonPath = path.join(serverTo, 'package.json');
+      const writeOrReadOptions = { encoding: 'utf8' } as const;
+
+      const packageJson = JSON.parse(
+        fs.readFileSync(packageJsonPath, writeOrReadOptions)
+      );
+      packageJson.scripts.dev = `egg-bin dev --host ${host.indexOf('://')>-1?host.split('://')[1]:host} --port ${port}`
+
+      fs.writeFileSync(
+        packageJsonPath,
+        JSON.stringify(packageJson, null, 2),
+        writeOrReadOptions
+      );
+    } 
+
   }
   // 将项目名称、描述写入 package.json中
   {
@@ -157,15 +178,19 @@ const createProjectSync = (answers: InitAnswers) => {
     packageJson.description = description;
 
     if (useServer) {
+      // 修改vue模板环境变量
       const envPath = path.join(to, '.env');
       const envConfig = dotenv.parse(
         fs.readFileSync(envPath, writeOrReadOptions)
       );
-      envConfig.VITE_SEVER_HOST = `${host}:${port}`;
+      envConfig.VITE_SEVER_HOST =  `http://${host.indexOf('://')>-1?host.split('://')[1]:host}:${port}`;
       const config = Object.keys(envConfig)
         .map((key) => `${key} = ${envConfig[key]}`)
         .join('\n');
       fs.writeFileSync(envPath, config);
+
+       
+
     } else {
       const envPath = path.join(to, '.env');
       const envConfig = dotenv.parse(
@@ -187,8 +212,23 @@ const createProjectSync = (answers: InitAnswers) => {
 };
 
 // 安装依赖
-export const installDependencies = (useServer: boolean) => {
+export const installDependencies = (useServer: boolean,serverAnswer:InitAnswers) => {
   const prefix = cliConfig.getBinName();
+
+  // egg服务端 安装依赖并启动 
+  if(useServer && serverAnswer.serverType === 'eggJs'){
+    log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
+    spawn.sync('npm', ['install'], {
+      cwd: 'server/',
+      stdio: 'inherit',
+    });
+    log.success('npm 依赖安装成功');
+    spawn.sync('npm', ['run','dev'], {
+      cwd: 'server/',
+      stdio: 'inherit',
+    });
+    log.success('服务已启动 ...');
+  }
 
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
@@ -234,11 +274,11 @@ export const installDependencies = (useServer: boolean) => {
 export default async () => {
   // 拷贝模板到当前目录
   let useServerAnswer = false;
+  let serverAnswer: any = {};
   try {
     // 创建项目文件夹及文件
     const baseAnswers = await getInitAnswers();
     useServerAnswer = baseAnswers.useServer;
-    let serverAnswer: Object = {};
     if (baseAnswers.useServer) {
       serverAnswer = await inquirer.prompt(serverQuestion);
     }
@@ -252,7 +292,7 @@ export default async () => {
 
   // 安装依赖
   try {
-    installDependencies(useServerAnswer);
+    installDependencies(useServerAnswer,serverAnswer);
   } catch (e) {
     log.error('npm 依赖安装失败');
     log.error('请手动执行 tiny i 或 npm i');
