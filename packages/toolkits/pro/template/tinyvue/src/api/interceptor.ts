@@ -2,10 +2,6 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modal } from '@opentiny/vue';
 import { getToken } from '@/utils/auth';
 
-const setcsrf = async () => {
-  await fetch('/api/v1/setcsrf')
-}
-
 export interface HttpResponse<T = unknown> {
   status: number;
   msg: string;
@@ -28,9 +24,13 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    const regex =/[;\s+]?csrfToken=([^;]*)/;
+    const regex = /[;\s+]?csrfToken=([^;]*)/;
     if (!document.cookie.match(regex)) {
-      await setcsrf();
+      try {
+        await fetch('/api/v1/setcsrf');
+      } catch (e) {
+        throw e;
+      }
     }
     const [, csrfToken] = regex.exec(document.cookie) || [];
 
@@ -38,7 +38,7 @@ axios.interceptors.request.use(
 
     return config;
   },
-  (error) => {
+  error => {
     // do something
     return Promise.reject(error);
   }
@@ -55,14 +55,14 @@ axios.interceptors.response.use(
         Modal.message({
           message:
             'You have been logged out, you can cancel to stay on this page, or log in again',
-          status: 'error',
+          status: 'error'
         });
       }
       return Promise.reject(new Error(res.msg || 'Error'));
     }
     return res;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
   }
 );
