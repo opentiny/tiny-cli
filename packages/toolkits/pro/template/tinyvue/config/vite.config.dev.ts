@@ -5,7 +5,7 @@ import baseConfig from './vite.config.base';
 
 const proxyConfig = {
   [loadEnv('',process.cwd()).VITE_BASE_API]: {
-    target: loadEnv('',process.cwd()).VITE_SEVER_HOST,
+    target: loadEnv('',process.cwd()).VITE_SERVER_HOST,
     changeOrigin: true,
     logLevel: 'debug',
     rewrite: path => path.replace(new RegExp(`${loadEnv('',process.cwd()).VITE_BASE_API}`), '')
