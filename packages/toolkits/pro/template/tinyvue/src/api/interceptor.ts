@@ -2,10 +2,6 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modal } from '@opentiny/vue';
 import { getToken } from '@/utils/auth';
 
-export function setcsrf() {
-  return axios.get('/api/v1/setcsrf');
-}
-
 export interface HttpResponse<T = unknown> {
   status: number;
   msg: string;
@@ -18,8 +14,9 @@ if (import.meta.env.VITE_API_BASE_URL) {
 }
 
 axios.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  async (config: AxiosRequestConfig) => {
     const token = getToken();
+
     if (token) {
       if (!config.headers) {
         config.headers = {};
@@ -27,10 +24,17 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    const [, csrfToken] = /[;\s+]?csrfToken=([^;]*)/.exec(document.cookie) || [];
-    if (csrfToken) {
-      config.headers = { ...config.headers, 'x-csrf-token': csrfToken };
+    const regex = /[;\s+]?csrfToken=([^;]*)/;
+    if (!document.cookie.match(regex)) {
+      try {
+        await fetch('/api/v1/setcsrf');
+      } catch (e) {
+        throw e;
+      }
     }
+    const [, csrfToken] = regex.exec(document.cookie) || [];
+
+    config.headers = { ...config.headers, 'x-csrf-token': csrfToken };
 
     return config;
   },
