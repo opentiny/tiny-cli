@@ -2,9 +2,12 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modal } from '@opentiny/vue';
 import { getToken } from '@/utils/auth';
 
-export function setcsrf() {
-  return axios.get('/api/v1/setcsrf');
+const getCsrfToken = async ()=>{
+  const res = await fetch('/api/v1/setcsrf')
+  return res
 }
+
+const csrf = getCsrfToken()
 
 export interface HttpResponse<T = unknown> {
   status: number;
