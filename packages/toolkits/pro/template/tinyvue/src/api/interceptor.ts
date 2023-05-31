@@ -38,7 +38,7 @@ axios.interceptors.request.use(
 
     return config;
   },
-  error => {
+  (error) => {
     // do something
     return Promise.reject(error);
   }
@@ -55,14 +55,14 @@ axios.interceptors.response.use(
         Modal.message({
           message:
             'You have been logged out, you can cancel to stay on this page, or log in again',
-          status: 'error'
+          status: 'error',
         });
       }
       return Promise.reject(new Error(res.msg || 'Error'));
     }
     return res;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
