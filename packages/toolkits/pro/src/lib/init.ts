@@ -47,47 +47,23 @@ const getInitAnswers = (): Promise<InitAnswers> => {
       prefix: '*',
     },
     {
-      type: 'confirm',
-      name: 'useServer',
-      message: '是否需要对接服务端：',
-      default: true,
+      type: 'list',
+      name: 'serverType',
+      message: '请选择您希望使用的服务端技术栈：',
+      choices: [
+        { name: 'Egg.js', value: 'eggJs' },
+        { name: 'Spring Cloud', value: 'springCloud' },
+        { name: 'Nest.js', value: 'nestJs' },
+        { name: 'Dont`t need', value: false },
+      ],
+      default: 'eggJs',
+      prefix: '*',
     },
   ] as const;
 
   return inquirer.prompt(question);
 };
-const serverQuestion: QuestionCollection<InitAnswers> = [
-  {
-    type: 'list',
-    name: 'serverType',
-    message: '请选择您希望使用的服务端技术栈：',
-    choices: [
-      { name: 'Spring Cloud', value: 'springCloud' },
-      { name: 'Egg.js', value: 'eggJs' },
-      { name: 'Nest.js', value: 'nestJs' },
-    ],
-    default: 'springCloud',
-    prefix: '*',
-  },
-  {
-    type: 'input',
-    name: 'host',
-    message: '请输入服务端Host：',
-    // 必填校验
-    validate: (input: string) => Boolean(input),
-    prefix: '*',
-    default: 'http://127.0.0.1',
-  },
-  {
-    type: 'input',
-    name: 'port',
-    message: '请输入服务端Port：',
-    default: '7001',
-    // 必填校验
-    validate: (input: string) => Boolean(input),
-    prefix: '*',
-  },
-];
+
 /**
  * 同步创建项目文件目录、文件
  * @answers 询问问题的选择值
@@ -115,10 +91,7 @@ const createProjectSync = (answers: InitAnswers) => {
     framework,
     description,
     name: packageJsonName,
-    useServer,
     serverType,
-    host,
-    port,
   } = answers;
   const templatePath =
     framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
@@ -127,7 +100,7 @@ const createProjectSync = (answers: InitAnswers) => {
   const from = utils.getTemplatePath(templatePath);
 
   // 复制模板的目标目录
-  const to = utils.getDistPath(useServer ? 'web' : '');
+  const to = utils.getDistPath(serverType ? 'web' : '');
   // 项目名称，跟当前目录保持一致
 
   fs.copyTpl(from, to, data, {
@@ -142,29 +115,10 @@ const createProjectSync = (answers: InitAnswers) => {
     },
   });
   // 如果对接服务端，复制相关目录
-  if (useServer) {
+  if (serverType) {
     const serverFrom = utils.getTemplatePath(`server/${serverType}`);
     const serverTo = utils.getDistPath('server');
     fs.copyTpl(serverFrom, serverTo);
-
-    // 修改egg 服务端口
-    if (serverType === 'eggJs') {
-      const packageJsonPath = path.join(serverTo, 'package.json');
-      const writeOrReadOptions = { encoding: 'utf8' } as const;
-
-      const packageJson = JSON.parse(
-        fs.readFileSync(packageJsonPath, writeOrReadOptions)
-      );
-      packageJson.scripts.dev = `egg-bin dev --host ${
-        host.indexOf('://') > -1 ? host.split('://')[1] : host
-      } --port ${port}`;
-
-      fs.writeFileSync(
-        packageJsonPath,
-        JSON.stringify(packageJson, null, 2),
-        writeOrReadOptions
-      );
-    }
   }
   // 将项目名称、描述写入 package.json中
   {
@@ -177,20 +131,7 @@ const createProjectSync = (answers: InitAnswers) => {
     packageJson.name = packageJsonName;
     packageJson.description = description;
 
-    if (useServer) {
-      const envPath = path.join(to, '.env');
-      const envConfig = dotenv.parse(
-        fs.readFileSync(envPath, writeOrReadOptions)
-      );
-      envConfig.VITE_SEVER_HOST = `http://${
-        host.indexOf('://') > -1 ? host.split('://')[1] : host
-      }:${port}`;
-
-      const config = Object.keys(envConfig)
-        .map((key) => `${key} = ${envConfig[key]}`)
-        .join('\n');
-      fs.writeFileSync(envPath, config);
-    } else {
+    if (!serverType) {
       const envPath = path.join(to, '.env');
       const envConfig = dotenv.parse(
         fs.readFileSync(envPath, writeOrReadOptions)
@@ -212,13 +153,12 @@ const createProjectSync = (answers: InitAnswers) => {
 
 // 安装依赖
 export const installDependencies = (
-  useServer: boolean,
-  serverAnswer: InitAnswers
+  answers: InitAnswers
 ) => {
   const prefix = cliConfig.getBinName();
 
   // egg服务端 安装依赖并启动
-  if (useServer && serverAnswer.serverType === 'eggJs') {
+  if (answers.serverType === 'eggJs') {
     log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
     spawn.sync('npm', ['install'], {
       cwd: 'server/',
@@ -235,13 +175,11 @@ export const installDependencies = (
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
   spawn.sync('npm', ['install'], {
-    cwd: useServer ? 'web/' : null,
+    cwd: answers.serverType ? 'web/' : null,
     stdio: 'inherit',
   });
 
   log.success('npm 依赖安装成功');
-
-  if (useServer) process.chdir('web');
 
   /* prettier-ignore-start */
   console.log(
@@ -275,16 +213,10 @@ export const installDependencies = (
 
 export default async () => {
   // 拷贝模板到当前目录
-  let useServerAnswer = false;
-  let serverAnswer: any = {};
+  let answers: any = {};
   try {
     // 创建项目文件夹及文件
-    const baseAnswers = await getInitAnswers();
-    useServerAnswer = baseAnswers.useServer;
-    if (baseAnswers.useServer) {
-      serverAnswer = await inquirer.prompt(serverQuestion);
-    }
-    const answers = Object.assign(baseAnswers, serverAnswer);
+    answers = await getInitAnswers();
     createProjectSync(answers);
   } catch (e) {
     log.error('项目模板创建失败');
@@ -294,7 +226,7 @@ export default async () => {
 
   // 安装依赖
   try {
-    installDependencies(useServerAnswer, serverAnswer);
+    installDependencies(answers);
   } catch (e) {
     log.error('npm 依赖安装失败');
     log.error('请手动执行 tiny i 或 npm i');
