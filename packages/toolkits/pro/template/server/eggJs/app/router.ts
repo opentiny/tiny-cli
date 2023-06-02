@@ -8,4 +8,5 @@ export default (app: Application) => {
 
   router.post('/v1/employee/getEmployee', controller.employee.getEmployee);
 
+  router.get('/v1/user/userInfo/:id', controller.user.getUserInfo);
 };
