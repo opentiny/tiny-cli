@@ -69,8 +69,7 @@ const getInitAnswers = (): Promise<InitAnswers> => {
  * @returns object { dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
  */
 const getDBType = (): Promise<DBAnswers> => {
-  const question: QuestionCollection<DBAnswers> =
-  {
+  const question: QuestionCollection<DBAnswers> = {
     type: 'list',
     name: 'dialect',
     message: '请选择数据库类型：',
@@ -80,10 +79,10 @@ const getDBType = (): Promise<DBAnswers> => {
     ],
     default: 'mysql',
     prefix: '*',
-  }
+  };
 
   return inquirer.prompt(question);
-}
+};
 const getDBConfig = (): Promise<DBAnswers> => {
   const question: QuestionCollection<DBAnswers> = [
     {
@@ -122,30 +121,28 @@ const getDBConfig = (): Promise<DBAnswers> => {
   ] as const;
 
   return inquirer.prompt(question);
-}
+};
 /**
  * 同步创建服务端项目文件目录、文件
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
 const createServerSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
-
-  const {
-    serverType,
-  } = answers
+  const { serverType } = answers;
 
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverType}`);
   const serverTo = utils.getDistPath('server');
   fs.copyTpl(serverFrom, serverTo);
 
-  // 如果命令行配置数据库，写入config 
+  // 如果命令行配置数据库，写入config
   if (dbAnswers.dialect && serverType === 'eggJs') {
-    const eggConfigPath = path.join(serverTo, 'app/database/db.config.json')
+    const eggConfigPath = path.join(serverTo, 'app/database/db.config.json');
     const writeOrReadOptions = { encoding: 'utf8' } as const;
-    const eggConfig = JSON.parse(fs.readFileSync(eggConfigPath, writeOrReadOptions))
-    console.log(eggConfig, 'eggConfig')
-    const dbConfig = Object.assign(eggConfig, dbAnswers)
+    const eggConfig = JSON.parse(
+      fs.readFileSync(eggConfigPath, writeOrReadOptions)
+    );
+    const dbConfig = Object.assign(eggConfig, dbAnswers);
     fs.writeFileSync(
       eggConfigPath,
       JSON.stringify(dbConfig),
@@ -177,12 +174,7 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
     pluginFullname: fullName,
   };
 
-  const {
-    framework,
-    description,
-    name: packageJsonName,
-    serverType,
-  } = answers;
+  const { framework, description, name: packageJsonName, serverType } = answers;
   const templatePath =
     framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
 
@@ -235,13 +227,11 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
     );
   }
   // 如果对接服务端，执行文件复制及相关配置
-  serverType && createServerSync(answers, dbAnswers)
+  serverType && createServerSync(answers, dbAnswers);
 };
 
 // 安装依赖
-export const installDependencies = (
-  answers: InitAnswers
-) => {
+export const installDependencies = (answers: InitAnswers) => {
   const prefix = cliConfig.getBinName();
 
   // egg服务端 安装依赖并启动
@@ -307,8 +297,8 @@ export default async () => {
   try {
     // 创建项目文件夹及文件
     answers = await getInitAnswers();
-    if (answers.serverType) DBAnswers = await getDBType()
-    if (DBAnswers.dialect) DBConfig = await getDBConfig()
+    if (answers.serverType) DBAnswers = await getDBType();
+    if (DBAnswers.dialect) DBConfig = await getDBConfig();
 
     createProjectSync(answers, { ...DBConfig, ...DBAnswers });
   } catch (e) {
