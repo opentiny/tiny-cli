@@ -54,7 +54,7 @@ const getInitAnswers = (): Promise<InitAnswers> => {
         { name: 'Egg.js', value: 'eggJs' },
         { name: 'Spring Cloud', value: 'springCloud' },
         { name: 'Nest.js', value: 'nestJs' },
-        { name: 'Dont`t need', value: false },
+        { name: '跳过', value: false },
       ],
       default: 'eggJs',
       prefix: '*',
@@ -76,7 +76,7 @@ const getDBType = (): Promise<DBAnswers> => {
     message: '请选择数据库类型：',
     choices: [
       { name: 'mySQL', value: 'mysql' },
-      { name: 'later', value: false },
+      { name: '跳过', value: false },
     ],
     default: 'mysql',
     prefix: '*',
