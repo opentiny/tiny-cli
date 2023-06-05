@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import spawn from 'cross-spawn';
 import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
-import { InitAnswers } from './interfaces';
+import { InitAnswers, DBAnswers } from './interfaces';
 import utils from './utils';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -16,7 +16,7 @@ const ngTemplatePath = 'tinyng';
 /**
  * 询问创建项目的描述，使用的技术栈
  *
- * @returns pbject { description: 项目描述,framework: 框架, name: 项目名称 }
+ * @returns object { description: 项目描述,framework: 框架, name: 项目名称 ,serverType:使用技术栈}
  */
 const getInitAnswers = (): Promise<InitAnswers> => {
   const basename = path.basename(utils.getDistPath());
@@ -63,12 +63,102 @@ const getInitAnswers = (): Promise<InitAnswers> => {
 
   return inquirer.prompt(question);
 };
-
 /**
- * 同步创建项目文件目录、文件
- * @answers 询问问题的选择值
+ * DB配置
+ *
+ * @returns object { dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
  */
-const createProjectSync = (answers: InitAnswers) => {
+const getDBType = (): Promise<DBAnswers> => {
+  const question: QuestionCollection<DBAnswers> =
+  {
+    type: 'list',
+    name: 'dialect',
+    message: '请选择数据库类型：',
+    choices: [
+      { name: 'mySQL', value: 'mysql' },
+      { name: 'later', value: false },
+    ],
+    default: 'mysql',
+    prefix: '*',
+  }
+
+  return inquirer.prompt(question);
+}
+const getDBConfig = (): Promise<DBAnswers> => {
+  const question: QuestionCollection<DBAnswers> = [
+    {
+      type: 'input',
+      name: 'host',
+      message: '请输入数据库地址：',
+      default: 'localhost',
+      prefix: '*',
+    },
+    {
+      type: 'input',
+      name: 'port',
+      message: '请输入数据库端口：',
+      default: '3306',
+      prefix: '*',
+    },
+    {
+      type: 'input',
+      name: 'database',
+      message: '请输入数据库名称：',
+      prefix: '*',
+    },
+    {
+      type: 'input',
+      name: 'username',
+      message: '请输入登录用户名：',
+      default: 'root',
+      prefix: '*',
+    },
+    {
+      type: 'password',
+      name: 'password',
+      message: '请输入密码：',
+      prefix: '*',
+    },
+  ] as const;
+
+  return inquirer.prompt(question);
+}
+/**
+ * 同步创建服务端项目文件目录、文件
+ * @answers 询问客户端问题的选择值
+ * @dbAnswers  询问服务端配置的选择值
+ */
+const createServerSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
+
+  const {
+    serverType,
+  } = answers
+
+  // 复制服务端相关目录
+  const serverFrom = utils.getTemplatePath(`server/${serverType}`);
+  const serverTo = utils.getDistPath('server');
+  fs.copyTpl(serverFrom, serverTo);
+
+  // 如果命令行配置数据库，写入config 
+  if (dbAnswers.dialect && serverType === 'eggJs') {
+    const eggConfigPath = path.join(serverTo, 'app/database/db.config.json')
+    const writeOrReadOptions = { encoding: 'utf8' } as const;
+    const eggConfig = JSON.parse(fs.readFileSync(eggConfigPath, writeOrReadOptions))
+    console.log(eggConfig, 'eggConfig')
+    const dbConfig = Object.assign(eggConfig, dbAnswers)
+    fs.writeFileSync(
+      eggConfigPath,
+      JSON.stringify(dbConfig),
+      writeOrReadOptions
+    );
+  }
+};
+/**
+ * 同步创建客户端项目文件目录、文件
+ * @answers 询问客户端问题的选择值
+ * @dbAnswers  询问服务端配置的选择值
+ */
+const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
   const prefix = cliConfig.getBinName();
 
   // 当前项目名称集合
@@ -114,12 +204,6 @@ const createProjectSync = (answers: InitAnswers) => {
       return filename;
     },
   });
-  // 如果对接服务端，复制相关目录
-  if (serverType) {
-    const serverFrom = utils.getTemplatePath(`server/${serverType}`);
-    const serverTo = utils.getDistPath('server');
-    fs.copyTpl(serverFrom, serverTo);
-  }
   // 将项目名称、描述写入 package.json中
   {
     const packageJsonPath = path.join(to, 'package.json');
@@ -131,6 +215,7 @@ const createProjectSync = (answers: InitAnswers) => {
     packageJson.name = packageJsonName;
     packageJson.description = description;
 
+    // 如果不对接服务端，默认开启mock
     if (!serverType) {
       const envPath = path.join(to, '.env');
       const envConfig = dotenv.parse(
@@ -149,6 +234,8 @@ const createProjectSync = (answers: InitAnswers) => {
       writeOrReadOptions
     );
   }
+  // 如果对接服务端，执行文件复制及相关配置
+  serverType && createServerSync(answers, dbAnswers)
 };
 
 // 安装依赖
@@ -214,10 +301,16 @@ export const installDependencies = (
 export default async () => {
   // 拷贝模板到当前目录
   let answers: any = {};
+  let DBAnswers: any = {};
+  let DBConfig: any = {};
+
   try {
     // 创建项目文件夹及文件
     answers = await getInitAnswers();
-    createProjectSync(answers);
+    if (answers.serverType) DBAnswers = await getDBType()
+    if (DBAnswers.dialect) DBConfig = await getDBConfig()
+
+    createProjectSync(answers, { ...DBConfig, ...DBAnswers });
   } catch (e) {
     log.error('项目模板创建失败');
     log.debug(e);

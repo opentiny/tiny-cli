@@ -15,3 +15,15 @@ export interface InitAnswers {
   name: string;
   serverType: string | boolean;
 }
+
+/**
+ * 数据库配置-> 选择的值
+ */
+export interface DBAnswers {
+  dialect: string | boolean;
+  host: string;
+  port: string;
+  database: string;
+  username: string;
+  password:string;
+}
