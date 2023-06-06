@@ -8,5 +8,9 @@ export default (app: Application) => {
 
   router.post('/v1/employee/getEmployee', controller.employee.getEmployee);
 
+  router.post('/v1/user/register', controller.user.registerUser);
+
   router.get('/v1/user/userInfo/:id', controller.user.getUserInfo);
+
+  router.post('/v1/user/login', controller.user.login);
 };

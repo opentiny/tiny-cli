@@ -1,7 +1,19 @@
 import { Service } from 'egg';
 
 export default class User extends Service {
-  public async getUserInfo(id: string): Promise<any> {
-    return this.ctx.model.User.findOne({ where: { id } });
+  public async getUserInfoById(id: string): Promise<any> {
+    return this.ctx.model.UserInfo.findOne({ where: { id } });
+  }
+
+  public async getUserByName(username: string): Promise<any> {
+    return this.ctx.model.RegisterUser.findOne({ where: { username } });
+  }
+
+  public async createUser(params: { username: string; password: string }, options?): Promise<any> {
+    return this.ctx.model.RegisterUser.create(params, options);
+  }
+
+  public async createUserInfo(info, options?): Promise<any> {
+    return this.ctx.model.UserInfo.create(info, options);
   }
 }

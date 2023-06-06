@@ -3,8 +3,8 @@
 module.exports = (app: any) => {
   const DataTypes = app.Sequelize;
 
-  const Model = app.model.define(
-    'user',
+  const UserInfo = app.model.define(
+    'UserInfo',
     {
       id: {
         type: DataTypes.INTEGER(20).UNSIGNED,
@@ -18,6 +18,7 @@ module.exports = (app: any) => {
       department: {
         type: DataTypes.STRING(32),
         allowNull: false,
+        defaultValue: '',
       },
       employeeType: {
         type: DataTypes.STRING(32),
@@ -63,8 +64,8 @@ module.exports = (app: any) => {
       omitNull: false,
       timestamps: false,
       paranoid: false,
-    }
+    },
   );
 
-  return Model;
+  return UserInfo;
 };
