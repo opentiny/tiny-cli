@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npm run stop && npm run tsc && egg-scripts start --title=egg-server-tgc-trace-server --ignore-stderr",
     "stop": "ets clean && egg-scripts stop --title=egg-server-tgc-trace-server",
-    "dev": "egg-bin dev",
+    "dev": "egg-bin dev --host 127.0.0.1 --port 7001",
     "debug": "egg-bin debug",
     "test-local": "egg-bin test",
     "test": "npm run lint -- --fix && npm run test-local",
