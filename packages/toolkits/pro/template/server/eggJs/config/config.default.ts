@@ -17,18 +17,26 @@ export default (appInfo: EggAppInfo) => {
     username: 'root',
     password: '123456',
     define: {
-        timestamps: true,
-        freezeTableName: true,
-        underscored: false,
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
+      timestamps: true,
+      freezeTableName: true,
+      underscored: false,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
     },
     timezone: '+08:00',
-    database: 'tiny_server_test'
+    database: 'tiny_pro_server',
   };
 
+  config.jwt = {
+    enable: true,
+    ignore: /user\/(login|register)/,
+    secret: 'tiny_pro_server',
+    sign: {
+      expiresIn: 60 * 60 * 24,
+    },
+  };
   // the return config will combines to EggAppConfig
   return {
-    ...config
+    ...config,
   };
 };
