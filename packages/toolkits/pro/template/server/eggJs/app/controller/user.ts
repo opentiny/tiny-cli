@@ -11,24 +11,22 @@ export default class UserController extends Controller {
       this.logger.info('[ controller | user ] registerUser : 进入registerUser方法');
       // 校验参数
       const registerUserRule = {
-        username: { type: 'email', required: true },
+        username: { type: 'email' },
         password: {
           type: 'string',
-          required: true,
-          allowEmpty: false,
           format: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
         },
       };
       const err = app.validator.validate(registerUserRule, payload);
       if (err?.length) {
-        ctx.helper.commonJson(ctx, {}, 400, 'InvalidParameter');
+        ctx.helper.commonJson(ctx, {}, 500, 'InvalidParameter');
         return;
       }
       const { username, password } = payload;
       // 判断用户是否已经存在
       const user = await ctx.service.user.getUserByName(username);
       if (user) {
-        ctx.helper.commonJson(ctx, {}, 400, 'UserAlreadyExist');
+        ctx.helper.commonJson(ctx, {}, 500, 'UserAlreadyExist');
         return;
       }
       const hash = BcryptUtils.genHash(password);
@@ -39,8 +37,6 @@ export default class UserController extends Controller {
       ctx.helper.commonJson(ctx, userInfo, 200);
     } catch (error) {
       await transaction.rollback();
-      console.log('error', error);
-      // ctx.helper.exceptionHandling(ctx, error);
       ctx.helper.commonJson(ctx, {}, 500, 'InterError');
     }
   }
@@ -53,13 +49,11 @@ export default class UserController extends Controller {
       this.logger.info('[ controller | user ] getUserInfo : 进入getUserInfo方法');
       const userInfo = await ctx.service.user.getUserInfoById(id);
       if (!userInfo) {
-        ctx.helper.commonJson(ctx, {}, 404, 'UserNotFound');
+        ctx.helper.commonJson(ctx, {}, 500, 'UserNotFound');
         return;
       }
       ctx.helper.commonJson(ctx, userInfo, 200);
     } catch (error) {
-      console.log('error', error);
-      // ctx.helper.exceptionHandling(ctx, error);
       ctx.helper.commonJson(ctx, {}, 500, 'InterError');
     }
   }
@@ -73,27 +67,27 @@ export default class UserController extends Controller {
       // 校验参数格式
       const err = app.validator.validate(
         {
-          username: { type: 'email', required: true },
-          password: { type: 'string', required: true, allowEmpty: false },
+          username: { type: 'email' },
+          password: { type: 'string' },
         },
         payload,
       );
       if (err?.length) {
-        ctx.helper.commonJson(ctx, {}, 400, 'InvalidParameter');
+        ctx.helper.commonJson(ctx, {}, 500, 'InvalidParameter');
         return;
       }
 
       // 用户是否存在
       const user = await ctx.service.user.getUserByName(payload.username);
       if (!user) {
-        ctx.helper.commonJson(ctx, {}, 400, 'UserNotFound');
+        ctx.helper.commonJson(ctx, {}, 500, 'UserNotFound');
         return;
       }
 
       // 密码是否正确
       const match = BcryptUtils.compare(payload.password, user.password);
       if (!match) {
-        ctx.helper.commonJson(ctx, {}, 401, 'ErrorPassword');
+        ctx.helper.commonJson(ctx, {}, 500, 'ErrorPassword');
         return;
       }
 
@@ -103,8 +97,6 @@ export default class UserController extends Controller {
       const token = this.app.jwt.sign(userInfo.dataValues, secret, sign);
       ctx.helper.commonJson(ctx, { token }, 200);
     } catch (error) {
-      console.log('error', error);
-      // ctx.helper.exceptionHandling(ctx, error);
       ctx.helper.commonJson(ctx, {}, 500, 'InterError');
     }
   }

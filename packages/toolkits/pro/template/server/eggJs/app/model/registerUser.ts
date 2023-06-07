@@ -17,13 +17,13 @@ module.exports = (app: any) => {
         allowNull: false,
       },
       password: {
-        type: DataTypes.STRING(32),
+        type: DataTypes.STRING(60),
         allowNull: false,
       },
       loginType: {
         type: DataTypes.ENUM('account', 'email'),
         allowNull: false,
-        defaultValue: 'account',
+        defaultValue: 'email',
       },
     },
     {
