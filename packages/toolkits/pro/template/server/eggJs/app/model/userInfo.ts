@@ -10,9 +10,14 @@ module.exports = (app: any) => {
         type: DataTypes.INTEGER(20).UNSIGNED,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
-      username: {
+      user_name: {
         type: DataTypes.STRING(32),
+        allowNull: false,
+      },
+      user_id: {
+        type: DataTypes.INTEGER(20),
         allowNull: false,
       },
       department: {
@@ -20,7 +25,7 @@ module.exports = (app: any) => {
         allowNull: false,
         defaultValue: '',
       },
-      employeeType: {
+      employee_type: {
         type: DataTypes.STRING(32),
         defaultValue: null,
       },
@@ -28,23 +33,23 @@ module.exports = (app: any) => {
         type: DataTypes.STRING(32),
         defaultValue: null,
       },
-      probationStart: {
+      probation_start: {
         type: DataTypes.DATE,
         defaultValue: null,
       },
-      probationEnd: {
+      probation_end: {
         type: DataTypes.DATE,
         defaultValue: null,
       },
-      probationDuration: {
+      probation_duration: {
         type: DataTypes.INTEGER(11).UNSIGNED,
         defaultValue: null,
       },
-      protocolStart: {
+      protocol_start: {
         type: DataTypes.DATE,
         defaultValue: null,
       },
-      protocolEnd: {
+      protocol_end: {
         type: DataTypes.DATE,
         defaultValue: null,
       },

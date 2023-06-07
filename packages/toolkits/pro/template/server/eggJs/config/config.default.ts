@@ -30,7 +30,7 @@ export default (appInfo: EggAppInfo) => {
   config.jwt = {
     enable: true,
     ignore: /user\/(login|register)/,
-    secret: 'open_tiny_server',
+    secret: 'tiny_pro_server',
     sign: {
       expiresIn: 60 * 60 * 24,
     },

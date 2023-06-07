@@ -12,7 +12,7 @@ module.exports = (app: any) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      username: {
+      user_name: {
         type: DataTypes.STRING(32),
         allowNull: false,
       },
@@ -20,8 +20,8 @@ module.exports = (app: any) => {
         type: DataTypes.STRING(60),
         allowNull: false,
       },
-      loginType: {
-        type: DataTypes.ENUM('account', 'email'),
+      register_type: {
+        type: DataTypes.ENUM('email'),
         allowNull: false,
         defaultValue: 'email',
       },

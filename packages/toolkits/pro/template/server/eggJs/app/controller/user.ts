@@ -11,7 +11,7 @@ export default class UserController extends Controller {
       this.logger.info('[ controller | user ] registerUser : 进入registerUser方法');
       // 校验参数
       const registerUserRule = {
-        username: { type: 'email' },
+        user_name: { type: 'email' },
         password: {
           type: 'string',
           format: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
@@ -22,17 +22,17 @@ export default class UserController extends Controller {
         ctx.helper.commonJson(ctx, {}, 500, 'InvalidParameter');
         return;
       }
-      const { username, password } = payload;
+      const { user_name, password } = payload;
       // 判断用户是否已经存在
-      const user = await ctx.service.user.getUserByName(username);
+      const user = await ctx.service.user.getUserByName(user_name);
       if (user) {
         ctx.helper.commonJson(ctx, {}, 500, 'UserAlreadyExist');
         return;
       }
       const hash = BcryptUtils.genHash(password);
       // 创建用户
-      const { id } = await ctx.service.user.createUser({ username, password: hash }, { transaction });
-      const userInfo = await ctx.service.user.createUserInfo({ username, id }, { transaction });
+      const { id } = await ctx.service.user.createUser({ user_name, password: hash }, { transaction });
+      const userInfo = await ctx.service.user.createUserInfo({ user_name, user_id: id }, { transaction });
       await transaction.commit();
       ctx.helper.commonJson(ctx, userInfo, 200);
     } catch (error) {
@@ -40,6 +40,7 @@ export default class UserController extends Controller {
       ctx.helper.commonJson(ctx, {}, 500, 'InterError');
     }
   }
+
   // 获取用户信息
   public async getUserInfo() {
     const { ctx } = this;
@@ -67,7 +68,7 @@ export default class UserController extends Controller {
       // 校验参数格式
       const err = app.validator.validate(
         {
-          username: { type: 'email' },
+          user_name: { type: 'email' },
           password: { type: 'string' },
         },
         payload,
@@ -78,7 +79,7 @@ export default class UserController extends Controller {
       }
 
       // 用户是否存在
-      const user = await ctx.service.user.getUserByName(payload.username);
+      const user = await ctx.service.user.getUserByName(payload.user_name);
       if (!user) {
         ctx.helper.commonJson(ctx, {}, 500, 'UserNotFound');
         return;
@@ -94,7 +95,7 @@ export default class UserController extends Controller {
       // 生成Token
       const { secret, sign } = this.app.config.jwt;
       const userInfo = await ctx.service.user.getUserInfoById(user.id);
-      const token = this.app.jwt.sign(userInfo.dataValues, secret, sign);
+      const token = this.app.jwt.sign(userInfo, secret, sign);
       ctx.helper.commonJson(ctx, { token }, 200);
     } catch (error) {
       ctx.helper.commonJson(ctx, {}, 500, 'InterError');
