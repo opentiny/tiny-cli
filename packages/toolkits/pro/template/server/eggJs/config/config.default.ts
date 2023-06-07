@@ -24,7 +24,7 @@ export default (appInfo: EggAppInfo) => {
       updatedAt: 'updated_at',
     },
     timezone: '+08:00',
-    database: 'tiny_server_test',
+    database: 'tiny_pro_server',
   };
 
   config.jwt = {
