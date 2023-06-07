@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import spawn from 'cross-spawn';
 import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
-import { InitAnswers, DBAnswers } from './interfaces';
+import { InitAnswers, DBAnswers, serverTypes } from './interfaces';
 import utils from './utils';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -51,12 +51,12 @@ const getInitAnswers = (): Promise<InitAnswers> => {
       name: 'serverType',
       message: '请选择您希望使用的服务端技术栈：',
       choices: [
-        { name: 'Egg.js', value: 'eggJs' },
-        { name: 'Spring Cloud', value: 'springCloud' },
-        { name: 'Nest.js', value: 'nestJs' },
-        { name: '跳过', value: false },
+        { name: 'Egg.js', value: serverTypes.eggJs },
+        { name: 'Spring Cloud', value: serverTypes.springCloud },
+        { name: 'Nest.js', value: serverTypes.nestJs },
+        { name: '暂不配置', value: serverTypes.skip },
       ],
-      default: 'eggJs',
+      default: serverTypes.eggJs,
       prefix: '*',
     },
   ] as const;
@@ -75,7 +75,7 @@ const getDBType = (): Promise<DBAnswers> => {
     message: '请选择数据库类型：',
     choices: [
       { name: 'mySQL', value: 'mysql' },
-      { name: '跳过', value: false },
+      { name: '暂不配置', value: '' },
     ],
     default: 'mysql',
     prefix: '*',
@@ -129,27 +129,23 @@ const getDBConfig = (): Promise<DBAnswers> => {
  */
 const createServerSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
   const { serverType } = answers;
-
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverType}`);
   const serverTo = utils.getDistPath('server');
-  fs.copyTpl(serverFrom, serverTo);
-
-  // 如果命令行配置数据库，写入config
-  if (dbAnswers.dialect && serverType === 'eggJs') {
-    const eggConfigPath = path.join(serverTo, 'app/database/db.config.json');
-    const writeOrReadOptions = { encoding: 'utf8' } as const;
-    const eggConfig = JSON.parse(
-      fs.readFileSync(eggConfigPath, writeOrReadOptions)
-    );
-    const dbConfig = Object.assign(eggConfig, dbAnswers);
-    fs.writeFileSync(
-      eggConfigPath,
-      JSON.stringify(dbConfig),
-      writeOrReadOptions
-    );
+  const defaultConfig = { // 在未配置数据库信息时，使用默认值替换ejs模板
+    dialect: 'mysql',
+    host: 'localhost',
+    port: 3306,
+    username: 'root',
+    password: '123456',
+    database: 'tiny_server_test'
   }
+  fs.copyTpl(serverFrom, serverTo, dbAnswers?.dialect ? dbAnswers : defaultConfig, {
+    filter: (src) => !/\.ejs$/.test(src),
+    overwrite: true,
+  });
 };
+
 /**
  * 同步创建客户端项目文件目录、文件
  * @answers 询问客户端问题的选择值
@@ -206,25 +202,30 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
     );
     packageJson.name = packageJsonName;
     packageJson.description = description;
-
-    // 如果不对接服务端，默认开启mock
-    if (!serverType) {
-      const envPath = path.join(to, '.env');
-      const envConfig = dotenv.parse(
-        fs.readFileSync(envPath, writeOrReadOptions)
-      );
-      envConfig.VITE_USE_MOCK = 'true';
-      const config = Object.keys(envConfig)
-        .map((key) => `${key} = ${envConfig[key]}`)
-        .join('\n');
-      fs.writeFileSync(envPath, config);
-    }
-
     fs.writeFileSync(
       packageJsonPath,
       JSON.stringify(packageJson, null, 2),
       writeOrReadOptions
     );
+    try {
+      // 如果不对接服务端，默认开启mock
+      if (serverType === serverTypes.skip) {
+        const envPath = path.join(to, '.env');
+        const envConfig = dotenv.parse(
+          fs.readFileSync(envPath, writeOrReadOptions)
+        );
+        envConfig.VITE_USE_MOCK = 'true';
+        const config = Object.keys(envConfig)
+          .map((key) => `${key} = ${envConfig[key]}`)
+          .join('\n');
+        fs.writeFileSync(envPath, config);
+      }
+    } catch (e) {
+      log.error('开启mock模式失败');
+      log.error('请手动配置env信息');
+      throw (e)
+    }
+
   }
   // 如果对接服务端，执行文件复制及相关配置
   serverType && createServerSync(answers, dbAnswers);
@@ -233,9 +234,8 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
 // 安装依赖
 export const installDependencies = (answers: InitAnswers) => {
   const prefix = cliConfig.getBinName();
-
   // egg服务端 安装依赖并启动
-  if (answers.serverType === 'eggJs') {
+  if (answers.serverType === serverTypes.eggJs) {
     log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
     spawn.sync('npm', ['install'], {
       cwd: 'server/',
@@ -248,7 +248,6 @@ export const installDependencies = (answers: InitAnswers) => {
     // });
     // log.success('服务已启动 ...');
   }
-
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
   spawn.sync('npm', ['install'], {

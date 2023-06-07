@@ -7,13 +7,23 @@ export interface CliOption {
 }
 
 /**
+ * 服务端类型
+ */
+export enum serverTypes {
+  eggJs = 'eggJs',
+  nestJs = 'nestJs',
+  springCloud = 'springCloud',
+  skip = ''
+}
+
+/**
  * 初始化问题的选项 -> 选择的值
  */
 export interface InitAnswers {
   description: string;
   framework: string;
   name: string;
-  serverType: string | boolean;
+  serverType: serverTypes;
 }
 
 /**
@@ -25,5 +35,5 @@ export interface DBAnswers {
   port: string;
   database: string;
   username: string;
-  password:string;
+  password: string;
 }

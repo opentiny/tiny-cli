@@ -1,11 +1,5 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
-import * as path from 'path';
-import * as fs from 'fs';
 
-// 获取database配置
-const dbFile = path.join(__dirname, '../app/database/db.config.json');
-const dbJson = fs.readFileSync(dbFile, 'utf-8');
-const dbConfig = JSON.parse(dbJson)
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
@@ -18,8 +12,21 @@ export default (appInfo: EggAppInfo) => {
   config.middleware = [];
 
   config.sequelize = {
-    ...dbConfig
-  };
+    dialect: '<%= dialect %>',
+    host: '<%= host %>',
+    port: '<%= port %>',
+    username: '<%= username %>',
+    password: '<%= password %>',
+    define: {
+      timestamps: true,
+      freezeTableName: true,
+      underscored: false,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+    timezone: '+08:00',
+    database: '<%= database %>'
+  }
 
   // the return config will combines to EggAppConfig
   return {
