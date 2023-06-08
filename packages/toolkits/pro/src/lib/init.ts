@@ -138,7 +138,7 @@ const createServerSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
     port: 3306,
     username: 'root',
     password: '123456',
-    database: 'tiny_server_test'
+    database: 'tiny_pro_server'
   }
   fs.copyTpl(serverFrom, serverTo, dbAnswers?.dialect ? dbAnswers : defaultConfig, {
     filter: (src) => !/\.ejs$/.test(src),
