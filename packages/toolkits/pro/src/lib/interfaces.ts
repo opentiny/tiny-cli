@@ -9,11 +9,11 @@ export interface CliOption {
 /**
  * 服务端类型
  */
-export enum serverTypes {
-  eggJs = 'eggJs',
-  nestJs = 'nestJs',
-  springCloud = 'springCloud',
-  skip = ''
+export enum ServerFrameworks {
+  EggJs = 'eggJs',
+  NestJs = 'nestJs',
+  SpringCloud = 'springCloud',
+  Skip = ''
 }
 
 /**
@@ -23,14 +23,8 @@ export interface InitAnswers {
   description: string;
   framework: string;
   name: string;
-  serverType: serverTypes;
-}
-
-/**
- * 数据库配置-> 选择的值
- */
-export interface DBAnswers {
-  dialect: string | boolean;
+  serverFramework: ServerFrameworks;
+  dialect: string;
   host: string;
   port: string;
   database: string;

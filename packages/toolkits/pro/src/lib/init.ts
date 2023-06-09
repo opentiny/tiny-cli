@@ -1,12 +1,12 @@
 import * as path from 'path';
 import chalk from 'chalk';
 import spawn from 'cross-spawn';
+import * as dotenv from 'dotenv';
 import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
-import { InitAnswers, DBAnswers, serverTypes } from './interfaces';
+import { InitAnswers, ServerFrameworks } from './interfaces';
 import utils from './utils';
-import * as dotenv from 'dotenv';
-dotenv.config();
+
 
 const log = logs('tiny-toolkit-pro');
 const cwd = process.cwd();
@@ -16,7 +16,7 @@ const ngTemplatePath = 'tinyng';
 /**
  * 询问创建项目的描述，使用的技术栈
  *
- * @returns object { description: 项目描述,framework: 框架, name: 项目名称 ,serverType:使用技术栈}
+ * @returns object { description: 项目描述,framework: 框架, name: 项目名称 ,ServerFramework:使用技术栈, dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
  */
 const getInitAnswers = (): Promise<InitAnswers> => {
   const basename = path.basename(utils.getDistPath());
@@ -48,49 +48,36 @@ const getInitAnswers = (): Promise<InitAnswers> => {
     },
     {
       type: 'list',
-      name: 'serverType',
+      name: 'serverFramework',
       message: '请选择您希望使用的服务端技术栈：',
       choices: [
-        { name: 'Egg.js', value: serverTypes.eggJs },
-        { name: 'Spring Cloud', value: serverTypes.springCloud },
-        { name: 'Nest.js', value: serverTypes.nestJs },
-        { name: '暂不配置', value: serverTypes.skip },
+        { name: 'Egg.js', value: ServerFrameworks.EggJs },
+        { name: 'Spring Cloud', value: ServerFrameworks.SpringCloud },
+        { name: 'Nest.js', value: ServerFrameworks.NestJs },
+        { name: '暂不配置', value: ServerFrameworks.Skip },
       ],
-      default: serverTypes.eggJs,
+      default: ServerFrameworks.EggJs,
       prefix: '*',
     },
-  ] as const;
-
-  return inquirer.prompt(question);
-};
-/**
- * DB配置
- *
- * @returns object { dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
- */
-const getDBType = (): Promise<DBAnswers> => {
-  const question: QuestionCollection<DBAnswers> = {
-    type: 'list',
-    name: 'dialect',
-    message: '请选择数据库类型：',
-    choices: [
-      { name: 'mySQL', value: 'mysql' },
-      { name: '暂不配置', value: '' },
-    ],
-    default: 'mysql',
-    prefix: '*',
-  };
-
-  return inquirer.prompt(question);
-};
-const getDBConfig = (): Promise<DBAnswers> => {
-  const question: QuestionCollection<DBAnswers> = [
+    {
+      type: 'list',
+      name: 'dialect',
+      message: '请选择数据库类型：',
+      choices: [
+        { name: 'mySQL', value: 'mysql' },
+        { name: '暂不配置', value: '' },
+      ],
+      default: 'mysql',
+      prefix: '*',
+      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip
+    },
     {
       type: 'input',
       name: 'host',
       message: '请输入数据库地址：',
       default: 'localhost',
       prefix: '*',
+      when: (answers) => answers.dialect
     },
     {
       type: 'input',
@@ -98,12 +85,15 @@ const getDBConfig = (): Promise<DBAnswers> => {
       message: '请输入数据库端口：',
       default: '3306',
       prefix: '*',
+      when: (answers) => answers.host
     },
     {
       type: 'input',
       name: 'database',
       message: '请输入数据库名称：',
       prefix: '*',
+      validate: (input: string) => Boolean(input),
+      when: (answers) => answers.port
     },
     {
       type: 'input',
@@ -111,15 +101,16 @@ const getDBConfig = (): Promise<DBAnswers> => {
       message: '请输入登录用户名：',
       default: 'root',
       prefix: '*',
+      when: (answers) => answers.database
     },
     {
       type: 'password',
       name: 'password',
       message: '请输入密码：',
       prefix: '*',
+      when: (answers) => answers.username
     },
-  ] as const;
-
+  ]
   return inquirer.prompt(question);
 };
 /**
@@ -127,10 +118,10 @@ const getDBConfig = (): Promise<DBAnswers> => {
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createServerSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
-  const { serverType } = answers;
+const createServerSync = (answers: InitAnswers) => {
+  const { serverFramework, dialect } = answers;
   // 复制服务端相关目录
-  const serverFrom = utils.getTemplatePath(`server/${serverType}`);
+  const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
   const serverTo = utils.getDistPath('server');
   const defaultConfig = { // 在未配置数据库信息时，使用默认值替换ejs模板
     dialect: 'mysql',
@@ -140,8 +131,7 @@ const createServerSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
     password: '123456',
     database: 'tiny_pro_server'
   }
-  fs.copyTpl(serverFrom, serverTo, dbAnswers?.dialect ? dbAnswers : defaultConfig, {
-    filter: (src) => !/\.ejs$/.test(src),
+  fs.copyTpl(serverFrom, serverTo, dialect ? answers : defaultConfig, {
     overwrite: true,
   });
 };
@@ -151,7 +141,7 @@ const createServerSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
+const createProjectSync = (answers: InitAnswers) => {
   const prefix = cliConfig.getBinName();
 
   // 当前项目名称集合
@@ -170,7 +160,7 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
     pluginFullname: fullName,
   };
 
-  const { framework, description, name: packageJsonName, serverType } = answers;
+  const { framework, description, name, serverFramework } = answers;
   const templatePath =
     framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
 
@@ -178,7 +168,7 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
   const from = utils.getTemplatePath(templatePath);
 
   // 复制模板的目标目录
-  const to = utils.getDistPath(serverType ? 'web' : '');
+  const to = utils.getDistPath(serverFramework ? 'web' : '');
   // 项目名称，跟当前目录保持一致
 
   fs.copyTpl(from, to, data, {
@@ -188,7 +178,6 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
         // tslint:disable-next-line: no-parameter-reassignment
         filename = `${prefix}.config.js`;
       }
-
       return filename;
     },
   });
@@ -197,19 +186,19 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
     const packageJsonPath = path.join(to, 'package.json');
     const writeOrReadOptions = { encoding: 'utf8' } as const;
 
-    const packageJson = JSON.parse(
+    let packageJson = JSON.parse(
       fs.readFileSync(packageJsonPath, writeOrReadOptions)
     );
-    packageJson.name = packageJsonName;
-    packageJson.description = description;
+    packageJson = {...packageJson,name,description};
     fs.writeFileSync(
       packageJsonPath,
       JSON.stringify(packageJson, null, 2),
       writeOrReadOptions
     );
-    try {
-      // 如果不对接服务端，默认开启mock
-      if (serverType === serverTypes.skip) {
+
+    // 如果不对接服务端，默认开启mock
+    if (!serverFramework) {
+      try {
         const envPath = path.join(to, '.env');
         const envConfig = dotenv.parse(
           fs.readFileSync(envPath, writeOrReadOptions)
@@ -219,23 +208,22 @@ const createProjectSync = (answers: InitAnswers, dbAnswers: DBAnswers) => {
           .map((key) => `${key} = ${envConfig[key]}`)
           .join('\n');
         fs.writeFileSync(envPath, config);
+      } catch (e) {
+        log.error('开启mock模式失败');
+        log.error('请手动配置env信息');
+        throw (e)
       }
-    } catch (e) {
-      log.error('开启mock模式失败');
-      log.error('请手动配置env信息');
-      throw (e)
     }
-
   }
   // 如果对接服务端，执行文件复制及相关配置
-  serverType && createServerSync(answers, dbAnswers);
+  serverFramework && createServerSync(answers);
 };
 
 // 安装依赖
 export const installDependencies = (answers: InitAnswers) => {
   const prefix = cliConfig.getBinName();
   // egg服务端 安装依赖并启动
-  if (answers.serverType === serverTypes.eggJs) {
+  if (answers.serverFramework === ServerFrameworks.EggJs) {
     log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
     spawn.sync('npm', ['install'], {
       cwd: 'server/',
@@ -251,7 +239,7 @@ export const installDependencies = (answers: InitAnswers) => {
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
   spawn.sync('npm', ['install'], {
-    cwd: answers.serverType ? 'web/' : null,
+    cwd: answers.serverFramework ? 'web/' : null,
     stdio: 'inherit',
   });
 
@@ -289,17 +277,12 @@ export const installDependencies = (answers: InitAnswers) => {
 
 export default async () => {
   // 拷贝模板到当前目录
-  let answers: any = {};
-  let DBAnswers: any = {};
-  let DBConfig: any = {};
+  let answers: InitAnswers;
 
   try {
     // 创建项目文件夹及文件
     answers = await getInitAnswers();
-    if (answers.serverType) DBAnswers = await getDBType();
-    if (DBAnswers.dialect) DBConfig = await getDBConfig();
-
-    createProjectSync(answers, { ...DBConfig, ...DBAnswers });
+    createProjectSync(answers);
   } catch (e) {
     log.error('项目模板创建失败');
     log.debug(e);

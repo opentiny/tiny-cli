@@ -12,9 +12,9 @@ export default (appInfo: EggAppInfo) => {
   config.middleware = [];
 
   config.sequelize = {
-    dialect: '<%= dialect %>',
+    dialect: `<%= dialect %>`,
     host: '<%= host %>',
-    port: '<%= port %>',
+    port: <%= port %>,
     username: '<%= username %>',
     password: '<%= password %>',
     define: {
