@@ -4,7 +4,7 @@ import spawn from 'cross-spawn';
 import * as dotenv from 'dotenv';
 import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
-import { InitConfig, ServerFrameworks } from './interfaces';
+import { ProjectInfo, ServerFrameworks } from './interfaces';
 import utils from './utils';
 
 
@@ -18,9 +18,9 @@ const ngTemplatePath = 'tinyng';
  *
  * @returns object { description: 项目描述,framework: 框架, name: 项目名称 ,ServerFramework:使用技术栈, dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
  */
-const getInitConfig = (): Promise<InitConfig> => {
+const getProjectInfo = (): Promise<ProjectInfo> => {
   const basename = path.basename(utils.getDistPath());
-  const question: QuestionCollection<InitConfig> = [
+  const question: QuestionCollection<ProjectInfo> = [
     {
       type: 'input',
       name: 'name',
@@ -118,7 +118,7 @@ const getInitConfig = (): Promise<InitConfig> => {
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createServerSync = (answers: InitConfig) => {
+const createServerSync = (answers: ProjectInfo) => {
   const { serverFramework, dialect } = answers;
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
@@ -141,7 +141,7 @@ const createServerSync = (answers: InitConfig) => {
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createProjectSync = (answers: InitConfig) => {
+const createProjectSync = (answers: ProjectInfo) => {
   const prefix = cliConfig.getBinName();
 
   // 当前项目名称集合
@@ -220,7 +220,7 @@ const createProjectSync = (answers: InitConfig) => {
 };
 
 // 安装依赖
-export const installDependencies = (answers: InitConfig) => {
+export const installDependencies = (answers: ProjectInfo) => {
   const prefix = cliConfig.getBinName();
   // egg服务端 安装依赖并启动
   if (answers.serverFramework === ServerFrameworks.EggJs) {
@@ -277,11 +277,11 @@ export const installDependencies = (answers: InitConfig) => {
 
 export default async () => {
   // 拷贝模板到当前目录
-  let config: InitConfig;
+  let config: ProjectInfo;
 
   try {
     // 创建项目文件夹及文件
-    config = await getInitConfig();
+    config = await getProjectInfo();
     createProjectSync(config);
   } catch (e) {
     log.error('项目模板创建失败');
