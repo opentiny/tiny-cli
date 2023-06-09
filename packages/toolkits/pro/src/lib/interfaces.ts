@@ -19,7 +19,7 @@ export enum ServerFrameworks {
 /**
  * 初始化问题的选项 -> 选择的值
  */
-export interface InitAnswers {
+export interface InitConfig {
   description: string;
   framework: string;
   name: string;

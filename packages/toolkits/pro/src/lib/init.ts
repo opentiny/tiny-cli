@@ -4,7 +4,7 @@ import spawn from 'cross-spawn';
 import * as dotenv from 'dotenv';
 import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
-import { InitAnswers, ServerFrameworks } from './interfaces';
+import { InitConfig, ServerFrameworks } from './interfaces';
 import utils from './utils';
 
 
@@ -18,9 +18,9 @@ const ngTemplatePath = 'tinyng';
  *
  * @returns object { description: 项目描述,framework: 框架, name: 项目名称 ,ServerFramework:使用技术栈, dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
  */
-const getInitAnswers = (): Promise<InitAnswers> => {
+const getInitConfig = (): Promise<InitConfig> => {
   const basename = path.basename(utils.getDistPath());
-  const question: QuestionCollection<InitAnswers> = [
+  const question: QuestionCollection<InitConfig> = [
     {
       type: 'input',
       name: 'name',
@@ -118,7 +118,7 @@ const getInitAnswers = (): Promise<InitAnswers> => {
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createServerSync = (answers: InitAnswers) => {
+const createServerSync = (answers: InitConfig) => {
   const { serverFramework, dialect } = answers;
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
@@ -141,7 +141,7 @@ const createServerSync = (answers: InitAnswers) => {
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createProjectSync = (answers: InitAnswers) => {
+const createProjectSync = (answers: InitConfig) => {
   const prefix = cliConfig.getBinName();
 
   // 当前项目名称集合
@@ -220,7 +220,7 @@ const createProjectSync = (answers: InitAnswers) => {
 };
 
 // 安装依赖
-export const installDependencies = (answers: InitAnswers) => {
+export const installDependencies = (answers: InitConfig) => {
   const prefix = cliConfig.getBinName();
   // egg服务端 安装依赖并启动
   if (answers.serverFramework === ServerFrameworks.EggJs) {
@@ -277,12 +277,12 @@ export const installDependencies = (answers: InitAnswers) => {
 
 export default async () => {
   // 拷贝模板到当前目录
-  let answers: InitAnswers;
+  let config: InitConfig;
 
   try {
     // 创建项目文件夹及文件
-    answers = await getInitAnswers();
-    createProjectSync(answers);
+    config = await getInitConfig();
+    createProjectSync(config);
   } catch (e) {
     log.error('项目模板创建失败');
     log.debug(e);
@@ -291,7 +291,7 @@ export default async () => {
 
   // 安装依赖
   try {
-    installDependencies(answers);
+    installDependencies(config);
   } catch (e) {
     log.error('npm 依赖安装失败');
     log.error('请手动执行 tiny i 或 npm i');
