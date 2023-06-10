@@ -3,13 +3,12 @@ import chalk from 'chalk';
 import spawn from 'cross-spawn';
 import * as dotenv from 'dotenv';
 import inquirer, { QuestionCollection } from 'inquirer';
-import { cliConfig, logs, fs, user, modules } from '@opentiny/cli-devkit';
+import { cliConfig, logs, fs } from '@opentiny/cli-devkit';
 import { ProjectInfo, ServerFrameworks } from './interfaces';
 import utils from './utils';
 
 
 const log = logs('tiny-toolkit-pro');
-const cwd = process.cwd();
 const VUE_TEMPLATE_PATH = 'tinyvue';
 const NG_TEMPLATE_PATH = 'tinyng';
 
@@ -142,40 +141,16 @@ const createServerSync = (answers: ProjectInfo) => {
  * @dbAnswers  询问服务端配置的选择值
  */
 const createProjectSync = (answers: ProjectInfo) => {
-  const prefix = cliConfig.getBinName();
-
-  // 当前项目名称集合
-  const dirName = cwd.split(path.sep).pop() as string;
-  const names = utils.generateNames(dirName);
-  const fullName = modules.utils.toolkitFullName(dirName);
-  const data = {
-    ...user.get(),
-    ...names,
-    // 完整的插件名称 ， 如 tiny-plugin-npm
-    pluginName: fullName.replace('@opentiny/', ''),
-    // tslint:disable-next-line
-    prefix
-  };
   const { framework, description, name, serverFramework } = answers;
   const templatePath =
     framework === VUE_TEMPLATE_PATH ? VUE_TEMPLATE_PATH : NG_TEMPLATE_PATH;
 
   // 模板来源目录
   const from = utils.getTemplatePath(templatePath);
-
   // 复制模板的目标目录
   const to = utils.getDistPath(serverFramework ? 'web' : '');
 
-  fs.copyTpl(from, to, data, {
-    // 改一下名称，兼容其他cli工具的情况
-    rename(filename: string) {
-      if (filename === 'tiny.config.js') {
-        // tslint:disable-next-line: no-parameter-reassignment
-        filename = `${prefix}.config.js`;
-      }
-      return filename;
-    },
-  });
+  fs.copyTpl(from, to);
   // 将项目名称、描述写入 package.json中
   try {
     const packageJsonPath = path.join(to, 'package.json');
@@ -229,11 +204,6 @@ export const installDependencies = (answers: ProjectInfo) => {
       stdio: 'inherit',
     });
     log.success('npm 依赖安装成功');
-    // spawn.sync('npm', ['run','dev'], {
-    //   cwd: 'server/',
-    //   stdio: 'inherit',
-    // });
-    // log.success('服务已启动 ...');
   }
   // npm 依赖安装
   log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
