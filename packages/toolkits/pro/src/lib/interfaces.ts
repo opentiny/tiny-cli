@@ -24,10 +24,10 @@ export interface ProjectInfo {
   framework: string;
   name: string;
   serverFramework: ServerFrameworks;
-  dialect: string;
-  host: string;
-  port: string;
-  database: string;
-  username: string;
-  password: string;
+  dialect?: string;
+  host?: string;
+  port?: Number;
+  database?: string;
+  username?: string;
+  password?: string;
 }

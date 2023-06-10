@@ -10,8 +10,8 @@ import utils from './utils';
 
 const log = logs('tiny-toolkit-pro');
 const cwd = process.cwd();
-const vueTemplatePath = 'tinyvue';
-const ngTemplatePath = 'tinyng';
+const VUE_TEMPLATE_PATH = 'tinyvue';
+const NG_TEMPLATE_PATH = 'tinyng';
 
 /**
  * 询问创建项目的描述，使用的技术栈
@@ -40,10 +40,10 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       name: 'framework',
       message: '请选择您希望使用的客户端技术栈：',
       choices: [
-        { name: 'vue', value: vueTemplatePath },
-        { name: 'angular', value: ngTemplatePath },
+        { name: 'vue', value: VUE_TEMPLATE_PATH },
+        { name: 'angular', value: NG_TEMPLATE_PATH },
       ],
-      default: vueTemplatePath,
+      default: VUE_TEMPLATE_PATH,
       prefix: '*',
     },
     {
@@ -83,7 +83,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       type: 'input',
       name: 'port',
       message: '请输入数据库端口：',
-      default: '3306',
+      default: 3306,
       prefix: '*',
       when: (answers) => answers.host
     },
@@ -93,7 +93,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请输入数据库名称：',
       prefix: '*',
       validate: (input: string) => Boolean(input),
-      when: (answers) => answers.port
+      when: (answers) => answers.host
     },
     {
       type: 'input',
@@ -101,14 +101,14 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请输入登录用户名：',
       default: 'root',
       prefix: '*',
-      when: (answers) => answers.database
+      when: (answers) => answers.host
     },
     {
       type: 'password',
       name: 'password',
       message: '请输入密码：',
       prefix: '*',
-      when: (answers) => answers.username
+      when: (answers) => answers.host
     },
   ]
   return inquirer.prompt(question);
@@ -148,7 +148,6 @@ const createProjectSync = (answers: ProjectInfo) => {
   const dirName = cwd.split(path.sep).pop() as string;
   const names = utils.generateNames(dirName);
   const fullName = modules.utils.toolkitFullName(dirName);
-
   const data = {
     ...user.get(),
     ...names,
@@ -159,17 +158,15 @@ const createProjectSync = (answers: ProjectInfo) => {
     pluginShortName: dirName,
     pluginFullname: fullName,
   };
-
   const { framework, description, name, serverFramework } = answers;
   const templatePath =
-    framework === vueTemplatePath ? vueTemplatePath : ngTemplatePath;
+    framework === VUE_TEMPLATE_PATH ? VUE_TEMPLATE_PATH : NG_TEMPLATE_PATH;
 
   // 模板来源目录
   const from = utils.getTemplatePath(templatePath);
 
   // 复制模板的目标目录
   const to = utils.getDistPath(serverFramework ? 'web' : '');
-  // 项目名称，跟当前目录保持一致
 
   fs.copyTpl(from, to, data, {
     // 改一下名称，兼容其他cli工具的情况
@@ -182,14 +179,13 @@ const createProjectSync = (answers: ProjectInfo) => {
     },
   });
   // 将项目名称、描述写入 package.json中
-  {
+  try {
     const packageJsonPath = path.join(to, 'package.json');
     const writeOrReadOptions = { encoding: 'utf8' } as const;
-
     let packageJson = JSON.parse(
       fs.readFileSync(packageJsonPath, writeOrReadOptions)
     );
-    packageJson = {...packageJson,name,description};
+    packageJson = { ...packageJson, name, description };
     fs.writeFileSync(
       packageJsonPath,
       JSON.stringify(packageJson, null, 2),
@@ -213,10 +209,15 @@ const createProjectSync = (answers: ProjectInfo) => {
         log.error('请手动配置env信息');
         throw (e)
       }
+    } else {
+      // 如果对接服务端，执行文件复制及相关配置
+      serverFramework && createServerSync(answers);
     }
+  } catch (e) {
+    log.error('配置项目信息创失败');
+    log.debug(e);
+    throw (e);
   }
-  // 如果对接服务端，执行文件复制及相关配置
-  serverFramework && createServerSync(answers);
 };
 
 // 安装依赖
@@ -277,12 +278,12 @@ export const installDependencies = (answers: ProjectInfo) => {
 
 export default async () => {
   // 拷贝模板到当前目录
-  let config: ProjectInfo;
+  let projectInfo: ProjectInfo;
 
   try {
     // 创建项目文件夹及文件
-    config = await getProjectInfo();
-    createProjectSync(config);
+    projectInfo = await getProjectInfo();
+    createProjectSync(projectInfo);
   } catch (e) {
     log.error('项目模板创建失败');
     log.debug(e);
@@ -291,7 +292,7 @@ export default async () => {
 
   // 安装依赖
   try {
-    installDependencies(config);
+    installDependencies(projectInfo);
   } catch (e) {
     log.error('npm 依赖安装失败');
     log.error('请手动执行 tiny i 或 npm i');
