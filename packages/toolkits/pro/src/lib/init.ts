@@ -154,9 +154,7 @@ const createProjectSync = (answers: ProjectInfo) => {
     // 完整的插件名称 ， 如 tiny-plugin-npm
     pluginName: fullName.replace('@opentiny/', ''),
     // tslint:disable-next-line
-    prefix,
-    pluginShortName: dirName,
-    pluginFullname: fullName,
+    prefix
   };
   const { framework, description, name, serverFramework } = answers;
   const templatePath =
