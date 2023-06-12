@@ -7,7 +7,8 @@
       <LoginRegister />
     </div>
     <div v-if="!display">
-      <tiny-tabs v-model="activeName" stretch="true">
+      <LoginMail />
+      <!-- <tiny-tabs v-model="activeName" stretch="true">
         <tiny-tab-item :title="$t('login.form.mode')" name="first">
           <template #title>
             <div>
@@ -24,7 +25,7 @@
           </template>
           <LoginMail />
         </tiny-tab-item>
-      </tiny-tabs>
+      </tiny-tabs> -->
     </div>
   </div>
 </template>

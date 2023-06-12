@@ -30,10 +30,10 @@
       <div class="login-form-options">
         <tiny-checkbox>{{ $t('login.form.rememberPassword') }}</tiny-checkbox>
         <div>
-          <tiny-link type="primary">
+          <!-- <tiny-link type="primary">
             {{ $t('login.form.forgetPassword') }}
           </tiny-link>
-          <tiny-link type="primary" class="divide-line">|</tiny-link>
+          <tiny-link type="primary" class="divide-line">|</tiny-link> -->
           <tiny-link type="primary" @click="typeChange">
             {{ $t('login.form.registration') }}
           </tiny-link>
