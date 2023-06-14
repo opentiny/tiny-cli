@@ -7,7 +7,6 @@ import { cliConfig, logs, fs } from '@opentiny/cli-devkit';
 import { ProjectInfo, ServerFrameworks } from './interfaces';
 import utils from './utils';
 
-
 const log = logs('tiny-toolkit-pro');
 const VUE_TEMPLATE_PATH = 'tinyvue';
 const NG_TEMPLATE_PATH = 'tinyng';
@@ -15,7 +14,7 @@ const NG_TEMPLATE_PATH = 'tinyng';
 /**
  * 询问创建项目的描述，使用的技术栈
  *
- * @returns object { description: 项目描述,framework: 框架, name: 项目名称 ,ServerFramework:使用技术栈, dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
+ * @returns object { description: 项目描述,framework: 框架, name: 项目名称 ,serverFramework:使用技术栈, dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
  */
 const getProjectInfo = (): Promise<ProjectInfo> => {
   const basename = path.basename(utils.getDistPath());
@@ -112,6 +111,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
   ]
   return inquirer.prompt(question);
 };
+
 /**
  * 同步创建服务端项目文件目录、文件
  * @answers 询问客户端问题的选择值
@@ -154,42 +154,38 @@ const createProjectSync = (answers: ProjectInfo) => {
   // 将项目名称、描述写入 package.json中
   try {
     const packageJsonPath = path.join(to, 'package.json');
-    const writeOrReadOptions = { encoding: 'utf8' } as const;
     let packageJson = JSON.parse(
-      fs.readFileSync(packageJsonPath, writeOrReadOptions)
+      fs.readFileSync(packageJsonPath, { encoding: 'utf8' })
     );
     packageJson = { ...packageJson, name, description };
     fs.writeFileSync(
       packageJsonPath,
       JSON.stringify(packageJson, null, 2),
-      writeOrReadOptions
+      { encoding: 'utf8' }
     );
-
-    // 如果不对接服务端，默认开启mock
-    if (!serverFramework) {
-      try {
-        const envPath = path.join(to, '.env');
-        const envConfig = dotenv.parse(
-          fs.readFileSync(envPath, writeOrReadOptions)
-        );
-        envConfig.VITE_USE_MOCK = 'true';
-        const config = Object.keys(envConfig)
-          .map((key) => `${key} = ${envConfig[key]}`)
-          .join('\n');
-        fs.writeFileSync(envPath, config);
-      } catch (e) {
-        log.error('开启mock模式失败');
-        log.error('请手动配置env信息');
-        throw (e)
-      }
-    } else {
-      // 如果对接服务端，执行文件复制及相关配置
-      serverFramework && createServerSync(answers);
-    }
   } catch (e) {
     log.error('配置项目信息创失败');
-    log.debug(e);
-    throw (e);
+  }
+
+  // 如果不对接服务端，默认开启mock
+  if (!serverFramework) {
+    try {
+      const envPath = path.join(to, '.env');
+      const envConfig = dotenv.parse(
+        fs.readFileSync(envPath, { encoding: 'utf8' })
+      );
+      envConfig.VITE_USE_MOCK = 'true';
+      const config = Object.keys(envConfig)
+        .map((key) => `${key} = ${envConfig[key]}`)
+        .join('\n');
+      fs.writeFileSync(envPath, config);
+    } catch (e) {
+      log.error('开启mock模式失败');
+      log.info('请手动配置env信息');
+    }
+  } else {
+    // 如果对接服务端，执行文件复制及相关配置
+    createServerSync(answers);
   }
 };
 
@@ -211,7 +207,6 @@ export const installDependencies = (answers: ProjectInfo) => {
     cwd: answers.serverFramework ? 'web/' : null,
     stdio: 'inherit',
   });
-
   log.success('npm 依赖安装成功');
 
   /* prettier-ignore-start */
@@ -254,8 +249,6 @@ export default async () => {
     createProjectSync(projectInfo);
   } catch (e) {
     log.error('项目模板创建失败');
-    log.debug(e);
-    throw e;
   }
 
   // 安装依赖
@@ -263,8 +256,6 @@ export default async () => {
     installDependencies(projectInfo);
   } catch (e) {
     log.error('npm 依赖安装失败');
-    log.error('请手动执行 tiny i 或 npm i');
-    log.debug(e);
-    throw e;
+    log.info('请手动执行 tiny i 或 npm i');
   }
 };
