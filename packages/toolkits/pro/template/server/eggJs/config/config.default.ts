@@ -1,5 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 
+
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
@@ -9,13 +10,12 @@ export default (appInfo: EggAppInfo) => {
 
   // add your egg config in here
   config.middleware = [];
-
   config.sequelize = {
-    dialect: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '123456',
+    dialect: `<%= dialect %>`,
+    host: '<%= host %>',
+    port: <%= port %>,
+    username: '<%= username %>',
+    password: '<%= password %>',
     define: {
       timestamps: true,
       freezeTableName: true,
@@ -24,9 +24,8 @@ export default (appInfo: EggAppInfo) => {
       updatedAt: 'updated_at',
     },
     timezone: '+08:00',
-    database: 'tiny_pro_server',
+    database: '<%= database %>'
   };
-
   config.jwt = {
     enable: true,
     ignore: /user\/(login|register)/,
@@ -35,6 +34,7 @@ export default (appInfo: EggAppInfo) => {
       expiresIn: 60 * 60 * 24,
     },
   };
+  
   // the return config will combines to EggAppConfig
   return {
     ...config,
