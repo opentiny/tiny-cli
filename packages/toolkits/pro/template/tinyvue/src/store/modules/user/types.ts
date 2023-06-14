@@ -18,7 +18,7 @@ export interface UserFilterData {
   sort?: number;
   startTime?: string;
   endTime?: string;
-  filterStatue?: Array<string>;
+  filterStatus?: Array<string>;
   filterType?: Array<string>;
   submit?: boolean;
   reset?: boolean;

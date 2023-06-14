@@ -23,7 +23,7 @@ export interface UserData {
   sort?: number | undefined;
   startTime?: string;
   endTime?: string;
-  filterStatue?: [];
+  filterStatus?: [];
   filterType?: [];
 }
 

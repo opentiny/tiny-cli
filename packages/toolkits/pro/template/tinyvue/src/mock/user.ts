@@ -95,7 +95,7 @@ export default [
     url: '/api/user/data',
     method: 'post',
     response: (params: any) => {
-      const { sort, startTime, endTime, filterStatue, filterType } = JSON.parse(
+      const { sort, startTime, endTime, filterStatus, filterType } = JSON.parse(
         JSON.stringify(params.body)
       );
       initData.tableData = positive;
@@ -113,7 +113,7 @@ export default [
       if (
         startTime !== '' ||
         endTime !== '' ||
-        filterStatue.length !== 0 ||
+        filterStatus.length !== 0 ||
         (filterType.length !== 0 && sort === undefined)
       ) {
         const start = new Date(JSON.parse(JSON.stringify(startTime))).getTime();
@@ -122,7 +122,7 @@ export default [
         const table = initData.tableData.filter(function (item: any) {
           return (
             filterType.includes(item.bid) &&
-            filterStatue.includes(item.pid) &&
+            filterStatus.includes(item.pid) &&
             new Date(JSON.parse(JSON.stringify(item.time))).getTime() - start >
               0 &&
             new Date(JSON.parse(JSON.stringify(item.time))).getTime() - end < 0
@@ -131,7 +131,7 @@ export default [
         // eslint-disable-next-line func-names
         const chart = initData.chartData[0].list.filter(function (item: any) {
           return (
-            filterType.includes(item.bid) && filterStatue.includes(item.pid)
+            filterType.includes(item.bid) && filterStatus.includes(item.pid)
           );
         });
         initData.tableData = table;

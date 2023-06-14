@@ -28,7 +28,7 @@ const useUserStore = defineStore('user', {
     sort: undefined,
     startTime: '',
     endTime: '',
-    filterStatue: [],
+    filterStatus: [],
     filterType: [],
     submit: false,
     reset: false,
@@ -61,7 +61,7 @@ const useUserStore = defineStore('user', {
     resetFilterInfo() {
       this.startTime = '';
       this.endTime = '';
-      this.filterStatue = [];
+      this.filterStatus = [];
       this.filterType = [];
     },
 

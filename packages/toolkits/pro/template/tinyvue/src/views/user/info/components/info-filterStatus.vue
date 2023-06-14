@@ -1,7 +1,7 @@
 <template>
   <div class="option">
     <div class="required">*</div>
-    <span>{{ $t('userInfo.statue.statue') }}：</span>
+    <span>{{ $t('userInfo.status.status') }}：</span>
     <tiny-checkbox-group
       v-model="checkList"
       type="checkbox"
@@ -20,10 +20,10 @@
   const userStore = useUserStore();
   const checkList = ref([]);
   const options = ref([
-    { label: 'A', text: t('userInfo.statue.optionA') },
-    { label: 'B', text: t('userInfo.statue.optionB') },
-    { label: 'C', text: t('userInfo.statue.optionC') },
-    { label: 'D', text: t('userInfo.statue.optionD') },
+    { label: 'A', text: t('userInfo.status.optionA') },
+    { label: 'B', text: t('userInfo.status.optionB') },
+    { label: 'C', text: t('userInfo.status.optionC') },
+    { label: 'D', text: t('userInfo.status.optionD') },
   ]);
 
   const reset = () => {
@@ -32,7 +32,7 @@
 
   // 监听选择
   watch(checkList, (newValue, oldValue) => {
-    userStore.setInfo({ filterStatue: newValue });
+    userStore.setInfo({ filterStatus: newValue });
   });
 
   defineExpose({
