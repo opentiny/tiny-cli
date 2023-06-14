@@ -13,7 +13,8 @@
       "@/*": ["src/*"]
     },
     "lib": ["es2020", "dom"],
-    "skipLibCheck": true /* 跳过类型检查所有.d.ts文件 */
+    "skipLibCheck": true, /* 跳过类型检查所有.d.ts文件 */
+    "types": ["vite/client"] /* vite ts支持 */
   },
   "include": ["src/**/*", "src/**/*.vue"],
   "exclude": ["node_modules"]

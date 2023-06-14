@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
 import {
   login as userLogin,
-  loginMaiil as userLoginMail,
-  logout as userLogout,
+  loginMail as userLoginMail,
   getUserInfo,
   LoginData,
   LoginDataMail,
@@ -13,21 +12,18 @@ import { UserState } from './types';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
-    name: undefined,
-    avatar: undefined,
+    userId: '',
+    username: '',
+    department: undefined,
+    employeeType: undefined,
     job: undefined,
-    organization: undefined,
-    location: undefined,
-    email: undefined,
-    introduction: undefined,
-    personalWebsite: undefined,
-    jobName: undefined,
-    organizationName: undefined,
-    locationName: undefined,
-    phone: undefined,
-    registrationDate: undefined,
-    accountId: undefined,
-    certification: undefined,
+    probationStart: undefined,
+    probationEnd: undefined,
+    probationDuration: undefined,
+    protocolStart: undefined,
+    protocolEnd: undefined,
+    address: undefined,
+    status: undefined,
     role: '',
     sort: undefined,
     startTime: '',
@@ -71,8 +67,7 @@ const useUserStore = defineStore('user', {
 
     // Get user's information
     async info() {
-      const res = await getUserInfo();
-
+      const res = await getUserInfo(this.userId);
       this.setInfo(res.data);
     },
 
@@ -80,14 +75,16 @@ const useUserStore = defineStore('user', {
     async login(loginForm: LoginData) {
       try {
         const res = await userLogin(loginForm);
-        setToken(res.data.token);
+        const { token, userInfo } = res.data;
+        setToken(token);
+        this.setInfo(userInfo);
       } catch (err) {
         clearToken();
         throw err;
       }
     },
 
-    async loginMain(loginForm: LoginDataMail) {
+    async loginMail(loginForm: LoginDataMail) {
       try {
         const res = await userLoginMail(loginForm);
         setToken(res.data.token);
@@ -99,8 +96,6 @@ const useUserStore = defineStore('user', {
 
     // Logout
     async logout() {
-      await userLogout();
-
       this.resetInfo();
       clearToken();
       removeRouteListener();

@@ -96,7 +96,7 @@ export default class UserController extends Controller {
       const { secret, sign } = this.app.config.jwt;
       const userInfo = await ctx.service.user.getUserInfoById(user.id);
       const token = this.app.jwt.sign(userInfo, secret, sign);
-      ctx.helper.commonJson(ctx, { token }, 200);
+      ctx.helper.commonJson(ctx, { token, userInfo }, 200);
     } catch (error) {
       ctx.helper.commonJson(ctx, {}, 500, 'InterError');
     }

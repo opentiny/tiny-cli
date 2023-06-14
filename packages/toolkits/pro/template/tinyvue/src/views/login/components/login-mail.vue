@@ -30,10 +30,10 @@
       <div class="login-form-options">
         <tiny-checkbox>{{ $t('login.form.rememberPassword') }}</tiny-checkbox>
         <div>
-          <!-- <tiny-link type="primary">
+          <tiny-link type="primary">
             {{ $t('login.form.forgetPassword') }}
           </tiny-link>
-          <tiny-link type="primary" class="divide-line">|</tiny-link> -->
+          <tiny-link type="primary" class="divide-line">|</tiny-link>
           <tiny-link type="primary" @click="typeChange">
             {{ $t('login.form.registration') }}
           </tiny-link>
@@ -116,9 +116,9 @@
       setLoading(true);
 
       try {
-        await userStore.loginMain({
-          mailname: loginMail.mailname,
-          mailpassword: loginMail.mailpassword,
+        await userStore.login({
+          username: loginMail.mailname,
+          password: loginMail.mailpassword,
         });
         Modal.message({
           message: t('login.form.login.success'),

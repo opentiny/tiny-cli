@@ -1,10 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modal } from '@opentiny/vue';
+import locale from '@opentiny/vue-locale';
+import router from '@/router';
 import { getToken } from '@/utils/auth';
 
 export interface HttpResponse<T = unknown> {
-  status: number;
-  msg: string;
+  errMsg: string;
   code: string | number;
   data: T;
 }
@@ -24,18 +25,6 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    const regex = /[;\s+]?csrfToken=([^;]*)/;
-    if (!document.cookie.match(regex)) {
-      try {
-        await fetch('/api/v1/setcsrf');
-      } catch (e) {
-        throw e;
-      }
-    }
-    const [, csrfToken] = regex.exec(document.cookie) || [];
-
-    config.headers = { ...config.headers, 'x-csrf-token': csrfToken };
-
     return config;
   },
   (error) => {
@@ -48,21 +37,25 @@ axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data;
     if (res.code !== '0') {
-      if (
-        [50008, 50012, 50014].includes(res.code) &&
-        response.config.url !== '/api/user/info'
-      ) {
+      res.errMsg &&
         Modal.message({
-          message:
-            'You have been logged out, you can cancel to stay on this page, or log in again',
+          message: res.errMsg,
           status: 'error',
         });
-      }
-      return Promise.reject(new Error(res.msg || 'Error'));
+      return Promise.reject(new Error(res.errMsg || 'Error'));
     }
     return res;
   },
   (error) => {
+    const { status } = error.response;
+    if (status === 401) {
+      router.replace({ name: 'login' });
+      Modal.message({
+        message: locale.t('http.error.TokenExpire'),
+        status: 'error',
+      });
+    }
+
     return Promise.reject(error);
   }
 );

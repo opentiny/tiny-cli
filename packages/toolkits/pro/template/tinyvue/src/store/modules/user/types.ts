@@ -1,21 +1,20 @@
 export type RoleType = '' | '*' | 'admin' | 'user';
-export interface UserState {
-  name?: string;
-  avatar?: string;
+export interface UserInfo {
+  userId: string;
+  username: string;
+  department?: string;
+  employeeType?: string;
   job?: string;
-  organization?: string;
-  location?: string;
-  email?: string;
-  introduction?: string;
-  personalWebsite?: string;
-  jobName?: string;
-  organizationName?: string;
-  locationName?: string;
-  phone?: string;
-  registrationDate?: string;
-  accountId?: string;
-  certification?: number;
+  probationStart?: string;
+  probationEnd?: string;
+  probationDuration?: string;
+  protocolStart?: string;
+  protocolEnd?: string;
+  address?: string;
+  status?: string;
   role: RoleType;
+}
+export interface UserFilterData {
   sort?: number;
   startTime?: string;
   endTime?: string;
@@ -24,3 +23,4 @@ export interface UserState {
   submit?: boolean;
   reset?: boolean;
 }
+export type UserState = UserInfo & UserFilterData;
