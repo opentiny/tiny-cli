@@ -10,7 +10,6 @@ export default (appInfo: EggAppInfo) => {
 
   // add your egg config in here
   config.middleware = [];
-
   config.sequelize = {
     dialect: `<%= dialect %>`,
     host: '<%= host %>',
@@ -26,10 +25,18 @@ export default (appInfo: EggAppInfo) => {
     },
     timezone: '+08:00',
     database: '<%= database %>'
-  }
-
+  };
+  config.jwt = {
+    enable: true,
+    ignore: /user\/(login|register)/,
+    secret: 'tiny_pro_server',
+    sign: {
+      expiresIn: 60 * 60 * 24,
+    },
+  };
+  
   // the return config will combines to EggAppConfig
   return {
-    ...config
+    ...config,
   };
 };
