@@ -12,8 +12,8 @@ import { UserState } from './types';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
-    userId: '',
-    username: '',
+    userId: '10000',
+    username: 'admin',
     department: undefined,
     employeeType: undefined,
     job: undefined,

@@ -1,6 +1,6 @@
 import { MockMethod } from 'vite-plugin-mock';
 import Mock from 'mockjs';
-import { successResponseWrapper, requestParam } from './utils';
+import { successResponseWrap } from '@/utils/setup-mock';
 
 const taskList = Mock.mock({
   'list|60': [
@@ -19,7 +19,7 @@ const taskList = Mock.mock({
       'workbenchName': 'work',
       'project': 'TinyDesign',
       'address': '西安研究所',
-      'lastUpdateUser': '张三'
+      'lastUpdateUser': '张三',
     },
   ],
 });
@@ -31,11 +31,10 @@ export default [
   {
     url: '/api/v1/employee/getEmployee',
     method: 'post',
-    response: (params: requestParam) => {
-      const {
-        pageIndex = 1,
-        pageSize = 10,
-      } = JSON.parse(JSON.stringify(params.body));
+    response: (params) => {
+      const { pageIndex = 1, pageSize = 10 } = JSON.parse(
+        JSON.stringify(params.body)
+      );
       const index = pageIndex as number;
       const size = pageSize as number;
       const offset = (index - 1) * size;
@@ -47,7 +46,7 @@ export default [
         data: treeData,
       });
 
-      return successResponseWrapper(data);
+      return successResponseWrap(data);
     },
   },
 ] as MockMethod[];

@@ -16,7 +16,7 @@ export const successResponseWrap = (data: unknown) => {
 export const failResponseWrap = (
   data: unknown,
   errMsg: string,
-  code = 50000
+  code = '500'
 ) => {
   return {
     data,

@@ -4,22 +4,34 @@ import {
   failResponseWrap,
   initData,
 } from '@/utils/setup-mock';
-
-import { MockParams } from '@/types/mock';
 import { isLogin } from '@/utils/auth';
 
 const positive = JSON.parse(JSON.stringify(initData.tableData));
 const negative = JSON.parse(JSON.stringify(initData.tableData.reverse()));
 const initlist = JSON.parse(JSON.stringify(initData.chartData[0].list));
+
 export default [
+  // 注册
+  {
+    url: '/api/user/register',
+    method: 'post',
+    response: (params) => {
+      localStorage.setItem('registerUser', JSON.stringify(params.body));
+      return successResponseWrap({ role: 'admin' });
+    },
+  },
+
   // 用户信息
   {
-    url: '/api/user/info',
-    method: 'post',
+    url: '/api/user/userInfo/:id',
+    method: 'get',
     response: () => {
       if (isLogin()) {
         const role = window.localStorage.getItem('userRole') || 'admin';
-        return successResponseWrap({ role });
+        return successResponseWrap({
+          role,
+          userId: '10000',
+        });
       }
       return successResponseWrap(null);
     },
@@ -29,55 +41,32 @@ export default [
   {
     url: '/api/user/login',
     method: 'post',
-    response: (params: MockParams) => {
+    response: (params) => {
+      const registerUser = JSON.parse(
+        localStorage.getItem('registerUser') || '{}'
+      );
       const { username, password } = JSON.parse(JSON.stringify(params.body));
       if (!username) {
-        return failResponseWrap(null, '用户名不能为空', 50000);
+        return failResponseWrap(null, '邮箱名不能为空', 'InvalidParameter');
       }
       if (!password) {
-        return failResponseWrap(null, '密码不能为空', 50000);
-      }
-      if (username === 'admin' && password === 'admin') {
-        window.localStorage.setItem('userRole', 'admin');
-        return successResponseWrap({
-          token: '12345',
-        });
-      }
-      if (username === 'user' && password === 'user') {
-        window.localStorage.setItem('userRole', 'user');
-        return successResponseWrap({
-          token: '54321',
-        });
-      }
-      return failResponseWrap(null, '账号或者密码错误', 50000);
-    },
-  },
-
-  {
-    url: '/api/mail/login',
-    method: 'post',
-    response: (params: MockParams) => {
-      let registerUser: any = localStorage.getItem('registerUser') || '';
-      const { mailname, mailpassword } = JSON.parse(
-        JSON.stringify(params.body)
-      );
-      if (!mailname) {
-        return failResponseWrap(null, '邮箱名不能为空', 50000);
-      }
-      if (!mailpassword) {
-        return failResponseWrap(null, '密码不能为空', 50000);
+        return failResponseWrap(null, '密码不能为空', 'InvalidParameter');
       }
       if (
-        (mailname === 'admin@example.com' && mailpassword === 'admin') ||
-        (mailname === registerUser!.username &&
-          mailpassword === registerUser.password)
+        (username === 'admin@example.com' && password === 'admin') ||
+        (username === registerUser.username &&
+          password === registerUser.password)
       ) {
         window.localStorage.setItem('userRole', 'admin');
         return successResponseWrap({
           token: '12345',
+          userInfo: {
+            userId: '10000',
+            role: 'admin',
+          },
         });
       }
-      return failResponseWrap(null, '账号或者密码错误', 50000);
+      return failResponseWrap(null, '账号或者密码错误', 'InvalidParameter');
     },
   },
 

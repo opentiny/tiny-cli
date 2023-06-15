@@ -169,7 +169,6 @@
           username: createData.username,
           password: createData.password,
         });
-        localStorage.setItem('registerUser', JSON.stringify(data));
         await registerUser(data);
         Modal.message({
           message: t('login.form.registerPass'),
