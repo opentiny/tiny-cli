@@ -8,6 +8,7 @@ export default {
     locale: 'menu.user',
     requiresAuth: true,
     order: 7,
+    roles: ['admin', 'user'],
   },
   children: [
     {
@@ -19,7 +20,7 @@ export default {
       meta: {
         locale: 'menu.user.info',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
     {
@@ -31,7 +32,7 @@ export default {
       meta: {
         locale: 'menu.user.setting',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
   ],

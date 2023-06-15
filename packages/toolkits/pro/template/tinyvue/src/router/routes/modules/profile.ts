@@ -5,9 +5,10 @@ export default {
   label: 'Profile',
   component: () => import('@/views/profile/index.vue'),
   meta: {
-    locale: 'menu.Profile',
+    locale: 'menu.profile',
     requiresAuth: true,
     order: 4,
+    roles: ['admin'],
   },
   children: [
     {

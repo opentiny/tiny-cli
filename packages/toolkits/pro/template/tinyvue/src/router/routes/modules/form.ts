@@ -8,6 +8,7 @@ export default {
     locale: 'menu.form',
     requiresAuth: true,
     order: 3,
+    roles: ['admin'],
   },
   children: [
     {

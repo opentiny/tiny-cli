@@ -8,6 +8,7 @@ export default {
     locale: 'menu.cloud',
     requiresAuth: true,
     order: 8,
+    roles: ['admin', 'user'],
   },
   children: [
     {
@@ -31,7 +32,7 @@ export default {
       meta: {
         locale: 'menu.cloud.contracts',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
   ],

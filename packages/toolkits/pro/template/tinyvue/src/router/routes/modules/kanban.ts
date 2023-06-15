@@ -8,6 +8,7 @@ export default {
     locale: 'menu.board',
     requiresAuth: true,
     order: 1,
+    roles: ['admin'],
   },
   children: [
     {

@@ -8,6 +8,7 @@ export default {
     locale: 'menu.exception',
     requiresAuth: true,
     order: 6,
+    roles: ['admin', 'user'],
   },
   children: [
     {
@@ -31,7 +32,7 @@ export default {
       meta: {
         locale: 'menu.exception.404',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
     {
@@ -43,7 +44,7 @@ export default {
       meta: {
         locale: 'menu.exception.500',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
   ],
