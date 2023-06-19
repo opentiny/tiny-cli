@@ -1,3 +1,5 @@
+import { RoleType } from '@/types/roleType';
+
 export default {
   path: 'profile',
   name: 'Profile',
@@ -8,7 +10,7 @@ export default {
     locale: 'menu.profile',
     requiresAuth: true,
     order: 4,
-    roles: ['admin'],
+    roles: [RoleType.admin],
   },
   children: [
     {
@@ -20,7 +22,7 @@ export default {
       meta: {
         locale: 'menu.profile.detail',
         requiresAuth: true,
-        roles: ['admin'],
+        roles: [RoleType.admin],
       },
     },
   ],
