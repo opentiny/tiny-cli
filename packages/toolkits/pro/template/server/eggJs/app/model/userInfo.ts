@@ -34,6 +34,11 @@ module.exports = (app: any) => {
         type: DataTypes.STRING(32),
         defaultValue: null,
       },
+      job: {
+        field: 'job',
+        type: DataTypes.STRING(32),
+        defaultValue: null,
+      },
       roles: {
         field: 'roles',
         type: DataTypes.STRING(32),

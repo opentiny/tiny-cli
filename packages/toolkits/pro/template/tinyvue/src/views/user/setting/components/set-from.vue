@@ -31,7 +31,6 @@
             <tiny-select
               v-model="state.filterOptions.type"
               :placeholder="$t('baseForm.form.label.placeholder')"
-              multiple
             >
               <tiny-option
                 v-for="item in (projectData as any)"
@@ -66,6 +65,7 @@
           <tiny-form-item :label="$t('userSetting.startTime')" prop="startTime">
             <tiny-date-picker
               v-model="state.filterOptions.startTime"
+              @blur="handleBlur"
             ></tiny-date-picker>
           </tiny-form-item>
         </tiny-col>
@@ -175,12 +175,8 @@
 
   // 结束时间校验
   const handleBlur = () => {
-    const start = new Date(
-      JSON.parse(JSON.stringify(state.filterOptions.startTime))
-    ).getTime();
-    const end = new Date(
-      JSON.parse(JSON.stringify(state.filterOptions.endTime))
-    ).getTime();
+    const start = state.filterOptions.startTime?.getTime();
+    const end = state.filterOptions.endTime?.getTime();
     if (end < start) {
       state.filterOptions.endTime = '';
       Modal.message({

@@ -28,45 +28,38 @@
   import { useI18n } from 'vue-i18n';
   import { getSimpleDate } from '@/utils/time';
   import { Button as TinyButton, Modal } from '@opentiny/vue';
+  import { useUserStore } from '@/store';
   import headtop from '../../form/step/components/head.vue';
   import setFrom from './components/set-from.vue';
 
   const { t } = useI18n();
   const setFormRef = ref();
-  const tempDate = ref({
-    department: 'Tiny-Vue-Pro',
-    position: 'Front end',
-    type: ['social recruitment'],
-    date: '2021-04-19~2021-10-15',
-    during: '180',
-    startTime: '2021-04-19',
-    endTime: '2021-04-19',
-  });
+  const userStore = useUserStore();
 
   // btn操作
   function handleFormReset() {
     setFormRef.value.setReset();
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     let data = setFormRef.value.setData();
     if (setFormRef.value.setFormValid()) {
       let newTemp = {
         department: data.filterOptions.department,
-        position: data.filterOptions.position,
-        type: data.filterOptions.type,
-        date: `${getSimpleDate(data.filterOptions.date[0])}~${getSimpleDate(
-          data.filterOptions.date[1]
-        )}`,
-        during: data.filterOptions.during,
-        startTime: getSimpleDate(data.filterOptions.startTime),
-        endTime: getSimpleDate(data.filterOptions.endTime),
+        job: data.filterOptions.position,
+        employeeType: data.filterOptions.type,
+        probationStart: getSimpleDate(data.filterOptions.date[0]),
+        probationEnd: getSimpleDate(data.filterOptions.date[1]),
+        probationDuration: data.filterOptions.during,
+        protocolStart: getSimpleDate(data.filterOptions.startTime),
+        protocolEnd: getSimpleDate(data.filterOptions.endTime),
       };
+      await userStore.updateInfo(newTemp);
       Modal.message({
         message: t('baseForm.form.submit.success'),
         status: 'success',
       });
-      tempDate.value = newTemp;
+      handleFormReset();
     } else {
       Modal.message({
         message: t('baseForm.form.submit.error'),

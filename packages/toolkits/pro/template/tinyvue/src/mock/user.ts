@@ -9,7 +9,7 @@ import { isLogin } from '@/utils/auth';
 const positive = JSON.parse(JSON.stringify(initData.tableData));
 const negative = JSON.parse(JSON.stringify(initData.tableData.reverse()));
 const initlist = JSON.parse(JSON.stringify(initData.chartData[0].list));
-
+const userInfo = JSON.parse(JSON.stringify(initData.userInfo));
 export default [
   // 注册
   {
@@ -17,20 +17,36 @@ export default [
     method: 'post',
     response: (params) => {
       localStorage.setItem('registerUser', JSON.stringify(params.body));
-      return successResponseWrap({ role: 'admin' });
+      return successResponseWrap({ ...userInfo, role: 'admin' });
     },
   },
 
   // 用户信息
   {
-    url: '/api/user/userInfo/:id',
+    url: '/api/user/userInfo',
     method: 'get',
     response: () => {
       if (isLogin()) {
         const role = window.localStorage.getItem('userRole') || 'admin';
         return successResponseWrap({
+          ...userInfo,
           role,
-          userId: '10000',
+        });
+      }
+      return successResponseWrap(null);
+    },
+  },
+
+  // 修改用户信息
+  {
+    url: '/api/user/userInfo',
+    method: 'put',
+    response: () => {
+      if (isLogin()) {
+        const role = window.localStorage.getItem('userRole') || 'admin';
+        return successResponseWrap({
+          ...userInfo,
+          role,
         });
       }
       return successResponseWrap(null);
@@ -61,8 +77,7 @@ export default [
         return successResponseWrap({
           token: '12345',
           userInfo: {
-            userId: '10000',
-            role: 'admin',
+            ...userInfo,
           },
         });
       }

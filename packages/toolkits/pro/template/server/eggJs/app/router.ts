@@ -15,6 +15,8 @@ export default (app: Application) => {
 
   router.get('/v1/user/userInfo/:id', controller.user.getUserInfo);
 
+  router.get('/v1/user/userInfo', controller.user.getUserInfo);
+
   router.post('/v1/user/login', controller.user.login);
 
   router.put('/v1/user/userInfo', controller.user.updateUserInfo);

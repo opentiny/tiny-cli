@@ -45,10 +45,11 @@ export default class UserController extends Controller {
   public async getUserInfo() {
     const { ctx } = this;
     const { id } = ctx.params;
+    const { userId } = ctx.state.user || {};
 
     try {
       this.logger.info('[ controller | user ] getUserInfo : 进入getUserInfo方法');
-      const userInfo = await ctx.service.user.getUserInfoById(id);
+      const userInfo = await ctx.service.user.getUserInfoById(id || userId);
       if (!userInfo) {
         ctx.helper.commonJson(ctx, {}, 500, 'UserNotFound');
         return;
@@ -104,50 +105,37 @@ export default class UserController extends Controller {
 
   public async updateUserInfo() {
     const { ctx, app } = this;
+    const { userId } = ctx.state.user || {};
     const payload = ctx.request.body || {};
     try {
       this.logger.info('[ controller | user ] updateUserInfo : 进入updateUserInfo方法');
+
       // 校验参数
       const registerUserRule = {
-        id: { type: 'string' },
+        userId: { type: 'string?' },
         department: { type: 'string' },
         employeeType: { type: 'string' },
-        roles: { type: 'string' },
-        probationPeriod: { type: 'array', itemType: 'date' },
+        job: { type: 'string' },
+        probationStart: { type: 'string' },
+        probationEnd: { type: 'string' },
         probationDuration: { type: 'string' },
-        protocolPeriod: { type: 'array', itemType: 'date' },
+        protocolStart: { type: 'string' },
+        protocolEnd: { type: 'string' },
       };
       const err = app.validator.validate(registerUserRule, payload);
       if (err?.length) {
         ctx.helper.commonJson(ctx, {}, 500, 'InvalidParameter');
         return;
       }
-      const {
-        id,
-        department,
-        employeeType,
-        roles,
-        probationDuration,
-        probationPeriod: [probationStart, probationEnd],
-        protocolPeriod: [protocolStart, protocolEnd],
-      } = payload;
+      const id = payload.userId || userId;
       const user = await ctx.service.user.getUserInfoById(id);
       if (!user) {
         ctx.helper.commonJson(ctx, {}, 500, 'UserNotFound');
         return;
       }
-      const info = {
-        department,
-        employeeType,
-        roles,
-        probationDuration,
-        probationStart,
-        probationEnd,
-        protocolStart,
-        protocolEnd,
-      };
+
       // 修改用户信息
-      await ctx.service.user.updateUserInfo(id, info);
+      await ctx.service.user.updateUserInfo(id, payload);
       const userInfo = await ctx.service.user.getUserInfoById(id);
       ctx.helper.commonJson(ctx, userInfo, 200);
     } catch (error) {

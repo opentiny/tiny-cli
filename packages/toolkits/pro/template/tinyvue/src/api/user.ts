@@ -38,8 +38,12 @@ export function logout() {
   return axios.post<LoginRes>('/api/user/logout');
 }
 
-export function getUserInfo(id: string) {
-  return axios.get<UserInfo>(`/api/user/userInfo/${id}`);
+export function getUserInfo() {
+  return axios.get<UserInfo>(`/api/user/userInfo`);
+}
+
+export function updateUserInfo(data: UserInfo) {
+  return axios.put<UserInfo>(`/api/user/userInfo`, data);
 }
 
 export function getUserData(data?: UserData) {

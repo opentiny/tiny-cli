@@ -66,4 +66,5 @@ export default {
   'baseForm.form.submit.error': 'Please complete the required items first',
   'baseForm.form.record': 'Version Record',
   'baseForm.form.project': 'Project Type',
+  'baseForm.form.get.error': 'Failed to obtain data',
 };

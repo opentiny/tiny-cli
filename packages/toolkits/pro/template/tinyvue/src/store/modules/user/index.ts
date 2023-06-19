@@ -3,29 +3,30 @@ import {
   login as userLogin,
   loginMail as userLoginMail,
   getUserInfo,
+  updateUserInfo,
   LoginData,
   LoginDataMail,
 } from '@/api/user';
 import { setToken, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
-import { UserState } from './types';
+import { UserState, UserInfo } from './types';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
     userId: '10000',
     username: 'admin',
-    department: undefined,
-    employeeType: undefined,
-    job: undefined,
-    probationStart: undefined,
-    probationEnd: undefined,
-    probationDuration: undefined,
-    protocolStart: undefined,
-    protocolEnd: undefined,
-    address: undefined,
-    status: undefined,
+    department: 'Tiny-Vue-Pro',
+    employeeType: 'social recruitment',
+    job: 'Front end',
+    probationStart: '2021-04-19',
+    probationEnd: '2021-10-15',
+    probationDuration: '180',
+    protocolStart: '2021-04-19',
+    protocolEnd: '2024-04-19',
+    address: '',
+    status: '',
     role: '',
-    sort: undefined,
+    sort: 1,
     startTime: '',
     endTime: '',
     filterStatus: [],
@@ -67,7 +68,12 @@ const useUserStore = defineStore('user', {
 
     // Get user's information
     async info() {
-      const res = await getUserInfo(this.userId);
+      const res = await getUserInfo();
+      this.setInfo(res.data);
+    },
+
+    async updateInfo(data: UserInfo) {
+      const res = await updateUserInfo(data);
       this.setInfo(res.data);
     },
 
