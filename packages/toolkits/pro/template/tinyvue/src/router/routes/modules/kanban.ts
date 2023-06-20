@@ -1,3 +1,5 @@
+import { RoleType } from '@/types/roleType';
+
 export default {
   path: 'board',
   name: 'Board',
@@ -8,6 +10,7 @@ export default {
     locale: 'menu.board',
     requiresAuth: true,
     order: 1,
+    roles: [RoleType.admin],
   },
   children: [
     {
@@ -19,7 +22,7 @@ export default {
       meta: {
         locale: 'menu.board.home',
         requiresAuth: true,
-        roles: ['admin'],
+        roles: [RoleType.admin],
       },
     },
     {
@@ -31,7 +34,7 @@ export default {
       meta: {
         locale: 'menu.board.work',
         requiresAuth: true,
-        roles: ['admin'],
+        roles: [RoleType.admin],
       },
     },
   ],

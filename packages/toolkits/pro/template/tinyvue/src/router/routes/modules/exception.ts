@@ -1,3 +1,5 @@
+import { RoleType } from '@/types/roleType';
+
 export default {
   path: 'exception',
   name: 'Exception',
@@ -8,6 +10,7 @@ export default {
     locale: 'menu.exception',
     requiresAuth: true,
     order: 6,
+    roles: [RoleType.admin, RoleType.user],
   },
   children: [
     {
@@ -19,7 +22,7 @@ export default {
       meta: {
         locale: 'menu.exception.403',
         requiresAuth: true,
-        roles: ['admin'],
+        roles: [RoleType.admin],
       },
     },
     {
@@ -31,7 +34,7 @@ export default {
       meta: {
         locale: 'menu.exception.404',
         requiresAuth: true,
-        roles: ['*'],
+        roles: [RoleType.admin, RoleType.user],
       },
     },
     {
@@ -43,7 +46,7 @@ export default {
       meta: {
         locale: 'menu.exception.500',
         requiresAuth: true,
-        roles: ['*'],
+        roles: [RoleType.admin, RoleType.user],
       },
     },
   ],
