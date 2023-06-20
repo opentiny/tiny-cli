@@ -1,3 +1,6 @@
+
+import { RoleType } from '@/types/roleType';
+
 export default {
   path: 'form',
   name: 'Form',
@@ -8,6 +11,7 @@ export default {
     locale: 'menu.form',
     requiresAuth: true,
     order: 3,
+    roles: [RoleType.admin],
   },
   children: [
     {
@@ -19,7 +23,7 @@ export default {
       meta: {
         locale: 'menu.form.base',
         requiresAuth: true,
-        roles: ['admin'],
+        roles: [RoleType.admin],
       },
     },
     {
@@ -31,7 +35,7 @@ export default {
       meta: {
         locale: 'menu.form.step',
         requiresAuth: true,
-        roles: ['admin'],
+        roles: [RoleType.admin],
       },
     },
   ],

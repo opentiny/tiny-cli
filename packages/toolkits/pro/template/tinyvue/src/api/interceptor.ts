@@ -24,17 +24,7 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    const regex = /[;\s+]?csrfToken=([^;]*)/;
-    if (!document.cookie.match(regex)) {
-      try {
-        await fetch('/api/v1/setcsrf');
-      } catch (e) {
-        throw e;
-      }
-    }
-    const [, csrfToken] = regex.exec(document.cookie) || [];
-
-    config.headers = { ...config.headers, 'x-csrf-token': csrfToken };
+    config.headers = { ...config.headers };
 
     return config;
   },

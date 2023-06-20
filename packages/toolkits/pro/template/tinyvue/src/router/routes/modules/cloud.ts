@@ -1,3 +1,5 @@
+import { RoleType } from '@/types/roleType';
+
 export default {
   path: 'cloud',
   name: 'Cloud',
@@ -8,6 +10,7 @@ export default {
     locale: 'menu.cloud',
     requiresAuth: true,
     order: 8,
+    roles: [RoleType.admin, RoleType.user],
   },
   children: [
     {
@@ -19,7 +22,7 @@ export default {
       meta: {
         locale: 'menu.cloud.hello',
         requiresAuth: true,
-        roles: ['admin'],
+        roles: [RoleType.admin],
       },
     },
     {
@@ -31,7 +34,7 @@ export default {
       meta: {
         locale: 'menu.cloud.contracts',
         requiresAuth: true,
-        roles: ['*'],
+        roles: [RoleType.admin, RoleType.user],
       },
     },
   ],
