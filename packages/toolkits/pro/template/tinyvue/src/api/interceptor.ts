@@ -49,13 +49,19 @@ axios.interceptors.response.use(
     return res;
   },
   (error) => {
-    const { status } = error.response;
+    const { status, data } = error.response;
     if (status === 401) {
       router.replace({ name: 'login' });
       Modal.message({
         message: locale.t('http.error.TokenExpire'),
         status: 'error',
       });
+    } else {
+      data.errMsg &&
+        Modal.message({
+          message: locale.t(`http.error.${data.errMsg}`),
+          status: 'error',
+        });
     }
 
     return Promise.reject(error);
