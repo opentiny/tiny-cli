@@ -37,7 +37,7 @@ export default class UserController extends Controller {
       ctx.helper.commonJson(ctx, userInfo, 200);
     } catch (error) {
       await transaction.rollback();
-      ctx.helper.commonJson(ctx, {}, 500, 'InterError');
+      ctx.helper.commonJson(ctx, {}, 500, 'InternalError');
     }
   }
 
@@ -56,7 +56,7 @@ export default class UserController extends Controller {
       }
       ctx.helper.commonJson(ctx, userInfo, 200);
     } catch (error) {
-      ctx.helper.commonJson(ctx, {}, 500, 'InterError');
+      ctx.helper.commonJson(ctx, {}, 500, 'InternalError');
     }
   }
 
@@ -99,7 +99,7 @@ export default class UserController extends Controller {
       const token = this.app.jwt.sign(userInfo, secret, sign);
       ctx.helper.commonJson(ctx, { token, userInfo }, 200);
     } catch (error) {
-      ctx.helper.commonJson(ctx, {}, 500, 'InterError');
+      ctx.helper.commonJson(ctx, {}, 500, 'InternalError');
     }
   }
 
@@ -139,7 +139,7 @@ export default class UserController extends Controller {
       const userInfo = await ctx.service.user.getUserInfoById(id);
       ctx.helper.commonJson(ctx, userInfo, 200);
     } catch (error) {
-      ctx.helper.commonJson(ctx, {}, 500, 'InterError');
+      ctx.helper.commonJson(ctx, {}, 500, 'InternalError');
     }
   }
 }

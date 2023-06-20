@@ -31,7 +31,7 @@ export default class EmployeeController extends Controller {
         200,
       );
     } catch (error) {
-      ctx.helper.commonJson(ctx, {}, 500, 'InterError');
+      ctx.helper.commonJson(ctx, {}, 500, 'InternalError');
     }
   }
 }
