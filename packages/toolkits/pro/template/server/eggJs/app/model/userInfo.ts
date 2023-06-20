@@ -39,10 +39,10 @@ module.exports = (app: any) => {
         type: DataTypes.STRING(32),
         defaultValue: null,
       },
-      roles: {
-        field: 'roles',
+      role: {
+        field: 'role',
         type: DataTypes.STRING(32),
-        defaultValue: null,
+        defaultValue: 'user',
       },
       probationStart: {
         field: 'probation_start',
