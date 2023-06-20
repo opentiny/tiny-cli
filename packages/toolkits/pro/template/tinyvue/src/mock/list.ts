@@ -29,7 +29,7 @@ let treeData = [];
 export default [
   // list
   {
-    url: '/api/v1/employee/getEmployee',
+    url: '/api/employee/getEmployee',
     method: 'post',
     response: (params) => {
       const { pageIndex = 1, pageSize = 10 } = JSON.parse(

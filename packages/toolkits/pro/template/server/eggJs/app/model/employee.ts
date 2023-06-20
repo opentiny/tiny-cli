@@ -7,56 +7,69 @@ module.exports = (app: any) => {
     'employee',
     {
       id: {
+        field: 'id',
         type: DataTypes.INTEGER(16),
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
       },
       name: {
+        field: 'name',
         type: DataTypes.STRING(20),
         allowNull: false,
       },
-      employee_no: {
+      employeeNo: {
+        field: 'employee_no',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
       department: {
+        field: 'department',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      department_level: {
+      departmentLevel: {
+        field: 'department_level',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
       status: {
+        field: 'status',
         type: DataTypes.STRING(10),
         allowNull: false,
       },
-      workbench_name: {
+      workbenchName: {
+        field: 'workbench_name',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
       project: {
+        field: 'project',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
       type: {
+        field: 'type',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
       address: {
+        field: 'address',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
       roles: {
+        field: 'roles',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      last_update_user: {
+      lastUpdateUser: {
+        field: 'last_update_user',
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      create_time: {
+      createTime: {
+        field: 'create_time',
         type: DataTypes.TIME,
         allowNull: true,
         defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
