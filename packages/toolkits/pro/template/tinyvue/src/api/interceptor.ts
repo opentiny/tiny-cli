@@ -10,14 +10,22 @@ export interface HttpResponse<T = unknown> {
   data: T;
 }
 
-if (import.meta.env.VITE_API_BASE_URL) {
-  axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+const { VITE_API_BASE_URL, VITE_BASE_API, VITE_MOCK_IGNORE } =
+  import.meta.env || {};
+
+if (VITE_API_BASE_URL) {
+  axios.defaults.baseURL = VITE_API_BASE_URL;
 }
 
+const ignoreMockApiList = VITE_MOCK_IGNORE?.split(',') || [];
 axios.interceptors.request.use(
-  async (config: AxiosRequestConfig) => {
-    const token = getToken();
+  (config: AxiosRequestConfig) => {
+    const isProxy = ignoreMockApiList.includes(config.url);
+    if (isProxy) {
+      config.url = config.url?.replace(VITE_BASE_API, '/api/v1');
+    }
 
+    const token = getToken();
     if (token) {
       if (!config.headers) {
         config.headers = {};

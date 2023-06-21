@@ -10,7 +10,7 @@ const proxyConfig = {
     rewrite: (path) =>
       path.replace(
         new RegExp(`${loadEnv('', process.cwd()).VITE_BASE_API}`),
-        '/v1'
+        ''
       ),
   },
 };
