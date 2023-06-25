@@ -3,6 +3,6 @@ export default {
   'http.error.UserNotFound': 'user does not exist',
   'http.error.UserAlreadyExist': 'User already exists',
   'http.error.InvalidParameter': 'Invalid request parameter',
-  'http.error.InterError': 'Inter error',
+  'http.error.InternalError': 'Internal error',
   'http.error.ErrorPassword': 'Account or password error',
 };
