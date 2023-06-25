@@ -7,57 +7,75 @@ module.exports = (app: any) => {
     'UserInfo',
     {
       id: {
+        field: 'id',
         type: DataTypes.INTEGER(20).UNSIGNED,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
       },
-      user_name: {
+      username: {
+        field: 'user_name',
         type: DataTypes.STRING(32),
         allowNull: false,
       },
-      user_id: {
+      userId: {
+        field: 'user_id',
         type: DataTypes.INTEGER(20),
         allowNull: false,
       },
       department: {
+        field: 'department',
         type: DataTypes.STRING(32),
         allowNull: false,
         defaultValue: '',
       },
-      employee_type: {
+      employeeType: {
+        field: 'employee_type',
         type: DataTypes.STRING(32),
         defaultValue: null,
       },
-      roles: {
+      job: {
+        field: 'job',
         type: DataTypes.STRING(32),
         defaultValue: null,
       },
-      probation_start: {
+      role: {
+        field: 'role',
+        type: DataTypes.STRING(32),
+        defaultValue: 'user',
+      },
+      probationStart: {
+        field: 'probation_start',
         type: DataTypes.DATE,
         defaultValue: null,
       },
-      probation_end: {
+      probationEnd: {
+        field: 'probation_end',
         type: DataTypes.DATE,
         defaultValue: null,
       },
-      probation_duration: {
+      probationDuration: {
+        field: 'probation_duration',
         type: DataTypes.INTEGER(11).UNSIGNED,
         defaultValue: null,
       },
-      protocol_start: {
+      protocolStart: {
+        field: 'protocol_start',
         type: DataTypes.DATE,
         defaultValue: null,
       },
-      protocol_end: {
+      protocolEnd: {
+        field: 'protocol_end',
         type: DataTypes.DATE,
         defaultValue: null,
       },
       address: {
+        field: 'address',
         type: DataTypes.STRING(32),
         defaultValue: null,
       },
       status: {
+        field: 'status',
         type: DataTypes.STRING(32),
         defaultValue: null,
       },

@@ -32,7 +32,7 @@
     IconCueL,
     IconUser,
     IconFiletext,
-    IconDesktopView
+    IconDesktopView,
   } from '@opentiny/vue-icon';
   import router from '@/router';
   import { TreeMenu as tinyTreeMenu } from '@opentiny/vue';
@@ -135,7 +135,7 @@
       'Profile',
       'Result',
       'User',
-      'Cloud'
+      'Cloud',
     ];
     if (filter.indexOf(data.id) === -1) {
       router.push({ name: data.id });
@@ -148,10 +148,10 @@
 
   .main-title {
     height: 20px;
+    overflow: hidden;
     font-size: 14px;
     line-height: 20px;
     text-align: left;
-    overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
   }
@@ -168,14 +168,17 @@
     align-items: center;
     justify-content: center;
     height: 20px;
+
     > span {
       padding-left: 10px;
     }
+
     > svg {
       width: 1.3em;
       height: 1.3em;
     }
   }
+
   .tiny-tree-menu
     .tiny-tree
     .tiny-tree-node.is-current

@@ -8,17 +8,19 @@ export default ({ mock, setup }: { mock?: boolean; setup: () => void }) => {
 export const successResponseWrap = (data: unknown) => {
   return {
     data,
-    status: 'ok',
-    msg: '请求成功',
+    errMsg: '',
     code: '0',
   };
 };
 
-export const failResponseWrap = (data: unknown, msg: string, code = 50000) => {
+export const failResponseWrap = (
+  data: unknown,
+  errMsg: string,
+  code = '500'
+) => {
   return {
     data,
-    status: 'fail',
-    msg,
+    errMsg,
     code,
   };
 };
@@ -31,91 +33,91 @@ export const initData = Mock.mock({
       list: [
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionA',
+          status: 'userInfo.status.optionA',
           len: 1,
           bid: 'A',
           pid: 'A',
         },
         {
           type: 'userInfo.type.optionC',
-          status: 'userInfo.statue.optionB',
+          status: 'userInfo.status.optionB',
           len: 5,
           bid: 'c',
           pid: 'B',
         },
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionC',
+          status: 'userInfo.status.optionC',
           len: 3,
           bid: 'A',
           pid: 'C',
         },
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionA',
+          status: 'userInfo.status.optionA',
           len: 1,
           bid: 'A',
           pid: 'A',
         },
         {
           type: 'userInfo.type.optionB',
-          status: 'userInfo.statue.optionA',
+          status: 'userInfo.status.optionA',
           len: 6,
           bid: 'B',
           pid: 'A',
         },
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionC',
+          status: 'userInfo.status.optionC',
           len: 1,
           bid: 'A',
           pid: 'C',
         },
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionA',
+          status: 'userInfo.status.optionA',
           len: 1,
           bid: 'A',
           pid: 'A',
         },
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionB',
+          status: 'userInfo.status.optionB',
           len: 1,
           bid: 'A',
           pid: 'B',
         },
         {
           type: 'userInfo.type.optionB',
-          status: 'userInfo.statue.optionA',
+          status: 'userInfo.status.optionA',
           len: 1,
           bid: 'B',
           pid: 'A',
         },
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionC',
+          status: 'userInfo.status.optionC',
           len: 1,
           bid: 'A',
           pid: 'C',
         },
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionD',
+          status: 'userInfo.status.optionD',
           len: 1,
           bid: 'A',
           pid: 'D',
         },
         {
           type: 'userInfo.type.optionC',
-          status: 'userInfo.statue.optionD',
+          status: 'userInfo.status.optionD',
           len: 1,
           bid: 'C',
           pid: 'D',
         },
         {
           type: 'userInfo.type.optionA',
-          status: 'userInfo.statue.optionD',
+          status: 'userInfo.status.optionD',
           len: 1,
           bid: 'A',
           pid: 'D',
@@ -148,7 +150,7 @@ export const initData = Mock.mock({
       name: 'GFD Company',
       time: '2021-12-18',
       type: 'userInfo.type.optionA',
-      statue: 'userInfo.statue.optionD',
+      status: 'userInfo.status.optionD',
     },
     {
       id: '2',
@@ -157,7 +159,7 @@ export const initData = Mock.mock({
       name: 'WWWW Company',
       time: '2021-11-18',
       type: 'userInfo.type.optionB',
-      statue: 'userInfo.statue.optionA',
+      status: 'userInfo.status.optionA',
     },
     {
       id: '3',
@@ -166,7 +168,7 @@ export const initData = Mock.mock({
       name: 'TGBYX Company',
       time: '2021-10-18',
       type: 'userInfo.type.optionC',
-      statue: 'userInfo.statue.optionB',
+      status: 'userInfo.status.optionB',
     },
     {
       id: '4',
@@ -175,7 +177,7 @@ export const initData = Mock.mock({
       name: 'GF Company',
       time: '2021-09-18',
       type: 'userInfo.type.optionB',
-      statue: 'userInfo.statue.optionC',
+      status: 'userInfo.status.optionC',
     },
     {
       id: '5',
@@ -184,7 +186,7 @@ export const initData = Mock.mock({
       name: 'Property management company',
       time: '2021-07-18',
       type: 'userInfo.type.optionA',
-      statue: 'userInfo.statue.optionD',
+      status: 'userInfo.status.optionD',
     },
     {
       id: '6',
@@ -193,7 +195,7 @@ export const initData = Mock.mock({
       name: 'Property management company',
       time: '2020-12-23',
       type: 'userInfo.type.optionA',
-      statue: 'userInfo.statue.optionC',
+      status: 'userInfo.status.optionC',
     },
     {
       id: '7',
@@ -202,7 +204,7 @@ export const initData = Mock.mock({
       name: 'GF Company',
       time: '2020-11-08',
       type: 'userInfo.type.optionB',
-      statue: 'userInfo.statue.optionC',
+      status: 'userInfo.status.optionC',
     },
     {
       id: '8',
@@ -211,7 +213,7 @@ export const initData = Mock.mock({
       name: 'WWWW Company',
       time: '2020-10-18',
       type: 'userInfo.type.optionB',
-      statue: 'userInfo.statue.optionC',
+      status: 'userInfo.status.optionC',
     },
     {
       id: '9',
@@ -220,7 +222,7 @@ export const initData = Mock.mock({
       name: 'WWWW Company',
       time: '2020-10-11',
       type: 'userInfo.type.optionC',
-      statue: 'userInfo.statue.optionD',
+      status: 'userInfo.status.optionD',
     },
     {
       id: '10',
@@ -229,7 +231,22 @@ export const initData = Mock.mock({
       name: 'TGBYX Company',
       time: '2020-06-18',
       type: 'userInfo.type.optionC',
-      statue: 'userInfo.statue.optionD',
+      status: 'userInfo.status.optionD',
     },
   ],
+  userInfo: {
+    userId: '10000',
+    username: 'admin',
+    department: 'Tiny-Vue-Pro',
+    employeeType: 'social recruitment',
+    role: 'admin',
+    job: 'Front end',
+    probationStart: '2021-04-19',
+    probationEnd: '2021-10-15',
+    probationDuration: '180',
+    protocolStart: '2021-04-19',
+    protocolEnd: '2024-04-19',
+    address: 'xian',
+    status: 'normal',
+  },
 });

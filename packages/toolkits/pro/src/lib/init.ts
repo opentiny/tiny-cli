@@ -67,7 +67,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       ],
       default: 'mysql',
       prefix: '*',
-      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip
+      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip,
     },
     {
       type: 'input',
@@ -75,7 +75,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请输入数据库地址：',
       default: 'localhost',
       prefix: '*',
-      when: (answers) => answers.dialect
+      when: (answers) => answers.dialect,
     },
     {
       type: 'input',
@@ -83,7 +83,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请输入数据库端口：',
       default: 3306,
       prefix: '*',
-      when: (answers) => answers.host
+      when: (answers) => answers.host,
     },
     {
       type: 'input',
@@ -91,7 +91,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请输入数据库名称：',
       prefix: '*',
       validate: (input: string) => Boolean(input),
-      when: (answers) => answers.host
+      when: (answers) => answers.host,
     },
     {
       type: 'input',
@@ -99,16 +99,16 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请输入登录用户名：',
       default: 'root',
       prefix: '*',
-      when: (answers) => answers.host
+      when: (answers) => answers.host,
     },
     {
       type: 'password',
       name: 'password',
       message: '请输入密码：',
       prefix: '*',
-      when: (answers) => answers.host
+      when: (answers) => answers.host,
     },
-  ]
+  ];
   return inquirer.prompt(question);
 };
 
@@ -122,14 +122,15 @@ const createServerSync = (answers: ProjectInfo) => {
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
   const serverTo = utils.getDistPath('server');
-  const defaultConfig = { // 在未配置数据库信息时，使用默认值替换ejs模板
+  const defaultConfig = {
+    // 在未配置数据库信息时，使用默认值替换ejs模板
     dialect: 'mysql',
     host: 'localhost',
     port: 3306,
     username: 'root',
     password: '123456',
-    database: 'tiny_pro_server'
-  }
+    database: 'tiny_pro_server',
+  };
   fs.copyTpl(serverFrom, serverTo, dialect ? answers : defaultConfig, {
     overwrite: true,
   });
@@ -158,23 +159,21 @@ const createProjectSync = (answers: ProjectInfo) => {
       fs.readFileSync(packageJsonPath, { encoding: 'utf8' })
     );
     packageJson = { ...packageJson, name, description };
-    fs.writeFileSync(
-      packageJsonPath,
-      JSON.stringify(packageJson, null, 2),
-      { encoding: 'utf8' }
-    );
+    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), {
+      encoding: 'utf8',
+    });
   } catch (e) {
     log.error('配置项目信息创失败');
   }
 
-  // 如果不对接服务端，默认开启mock
+  // 如果不对接服务端，全部接口采用mock
   if (!serverFramework) {
     try {
       const envPath = path.join(to, '.env');
       const envConfig = dotenv.parse(
         fs.readFileSync(envPath, { encoding: 'utf8' })
       );
-      envConfig.VITE_USE_MOCK = 'true';
+      delete envConfig.VITE_MOCK_IGNORE;
       const config = Object.keys(envConfig)
         .map((key) => `${key} = ${envConfig[key]}`)
         .join('\n');
@@ -184,7 +183,7 @@ const createProjectSync = (answers: ProjectInfo) => {
       log.info('请手动配置env信息');
     }
   } else {
-    // 如果对接服务端，执行文件复制及相关配置
+    // 如果对接服务端，执行文件复制及相关配置（ WIP: 后台接口暂未全量完成，部分接口还是使用mock ）
     createServerSync(answers);
   }
 };

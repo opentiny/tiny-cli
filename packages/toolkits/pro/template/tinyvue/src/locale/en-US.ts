@@ -26,6 +26,8 @@ import localeContracts from '@/views/cloud/contracts/locale/en-US';
 
 import localeSettings from './en-US/settings';
 
+import localeHttpError from './en-US/httpError';
+
 export default {
   'menu.board': 'Dashboard Page',
   'menu.board.home': 'Monitoring page',
@@ -62,4 +64,5 @@ export default {
   ...localekanban,
   ...localeHello,
   ...localeContracts,
+  ...localeHttpError,
 };

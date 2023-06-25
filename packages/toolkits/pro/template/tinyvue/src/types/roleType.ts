@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
 export enum RoleType {
-    admin = 'admin',
-    user = 'user'
+  admin = 'admin',
+  user = 'user',
 }

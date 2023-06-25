@@ -1,4 +1,3 @@
-
 import { RoleType } from '@/types/roleType';
 
 export default {

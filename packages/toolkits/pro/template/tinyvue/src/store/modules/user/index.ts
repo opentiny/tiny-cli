@@ -1,38 +1,35 @@
 import { defineStore } from 'pinia';
 import {
   login as userLogin,
-  loginMaiil as userLoginMail,
-  logout as userLogout,
+  loginMail as userLoginMail,
   getUserInfo,
+  updateUserInfo,
   LoginData,
   LoginDataMail,
 } from '@/api/user';
 import { setToken, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
-import { UserState } from './types';
+import { UserState, UserInfo } from './types';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
-    name: undefined,
-    avatar: undefined,
-    job: undefined,
-    organization: undefined,
-    location: undefined,
-    email: undefined,
-    introduction: undefined,
-    personalWebsite: undefined,
-    jobName: undefined,
-    organizationName: undefined,
-    locationName: undefined,
-    phone: undefined,
-    registrationDate: undefined,
-    accountId: undefined,
-    certification: undefined,
+    userId: '10000',
+    username: 'admin',
+    department: 'Tiny-Vue-Pro',
+    employeeType: 'social recruitment',
+    job: 'Front end',
+    probationStart: '2021-04-19',
+    probationEnd: '2021-10-15',
+    probationDuration: '180',
+    protocolStart: '2021-04-19',
+    protocolEnd: '2024-04-19',
+    address: '',
+    status: '',
     role: '',
-    sort: undefined,
+    sort: 1,
     startTime: '',
     endTime: '',
-    filterStatue: [],
+    filterStatus: [],
     filterType: [],
     submit: false,
     reset: false,
@@ -65,14 +62,18 @@ const useUserStore = defineStore('user', {
     resetFilterInfo() {
       this.startTime = '';
       this.endTime = '';
-      this.filterStatue = [];
+      this.filterStatus = [];
       this.filterType = [];
     },
 
     // Get user's information
     async info() {
       const res = await getUserInfo();
+      this.setInfo(res.data);
+    },
 
+    async updateInfo(data: UserInfo) {
+      const res = await updateUserInfo(data);
       this.setInfo(res.data);
     },
 
@@ -80,14 +81,16 @@ const useUserStore = defineStore('user', {
     async login(loginForm: LoginData) {
       try {
         const res = await userLogin(loginForm);
-        setToken(res.data.token);
+        const { token, userInfo } = res.data;
+        setToken(token);
+        this.setInfo(userInfo);
       } catch (err) {
         clearToken();
         throw err;
       }
     },
 
-    async loginMain(loginForm: LoginDataMail) {
+    async loginMail(loginForm: LoginDataMail) {
       try {
         const res = await userLoginMail(loginForm);
         setToken(res.data.token);
@@ -99,8 +102,6 @@ const useUserStore = defineStore('user', {
 
     // Logout
     async logout() {
-      await userLogout();
-
       this.resetInfo();
       clearToken();
       removeRouteListener();

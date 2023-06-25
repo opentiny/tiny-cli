@@ -5,15 +5,19 @@ export default class User extends Service {
     return this.ctx.model.UserInfo.findOne({ where: { user_id }, raw: true });
   }
 
-  public async getUserByName(user_name: string): Promise<any> {
-    return this.ctx.model.RegisterUser.findOne({ where: { user_name } });
+  public async getUserByName(username: string): Promise<any> {
+    return this.ctx.model.RegisterUser.findOne({ where: { username } });
   }
 
-  public async createUser(params: { user_name: string; password: string }, options?): Promise<any> {
+  public async createUser(params: { username: string; password: string }, options?): Promise<any> {
     return this.ctx.model.RegisterUser.create(params, options);
   }
 
   public async createUserInfo(info, options?): Promise<any> {
     return this.ctx.model.UserInfo.create(info, options);
+  }
+
+  public async updateUserInfo(userId: string, info): Promise<any> {
+    return this.ctx.model.UserInfo.update(info, { where: { userId } });
   }
 }

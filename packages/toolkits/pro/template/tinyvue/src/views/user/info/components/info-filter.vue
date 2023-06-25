@@ -8,7 +8,7 @@
       v-if="activeName === '1'"
       ref="filterendtime"
     ></infofilterendtime>
-    <infofilterstatue ref="filterstatue"></infofilterstatue>
+    <infofilterstatus ref="filterstatus"></infofilterstatus>
     <infofiltertype ref="filtertype"></infofiltertype>
     <tiny-button type="primary" @click="submit">{{
       $t('userInfo.btn.search')
@@ -22,7 +22,7 @@
   import { useI18n } from 'vue-i18n';
   import { useUserStore } from '@/store';
   import { Button as TinyButton, Modal } from '@opentiny/vue';
-  import infofilterstatue from './info-filterStatue.vue';
+  import infofilterstatus from './info-filterStatus.vue';
   import infofiltertype from './info-filterType.vue';
   import infofilterstarttime from './info-filterStartTime.vue';
   import infofilterendtime from './info-filterEndTime.vue';
@@ -33,7 +33,7 @@
   const userStore = useUserStore();
   const filterstarttime = ref();
   const filterendtime = ref();
-  const filterstatue = ref();
+  const filterstatus = ref();
   const filtertype = ref();
   const { t } = useI18n();
 
@@ -43,7 +43,7 @@
       filterstarttime.value.reset();
       filterendtime.value.reset();
     }
-    filterstatue.value.reset();
+    filterstatus.value.reset();
     filtertype.value.reset();
     userStore.resetFilterInfo();
     userStore.setInfo({ reset: true });
@@ -53,7 +53,7 @@
     if (props.activeName === '1') {
       userStore.startTime === '' ||
       userStore.endTime === '' ||
-      userStore.filterStatue?.length === 0 ||
+      userStore.filterStatus?.length === 0 ||
       userStore.filterType?.length === 0
         ? Modal.message({
             message: t('userInfo.filter.all'),
@@ -61,7 +61,7 @@
           })
         : userStore.setInfo({ submit: true, sort: undefined });
     } else {
-      userStore.filterStatue?.length === 0 || userStore.filterType?.length === 0
+      userStore.filterStatus?.length === 0 || userStore.filterType?.length === 0
         ? Modal.message({
             message: t('userInfo.filter.all'),
             status: 'error',

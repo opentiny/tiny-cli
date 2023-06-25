@@ -7,20 +7,24 @@ module.exports = (app: any) => {
     'RegisterUser',
     {
       id: {
+        field: 'id',
         type: DataTypes.INTEGER(20).UNSIGNED,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
       },
-      user_name: {
+      username: {
+        field: 'user_name',
         type: DataTypes.STRING(32),
         allowNull: false,
       },
       password: {
+        field: 'password',
         type: DataTypes.STRING(60),
         allowNull: false,
       },
-      register_type: {
+      registerType: {
+        field: 'register_type',
         type: DataTypes.ENUM('email'),
         allowNull: false,
         defaultValue: 'email',

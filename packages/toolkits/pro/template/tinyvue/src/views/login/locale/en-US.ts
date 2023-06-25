@@ -43,7 +43,7 @@ export default {
   'login.banner.subSlogan3': 'Realize flexible block development',
   'login.icon.language': 'language',
   'login.tip.info': 'User name: admin; password: admin',
-  'login.tip.mail': 'User name: admin@example.com1; password: admin',
+  'login.tip.mail': "User name: admin{'@'}example.com; password: admin",
   'login.tip.right': 'Enter the correct user name and password',
   'login.main.text': 'TinyPro Mid-Back-End Front-End Solution',
 };

@@ -23,25 +23,25 @@
     {
       value: 1,
       class: 'plan-pass',
-      text: 'userInfo.statue.optionA',
+      text: 'userInfo.status.optionA',
       img: info1,
     },
     {
       value: 1,
       class: 'plan-overdue',
-      text: 'userInfo.statue.optionB',
+      text: 'userInfo.status.optionB',
       img: info2,
     },
     {
       value: 4,
       class: 'plan-limit',
-      text: 'userInfo.statue.optionC',
+      text: 'userInfo.status.optionC',
       img: info3,
     },
     {
       value: 4,
       class: 'plan-fail',
-      text: 'userInfo.statue.optionD',
+      text: 'userInfo.status.optionD',
       img: info4,
     },
   ];

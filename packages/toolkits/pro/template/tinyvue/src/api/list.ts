@@ -7,8 +7,8 @@ export interface QueryTaskParmas {
 }
 
 export function queryEmployeeList(params: QueryTaskParmas) {
-  return axios.post('/api/v1/employee/getEmployee', params);
+  return axios.post('/api/employee/getEmployee', params);
 }
-export function deleteEmployee(id:string) {
-  return axios.delete(`/api/v1/employee/delete?id=${id}`);
+export function deleteEmployee(id: string) {
+  return axios.delete(`/api/employee/delete?id=${id}`);
 }
