@@ -2,17 +2,12 @@ import { mergeConfig } from 'vite';
 import baseConig from './vite.config.base';
 import configCompressPlugin from './plugin/compress';
 import configVisualizerPlugin from './plugin/visualizer';
-import configArcoResolverPlugin from './plugin/arcoResolver';
 
 export default mergeConfig(
   {
     mode: 'production',
     mock: true,
-    plugins: [
-      configCompressPlugin('gzip'),
-      configVisualizerPlugin(),
-      configArcoResolverPlugin(),
-    ],
+    plugins: [configCompressPlugin('gzip'), configVisualizerPlugin()],
     build: {
       rollupOptions: {
         output: {
