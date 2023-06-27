@@ -72,7 +72,7 @@ module.exports = (app: any) => {
         field: 'create_time',
         type: DataTypes.TIME,
         allowNull: true,
-        defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+        defaultValue: DataTypes.NOW,
       },
     },
     {
