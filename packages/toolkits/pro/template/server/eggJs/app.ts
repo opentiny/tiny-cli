@@ -8,7 +8,7 @@ export default (app: Application) => {
         await app.model.sync({ alter: true });
       });
     } catch (error) {
-      console.log('数据库同步失败，请检查数据库配置信息或手动创建数据库', error);
+      console.error('数据库同步失败，请检查数据库配置信息或手动创建数据库', error);
     }
   }
 };
