@@ -2,6 +2,7 @@ import * as path from 'path';
 import chalk from 'chalk';
 import spawn from 'cross-spawn';
 import * as dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
 import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs } from '@opentiny/cli-devkit';
 import { ProjectInfo, ServerFrameworks } from './interfaces';
@@ -113,11 +114,60 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
 };
 
 /**
- * 同步创建服务端项目文件目录、文件
+ * 创建数据库、表、并插入一条用户(admin)数据
+ * @answers 询问客户端问题的选择值
+ */
+const createDatabase = async (answers: ProjectInfo) => {
+  try {
+    const { host, port, database, username, password } = answers;
+    const connection = await mysql.createConnection({
+      host,
+      port,
+      user: username,
+      password,
+      multipleStatements: true,
+    });
+
+    // 连接数据库服务
+    await connection.connect();
+
+    // 新建数据库
+    await connection.query(`CREATE DATABASE IF NOT EXISTS ${database}`);
+    await connection.query(` USE ${database}`);
+
+    // 读取sql文件、新建表
+    const serverPath = utils.getDistPath('server');
+    const databaseSqlDir = path.join(serverPath, 'app', 'database');
+    const tableSqlDirPath = path.join(databaseSqlDir, 'table');
+    const files = fs.readdirSync(tableSqlDirPath);
+    for (const file of files) {
+      if (/\.sql$/.test(file)) {
+        const sqlFilePath = path.join(tableSqlDirPath, file);
+        const createTableSql = fs.readFileSync(sqlFilePath).toString();
+        await connection.query(createTableSql);
+      }
+    }
+
+    // 插入初始用户数据
+    const createUserSqlPath = path.join(databaseSqlDir, 'createuser.sql');
+    const createUserSql = fs.readFileSync(createUserSqlPath).toString();
+    await connection.query(createUserSql);
+
+    // 断开连接
+    await connection.end();
+  } catch (error) {
+    log.error(
+      '数据库初始化失败，请确认数据库配置信息正确并手动初始化数据库' + error
+    );
+  }
+};
+
+/**
+ * 创建服务端项目文件目录、文件
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createServerSync = (answers: ProjectInfo) => {
+const createServer = async (answers: ProjectInfo) => {
   const { serverFramework, dialect } = answers;
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
@@ -131,17 +181,21 @@ const createServerSync = (answers: ProjectInfo) => {
     password: '123456',
     database: 'tiny_pro_server',
   };
+
   fs.copyTpl(serverFrom, serverTo, dialect ? answers : defaultConfig, {
     overwrite: true,
   });
+  if (dialect) {
+    await createDatabase(answers);
+  }
 };
 
 /**
- * 同步创建客户端项目文件目录、文件
+ * 创建客户端项目文件目录、文件
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createProjectSync = (answers: ProjectInfo) => {
+const createProject = async (answers: ProjectInfo) => {
   const { framework, description, name, serverFramework } = answers;
   const templatePath =
     framework === VUE_TEMPLATE_PATH ? VUE_TEMPLATE_PATH : NG_TEMPLATE_PATH;
@@ -184,7 +238,7 @@ const createProjectSync = (answers: ProjectInfo) => {
     }
   } else {
     // 如果对接服务端，执行文件复制及相关配置（ WIP: 后台接口暂未全量完成，部分接口还是使用mock ）
-    createServerSync(answers);
+    await createServer(answers);
   }
 };
 
@@ -245,7 +299,7 @@ export default async () => {
   try {
     // 创建项目文件夹及文件
     projectInfo = await getProjectInfo();
-    createProjectSync(projectInfo);
+    await createProject(projectInfo);
   } catch (e) {
     log.error('项目模板创建失败');
   }

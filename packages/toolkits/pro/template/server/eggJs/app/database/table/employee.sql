@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS `employee`;
+
 CREATE TABLE
     `employee` (
         `id` bigint(16) NOT NULL,

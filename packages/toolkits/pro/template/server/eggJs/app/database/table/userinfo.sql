@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS `userinfo`;
+
 CREATE TABLE
     `userinfo` (
         `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,

@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `registeruser`;
 CREATE TABLE
     `registeruser` (
         `id` bigint(50) unsigned NOT NULL AUTO_INCREMENT,

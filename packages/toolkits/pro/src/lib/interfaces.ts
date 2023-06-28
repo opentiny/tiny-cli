@@ -13,7 +13,7 @@ export enum ServerFrameworks {
   EggJs = 'eggJs',
   NestJs = 'nestJs',
   SpringCloud = 'springCloud',
-  Skip = ''
+  Skip = '',
 }
 
 /**
@@ -26,7 +26,7 @@ export interface ProjectInfo {
   serverFramework: ServerFrameworks;
   dialect?: string;
   host?: string;
-  port?: Number;
+  port?: number;
   database?: string;
   username?: string;
   password?: string;
