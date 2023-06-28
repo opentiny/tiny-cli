@@ -12,7 +12,7 @@ tiny-toolkit-pro 套件，开箱即用的中后台前端/设计解决方案
 tiny init pro
 ```
 ### 配置项目名称、描述
-项目名称默认是当前所在文件夹名称
+项目名称默认是当前所在文件夹名称。
 
 ```
  ? 请输入项目名称： 
@@ -26,7 +26,7 @@ tiny init pro
    angular
 ```
 ### 选择服务端技术栈（可选配置）
-**目前仅 `vue`工程支持对接服务端，且只支持`Egg.js`，剩余功能正在开发中**  
+**目前仅 `vue`工程支持对接服务端，且只支持`Egg.js`，剩余功能正在开发中。**  
 如果选择不对接服务端，全部接口将采用mock数据。
 ```
  ? 请选择您希望使用的服务端技术栈： (Use arrow keys)
@@ -42,8 +42,8 @@ tiny init pro
    暂不配置
 ```
 ### 配置数据库信息
-可使用本地数据库或云数据库，推荐使用[华为云数据库RDS](https://opentiny.design/vue-pro/docs/advanced/plugin#RDS)  
-此处配置也可在项目创建完成后在`server/config/config.default.ts`中进行配置修改
+可使用本地数据库或云数据库，推荐使用[华为云数据库RDS](https://support.huaweicloud.com/productdesc-rds/zh-cn_topic_dashboard.html),可参考[云服务最佳实践](https://opentiny.design/vue-pro/docs/advanced/practiced) 创建数据库。  
+此处配置也可在项目创建完成后在`server/config/config.default.ts`中进行配置修改。
 ```
  ? 请输入数据库地址： (localhost)
  ? 请输入数据库端口： (3306)
@@ -51,22 +51,31 @@ tiny init pro
  ? 请输入登录用户名： (root)
  ? 请输入密码： [input is hidden]
 ```
-### 数据库准备工作
-- 安装配置本地数据库或者云数据库，确保连接正常可用。
-- 确保数据库`地址` `名称`等与 `server/config/config.default.ts` 中配置一致。
-- 将 `server/app/databases` 中的sql运行一遍初始化数据库和表。（`app.ts` 中会同步模型到数据库帮助新建表但只建议在开发环境下使用）
+
+### 数据库注意事项
+1. 请提前安装配置本地数据库服务或者云数据库服务，确保连接正常可用。
+2. tiny-toolkit-pro套件会在初始化时自动创建数据库和表，如因配置等问题导致数据库初始化失败，有以下两种方式可帮助重新初始化数据库：
+    - 确认好正确配置后重新运行 `tiny init pro` 覆盖安装。
+    - 进入 `server/app/databases` 目录下手动执行sql。
+3. 如server服务启动失败，请确保数据库服务的`地址` `名称`等与`server/config/config.default.ts` 中配置是否一致。
+4. `server/app.ts` 中会同步ORM模型到数据库帮助新建表但只建议在开发环境下使用。
 
 
 ### 开启本地服务器
 
+#### Web
 ```
-tiny start
+cd web && npm run start
+```
+#### Egg
+```
+cd server && npm run dev
 ```
 
 ### 代码打包
-
+进入对应目录下执行
 ```
-tiny build
+npm run build
 ```
 
 ## 维护者
