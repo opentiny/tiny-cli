@@ -41,9 +41,14 @@ tiny init pro
  > mySQL
    暂不配置
 ```
-### 配置数据库信息
-- 可使用本地数据库或云数据库，推荐使用[华为云数据库RDS](https://support.huaweicloud.com/productdesc-rds/zh-cn_topic_dashboard.html),可参考[云服务最佳实践](https://opentiny.design/vue-pro/docs/advanced/practiced) 创建数据库。  
-- 此处配置也可在项目创建完成后在`server/config/config.default.ts`中进行配置修改。
+### 数据库准备工作
+可使用本地数据库或云数据库，请提前安装配置本地数据库服务或者云数据库服务，确保连接正常可用。
+- MySQL[下载链接](https://dev.mysql.com/downloads/)
+- 云数据库推荐使用[华为云数据库RDS](https://support.huaweicloud.com/productdesc-rds/zh-cn_topic_dashboard.html),可参考[云服务最佳实践](https://opentiny.design/vue-pro/docs/advanced/practiced) 创建数据库。
+
+
+### 配置数据库信息  
+
 - **初始化过程中会自动创建数据库和表，建议输入新的数据库名称以免造成数据库覆盖风险。**
 ```
  ? 请输入数据库地址： (localhost)
@@ -52,15 +57,13 @@ tiny init pro
  ? 请输入登录用户名： (root)
  ? 请输入密码： [input is hidden]
 ```
-
-### 数据库注意事项
-- 请提前安装配置本地数据库服务或者云数据库服务，确保连接正常可用。
-- tiny-toolkit-pro套件会在初始化时自动创建数据库和表，如因配置等问题导致数据库初始化失败，有以下两种方式可帮助重新初始化数据库：
+- 此处配置也可在项目创建完成后在`server/config/config.default.ts`中进行配置修改。
+- pro套件会在初始化时自动创建数据库和表，如因配置等问题导致数据库初始化失败，有以下两种方式可帮助重新初始化数据库：
     - 确认好正确配置后重新运行 `tiny init pro` 覆盖安装。
     - 进入 `server/app/databases` 目录下手动执行相关sql。
+- 数据库表中会自动插入一条用户信息（账号：admin@example.com  密码：admin），可直接用于登录。
 - 如server服务启动失败，请确保数据库服务的地址、名称、账号、密码等与`server/config/config.default.ts` 中配置一致。
 - `server/app.ts` 中会同步ORM模型到数据库帮助新建表但只建议在开发环境下使用。
-
 
 ### 开启本地服务器
 

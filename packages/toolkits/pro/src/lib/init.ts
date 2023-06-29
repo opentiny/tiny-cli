@@ -118,56 +118,58 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
  * @answers 询问客户端问题的选择值
  */
 const createDatabase = async (answers: ProjectInfo) => {
-  try {
-    const { host, port, database, username, password } = answers;
-    const connection = await mysql.createConnection({
-      host,
-      port,
-      user: username,
-      password,
-      multipleStatements: true,
-    });
+  const { dialect, host, port, database, username, password } = answers;
+  if (!dialect) return;
 
-    // 连接数据库服务
-    await connection.connect();
+  log.info('开始连接数据库服务...');
+  const connection = await mysql.createConnection({
+    host,
+    port,
+    user: username,
+    password,
+    multipleStatements: true,
+  });
 
-    // 新建数据库
-    await connection.query(`CREATE DATABASE IF NOT EXISTS ${database}`);
-    await connection.query(` USE ${database}`);
+  // 连接数据库服务
+  await connection.connect();
+  log.info(`连接成功，准备创建数据库（${database}）和用户数据表...`);
 
-    // 读取sql文件、新建表
-    const serverPath = utils.getDistPath('server');
-    const databaseSqlDir = path.join(serverPath, 'app', 'database');
-    const tableSqlDirPath = path.join(databaseSqlDir, 'table');
-    const files = fs.readdirSync(tableSqlDirPath);
-    for (const file of files) {
-      if (/\.sql$/.test(file)) {
-        const sqlFilePath = path.join(tableSqlDirPath, file);
-        const createTableSql = fs.readFileSync(sqlFilePath).toString();
-        await connection.query(createTableSql);
-      }
+  // 新建数据库
+  await connection.query(`CREATE DATABASE IF NOT EXISTS ${database}`);
+  await connection.query(` USE ${database}`);
+
+  // 读取sql文件、新建表
+  const serverPath = utils.getDistPath('server');
+  const databaseSqlDir = path.join(serverPath, 'app', 'database');
+  const tableSqlDirPath = path.join(databaseSqlDir, 'table');
+  const files = fs.readdirSync(tableSqlDirPath);
+  for (const file of files) {
+    if (/\.sql$/.test(file)) {
+      const sqlFilePath = path.join(tableSqlDirPath, file);
+      const createTableSql = fs.readFileSync(sqlFilePath).toString();
+      await connection.query(createTableSql);
     }
-
-    // 插入初始用户数据
-    const createUserSqlPath = path.join(databaseSqlDir, 'createuser.sql');
-    const createUserSql = fs.readFileSync(createUserSqlPath).toString();
-    await connection.query(createUserSql);
-
-    // 断开连接
-    await connection.end();
-  } catch (error) {
-    log.error(
-      '数据库初始化失败，请确认数据库配置信息正确并手动初始化数据库' + error
-    );
   }
+  log.info(
+    '创建成功，开始写入初始用户数据（账号：admin@example.com  密码：admin）...'
+  );
+
+  // 插入初始用户数据
+  const createUserSqlPath = path.join(databaseSqlDir, 'createuser.sql');
+  const createUserSql = fs.readFileSync(createUserSqlPath).toString();
+  await connection.query(createUserSql);
+  log.success('数据库初始化成功！');
+
+  // 断开连接
+  await connection.end();
 };
 
 /**
- * 创建服务端项目文件目录、文件
+ * 同步创建服务端项目文件目录、文件
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createServer = async (answers: ProjectInfo) => {
+const createServerSync = (answers: ProjectInfo) => {
   const { serverFramework, dialect } = answers;
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
@@ -185,17 +187,14 @@ const createServer = async (answers: ProjectInfo) => {
   fs.copyTpl(serverFrom, serverTo, dialect ? answers : defaultConfig, {
     overwrite: true,
   });
-  if (dialect) {
-    await createDatabase(answers);
-  }
 };
 
 /**
- * 创建客户端项目文件目录、文件
+ * 同步创建客户端项目文件目录、文件
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
  */
-const createProject = async (answers: ProjectInfo) => {
+const createProjectSync = (answers: ProjectInfo) => {
   const { framework, description, name, serverFramework } = answers;
   const templatePath =
     framework === VUE_TEMPLATE_PATH ? VUE_TEMPLATE_PATH : NG_TEMPLATE_PATH;
@@ -238,7 +237,7 @@ const createProject = async (answers: ProjectInfo) => {
     }
   } else {
     // 如果对接服务端，执行文件复制及相关配置（ WIP: 后台接口暂未全量完成，部分接口还是使用mock ）
-    await createServer(answers);
+    createServerSync(answers);
   }
 };
 
@@ -268,11 +267,26 @@ export const installDependencies = (answers: ProjectInfo) => {
       '\n--------------------初始化成功,请按下面提示进行操作--------------------\n'
     )
   );
-  console.log(
-    chalk.green(
-      `${chalk.yellow(`$ ${prefix} start`)}         # 可一键开启项目开发环境`
-    )
-  );
+
+  if (answers.serverFramework) {
+    console.log(
+      chalk.green(
+        `${chalk.yellow('$ cd web && npm run start')}     # 开启web开发环境`
+      )
+    );
+    console.log(
+      chalk.green(
+        `${chalk.yellow('$ cd server && npm run dev')}    # 开启server开发环境`
+      )
+    );
+  } else {
+    console.log(
+      chalk.green(
+        `${chalk.yellow(`$ ${prefix} start`)}         # 可一键开启项目开发环境`
+      )
+    );
+  }
+
   console.log(
     chalk.green(
       `${chalk.yellow(`$ ${prefix} help`)}          # 可查看当前套件的详细帮助`
@@ -299,9 +313,18 @@ export default async () => {
   try {
     // 创建项目文件夹及文件
     projectInfo = await getProjectInfo();
-    await createProject(projectInfo);
+    createProjectSync(projectInfo);
   } catch (e) {
     log.error('项目模板创建失败');
+  }
+
+  // 初始化数据库
+  try {
+    await createDatabase(projectInfo);
+  } catch (e) {
+    log.error(
+      '数据库初始化失败，请确认数据库配置信息正确并手动初始化数据库' + e
+    );
   }
 
   // 安装依赖
