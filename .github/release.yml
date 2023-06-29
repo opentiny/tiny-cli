@@ -1,0 +1,34 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+    authors:
+      - allcontributors[bot]
+  categories:
+    - title: tiny-toolkit-pro
+      labels:
+        - toolkit-pro
+    - title: tiny-toolkit-docs
+      labels:
+        - toolkit-docs
+    - title: tiny-toolkit-dev
+      labels:
+        - toolkit-dev
+    - title: tiny-plugin-hwc
+      labels:
+        - plugin-hwc
+    - title: tiny-plugin-link
+      labels:
+        - plugin-link
+    - title: tiny-plugin-lint
+      labels:
+        - plugin-lint
+    - title: cli
+      labels:
+        - cli
+    - title: Other Changes
+      labels:
+        - documentation
+        - refactoring
+        - unit-test
+        - ci
