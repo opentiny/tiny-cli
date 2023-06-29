@@ -2,6 +2,7 @@ import * as path from 'path';
 import chalk from 'chalk';
 import spawn from 'cross-spawn';
 import * as dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
 import inquirer, { QuestionCollection } from 'inquirer';
 import { cliConfig, logs, fs } from '@opentiny/cli-devkit';
 import { ProjectInfo, ServerFrameworks } from './interfaces';
@@ -113,6 +114,57 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
 };
 
 /**
+ * 创建数据库、表、并插入一条用户(admin)数据
+ * @answers 询问客户端问题的选择值
+ */
+const createDatabase = async (answers: ProjectInfo) => {
+  const { dialect, host, port, database, username, password } = answers;
+  if (!dialect) return;
+
+  log.info('开始连接数据库服务...');
+  const connection = await mysql.createConnection({
+    host,
+    port,
+    user: username,
+    password,
+    multipleStatements: true,
+  });
+
+  // 连接数据库服务
+  await connection.connect();
+  log.info(`连接成功，准备创建数据库（${database}）和用户数据表...`);
+
+  // 新建数据库
+  await connection.query(`CREATE DATABASE IF NOT EXISTS ${database}`);
+  await connection.query(` USE ${database}`);
+
+  // 读取sql文件、新建表
+  const serverPath = utils.getDistPath('server');
+  const databaseSqlDir = path.join(serverPath, 'app', 'database');
+  const tableSqlDirPath = path.join(databaseSqlDir, 'table');
+  const files = fs.readdirSync(tableSqlDirPath);
+  for (const file of files) {
+    if (/\.sql$/.test(file)) {
+      const sqlFilePath = path.join(tableSqlDirPath, file);
+      const createTableSql = fs.readFileSync(sqlFilePath).toString();
+      await connection.query(createTableSql);
+    }
+  }
+  log.info(
+    '创建成功，开始写入初始用户数据（账号：admin@example.com  密码：admin）...'
+  );
+
+  // 插入初始用户数据
+  const createUserSqlPath = path.join(databaseSqlDir, 'createuser.sql');
+  const createUserSql = fs.readFileSync(createUserSqlPath).toString();
+  await connection.query(createUserSql);
+  log.success('数据库初始化成功！');
+
+  // 断开连接
+  await connection.end();
+};
+
+/**
  * 同步创建服务端项目文件目录、文件
  * @answers 询问客户端问题的选择值
  * @dbAnswers  询问服务端配置的选择值
@@ -131,6 +183,7 @@ const createServerSync = (answers: ProjectInfo) => {
     password: '123456',
     database: 'tiny_pro_server',
   };
+
   fs.copyTpl(serverFrom, serverTo, dialect ? answers : defaultConfig, {
     overwrite: true,
   });
@@ -214,11 +267,26 @@ export const installDependencies = (answers: ProjectInfo) => {
       '\n--------------------初始化成功,请按下面提示进行操作--------------------\n'
     )
   );
-  console.log(
-    chalk.green(
-      `${chalk.yellow(`$ ${prefix} start`)}         # 可一键开启项目开发环境`
-    )
-  );
+
+  if (answers.serverFramework) {
+    console.log(
+      chalk.green(
+        `${chalk.yellow('$ cd web && npm run start')}     # 开启web开发环境`
+      )
+    );
+    console.log(
+      chalk.green(
+        `${chalk.yellow('$ cd server && npm run dev')}    # 开启server开发环境`
+      )
+    );
+  } else {
+    console.log(
+      chalk.green(
+        `${chalk.yellow(`$ ${prefix} start`)}         # 可一键开启项目开发环境`
+      )
+    );
+  }
+
   console.log(
     chalk.green(
       `${chalk.yellow(`$ ${prefix} help`)}          # 可查看当前套件的详细帮助`
@@ -248,6 +316,15 @@ export default async () => {
     createProjectSync(projectInfo);
   } catch (e) {
     log.error('项目模板创建失败');
+  }
+
+  // 初始化数据库
+  try {
+    await createDatabase(projectInfo);
+  } catch (e) {
+    log.error(
+      '数据库初始化失败，请确认数据库配置信息正确并手动初始化数据库' + e
+    );
   }
 
   // 安装依赖

@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modal } from '@opentiny/vue';
 import locale from '@opentiny/vue-locale';
 import router from '@/router';
-import { getToken } from '@/utils/auth';
+import { getToken, clearToken } from '@/utils/auth';
 
 export interface HttpResponse<T = unknown> {
   errMsg: string;
@@ -59,6 +59,7 @@ axios.interceptors.response.use(
   (error) => {
     const { status, data } = error.response;
     if (status === 401) {
+      clearToken();
       router.replace({ name: 'login' });
       Modal.message({
         message: locale.t('http.error.TokenExpire'),
