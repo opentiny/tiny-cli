@@ -36,7 +36,7 @@ tiny 使用帮助:  $ tiny [command] [options]
 $ tiny init [toolkitName]
 ```
 
-其中`toolkitName`表示套件的名字。一般的套件名格式为：`tiny-toolkit-{toolkitName}`。如DEV套件：[tiny-toolkit-dev](http://git.huawei.com/tiny/tiny-toolkit-dev)，若要使用该套件可直接初始化：
+其中`toolkitName`表示套件的名字。一般的套件名格式为：`tiny-toolkit-{toolkitName}`。如DEV套件：[tiny-toolkit-dev](http://github.com/opentiny/tiny-cli/tree/dev/packages/toolkits/dev)，若要使用该套件可直接初始化：
 
 ```bash
 $ tiny init dev

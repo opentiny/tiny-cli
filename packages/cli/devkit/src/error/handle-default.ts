@@ -9,10 +9,6 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-/**
- * Created by hugo on 16/11/16.
- */
-
 import logs from '../log/index';
 import message from './locale/index';
 import Intl from '../intl/index';

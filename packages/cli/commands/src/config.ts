@@ -11,7 +11,7 @@
  */
 /**
  * 设置cnpmrc
- * 类似于 $ npm config set registry http://cmc-cd-mirror.rnd.huawei.com/npm
+ * 类似于 $ npm config set registry https://registry.npmmirror.com/
  */
 import * as path from 'path';
 import os from 'os';
@@ -52,7 +52,7 @@ export default async (argv) => {
     log.warn(`config 参数不正确，用法举例：
 
 # 设置.cnpmrc 文件，写入registry
-${bin} config set registry http://cmc-cd-mirror.rnd.huawei.com/npm/
+${bin} config set registry https://registry.npmmirror.com/
 
 # 获取.cnpmrc 文件中registry的值
 ${bin} config get registry
