@@ -31,6 +31,7 @@
     "mem-fs-editor": "^6.0.0",
     "node-emoji": "^1.10.0",
     "npm-run": "^5.0.1",
+    "npminstall": "^7.9.0",
     "npmlog": "^4.1.2",
     "os": "^0.1.1",
     "os-locale": "^4.0.0",

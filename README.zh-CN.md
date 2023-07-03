@@ -12,7 +12,7 @@
 打开git bash、zsh等命令行工具，输入如下命令后回车：
 
 ```bash
-npm i @opentiny/cli npminstall@3 -g
+$ npm i @opentiny/cli -g
 ```
 
 等待片刻，待安装完成之后在终端执行 `$ tiny -v`，正常返回版本信息，表示安装成功。

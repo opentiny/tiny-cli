@@ -77,21 +77,21 @@ async function updateTip(data: any): Promise<boolean> {
     log.warn(
       intl.get('updatingCommand', {
         icon: emoji.get('point_right'),
-        command: chalk.bgRed.bold(` ${installer} i ${data.name} npminstall -g `)
+        command: chalk.bgRed.bold(` ${installer} i ${data.name} -g `)
       })
     );
   } else {
     log.warn(
       intl.get('updateCommand', {
         icon: emoji.get('point_right'),
-        command: chalk.bgRed.bold(` ${installer} i ${data.name} npminstall -g`)
+        command: chalk.bgRed.bold(` ${installer} i ${data.name} -g`)
       })
     );
   }
 
   // linux & mac 下才提示
   if (process!.platform.indexOf('win') !== 0) {
-    log.warn(`${intl.get('ifUpdateError')} ${chalk.red.bold(`sudo ${installer} install -g ${data.name} npminstall`)}`);
+    log.warn(`${intl.get('ifUpdateError')} ${chalk.red.bold(`sudo ${installer} install -g ${data.name}`)}`);
   }
   log.warn(
     `******************************${emoji.get('point_up_2')} ${emoji.get('point_up_2')} ******************************`
@@ -99,8 +99,8 @@ async function updateTip(data: any): Promise<boolean> {
   console.log('\n');
 
   if (needFocusUpdate) {
-    // 执行 npm install -g @opentiny/cli 和  npminstall 更新本地系统
-    const depen = [`${data.name}`, 'npminstall'];
+    // 执行 npm install -g @opentiny/cli 更新本地版本
+    const depen = [`${data.name}`];
     await npm.install(depen, {
       // global安装
       g: true

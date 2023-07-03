@@ -24,9 +24,10 @@ const log = logs('core-npm');
 // TIMEOUT 超时时间
 const TIMEOUT = 5000;
 
+// 未配置cnpmrc时默认使用淘宝镜像源
 const defaultRegistries = {
-  registry: 'https://registry.npmjs.org/',
-  '@opentiny:registry': 'https://registry.npmjs.org'
+  registry: 'https://registry.npmmirror.com/',
+  '@opentiny:registry': 'https://registry.npmmirror.com/'
 };
 
 /**
@@ -150,6 +151,20 @@ export function setCnpmrc(config: any) {
 }
 
 /**
+ * 获取安装器
+ */
+export function getInstaller() {
+  return require.resolve('npminstall/bin/install.js')
+}
+
+/**
+ * 获取卸载器
+ */
+export function getUnInstaller() {
+  return require.resolve('npminstall/bin/uninstall.js')
+}
+
+/**
 	 * 安装 npm 包
 	 * @param pkg {string|array} 需要安装的包或包列表, 需要带版本号直接在包名后面 @ 版本号即可
 			// pkgs: [
@@ -158,7 +173,7 @@ export function setCnpmrc(config: any) {
 	 * @param options
 	 */
 export async function install(pkg: string | string[], options?: NpmOption) {
-  const installer = 'npminstall';
+  const installer = getInstaller();
   await runInstall(installer, pkg, options);
 }
 
@@ -166,7 +181,7 @@ export async function install(pkg: string | string[], options?: NpmOption) {
  * 移除npm包
  */
 export async function unInstall(pkg: string | string[], options?: NpmOption) {
-  const installer = 'npmuninstall ';
+  const installer = getUnInstaller();
   await runInstall(installer, pkg, options);
 }
 
@@ -174,7 +189,7 @@ export async function unInstall(pkg: string | string[], options?: NpmOption) {
  * 安装package.json 中的依赖
  */
 export async function installDependencies(options?: NpmOption) {
-  const installer = 'npminstall';
+  const installer = getInstaller();
   await runInstall(installer, [], options);
 }
 

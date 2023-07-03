@@ -12,7 +12,7 @@ English | [简体中文](README.zh-CN.md)
 Open git bash, zsh, and other command-line tools, type the following command, and press Enter：
 
 ```bash
-npm i @opentiny/cli npminstall@3 -g
+$ npm i @opentiny/cli -g
 ```
 
 Wait for a while. After the installation is complete, run `$tiny -v` on the terminal. If the version information is displayed, the installation is successful.
