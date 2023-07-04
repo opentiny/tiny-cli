@@ -10,7 +10,6 @@
  *
  */
 /**
- * Created by hugo on 17/4/21.
  * 端口被占用时的错误处理
  */
 import logs from '../log/index';
