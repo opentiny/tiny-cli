@@ -18,13 +18,12 @@ const NG_TEMPLATE_PATH = 'tinyng';
  * @returns object { description: 项目描述,framework: 框架, name: 项目名称 ,serverFramework:使用技术栈, dialect：数据库，DB_host:数据库地址，DB_port:数据库端口，database：数据库名称，username：数据库用户名，password：数据库密码，}
  */
 const getProjectInfo = (): Promise<ProjectInfo> => {
-  const basename = path.basename(utils.getDistPath());
   const question: QuestionCollection<ProjectInfo> = [
     {
       type: 'input',
       name: 'name',
       message: '请输入项目名称：',
-      default: basename,
+      default: 'tiny-pro',
       // 必填校验
       validate: (input: string) => Boolean(input),
     },
@@ -51,12 +50,22 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请选择您希望使用的服务端技术栈：',
       choices: [
         { name: 'Egg.js', value: ServerFrameworks.EggJs },
-        { name: 'Spring Cloud', value: ServerFrameworks.SpringCloud },
-        { name: 'Nest.js', value: ServerFrameworks.NestJs },
         { name: '暂不配置', value: ServerFrameworks.Skip },
       ],
-      default: ServerFrameworks.EggJs,
+      default: ServerFrameworks.Skip,
       prefix: '*',
+    },
+    {
+      type: 'list',
+      name: 'serverConfirm',
+      message:
+        '请您确保已经安装相关数据库服务（参考文档：https://www.opentiny.design/tiny-cli/docs/toolkits/pro）：',
+      choices: [
+        { name: '已完成数据库服务安装，开始配置', value: true },
+        { name: '暂不配置服务端', value: false },
+      ],
+      prefix: '*',
+      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip,
     },
     {
       type: 'list',
@@ -68,7 +77,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       ],
       default: 'mysql',
       prefix: '*',
-      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip,
+      when: (answers) => answers.serverConfirm,
     },
     {
       type: 'input',
@@ -118,7 +127,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
  * @answers 询问客户端问题的选择值
  */
 const createDatabase = async (answers: ProjectInfo) => {
-  const { dialect, host, port, database, username, password } = answers;
+  const { name, dialect, host, port, database, username, password } = answers;
   if (!dialect) return;
 
   log.info('开始连接数据库服务...');
@@ -139,7 +148,7 @@ const createDatabase = async (answers: ProjectInfo) => {
   await connection.query(` USE ${database}`);
 
   // 读取sql文件、新建表
-  const serverPath = utils.getDistPath('server');
+  const serverPath = utils.getDistPath(`${name}/server`);
   const databaseSqlDir = path.join(serverPath, 'app', 'database');
   const tableSqlDirPath = path.join(databaseSqlDir, 'table');
   const files = fs.readdirSync(tableSqlDirPath);
@@ -170,10 +179,10 @@ const createDatabase = async (answers: ProjectInfo) => {
  * @dbAnswers  询问服务端配置的选择值
  */
 const createServerSync = (answers: ProjectInfo) => {
-  const { serverFramework, dialect } = answers;
+  const { name, serverFramework, dialect } = answers;
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
-  const serverTo = utils.getDistPath('server');
+  const serverTo = utils.getDistPath(`${name}/server`);
   const defaultConfig = {
     // 在未配置数据库信息时，使用默认值替换ejs模板
     dialect: 'mysql',
@@ -195,14 +204,14 @@ const createServerSync = (answers: ProjectInfo) => {
  * @dbAnswers  询问服务端配置的选择值
  */
 const createProjectSync = (answers: ProjectInfo) => {
-  const { framework, description, name, serverFramework } = answers;
+  const { framework, description, name, serverConfirm } = answers;
   const templatePath =
     framework === VUE_TEMPLATE_PATH ? VUE_TEMPLATE_PATH : NG_TEMPLATE_PATH;
 
   // 模板来源目录
   const from = utils.getTemplatePath(templatePath);
   // 复制模板的目标目录
-  const to = utils.getDistPath(serverFramework ? 'web' : '');
+  const to = utils.getDistPath(serverConfirm ? `${name}/web` : name);
 
   fs.copyTpl(from, to);
   // 将项目名称、描述写入 package.json中
@@ -220,7 +229,7 @@ const createProjectSync = (answers: ProjectInfo) => {
   }
 
   // 如果不对接服务端，全部接口采用mock
-  if (!serverFramework) {
+  if (!serverConfirm) {
     try {
       const envPath = path.join(to, '.env');
       const envConfig = dotenv.parse(
@@ -244,22 +253,23 @@ const createProjectSync = (answers: ProjectInfo) => {
 // 安装依赖
 export const installDependencies = (answers: ProjectInfo) => {
   const prefix = cliConfig.getBinName();
+  const { name, serverFramework, serverConfirm } = answers;
   // egg服务端 安装依赖并启动
-  if (answers.serverFramework === ServerFrameworks.EggJs) {
-    log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
+  if (serverConfirm && serverFramework === ServerFrameworks.EggJs) {
+    log.info('正在安装服务端 npm 依赖，安装过程需要几十秒，请耐心等待...');
     spawn.sync('npm', ['install'], {
-      cwd: 'server/',
+      cwd: `${name}/server/`,
       stdio: 'inherit',
     });
-    log.success('npm 依赖安装成功');
+    log.success('服务端 npm 依赖安装成功');
   }
   // npm 依赖安装
-  log.info('正在安装 npm 依赖，安装过程需要几十秒，请耐心等待...');
+  log.info('正在安装客户端 npm 依赖，安装过程需要几十秒，请耐心等待...');
   spawn.sync('npm', ['install'], {
-    cwd: answers.serverFramework ? 'web/' : null,
+    cwd: serverConfirm ? `${name}/web` : `${name}/`,
     stdio: 'inherit',
   });
-  log.success('npm 依赖安装成功');
+  log.success('客户端 npm 依赖安装成功');
 
   /* prettier-ignore-start */
   console.log(
@@ -271,18 +281,24 @@ export const installDependencies = (answers: ProjectInfo) => {
   if (answers.serverFramework) {
     console.log(
       chalk.green(
-        `${chalk.yellow('$ cd web && npm run start')}     # 开启web开发环境`
+        `${chalk.yellow(
+          `$ cd ${name}/web && npm run start`
+        )}     # 开启web开发环境`
       )
     );
     console.log(
       chalk.green(
-        `${chalk.yellow('$ cd server && npm run dev')}    # 开启server开发环境`
+        `${chalk.yellow(
+          `$ cd ${name}/server && npm run dev`
+        )}    # 开启server开发环境`
       )
     );
   } else {
     console.log(
       chalk.green(
-        `${chalk.yellow(`$ ${prefix} start`)}         # 可一键开启项目开发环境`
+        `${chalk.yellow(
+          `$ cd ${name} && ${prefix} start`
+        )}         # 可一键开启项目开发环境`
       )
     );
   }
@@ -316,6 +332,7 @@ export default async () => {
     createProjectSync(projectInfo);
   } catch (e) {
     log.error('项目模板创建失败');
+    return;
   }
 
   // 初始化数据库
