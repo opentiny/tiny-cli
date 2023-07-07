@@ -12,10 +12,9 @@ tiny-toolkit-pro 套件，开箱即用的中后台前端/设计解决方案
 tiny init pro
 ```
 ### 配置项目名称、描述
-项目名称默认是当前所在文件夹名称。
 
 ```
- ? 请输入项目名称： 
+ ? 请输入项目名称： (tiny-pro)
  ? 请输入项目描述： (基于TinyPro套件创建的中后台系统)
 ```
 ### 选择前端技术栈
@@ -31,8 +30,6 @@ tiny init pro
 ```
  ? 请选择您希望使用的服务端技术栈： (Use arrow keys)
  > Egg.js
-   Spring Cloud
-   Nest.js
    暂不配置
 ```
 ### 选择数据库（可选配置）
@@ -43,13 +40,22 @@ tiny init pro
 ```
 ### 数据库准备工作
 可使用本地数据库或云数据库，请提前安装配置本地数据库服务或者云数据库服务，确保连接正常可用。
-- MySQL[下载链接](https://dev.mysql.com/downloads/)
-- 云数据库推荐使用[华为云数据库RDS](https://support.huaweicloud.com/productdesc-rds/zh-cn_topic_dashboard.html),可参考[云服务最佳实践](https://opentiny.design/vue-pro/docs/advanced/practiced) 创建数据库。
+
+**本地数据库：** 本地数据库安装MySQL
+- 查看本机操作系统，选择合适的安装包版本[下载MySQL](https://dev.mysql.com/downloads/)
+- 安装完成MySQL软件
+- 进行初始化配置，设置端口、用户、登录密码等，测试连接正常
+
+**云数据库：** 云数据库推荐使用[华为云数据库RDS](https://support.huaweicloud.com/productdesc-rds/zh-cn_topic_dashboard.html)
+- 注册华为帐号并开通华为云
+- 选择合适的计费模式购买并配置数据库实例
+- 选择合适的连接模式进行连接
+具体开通过程请参考：[RDS for MySQL快速入门](https://support.huaweicloud.com/qs-rds/rds_02_0008.html)，也可使用TinyCLI云服务插件以命令行的方式开通创建，具体请参考：[TinyCLI 云服务插件](https://opentiny.design/vue-pro/docs/advanced/plugin)
+
 
 
 ### 配置数据库信息  
-
-- **初始化过程中会自动创建数据库和表，建议输入新的数据库名称以免造成数据库覆盖风险。**
+ **初始化过程中会自动创建数据库和表，建议输入新的数据库名称以免造成数据库覆盖风险！**
 ```
  ? 请输入数据库地址： (localhost)
  ? 请输入数据库端口： (3306)
@@ -67,20 +73,18 @@ tiny init pro
 
 ### 开启本地服务器
 
-Web
+前端
 ```
 cd web && npm run start
 ```
-Egg
+后端
 ```
 cd server && npm run dev
 ```
 
-### 代码打包
-进入对应目录下执行
-```
-npm run build
-```
+### 构建部署
+前端：Vue项目采用Vite工具构建，请参考[Vite 部署指南](https://cn.vitejs.dev/guide/static-deploy.html)、[Vite 生产环境指南](https://cn.vitejs.dev/guide/build.html)  
+后端：Egg项目请参考[Egg构建部署指南](https://www.eggjs.org/zh-CN/core/deployment)
 
 ## 维护者
 

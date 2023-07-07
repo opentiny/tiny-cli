@@ -11,6 +11,7 @@ import utils from './utils';
 const log = logs('tiny-toolkit-pro');
 const VUE_TEMPLATE_PATH = 'tinyvue';
 const NG_TEMPLATE_PATH = 'tinyng';
+const DEFAULT_PROJECT_NAME = 'tiny-pro';
 
 /**
  * 询问创建项目的描述，使用的技术栈
@@ -23,7 +24,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       type: 'input',
       name: 'name',
       message: '请输入项目名称：',
-      default: 'tiny-pro',
+      default: DEFAULT_PROJECT_NAME,
       // 必填校验
       validate: (input: string) => Boolean(input),
     },
@@ -54,18 +55,19 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       ],
       default: ServerFrameworks.Skip,
       prefix: '*',
+      when: (answers) => answers.framework === VUE_TEMPLATE_PATH,
     },
     {
       type: 'list',
       name: 'serverConfirm',
       message:
-        '请您确保已经安装相关数据库服务（参考文档：https://www.opentiny.design/tiny-cli/docs/toolkits/pro）：',
+        '请确保已安装数据库服务（参考文档 https://www.opentiny.design/tiny-cli/docs/toolkits/pro#database）：',
       choices: [
         { name: '已完成数据库服务安装，开始配置', value: true },
         { name: '暂不配置服务端', value: false },
       ],
       prefix: '*',
-      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip,
+      when: (answers) => answers.serverFramework === ServerFrameworks.EggJs,
     },
     {
       type: 'list',
@@ -278,7 +280,7 @@ export const installDependencies = (answers: ProjectInfo) => {
     )
   );
 
-  if (answers.serverFramework) {
+  if (serverConfirm) {
     console.log(
       chalk.green(
         `${chalk.yellow(
