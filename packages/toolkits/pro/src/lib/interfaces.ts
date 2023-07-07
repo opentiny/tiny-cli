@@ -24,6 +24,7 @@ export interface ProjectInfo {
   framework: string;
   name: string;
   serverFramework: ServerFrameworks;
+  serverConfirm?: boolean;
   dialect?: string;
   host?: string;
   port?: number;
