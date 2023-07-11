@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huawei.tiny.server.dao.RegisterUserMapper">
+  <resultMap id="BaseResultMap" type="com.huawei.tiny.server.dao.RegisterUser">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="register_type" jdbcType="VARCHAR" property="registerType" />
+  </resultMap>
+
+  <sql id="all_column">
+    id, user_name, password, register_type
+  </sql>
+
+  <insert id="insert" parameterType="com.huawei.tiny.server.dao.RegisterUser" useGeneratedKeys="true" keyProperty="id">
+    insert into registerUser (user_name, password)
+    values ( #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
+  </insert>
+
+
+  <select id="getRegisterUserByName" parameterType="java.lang.String"
+          resultMap="BaseResultMap">
+    select
+    <include refid="all_column" />
+    from registerUser where user_name =#{name}
+  </select>
+
+</mapper>

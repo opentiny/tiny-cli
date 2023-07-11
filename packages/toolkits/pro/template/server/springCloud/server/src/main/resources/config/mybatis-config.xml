@@ -5,6 +5,8 @@
 <configuration>
     <mappers>
         <mapper resource="config/EmployeeMapper.xml"/>
+        <mapper resource="config/RegisterUserMapper.xml"/>
+        <mapper resource="config/UserInfoMapper.xml"/>
     </mappers>
 </configuration>
 
