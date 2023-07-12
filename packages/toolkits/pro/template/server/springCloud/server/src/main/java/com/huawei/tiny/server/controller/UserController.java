@@ -10,7 +10,6 @@ import com.huawei.tiny.server.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -20,6 +19,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.groups.Default;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +35,12 @@ public class UserController {
     this.userService = userService;
   }
 
+  /**
+   * 注册
+   *
+   * @param registerUser
+   * @return
+   */
   @Transactional(rollbackFor = Exception.class)
   @PostMapping(path = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity register(@Validated({Group.Register.class, Default.class}) @RequestBody RegisterUser registerUser, Errors errors) {
@@ -66,6 +72,12 @@ public class UserController {
     }
   }
 
+  /**
+   * 登录
+   *
+   * @param registerUser
+   * @return
+   */
   @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity login(@Validated({Group.Login.class, Default.class}) @RequestBody RegisterUser registerUser, Errors errors) {
     try {
@@ -98,9 +110,21 @@ public class UserController {
     }
   }
 
+  /**
+   * 更新用户信息
+   *
+   * @param userInfo
+   * @return
+   */
   @PutMapping(path = "/userInfo", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity updateUserInfo(@RequestBody UserInfo userInfo) {
+  public ResponseEntity updateUserInfo(@RequestBody UserInfo userInfo, HttpServletRequest request) {
     try {
+      if (userInfo.getUserId() == null) {
+        String token = request.getHeader("Authorization");
+        UserInfo info = JWTUtil.parseToken(token);
+        userInfo.setUserId(info.getUserId());
+      }
+
       userService.updateUserInfo(userInfo);
       UserInfo result = userService.getUserInfoById(userInfo.getUserId());
       return Result.success(result);
@@ -110,10 +134,34 @@ public class UserController {
     }
   }
 
+  /**
+   * 获取指定userid用户信息
+   *
+   * @param userId
+   * @return
+   */
   @GetMapping(path = "/userInfo/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity getUserInfo(@PathVariable("userId") Long userId) {
     try {
       UserInfo result = userService.getUserInfoById(userId);
+      return Result.success(result);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Result.error("InternalError");
+    }
+  }
+
+  /**
+   * 获取当前用户信息
+   *
+   * @return
+   */
+  @GetMapping(path = "/userInfo", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity getUserInfo(HttpServletRequest request) {
+    try {
+      String token = request.getHeader("Authorization");
+      UserInfo userInfo = JWTUtil.parseToken(token);
+      UserInfo result = userService.getUserInfoById(userInfo.getUserId());
       return Result.success(result);
     } catch (Exception e) {
       e.printStackTrace();

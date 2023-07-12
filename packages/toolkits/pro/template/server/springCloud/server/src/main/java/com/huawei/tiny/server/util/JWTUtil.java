@@ -16,7 +16,11 @@ public class JWTUtil {
   // 最小刷新间隔(S)
   private static ObjectMapper objectMapper = new ObjectMapper();
 
-  // 生产ID
+  /** 生成token
+   *
+   * @param userInfo
+   * @return
+   */
   public static String getToken(UserInfo userInfo) {
     Map<String, Object> claimMaps = new HashMap<>();
     claimMaps.put("id", userInfo.getUserId());
@@ -49,13 +53,14 @@ public class JWTUtil {
 
 
   /**
-   * 解析token中user信息
+   * 解析bearerToken中user信息
    *
-   * @param token
+   * @param bearerToken
    * @return
    */
-  public static UserInfo parseToken(String token) {
+  public static UserInfo parseToken(String bearerToken) {
     try {
+      String token = bearerToken.replace("Bearer ", "");
       String subject = getJws(token).getBody().getSubject();
       UserInfo userInfo = objectMapper.readValue(subject, UserInfo.class);
       return userInfo;
