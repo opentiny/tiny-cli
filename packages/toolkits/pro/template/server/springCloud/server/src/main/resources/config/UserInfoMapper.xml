@@ -21,7 +21,7 @@
   </resultMap>
 
   <sql id="all_column">
-    user_name, user_id, department, employee_type, job, role, probation_start, probation_end, probation_duration, protocol_start, protocol_end, address, status
+   id, user_name, user_id, department, employee_type, job, role, probation_start, probation_end, probation_duration, protocol_start, protocol_end, address, status
   </sql>
 
   <insert id="insert" parameterType="com.huawei.tiny.server.dao.UserInfo" useGeneratedKeys="true" keyProperty="id">

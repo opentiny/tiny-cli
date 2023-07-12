@@ -1,9 +1,9 @@
 package com.huawei.tiny.server.dao;
 
+import com.huawei.tiny.server.util.Group;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class RegisterUser {
@@ -13,7 +13,8 @@ public class RegisterUser {
   @Email(message = "邮箱格式错误")
   private String username;
 
-  @Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",message = "密码格式错误")
+  @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "密码格式错误", groups = Group.Register.class)
+  @NotEmpty(groups = Group.Login.class)
   private String password;
 
   private String registerType;
