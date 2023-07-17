@@ -51,6 +51,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请选择您希望使用的服务端技术栈：',
       choices: [
         { name: 'Egg.js', value: ServerFrameworks.EggJs },
+        { name: 'Spring Cloud', value: ServerFrameworks.SpringCloud },
         { name: '暂不配置', value: ServerFrameworks.Skip },
       ],
       default: ServerFrameworks.Skip,
@@ -67,7 +68,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
         { name: '暂不配置服务端', value: false },
       ],
       prefix: '*',
-      when: (answers) => answers.serverFramework === ServerFrameworks.EggJs,
+      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip,
     },
     {
       type: 'list',
@@ -129,7 +130,16 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
  * @answers 询问客户端问题的选择值
  */
 const createDatabase = async (answers: ProjectInfo) => {
-  const { name, dialect, host, port, database, username, password } = answers;
+  const {
+    name,
+    dialect,
+    host,
+    port,
+    database,
+    username,
+    password,
+    serverFramework,
+  } = answers;
   if (!dialect) return;
 
   log.info('开始连接数据库服务...');
@@ -151,7 +161,21 @@ const createDatabase = async (answers: ProjectInfo) => {
 
   // 读取sql文件、新建表
   const serverPath = utils.getDistPath(`${name}/server`);
-  const databaseSqlDir = path.join(serverPath, 'app', 'database');
+  let databaseSqlDir = '';
+
+  switch (true) {
+    case serverFramework === ServerFrameworks.EggJs:
+    default:
+      databaseSqlDir = path.join(serverPath, 'app/database');
+      break;
+    case serverFramework === ServerFrameworks.SpringCloud:
+      databaseSqlDir = path.join(
+        serverPath,
+        'server/src/main/resources/database'
+      );
+      break;
+  }
+
   const tableSqlDirPath = path.join(databaseSqlDir, 'table');
   const files = fs.readdirSync(tableSqlDirPath);
   for (const file of files) {
@@ -197,6 +221,7 @@ const createServerSync = (answers: ProjectInfo) => {
 
   fs.copyTpl(serverFrom, serverTo, dialect ? answers : defaultConfig, {
     overwrite: true,
+    notTextFile: ['.jar'],
   });
 };
 

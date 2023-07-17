@@ -16,9 +16,9 @@
     <property name="driverClassName"
               value="${db.driverClassName:com.mysql.cj.jdbc.Driver}"/>
     <property name="url"
-              value="${db.url:jdbc:mysql://127.0.0.1/tiny_pro_server?serverTimezone=UTC}"/>
-    <property name="username" value="${db.username:root}"/>
-    <property name="password" value="${db.password:opentiny}"/>
+              value="${db.url:jdbc:mysql://<%= host %>:<%= port %>/<%= database %>?serverTimezone=UTC}"/>
+    <property name="username" value="${db.username:<%= username %>}"/>
+    <property name="password" value="${db.password:<%= password %>}"/>
   </bean>
 
   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
