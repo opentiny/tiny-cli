@@ -160,7 +160,7 @@ const createDatabase = async (answers: ProjectInfo) => {
   await connection.query(` USE ${database}`);
 
   // 读取sql文件、新建表
-  const serverPath = utils.getDistPath(`${name}/server`);
+  const serverPath = utils.getDistPath(`${name}/${serverFramework}`);
   let databaseSqlDir = '';
   switch (serverFramework) {
     case ServerFrameworks.EggJs:
@@ -208,7 +208,7 @@ const createServerSync = (answers: ProjectInfo) => {
   const { name, serverFramework, dialect } = answers;
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
-  const serverTo = utils.getDistPath(`${name}/server`);
+  const serverTo = utils.getDistPath(`${name}/${serverFramework}`);
   const defaultConfig = {
     // 在未配置数据库信息时，使用默认值替换ejs模板
     dialect: 'mysql',
@@ -285,7 +285,7 @@ export const installDependencies = (answers: ProjectInfo) => {
   if (serverConfirm && serverFramework === ServerFrameworks.EggJs) {
     log.info('正在安装服务端 npm 依赖，安装过程需要几十秒，请耐心等待...');
     spawn.sync('npm', ['install'], {
-      cwd: `${name}/server/`,
+      cwd: `${name}/${serverFramework}/`,
       stdio: 'inherit',
     });
     log.success('服务端 npm 依赖安装成功');
@@ -316,7 +316,7 @@ export const installDependencies = (answers: ProjectInfo) => {
     console.log(
       chalk.green(
         `${chalk.yellow(
-          `$ cd ${name}/server && npm run dev`
+          `$ cd ${name}/${serverFramework} && npm run dev`
         )}    # 开启server开发环境`
       )
     );
