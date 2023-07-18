@@ -14,8 +14,8 @@
   </sql>
 
   <insert id="insert" parameterType="com.huawei.tiny.server.dao.RegisterUser" useGeneratedKeys="true" keyProperty="id">
-    insert into registerUser (user_name, password)
-    values ( #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
+    insert into registerUser (user_name, password, register_type)
+    values ( #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, "email")
   </insert>
 
 

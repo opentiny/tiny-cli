@@ -25,9 +25,9 @@
   </sql>
 
   <insert id="insert" parameterType="com.huawei.tiny.server.dao.UserInfo" useGeneratedKeys="true" keyProperty="id">
-    insert into userInfo (user_name, user_id)
+    insert into userInfo (user_name, user_id, role)
     values (
-    #{username,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}
+    #{username,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, "admin"
     )
   </insert>
 

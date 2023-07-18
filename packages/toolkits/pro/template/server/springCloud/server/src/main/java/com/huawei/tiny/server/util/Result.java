@@ -41,7 +41,7 @@ public class Result<T> {
   }
 
   public static <T> ResponseEntity<Result<T>> success(T data) {
-    return success(data,"");
+    return success(data, "");
   }
 
   public static <T> ResponseEntity<Result<T>> success(T data, String errMsg) {
@@ -65,6 +65,6 @@ public class Result<T> {
     result.setCode(code);
     result.setErrMsg(errMsg);
     result.setData(data);
-    return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
   }
 }

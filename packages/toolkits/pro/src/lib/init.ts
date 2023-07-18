@@ -162,17 +162,17 @@ const createDatabase = async (answers: ProjectInfo) => {
   // 读取sql文件、新建表
   const serverPath = utils.getDistPath(`${name}/server`);
   let databaseSqlDir = '';
-
-  switch (true) {
-    case serverFramework === ServerFrameworks.EggJs:
-    default:
+  switch (serverFramework) {
+    case ServerFrameworks.EggJs:
       databaseSqlDir = path.join(serverPath, 'app/database');
       break;
-    case serverFramework === ServerFrameworks.SpringCloud:
+    case ServerFrameworks.SpringCloud:
       databaseSqlDir = path.join(
         serverPath,
         'server/src/main/resources/database'
       );
+      break;
+    default:
       break;
   }
 
