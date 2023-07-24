@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.tiny.server.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.huawei.tiny.server.dao.UserInfo">
+    <result column="id" jdbcType="BIGINT" property="id"/>
+    <result column="user_name" jdbcType="VARCHAR" property="username"/>
+    <result column="user_id" jdbcType="BIGINT" property="userId"/>
+    <result column="department" jdbcType="VARCHAR" property="department"/>
+    <result column="employee_type" jdbcType="VARCHAR" property="employeeType"/>
+    <result column="job" jdbcType="VARCHAR" property="job"/>
+    <result column="role" jdbcType="VARCHAR" property="role"/>
+    <result column="probation_start" jdbcType="DATE" property="probationStart"/>
+    <result column="probation_end" jdbcType="DATE" property="probationEnd"/>
+    <result column="probation_duration" jdbcType="VARCHAR"
+            property="probationDuration"/>
+    <result column="protocol_start" jdbcType="DATE" property="protocolStart"/>
+    <result column="protocol_end" jdbcType="DATE" property="protocolEnd"/>
+    <result column="address" jdbcType="DATE" property="address"/>
+    <result column="status" jdbcType="DATE" property="status"/>
+  </resultMap>
+
+  <sql id="all_column">
+   id, user_name, user_id, department, employee_type, job, role, probation_start, probation_end, probation_duration, protocol_start, protocol_end, address, status
+  </sql>
+
+  <insert id="insert" parameterType="com.huawei.tiny.server.dao.UserInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into userInfo (user_name, user_id, role)
+    values (
+    #{username,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, "admin"
+    )
+  </insert>
+
+
+  <update id="update" parameterType="com.huawei.tiny.server.dao.UserInfo" >
+    UPDATE
+    userInfo
+    <set>
+      <if test="username != null and username != '' ">user_name = #{username},</if>
+      <if test="userId != null  and userId != '' "> user_id = #{userId},</if>
+      <if test="department != null  and department != '' "> department = #{department},</if>
+      <if test="employeeType != null  and employeeType != '' "> employee_type = #{employeeType},</if>
+      <if test="job != null  and job != '' "> job = #{job},</if>
+      <if test="role != null  and role != '' "> role = #{role},</if>
+      <if test="probationStart != null "> probation_start = #{probationStart},</if>
+      <if test="probationEnd != null "> probation_end = #{probationEnd},</if>
+      <if test="probationDuration != null  and probationDuration != '' "> probation_duration = #{probationDuration},</if>
+      <if test="protocolStart != null"> protocol_start = #{protocolStart},</if>
+      <if test="protocolEnd != null"> protocol_end = #{protocolEnd},</if>
+      <if test="address != null  and address != '' "> address = #{address},</if>
+      <if test="status != null  and status != '' "> status = #{status},</if>
+    </set>
+    WHERE
+    user_id = #{userId}
+  </update>
+
+  <select id="getUserInfoById" parameterType="java.lang.Long"
+          resultMap="BaseResultMap">
+    select
+    <include refid="all_column"/>
+    from userInfo where user_id =#{userId}
+  </select>
+
+</mapper>

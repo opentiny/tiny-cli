@@ -6,7 +6,7 @@ spring:
         - id: server
           uri: lb://tiny-server
           predicates:
-            - Path=/v1/employee/**
+            - Path=/v1/**
 
 
       httpclient:

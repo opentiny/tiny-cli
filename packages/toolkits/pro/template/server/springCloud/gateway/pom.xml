@@ -24,6 +24,10 @@
             <groupId>com.huaweicloud</groupId>
             <artifactId>spring-cloud-starter-huawei-service-engine-gateway</artifactId>
         </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+      </dependency>
     </dependencies>
 
     <build>

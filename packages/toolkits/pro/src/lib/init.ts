@@ -51,6 +51,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
       message: '请选择您希望使用的服务端技术栈：',
       choices: [
         { name: 'Egg.js', value: ServerFrameworks.EggJs },
+        { name: 'Spring Cloud', value: ServerFrameworks.SpringCloud },
         { name: '暂不配置', value: ServerFrameworks.Skip },
       ],
       default: ServerFrameworks.Skip,
@@ -67,7 +68,7 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
         { name: '暂不配置服务端', value: false },
       ],
       prefix: '*',
-      when: (answers) => answers.serverFramework === ServerFrameworks.EggJs,
+      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip,
     },
     {
       type: 'list',
@@ -129,7 +130,16 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
  * @answers 询问客户端问题的选择值
  */
 const createDatabase = async (answers: ProjectInfo) => {
-  const { name, dialect, host, port, database, username, password } = answers;
+  const {
+    name,
+    dialect,
+    host,
+    port,
+    database,
+    username,
+    password,
+    serverFramework,
+  } = answers;
   if (!dialect) return;
 
   log.info('开始连接数据库服务...');
@@ -150,8 +160,22 @@ const createDatabase = async (answers: ProjectInfo) => {
   await connection.query(` USE ${database}`);
 
   // 读取sql文件、新建表
-  const serverPath = utils.getDistPath(`${name}/server`);
-  const databaseSqlDir = path.join(serverPath, 'app', 'database');
+  const serverPath = utils.getDistPath(`${name}/${serverFramework}`);
+  let databaseSqlDir = '';
+  switch (serverFramework) {
+    case ServerFrameworks.EggJs:
+      databaseSqlDir = path.join(serverPath, 'app/database');
+      break;
+    case ServerFrameworks.SpringCloud:
+      databaseSqlDir = path.join(
+        serverPath,
+        'server/src/main/resources/database'
+      );
+      break;
+    default:
+      break;
+  }
+
   const tableSqlDirPath = path.join(databaseSqlDir, 'table');
   const files = fs.readdirSync(tableSqlDirPath);
   for (const file of files) {
@@ -184,7 +208,7 @@ const createServerSync = (answers: ProjectInfo) => {
   const { name, serverFramework, dialect } = answers;
   // 复制服务端相关目录
   const serverFrom = utils.getTemplatePath(`server/${serverFramework}`);
-  const serverTo = utils.getDistPath(`${name}/server`);
+  const serverTo = utils.getDistPath(`${name}/${serverFramework}`);
   const defaultConfig = {
     // 在未配置数据库信息时，使用默认值替换ejs模板
     dialect: 'mysql',
@@ -197,6 +221,7 @@ const createServerSync = (answers: ProjectInfo) => {
 
   fs.copyTpl(serverFrom, serverTo, dialect ? answers : defaultConfig, {
     overwrite: true,
+    notTextFile: ['.jar'],
   });
 };
 
@@ -260,7 +285,7 @@ export const installDependencies = (answers: ProjectInfo) => {
   if (serverConfirm && serverFramework === ServerFrameworks.EggJs) {
     log.info('正在安装服务端 npm 依赖，安装过程需要几十秒，请耐心等待...');
     spawn.sync('npm', ['install'], {
-      cwd: `${name}/server/`,
+      cwd: `${name}/${serverFramework}/`,
       stdio: 'inherit',
     });
     log.success('服务端 npm 依赖安装成功');
@@ -291,7 +316,7 @@ export const installDependencies = (answers: ProjectInfo) => {
     console.log(
       chalk.green(
         `${chalk.yellow(
-          `$ cd ${name}/server && npm run dev`
+          `$ cd ${name}/${serverFramework} && npm run dev`
         )}    # 开启server开发环境`
       )
     );
