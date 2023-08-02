@@ -11,8 +11,8 @@
 
 <script lang="ts" setup>
   import { watch, ref, defineExpose } from 'vue';
-  import { useUserStore } from '@/store';
   import { DatePicker as TinyDatePicker } from '@opentiny/vue';
+  import { useUserStore } from '@/store';
 
   // 变量设置
   const userStore = useUserStore();

@@ -8,8 +8,8 @@
 
 <script lang="ts" setup>
   import { onMounted, watch, inject } from 'vue';
-  import useLocale from '@/hooks/locale';
   import { useI18n } from 'vue-i18n';
+  import useLocale from '@/hooks/locale';
 
   const { t } = useI18n();
   const { currentLocale } = useLocale();
