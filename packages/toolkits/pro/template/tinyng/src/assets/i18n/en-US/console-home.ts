@@ -100,5 +100,13 @@ export default {
       websiteTutorial: 'Build website business',
       uploadTutorial: 'Quickly upload files through OBS console',
     },
+    iframeDemo: {
+      themeColor: "Theme color",
+      fontSize: "font size",
+      fontWeight: "font weight",
+      borderRadius: "Border Fillet",
+      borderRadius0: "right angle",
+      borderRadius1: "Rounded corners"
+    },
   },
 };

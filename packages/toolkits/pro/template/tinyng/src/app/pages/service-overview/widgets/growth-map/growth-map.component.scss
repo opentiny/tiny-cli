@@ -2,6 +2,7 @@
 .growth-map {
   min-height: 600px;
   @include t-pro-product-card;
+  background: var(--ti-base-card-bg-color);
 }
 
 ::ng-deep .ti3-tab-li {
@@ -10,7 +11,7 @@
 }
 
 .box-title {
-  color: #252b3a;
+  color: var(--ti-common-content-text-color);
   font-size: 16px;
   font-weight: 500;
   line-height: 16px;
@@ -24,7 +25,7 @@
 .tab-desc {
   margin-top: 8px;
   font-size: 14px;
-  color: #8a8e99;
+  color: var(--ti-common-content-text-color);
   line-height: 24px;
 }
 
@@ -39,11 +40,11 @@
 .overview_label_text {
   font-size: 14px;
   font-weight: 500;
-  color: #202e54;
+  color: var(--ti-common-content-text-color);
   line-height: 24px;
 }
 
-.overview_label_text:nth-child(n + 2) {
+.overview_label_text:nth-child(n+2) {
   margin-top: 10px;
 }
 
@@ -52,7 +53,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
+  
   .round-box {
     width: 4px;
     height: 4px;
@@ -63,7 +64,7 @@
   }
 
   > a {
-    color: #252b3a;
+    color: var(--ti-common-content-text-color);
   }
 
   &:hover {

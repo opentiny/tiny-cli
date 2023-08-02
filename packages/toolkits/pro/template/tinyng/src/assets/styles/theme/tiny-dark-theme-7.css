@@ -1,0 +1,70 @@
+/*主题 基础变量定义*/
+:root {
+  --ti-default-body-bg: #202124; /*背景色*/
+  --ti-base-color-white: #fff;
+  --ti-base-color-common: #131415; /* 正文主色，重要信息、标题颜色、输入类文本颜色 */
+  --ti-base-color-common-1: #a0a0a0; /* 次要信息/图标默认 */
+  --ti-base-color-common-2: #909090; /* 弱化信息、说明文字 */
+  --ti-base-color-common-4: #3d3e44; /* 分割线/禁用描边/tab字体/开关组件“关”禁用背景色 */
+  --ti-base-color-common-7: #fff; /* 菜单文本色 */
+
+  --ti-base-color-brand-1: #292324; /* 主色悬浮色/文字按钮、链接悬浮色 */
+  --ti-base-color-brand-2: #f36b7f; /* 文字按钮颜色/链接颜色 */
+  --ti-base-color-brand-3: #f36b7f; /* 深色背景下图标 */
+  --ti-base-color-brand-4: #f36b7f; /* 深色背景链接色 */
+  --ti-base-color-brand-5: #f36b7f; /* 选块悬浮色/深色背景链接悬浮色/提示边框色/开关组件“开”禁用背景色 */
+  --ti-base-color-brand-6: #f36b7f; /* 选块默认色/滑块背景色/分页悬浮色 */
+  --ti-base-color-brand-7: #f36b7f; /* 选块默认色/滑块背景色/分页悬浮色 */
+
+  --ti-base-color-bg: #606061; /*  通用背景-页面背景色/下拉搜索框背景色/标签背景色/multiselect输入框中背景 */
+  --ti-base-color-bg-1: #3d3e44; /* 禁用背景/小表格中禁用背景/支付列表中禁用背景 */
+  --ti-base-color-bg-2: #606061; /* 新区域组件-悬浮背景色 */
+  --ti-base-color-bg-3: #c7c5c5; /* 主要按钮-背景色 */
+  --ti-base-color-bg-4: #d3d3d3; /* 主要按钮-hover/Focus背景色 */
+  --ti-base-color-bg-6: #383838; /* 次要按钮-背景色 */
+  --ti-base-color-bg-7: #383838; /* 次要按钮-hover/Focus背景色 */
+  --ti-base-color-bg-8: #383838; /* 次要按钮-active背景色 */
+  --ti-base-color-bg-9: #282b33; /* 顶部导航背景色/顶部导航下拉悬浮背景色 */
+  --ti-base-color-bg-10: #181818; /* 顶部导航下拉背景色 */
+
+  ----ti-tip-white-theme-bg: #383838; /* tip弹窗背景色 */
+  --ti-base-color-success-bg: #304642; /* 成功-背景色 */
+  --ti-base-color-warn-bg: #554434; /* 告警-背景色*/
+  --ti-base-color-error-bg: #4b3a39; /* 错误-背景色/校验背景色*/
+  --ti-base-color-prompt-bg: #383d4f; /* 提示-背景色*/
+
+  --ti-common-color-bg-white-normal: #2e2f31; /* 组件设置的背景颜色之前为白色现在都修改为深色 */
+  --ti-common-color-text-highlight: var(
+    --ti-base-color-common
+  ); /* 组件文本色 */
+  --ti-common-color-text-secondary: #fff; /*组件弱文本*/
+  --ti-dark-server-backup-color-bg: var(
+    --ti-base-color-bg-9
+  ); /*暗色模式组件背景色*/
+  --ti-common-color-text-highlight: var(--ti-base-color-common-7);
+  --ti-common-color-text-primary: #8a8e99;
+  --ti-base-color-common-5: #fff; /*公告字体颜色*/
+  --ti-common-color-icon-normal: #f36b7f;
+  --ti-base-color-border-hover: #f36b7f;
+  --ti-base-search-color: #353537;
+  --ti-base-search-icon-color: #fff; /*搜索图标颜色*/
+  --ti-base-menu-text: #fff; /*菜单字体颜色*/
+  --ti-common-color-header-bg-color: #3e3e3f;
+  --ti-common-title-color-top: #fff;
+  --ti-common-select-color: #fff; /*下拉选择颜色字体*/
+  --ti-base-link-a-color: #5b96ff; /*链接字体颜色*/
+  --ti-common-content-text-color: #fff; /*内容主题字体颜色*/
+  --ti-base-table-border-color: #202124; /*表格头部边框线*/
+  --ti-base-table-border-bottom-color: #343a40; /*表格内容边框线*/
+  --ti-base-model-bg-color: #3e3e3f; /*消息弹出框背景以及按钮颜色*/
+  --ti-base-model-text-color: #fff; /*消息弹出框字体颜色*/
+  --ti-base-model-link-color: #fff; /*图标以及链接颜色*/
+  --ti-base-content-bg-color: #131415; /*内容区域背景颜色*/
+  --ti-base-card-bg-color: #212121; /*内容卡片 背景颜色*/
+  --ti-base-table-text-color: #fff; /*表格内容字体颜色*/
+  --ti-base-notice-tip-color: #fff; /*公告标题颜色*/
+  --ti-base-notice-content-color: #fff; /*公告内容颜色*/
+  --ti-base-collapse-bg-color: #3e3e3f; /*收缩图标背景颜色*/
+  --ti-base-button-default-border-color: #fff; /*默认按钮边框颜色*/
+  --ti-base-navbar-line-color: rgba(255, 255, 255, 0.3); /*头部竖线颜色*/
+}

@@ -17,12 +17,13 @@
       .access-font-set {
         line-height: 20px;
         font-size: 14px;
-        color: var(--ti-common-color-text-highlight);
+        color: var(--ti-common-color-text-primary);
         font-weight: normal;
         cursor: pointer;
 
         &:hover {
-          color: var(--ti-common-color-text-link-hover);
+          color: var(--ti-common-color-text-primary);
+          font-weight: 600;
         }
       }
 
@@ -38,7 +39,7 @@
         float: left;
 
         .marketplace-instance-item {
-          background-color: var(--ti-common-color-bg-light-normal);
+          background-color: var(--ti-common-color-bg-white-emphasize);
           color: var(--ti-common-color-text-highlight);
           line-height: 46px;
           height: 46px;
@@ -56,6 +57,7 @@
             &:hover {
               background-color: var(--ti-base-color-brand-4);
               color: var(--ti-common-color-text-white);
+              font-weight: 600;
             }
           }
         }
@@ -75,13 +77,13 @@
         width: calc(100% - 20px);
         margin-left: 20px;
         height: 68px;
-        border: 1px solid #e9edfa;
+        border: 1px solid var(--ti-common-color-bg-white-emphasize);
         box-sizing: border-box;
         position: relative;
         cursor: pointer;
 
         &:hover {
-          border: 1px solid var(--ti-base-color-brand-5);
+          border: 1px solid var(--ti-base-color-border-hover);
         }
 
         .cate-svg {
@@ -101,6 +103,7 @@
         }
 
         .cate-title {
+          color: var(--ti-base-notice-content-color);
           position: absolute;
           top: 12px;
           left: 80px;

@@ -26,5 +26,5 @@ import { ContractsComponent } from './contracts/contracts.component';
   ],
   imports: [CommonModule, SharedModule, ServiceListRoutingModule],
 })
-export class ServiceListModule {}
-export { GuideheadConfig } from './widgets/list-guide-head/list-guide-head.component';
+export class ServiceListModule { }
+export type { GuideheadConfig } from './widgets/list-guide-head/list-guide-head.component';

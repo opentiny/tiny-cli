@@ -7,23 +7,41 @@
   line-height: 10px;
   cursor: pointer;
 
+  > img {
+    margin-bottom: 2px;
+  }
+  
   ::ng-deep .ti3-overflow-padding {
     font-size: 14px;
-    color: #575d6c;
+    display: flex;
+    align-items: center;
+    color: var(--ti-common-select-color) !important;
   }
 }
+
 
 .divide-line {
   height: 18px;
   padding-left: 28px;
-  border-left: 1px solid #dfe1e6;
+  border-left: 1px solid var(--ti-base-navbar-line-color);
+  img {
+    filter: drop-shadow(#ff0 100px 0);
+  }
+}
+
+.home-icon {
+  color: var(--ti-common-select-color);
 }
 
 .console-text {
   font-size: 14px;
-  color: #202e54;
+  color: var( --ti-common-title-color-top);
   min-width: 42px;
-  margin-right: 10px;
+  margin: 0 10px 0 8px;
+
+  &:hover {
+    color: var( --ti-common-title-color-top);
+  }
 }
 
 .region-select {
@@ -33,10 +51,18 @@
   padding: 0 8px 0 2px;
   border-radius: 16px;
   border: none;
-  background-color: #eff2f8 !important;
+  background-color: var(--ti-base-search-color) !important;
 }
 
 .region-icon {
   color: var(--ti-common-color-icon-normal);
   margin-right: var(--ti-common-space-base);
+}
+
+::ng-deep .ti3-select-dominator-dropdown-btn:after {
+  border-top: var(--ti-dominator-fold-icon-height) solid var(--ti-base-search-icon-color) !important;
+}
+
+::ng-deep .region-icon {
+  color: var(--ti-common-select-color) !important;
 }

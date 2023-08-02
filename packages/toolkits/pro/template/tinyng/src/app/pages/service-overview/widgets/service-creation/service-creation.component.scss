@@ -3,6 +3,7 @@
 .service-creation {
   height: 100%;
   @include t-pro-product-card;
+  background: var(--ti-base-card-bg-color);
 }
 
 .new-user-content {
@@ -12,7 +13,7 @@
     font-size: 24px;
     font-weight: 400;
     text-align: left;
-    color: #252b3a;
+    color: var(--ti-base-color-common-7);
     line-height: 33px;
   }
 
@@ -32,7 +33,7 @@
   .content-item {
     width: calc((100% - 20px) / 2);
     padding: var(--ti-common-space-5x) 30px 30px;
-    background-color: rgba($color: #eff2f8, $alpha: 0.5);
+    background-color: var(--ti-dark-server-backup-color-bg, rgba($color: #eff2f8, $alpha: 0.5));
     border-radius: 8px;
 
     .content-item-head {
@@ -48,7 +49,7 @@
       .head-title {
         font-size: 18px;
         font-weight: 500;
-        color: #202e54;
+        color: var(--ti-base-color-common-7);
         line-height: 25px;
       }
 

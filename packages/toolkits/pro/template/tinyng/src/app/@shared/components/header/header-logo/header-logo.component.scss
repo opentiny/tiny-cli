@@ -4,6 +4,7 @@
   height: 60px;
   line-height: 60px;
   padding-left: 10px;
+  background-color: var(--ti-common-color-header-bg-color);
 
   &.t-pro-logo-shrink {
     padding-left: 0;
@@ -17,6 +18,9 @@
   .t-pro-logo-tiny {
     display: flex;
     align-items: center;
+    color: #151b24;
+    text-decoration: none;
+    cursor: pointer;
 
     img {
       width: 53px;
@@ -38,17 +42,18 @@
   .divide-line {
     height: 18px;
     padding-left: 32px;
-    border-left: 1px solid #dfe1e6;
+    border-left: 1px solid var(--ti-base-navbar-line-color);
   }
-
+  
   .t-pro-logo-text {
     margin: 0 32px 0 12px;
     line-height: 32px;
     font-size: 23px;
-    color: #202e54;
+    color: var(--ti-common-title-color-top);
     font-weight: 700;
     vertical-align: middle;
     letter-spacing: 0.7px;
+    cursor: pointer;
   }
 
   .t-pro-page-logo-text {
@@ -56,7 +61,7 @@
     font-family: PingFang SC, PingFang SC-PingFang SC;
     font-weight: 400;
     text-align: left;
-    color: #202e54;
+    color: var(--ti-common-title-color-top);
     line-height: 22px;
     margin: 0 28px 0 10px;
     min-width: 130px;

@@ -1,11 +1,11 @@
-@import 'src/app/@shared/styles/common.scss';
+@import "src/app/@shared/styles/common.scss";
 
 .result-failure {
   @include t-pro-product-card;
   text-align: center;
   height: 620px;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
+  background: var(--ti-base-card-bg-color);
 }
 
 .pay-failure-icon-container {
@@ -29,6 +29,7 @@
     font-size: 24px;
     margin-top: 30px;
     line-height: 36px;
+    color: var(--ti-common-content-text-color);
   }
 }
 
@@ -55,3 +56,9 @@
   border-radius: 4px;
   margin-top: 10px;
 }
+
+.left,
+.right {
+  color: var(--ti-common-content-text-color);
+}
+

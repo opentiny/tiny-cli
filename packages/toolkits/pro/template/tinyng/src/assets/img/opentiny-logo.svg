@@ -1,20 +1,37 @@
-<svg 
- xmlns="http://www.w3.org/2000/svg"
- xmlns:xlink="http://www.w3.org/1999/xlink"
- width="53px" height="32px">
-<defs>
-<linearGradient id="PSgrad_0" x1="0%" x2="100%" y1="0%" y2="0%">
-  <stop offset="0%" stop-color="rgb(172,202,250)" stop-opacity="0" />
-  <stop offset="32%" stop-color="rgb(115,141,186)" stop-opacity="0.36" />
-  <stop offset="73%" stop-color="rgb(57,79,122)" stop-opacity="0.82" />
-  <stop offset="90%" stop-color="rgb(57,79,122)" stop-opacity="1" />
-</linearGradient>
-
-</defs>
-<path fill-rule="evenodd"  fill="rgb(255, 191, 54)"
- d="M17.999,2.0 L40.999,0.0 L53.0,2.0 L29.530,5.443 L17.999,2.0 Z"/>
-<path fill-rule="evenodd"  opacity="0.341" fill="url(#PSgrad_0)"
- d="M6.999,32.0 L28.999,30.0 L19.0,21.999 L0.0,21.999 L6.999,32.0 Z"/>
-<path fill-rule="evenodd"  fill="rgb(89, 120, 226)"
- d="M43.0,7.999 L43.0,26.999 L51.999,25.142 L51.971,6.658 L43.0,7.999 ZM29.999,30.0 L38.999,28.0 L38.999,7.999 L29.999,8.999 L29.999,30.0 ZM18.999,5.972 L19.36,23.590 L28.945,29.838 L28.999,8.999 L18.999,5.972 Z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="31px" viewBox="0 0 48 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo-top备份</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFCC00" offset="0%"></stop>
+            <stop stop-color="#FF9D00" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="41.0452583%" y1="684.931472%" x2="58.1139279%" y2="214.83809%" id="linearGradient-2">
+            <stop stop-color="#5073E5" offset="0%"></stop>
+            <stop stop-color="#5E7CE0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="45.3722724%" y1="89.3284133%" x2="65.091472%" y2="0%" id="linearGradient-3">
+            <stop stop-color="#5073E5" offset="0%"></stop>
+            <stop stop-color="#5E7CE0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="41.2568056%" y1="684.931472%" x2="57.922244%" y2="214.83809%" id="linearGradient-4">
+            <stop stop-color="#5073E5" offset="0%"></stop>
+            <stop stop-color="#5E7CE0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="33.4815807%" y1="51.5111841%" x2="113.235837%" y2="32.8280386%" id="linearGradient-5">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.530244414" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="vue-主题" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Vue-自定义主题-深度主题3" transform="translate(-13.000000, -14.000000)" fill-rule="nonzero">
+            <g id="编组-21" transform="translate(13.000000, 14.516008)">
+                <polygon id="路径" fill="url(#linearGradient-1)" points="48 2.84661381 36.0103676 0 14.7166577 2.11947909 25.0507618 4.63627405"></polygon>
+                <polygon id="路径" fill="url(#linearGradient-2)" points="38.7580548 6.71232264 38.7488491 24.4619258 47.2457137 22.7466281 47.2180966 5.9928627"></polygon>
+                <polygon id="路径" fill="url(#linearGradient-3)" points="26 27.4764867 35 25.4839919 35 6.93456969 26 7.48444745"></polygon>
+                <polygon id="路径" fill="url(#linearGradient-4)" points="15.0031264 5.48565954 15.0031264 21.4792196 25 27.4764867 25 7.48399187"></polygon>
+                <polygon id="路径" fill="url(#linearGradient-5)" opacity="0.73761277" points="15.7014638 21.3488619 0 24.3359173 9.06301965 30.4839919 25.6589668 27.1496644"></polygon>
+            </g>
+        </g>
+    </g>
 </svg>
