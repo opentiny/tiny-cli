@@ -3,11 +3,8 @@ import { NgModule } from '@angular/core';
 import { TProBaseBackTopComponent } from './back-top.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [TProBaseBackTopComponent],
-  declarations: [TProBaseBackTopComponent]
+  declarations: [TProBaseBackTopComponent],
 })
-export class TProBaseBackTopModule {
-}
+export class TProBaseBackTopModule {}

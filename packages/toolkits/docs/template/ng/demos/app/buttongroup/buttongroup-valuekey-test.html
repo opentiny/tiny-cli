@@ -1,0 +1,23 @@
+<h3>描述</h3>
+<p>Buttongroup组件，自定义选中值，设置valueKey时选中值基于valueKey</p>
+<p>valueKey接口</p>
+<h3>示例</h3>
+<p>1.单选：设置valueKey</p>
+<ti-button-group valueKey="english" [items]="items" [(ngModel)]="selected"> </ti-button-group>
+<p>选中项：{{selected | json}}</p>
+<br />
+<br />
+<p>2.多选：设置valueKey</p>
+<ti-button-group valueKey="english" multiple="true" [items]="items1" [(ngModel)]="selected1"> </ti-button-group>
+<p>选中项：{{selected1 | json}}</p>
+<br />
+<br />
+<p>
+  3.动态修改
+  <b>items</b> 接口数据测试：（<b>buttonGroup组件的选中值高亮不应发生变化</b>）
+</p>
+<button ti-button (click)="changeItems()">change items</button>
+<br />
+<br />
+<p><b>单选的items：</b>{{items | json}}</p>
+<p><b>多选的items：</b>{{items1 | json}}</p>

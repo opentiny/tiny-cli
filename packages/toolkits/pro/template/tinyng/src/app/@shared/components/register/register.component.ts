@@ -30,10 +30,10 @@ export class RegisterComponent implements OnInit {
   };
   registerForm: FormGroup;
   validationBlur: TiValidationConfig = {
-    type: 'blur'
+    type: 'blur',
   };
   validationPwd: TiValidationConfig = {
-    type: 'password'
+    type: 'password',
   };
 
   constructor(
@@ -46,16 +46,20 @@ export class RegisterComponent implements OnInit {
   ) {
     this.registerForm = this.fb.group({
       userEmail: new FormControl(this.formData.userEmail, [TiValidators.required, TiValidators.email]),
-      password: new FormControl('', [TiValidators.password({
-        notEqualPosRev: () => {
-          return this.registerForm.get('userEmail') as AbstractControl;
-        }
-      })]),
-      confirmPassword: new FormControl('', [TiValidators.password({
-        notEqualPosRev: () => {
-          return this.registerForm.get('userEmail') as AbstractControl;
-        }
-      })]),
+      password: new FormControl('', [
+        TiValidators.password({
+          notEqualPosRev: () => {
+            return this.registerForm.get('userEmail') as AbstractControl;
+          },
+        }),
+      ]),
+      confirmPassword: new FormControl('', [
+        TiValidators.password({
+          notEqualPosRev: () => {
+            return this.registerForm.get('userEmail') as AbstractControl;
+          },
+        }),
+      ]),
     });
   }
 
@@ -82,8 +86,7 @@ export class RegisterComponent implements OnInit {
     if (errors) {
       // 注意：要保证fb.group时各个FormControl的顺序与对应表单元素dom放置顺序一致
       const firstError: any = Object.keys(errors)[0];
-      this.elementRef.nativeElement.querySelector(`[formControlName=${firstError}]`)
-        .focus();
+      this.elementRef.nativeElement.querySelector(`[formControlName=${firstError}]`).focus();
       return;
     }
 
@@ -97,7 +100,7 @@ export class RegisterComponent implements OnInit {
       title: this.i18nValues.resultMessage.title,
       content: this.i18nValues.resultMessage.content,
       context: {
-        contentName: this.i18nValues.resultMessage.content
+        contentName: this.i18nValues.resultMessage.content,
       },
       okButton: {
         show: true, // 是否显示, 默认是true
@@ -110,11 +113,12 @@ export class RegisterComponent implements OnInit {
           // 使用按钮自定义click时，需要显式调用close或者dismiss
           this.goToLogin(results);
           // 在这里也可以添加你的业务代码
-        }
+        },
       },
-      cancelButton: { // 取消按钮的设置和okbutton的属性设置是一致的，参考okbutton设置即可。
-        show: false // 是否显示，默认是true
-      }
+      cancelButton: {
+        // 取消按钮的设置和okbutton的属性设置是一致的，参考okbutton设置即可。
+        show: false, // 是否显示，默认是true
+      },
     });
   }
 

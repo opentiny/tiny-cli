@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TiTheme } from '@opentiny/ng';
-import {
-  TinyThemeConfigItems,
-  DefaultTheme,
-  ThemeAddrPrefix,
-  ThemeType,
-} from 'src/app/@shared/models/theme';
+import { TinyThemeConfigItems, DefaultTheme, ThemeAddrPrefix, ThemeType } from 'src/app/@shared/models/theme';
 import { CustomStyle } from '@config/tiny-pro';
 import { CustomThemeService } from './custom-theme.service';
 
@@ -26,9 +21,7 @@ export class PersonalizeService {
     this.addTinyTheme();
 
     // 主题设置
-    const theme = localStorage.getItem('t-pro-theme')
-      ? JSON.parse(localStorage.getItem('t-pro-theme')!)
-      : DefaultTheme;
+    const theme = localStorage.getItem('t-pro-theme') ? JSON.parse(localStorage.getItem('t-pro-theme')!) : DefaultTheme;
 
     if (theme.id === DefaultTheme.id) {
       this.setDefaultThemeStorage(theme);
@@ -42,10 +35,7 @@ export class PersonalizeService {
       this.customThemeService.changeCustomTheme(brand, isDark);
     } else {
       setTimeout(() => {
-        TiTheme.loadCss(
-          `${ThemeAddrPrefix}/${theme.id}.css`,
-          'tiny3theme'
-        );
+        TiTheme.loadCss(`${ThemeAddrPrefix}/${theme.id}.css`, 'tiny3theme');
       });
     }
   }
@@ -85,9 +75,7 @@ export class PersonalizeService {
       document.body.style.setProperty('--ti-leftmenu-item-selected-border-left-color', '');
     }
 
-    const theme = localStorage.getItem('t-pro-theme')
-      ? JSON.parse(localStorage.getItem('t-pro-theme')!)
-      : DefaultTheme;
+    const theme = localStorage.getItem('t-pro-theme') ? JSON.parse(localStorage.getItem('t-pro-theme')!) : DefaultTheme;
 
     // 需要保存之前设置过的自定义主题相关配置
     this.setDefaultThemeStorage(theme);
@@ -100,9 +88,6 @@ export class PersonalizeService {
     }
 
     const { brand, isDark } = theme.custom;
-    localStorage.setItem(
-      't-pro-theme',
-      JSON.stringify({ id: themeId, custom: { brand, isDark } })
-    );
+    localStorage.setItem('t-pro-theme', JSON.stringify({ id: themeId, custom: { brand, isDark } }));
   }
 }

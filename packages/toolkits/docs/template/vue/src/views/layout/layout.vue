@@ -2,12 +2,16 @@
   <n-config-provider class="main-layout hp100 f-c f-box-stretch" :theme-overrides="themeOverrides">
     <!-- tiny angular 菜单统一到一起  -->
     <n-layout class="content-layout fi-1" :has-sider="!isFrame">
-      <n-layout-sider id="layoutSider" v-if="!isFrame" bordered :collapsedWidth="4" :width="250" showTrigger="arrow-circle"
-        :native-scrollbar="true">
+      <n-layout-sider id="layoutSider" v-if="!isFrame" bordered :collapsedWidth="4" :width="250" showTrigger="arrow-circle" :native-scrollbar="true">
         <n-menu class="main-menu" :value="menuSideKey" :default-expand-all="true" :options="menuOptions" />
       </n-layout-sider>
-      <n-layout id="doc-layout" ref="contentRef" :native-scrollbar="true"
-        content-style="display: flex;  flex-direction: column; height:100%" :class="'md-' + appData.configType">
+      <n-layout
+        id="doc-layout"
+        ref="contentRef"
+        :native-scrollbar="true"
+        content-style="display: flex;  flex-direction: column; height:100%"
+        :class="'md-' + appData.configType"
+      >
         <router-view />
       </n-layout>
     </n-layout>
@@ -90,7 +94,6 @@ export default defineComponent({
   flex-direction: row;
 }
 
-
 // hover时，右侧menu显示滚动条
 .n-layout-sider-scroll-container {
   overflow: hidden !important;
@@ -107,11 +110,13 @@ export default defineComponent({
     display: none;
     position: fixed;
     height: 100%;
+    .n-layout-sider-scroll-container {
+      overflow-y: auto !important;
+    }
 
     .n-layout-toggle-button {
       display: none;
     }
   }
 }
-
 </style>

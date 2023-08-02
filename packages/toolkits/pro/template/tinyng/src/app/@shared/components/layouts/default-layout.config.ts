@@ -1,4 +1,4 @@
-import { TProLayoutConfig } from "./layout.type";
+import { TProLayoutConfig } from './layout.type';
 
 export const DEFAULT_LAYOUT_CONFIG: TProLayoutConfig = {
   id: 'leftRight',

@@ -186,16 +186,25 @@ async function promptSubnet(currAns: MysqlCreateOption) {
 }
 
 async function promptDeleteSecurityGroupRule(ans, cliConfig) {
+  let answer = Object.assign({}, ans);
   const securityGroupId = await getSecurityGroupId(cliConfig);
-  const securityGroupRulesInfo = await getSecurityGroupRules(cliConfig, securityGroupId);
+  const securityGroupRulesInfo = await getSecurityGroupRules(
+    cliConfig,
+    securityGroupId
+  );
   const deleteQuest = await getDeleteRuleQuestions(securityGroupRulesInfo);
   const res = await inquirer.prompt(deleteQuest);
-  if (res.deleteSecurityGroupRule) { // 删除
+  if (res.deleteSecurityGroupRule) {
+    // 删除
     // 删除规则
     await deleteSecurityGroupRule(cliConfig, res.security_group_rule_id);
-    ans = await createSecurityGroupRulesForRDS(ans, cliConfig, securityGroupId);
+    answer = await createSecurityGroupRulesForRDS(
+      answer,
+      cliConfig,
+      securityGroupId
+    );
   }
-  return {res, ans};
+  return { res, answer };
 }
 
 /**
@@ -253,9 +262,10 @@ export default async () => {
     ans = await promptFee(ans);
     // 将rds端口写入下规则中
     ans = await setPortToSecurityGroupRules(ans, cliConfig);
-    if (ans.securityGroupRuleLimit) { // 超限了
+    if (ans.securityGroupRuleLimit) {
+      // 超限了
       const result = await promptDeleteSecurityGroupRule(ans, cliConfig); // 询问是否删除
-      ans = result.ans;
+      ans = result.answer;
       await buyAndSyncInstances(ans);
     } else {
       await buyAndSyncInstances(ans);

@@ -9,9 +9,6 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-/**
- * Created by hugo on 16/11/16.
- */
 import _ from 'lodash';
 import logs from '../log/index';
 import Intl from '../intl/index';

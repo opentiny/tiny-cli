@@ -4,7 +4,7 @@ import { TiLocale, TiIconComponent } from '@opentiny/ng';
 import { DEFAULT_LANG, I18N_LANGUAGES } from '@config/tiny-pro';
 @Component({
   selector: 't-pro-app',
-  template: `<router-outlet></router-outlet>`
+  template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
   currentLang = localStorage.getItem('lang') || window.navigator.language.toLowerCase() || DEFAULT_LANG;

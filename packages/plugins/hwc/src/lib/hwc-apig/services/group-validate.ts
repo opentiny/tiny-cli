@@ -32,7 +32,8 @@ export class ApigGroupValidators extends ValidatorService {
     const groups = await getApigGroups(instanceId, regionId);
 
     for (const group of groups) {
-      for (const item of group?.url_domains) {
+      const url_domains = group?.url_domains || [];
+      for (const item of url_domains) {
         if (item.domain === domain) {
           return commonMsg.commonTermIsExist(
             apigMsg.groupTermDomainName,

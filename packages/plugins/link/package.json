@@ -1,6 +1,6 @@
 {
   "name": "@opentiny/tiny-plugin-link",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.2",
   "description": "提供本地软链接工程，提升组件开发、调试效率",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

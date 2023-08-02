@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserState } from '@/store/modules/user/types';
+import { UserInfo } from '@/store/modules/user/types';
 
 export interface LoginData {
   username: string;
@@ -13,6 +13,7 @@ export interface LoginDataMail {
 
 export interface LoginRes {
   token: string;
+  userInfo: UserInfo;
 }
 export interface UserRes {
   chartData: [];
@@ -22,14 +23,14 @@ export interface UserData {
   sort?: number | undefined;
   startTime?: string;
   endTime?: string;
-  filterStatue?: [];
+  filterStatus?: [];
   filterType?: [];
 }
 
 export function login(data: LoginData) {
   return axios.post<LoginRes>('/api/user/login', data);
 }
-export function loginMaiil(data: LoginDataMail) {
+export function loginMail(data: LoginDataMail) {
   return axios.post<LoginRes>('/api/mail/login', data);
 }
 
@@ -38,9 +39,17 @@ export function logout() {
 }
 
 export function getUserInfo() {
-  return axios.post<UserState>('/api/user/info');
+  return axios.get<UserInfo>(`/api/user/userInfo`);
+}
+
+export function updateUserInfo(data: UserInfo) {
+  return axios.put<UserInfo>(`/api/user/userInfo`, data);
 }
 
 export function getUserData(data?: UserData) {
   return axios.post<UserRes>('/api/user/data', data);
+}
+
+export function registerUser(data: LoginData) {
+  return axios.post<UserInfo>('/api/user/register', data);
 }

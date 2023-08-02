@@ -1,7 +1,7 @@
 export default {
   'login.form.mode': 'Account and password login',
   'login.form.mail': 'Email login',
-  'login.form.title': 'Login to Arco Design Pro',
+  'login.form.title': 'Login to Tiny Pro',
   'login.form.userName.errMsg': 'Username cannot be empty',
   'login.form.password.errMsg': 'Password cannot be empty',
   'login.form.mailName.errMsg': 'The mailbox name cannot be empty',
@@ -43,7 +43,7 @@ export default {
   'login.banner.subSlogan3': 'Realize flexible block development',
   'login.icon.language': 'language',
   'login.tip.info': 'User name: admin; password: admin',
-  'login.tip.mail': 'User name: admin@example.com1; password: admin',
+  'login.tip.mail': "User name: admin{'@'}example.com; password: admin",
   'login.tip.right': 'Enter the correct user name and password',
-  'login.main.text': 'TinyUI Pro Mid-Back-End Front-End Solution',
+  'login.main.text': 'TinyPro Mid-Back-End Front-End Solution',
 };

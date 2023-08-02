@@ -22,8 +22,7 @@
 
 基于以上的场景，大致描绘一下一个工程化工具的一些功能。
 
-![](https://raw.githubusercontent.com/opentiny/tiny-vue/blob/main/docs/images/feature_2012x914.png)
-
+![](https://raw.githubusercontent.com/opentiny/tiny-cli/dev/docs/images/feature_2012x914.png)
 
 <a name="c9200446"></a>
 ### 套件
@@ -70,7 +69,7 @@ module.exports = {
   tasks: {
     init: [{
       // 清除临时文件
-      command: 'clearn'
+      command: 'node tools/clean.js'
     },
     {
       // 安装依赖
@@ -91,12 +90,12 @@ module.exports = {
     }],
     build: [{
       // 基于webpack构建
-      command: 'webpack2',
+      command: 'webpack',
     },
     ],
     test: [{
       // 执行eslint
-      command: 'lint',
+      command: 'eslint',
     },
     ],
   },
@@ -123,8 +122,6 @@ cli本身不具备任何工程化能力，cli只是提供了一个让你写套�
 
 基于上面的思考，我们参考DDD的思维模式，将域能力划分出来，将cli的整体框架理清晰。
 
-
-![image.png](http://image.huawei.com/tiny-lts/v1/images/bcaed973d9deccf67381b6fc06c3d67c_1418x1248.png)
 
 <a name="dmXHx"></a>
 ### 包函数说明

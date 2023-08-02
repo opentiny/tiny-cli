@@ -8,5 +8,5 @@ export default {
   build,
   init,
   help,
-  default: help
+  default: help,
 };

@@ -5,14 +5,12 @@ import { SideSettingsComponent } from '@shared/tiny-pro';
 @Component({
   selector: 't-pro-multi-settings',
   templateUrl: './multi-settings.component.html',
-  styleUrls: ['./multi-settings.component.scss']
+  styleUrls: ['./multi-settings.component.scss'],
 })
 export class MultiSettingsComponent implements OnInit {
+  constructor(private tiHalfmodalservice: TiHalfmodalService) {}
 
-  constructor(private tiHalfmodalservice: TiHalfmodalService) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openSettingDrawer() {
     this.tiHalfmodalservice.open(SideSettingsComponent, {

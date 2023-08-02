@@ -1,14 +1,14 @@
 {
   "name": "@opentiny/tiny-toolkit-pro",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.10",
+  "description": "TinyPro 开箱即用的中后台前端/设计解决方案",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
   "tinyOption": {
     "type": "toolkit",
     "update": false,
-    "chName": "TinyUI Pro开箱即用的中后台前端解决方案"
+    "chName": "TinyPro 开箱即用的中后台前端/设计解决方案"
   },
   "keywords": [
     "tiny",
@@ -54,14 +54,19 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@opentiny/cli-devkit": "^1.0.0-alpha.0",
+    "@opentiny/cli-devkit": "^1.0.1",
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
     "fs-extra": "^10.1.0",
+    "inquirer": "^8.0.2",
+    "mysql2": "^3.4.2",
     "open": "^8.4.0"
   },
   "devDependencies": {
     "@bitjson/npm-scripts-info": "^1.0.0",
+    "@types/inquirer": "^9.0.3",
     "@types/node": "^12.6.8",
     "ava": "2.2.0",
     "codecov": "^3.5.0",
@@ -96,6 +101,12 @@
     ]
   },
   "changeLog": [
+    {
+      "version": "1.0.2",
+      "log": [
+        "feat: 清理vue模板冗余的文件"
+      ]
+    },
     {
       "version": "1.0.0",
       "log": [

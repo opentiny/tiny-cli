@@ -75,6 +75,7 @@
   } from '@opentiny/vue';
   import { useI18n } from 'vue-i18n';
   import useLoading from '@/hooks/loading';
+  import { registerUser } from '@/api/user';
 
   // 注册
   const { t } = useI18n();
@@ -162,13 +163,13 @@
 
   // 注册提交
   function handleSubmit() {
-    ruleForm.value.validate((e: any) => {
+    ruleForm.value.validate(async (e: any) => {
       if (e) {
         let data: any = reactive({
           username: createData.username,
           password: createData.password,
         });
-        localStorage.setItem('registerUser', JSON.stringify(data));
+        await registerUser(data);
         Modal.message({
           message: t('login.form.registerPass'),
           status: 'success',

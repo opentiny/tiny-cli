@@ -4,8 +4,10 @@ const docMDs = {};
 const mds = import.meta.globEager('@demos/webdoc/**.md');
 
 for (const path in mds) {
-  const key = $split(path, '/', -1);
-  docMDs[key] = mds[path].default;
+  if (Object.prototype.hasOwnProperty.call(mds, path)) {
+    const key = $split(path, '/', -1);
+    docMDs[key] = mds[path].default;
+  }
 }
 
 export default docMDs;

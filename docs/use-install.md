@@ -22,7 +22,7 @@ $ npm -v
 
 
 ```bash
-$ npm install @opentiny/cli npminstall -g
+$ npm install @opentiny/cli -g
 ```	
 
 

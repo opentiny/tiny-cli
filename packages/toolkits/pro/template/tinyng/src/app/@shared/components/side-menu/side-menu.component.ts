@@ -29,7 +29,8 @@ export class SideMenuComponent implements OnChanges {
   ngOnInit() {
     // 根据当前窗口大小调整侧边栏
     fromEvent(window, 'resize')
-      .pipe(takeUntil(this.destroy$)).pipe(debounceTime(100))
+      .pipe(takeUntil(this.destroy$))
+      .pipe(debounceTime(100))
       .subscribe(() => {
         const currentScreenWidth = window.innerWidth;
         this.isSidebarShrink = currentScreenWidth < 1025;
@@ -66,7 +67,7 @@ export class SideMenuComponent implements OnChanges {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 

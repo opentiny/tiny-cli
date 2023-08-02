@@ -5,14 +5,14 @@ import { TProBaseResponseParameter } from './layout.types';
 @Component({
   selector: 't-pro-base-col',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <ng-content></ng-content>
-  `,
-  styles: [`
-    :host.t-pro-base-col {
-      padding: 0;
-    }
-  `]
+  template: ` <ng-content></ng-content> `,
+  styles: [
+    `
+      :host.t-pro-base-col {
+        padding: 0;
+      }
+    `,
+  ],
 })
 export class TProBaseColComponent implements OnInit, OnChanges {
   @HostBinding('class.t-pro-base-col') tProBaseCol = true;
@@ -20,10 +20,7 @@ export class TProBaseColComponent implements OnInit, OnChanges {
   @Input() tProBaseSpan: TProBaseResponseParameter<number | 'auto'> = 'auto';
   @Input() tProBaseOffset: TProBaseResponseParameter<number>;
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-  ) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     updateClassList(this, this.elementRef, this.renderer);

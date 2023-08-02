@@ -9,17 +9,9 @@ import { AuthService } from './auth.service';
 export class AuthGuardService implements CanActivate {
   i18nValues: any;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private translate: TranslateService,
-    private tiMessageService: TiMessageService
-  ) {}
+  constructor(private router: Router, private authService: AuthService, private translate: TranslateService, private tiMessageService: TiMessageService) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.authService.isUserLoggedIn()) {
       this.router.navigate(['pages/login']);
       setTimeout(() => {

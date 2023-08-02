@@ -1,6 +1,6 @@
 {
-  "name": "tiny-pro",
-  "version": "0.0.0",
+  "name": "tiny-pro-ng",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4201",
@@ -22,12 +22,12 @@
     "@angular/router": "^14.0.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "@opentiny/hwc-client": "0.0.12",
+    "@opentiny/hwc-client": "^0.0.14",
     "@opentiny/ng": "^14.0.0-alpha.2",
     "bootstrap": "^5.1.3",
     "color": "^4.2.1",
     "ngx-markdown": "^14.0.1",
-    "rxjs": "^6.6.0",
+    "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

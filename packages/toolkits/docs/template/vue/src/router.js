@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
 import Layout from '@/views/layout/layout.vue';
-import Docs from '@/views/docs/docs.vue';
-import Components from '@/views/components/components.vue';
-import Overview from '@/views/overview.vue';
+
+const Components = () => import('@/views/components/components.vue');
+const Docs = () => import('@/views/docs/docs.vue');
+const Overview = () => import('@/views/overview.vue');
+
 let routes = [
   // 组件总览
   {
     path: import.meta.env.VITE_CONTEXT + 'overview',
     component: Layout,
     name: 'overview',
-    children: [{ path: '', component: Overview, meta: { title: '组件总览 | TinyUI' } }],
+    children: [{ path: '', component: Overview, meta: { title: '组件总览 | TinyVue' } }],
   },
   // 文档
   {
@@ -30,7 +31,7 @@ let routes = [
   {
     path: '/:pathMatch(.*)*',
     redirect: { path: import.meta.env.VITE_CONTEXT + 'overview' },
-  }
+  },
 ];
 const router = createRouter({
   history: createWebHistory(),

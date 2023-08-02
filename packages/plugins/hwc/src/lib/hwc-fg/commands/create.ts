@@ -1,6 +1,10 @@
 import { logs, cliConfig as tinyStageCliConfig } from '@opentiny/cli-devkit';
 import chalk from 'chalk';
-import { getCreateDBConfigQuestions, getCreateQuestions, getCreateRuntimeQuestions } from '../questions';
+import {
+  getCreateDBConfigQuestions,
+  getCreateQuestions,
+  getCreateRuntimeQuestions,
+} from '../questions';
 import { createFg, queryFunctions } from '../services/fg-services';
 import { createDBCfg } from './db-cfg-create';
 import {

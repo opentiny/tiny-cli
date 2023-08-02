@@ -73,7 +73,7 @@ const borderlessChars = borderCharKeys.reduce((charOptions, key) => {
 }, {});
 
 class TablePrompt extends Base<TablePromptOptions> {
-  isFirstRender: boolean = true;
+  isFirstRender = true;
   selectedIndex: number;
   choicesLength: number;
   paginator: Paginator;

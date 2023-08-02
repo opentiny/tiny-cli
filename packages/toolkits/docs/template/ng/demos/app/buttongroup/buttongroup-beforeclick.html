@@ -1,0 +1,15 @@
+<ti-button-group
+  id="buttongroup-beforeclick"
+  [items]="items"
+  [(ngModel)]="selected"
+  (beforeClick)="beforeClickFn1($event)"
+></ti-button-group>
+<br /><br />
+<ti-button-group
+  id="buttongroup-beforeclick-multi"
+  multiple="true"
+  [items]="items1"
+  [(ngModel)]="selected1"
+  (beforeClick)="beforeClickFn2($event)"
+></ti-button-group>
+<demo-log [logs]="myLogs"></demo-log>

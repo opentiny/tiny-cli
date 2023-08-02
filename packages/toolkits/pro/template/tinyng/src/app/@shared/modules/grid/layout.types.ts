@@ -15,14 +15,16 @@ export const TProBaseBreakpointsMap = {
   xl: 1920,
 };
 
-export type TProBaseResponseParameter<T> = T | {
-  ss?: T;
-  ms?: T;
-  mm?: T;
-  ml?: T;
-  xs?: T;
-  sm?: T;
-  md?: T;
-  lg?: T;
-  xl?: T;
-};
+export type TProBaseResponseParameter<T> =
+  | T
+  | {
+      ss?: T;
+      ms?: T;
+      mm?: T;
+      ml?: T;
+      xs?: T;
+      sm?: T;
+      md?: T;
+      lg?: T;
+      xl?: T;
+    };

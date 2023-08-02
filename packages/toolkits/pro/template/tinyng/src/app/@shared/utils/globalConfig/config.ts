@@ -52,7 +52,6 @@ export interface TProBaseGlobalConfig {
   global?: GlobalConfig;
 }
 
-
 export type TProBaseGlobalConfigKey = keyof TProBaseGlobalConfig;
 export type TProBaseGlobalInsideConfigKey = keyof TProBaseGlobalConfig['global'];
 

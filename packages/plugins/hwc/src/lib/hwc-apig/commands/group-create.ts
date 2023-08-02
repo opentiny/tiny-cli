@@ -121,10 +121,7 @@ const bindDomainNamePrompt = async (
   }
 };
 
-export const createApigGroups = async (
-  instanceId?: string,
-  isExit: boolean = true
-) => {
+export const createApigGroups = async (instanceId?: string, isExit = true) => {
   const cliConfig = getTinyProConfigure();
   console.log(chalk.yellow(fmtDashTitle(apigMsg.groupTermBeginCreateApigMsg)));
 
@@ -151,7 +148,9 @@ export const createApigGroups = async (
 
     return result;
   } catch (err) {
-    log.error(`${apigMsg.groupTermCreateErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+    log.error(
+      `${apigMsg.groupTermCreateErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+    );
 
     return null;
   }

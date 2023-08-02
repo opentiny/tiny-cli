@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.tiny.server.dao.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.huawei.tiny.server.dao.Employee">
+        <result column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="employee_no" jdbcType="VARCHAR" property="employeeNo" />
+        <result column="department" jdbcType="VARCHAR" property="department" />
+        <result column="department_level" jdbcType="VARCHAR" property="departmentLevel" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="workbench_name" jdbcType="VARCHAR" property="workbenchName" />
+        <result column="project" jdbcType="VARCHAR" property="project" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="roles" jdbcType="VARCHAR" property="roles" />
+        <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+
+    <sql id="all_column">
+        id, name, employee_no, department, department_level, status, workbench_name, project, type, address, roles, last_update_user
+    </sql>
+
+    <insert id="insert" parameterType="com.huawei.tiny.server.dao.Employee">
+        insert into employee (
+        <include refid="all_column" />
+        )
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        #{employeeNo,jdbcType=VARCHAR},#{department,jdbcType=VARCHAR},
+        #{departmentLevel,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},
+        #{workbenchName,jdbcType=VARCHAR},#{project,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},
+        #{roles,jdbcType=VARCHAR},#{lastUpdateUser,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getEmployees" parameterType="com.huawei.tiny.server.dao.Employee"
+        resultMap="BaseResultMap">
+        select
+        <include refid="all_column" />, create_time
+        from employee <where>
+        <if test="name != null and name != '' ">and name = #{name}</if>
+        <if test="employeeNo != null  and employeeNo != '' ">and employee_no = #{employeeNo}</if>
+        <if test="department != null  and department != '' ">and department = #{department}</if>
+        <if test="departmentLevel != null  and departmentLevel != '' ">and department_level = #{departmentLevel}</if>
+        <if test="status != null  and status != '' ">and status = #{status}</if>
+        <if test="workbenchName != null  and workbenchName != '' ">and workbench_name = #{workbenchName}</if>
+        <if test="project != null  and project != '' ">and project = #{project}</if>
+        <if test="type != null  and type != '' ">and type = #{type}</if>
+        <if test="address != null  and address != '' ">and address = #{address}</if>
+        <if test="roles != null  and roles != '' ">and roles = #{roles}</if>
+    </where>
+        limit  #{pageStart},#{pageSize}
+    </select>
+
+    <select id="getCount" parameterType="com.huawei.tiny.server.dao.Employee"
+            resultType="java.lang.Integer">
+        select count(*) from employee <where>
+        <if test="name != null and name != '' ">and name = #{name}</if>
+        <if test="employeeNo != null  and employeeNo != '' ">and employee_no = #{employeeNo}</if>
+        <if test="department != null  and department != '' ">and department = #{department}</if>
+        <if test="departmentLevel != null  and departmentLevel != '' ">and department_level = #{departmentLevel}</if>
+        <if test="status != null  and status != '' ">and status = #{status}</if>
+        <if test="workbenchName != null  and workbenchName != '' ">and workbench_name = #{workbenchName}</if>
+        <if test="project != null  and project != '' ">and project = #{project}</if>
+        <if test="type != null  and type != '' ">and type = #{type}</if>
+        <if test="address != null  and address != '' ">and address = #{address}</if>
+        <if test="roles != null  and roles != '' ">and roles = #{roles}</if>
+    </where>
+
+    </select>
+
+    <update id="update" parameterType="com.huawei.tiny.server.dao.Employee" >
+        UPDATE
+        employee
+        <set>
+            <if test="name != null and name != '' ">name = #{name},</if>
+            <if test="employeeNo != null  and employeeNo != '' "> employee_no = #{employeeNo},</if>
+            <if test="department != null  and department != '' "> department = #{department},</if>
+            <if test="departmentLevel != null  and departmentLevel != '' "> department_level = #{departmentLevel},</if>
+            <if test="status != null  and status != '' "> status = #{status},</if>
+            <if test="workbenchName != null  and workbenchName != '' "> workbench_name = #{workbenchName},</if>
+            <if test="project != null  and project != '' "> project = #{project},</if>
+            <if test="type != null  and type != '' "> type = #{type},</if>
+            <if test="address != null  and address != '' "> address = #{address},</if>
+            <if test="roles != null  and roles != '' "> roles = #{roles},</if>
+            <if test="lastUpdateUser != null and lastUpdateUser != '' ">last_update_user = #{lastUpdateUser},</if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long" >
+        DELETE FROM
+            employee
+        WHERE
+            id =#{id}
+    </delete>
+
+    <select id="getEmployee" parameterType="java.lang.Long"
+            resultMap="BaseResultMap">
+        select
+        <include refid="all_column" />, create_time
+        from employee where id =#{id}
+    </select>
+
+</mapper>

@@ -3,10 +3,12 @@ type CommonError = {
 };
 
 export function isCommonError(error: unknown): error is CommonError {
-  return typeof error === 'object' &&
+  return (
+    typeof error === 'object' &&
     error !== null &&
     'message' in error &&
-    typeof (error as Record<string, unknown>).message === 'string';
+    typeof (error as Record<string, unknown>).message === 'string'
+  );
 }
 
 export class ErrorUtils {

@@ -12,5 +12,5 @@ export class BucketInfoComponent {
   };
 
   public obsStorageClass: any = ObsStorageClass;
-  public none: string = '--'
+  public none: string = '--';
 }

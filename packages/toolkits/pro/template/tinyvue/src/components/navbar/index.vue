@@ -6,7 +6,7 @@
         <h5 @click="jumpUrl">OpenTiny</h5>
         <div class="divider"></div>
         <img class="vue-icon" alt="logo" src="@/assets/images/pro.png" />
-        <h4>TinyUI Pro of Vue</h4>
+        <h4>TinyPro of Vue</h4>
       </div>
     </div>
     <ul class="right-side">

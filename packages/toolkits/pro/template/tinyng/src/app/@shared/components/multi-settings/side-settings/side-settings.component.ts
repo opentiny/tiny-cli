@@ -3,7 +3,15 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
-import { TProLayoutService, TProLayoutConfig, LEFT_RIGHT_LAYOUT_CONFIG, SIDEBAR_LAYOUT_CONFIG, TOP_NAV_LAYOUT_CONFIG, TProBaseScreenMediaQueryService, SIZE } from '@shared/tiny-pro';
+import {
+  TProLayoutService,
+  TProLayoutConfig,
+  LEFT_RIGHT_LAYOUT_CONFIG,
+  SIDEBAR_LAYOUT_CONFIG,
+  TOP_NAV_LAYOUT_CONFIG,
+  TProBaseScreenMediaQueryService,
+  SIZE,
+} from '@shared/tiny-pro';
 @Component({
   selector: 't-pro-side-settings',
   templateUrl: './side-settings.component.html',
@@ -135,7 +143,7 @@ export class SideSettingsComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
+    this.destroy$.next(null);
     this.destroy$.complete();
   }
 }

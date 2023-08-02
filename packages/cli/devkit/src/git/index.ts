@@ -117,7 +117,7 @@ git.repository = function (cwd?: string) {
       shelljs.exec('git config --get remote.origin.url', { silent: true, cwd }).stdout.toString() || ''
     ).trim();
     // 有些git的url是http开头的，需要格式化为git@格式，方便统一处理
-    const match = repository.match(/^(http|https):\/\/(.*huawei\.com|github\.com)\/(.*)/);
+    const match = repository.match(/^(http|https):\/\/(.*?\.com)\/(.*)/);
     if (match && match.length > 3) {
       repository = `git@${match[2]}:${match[3]}`;
     }

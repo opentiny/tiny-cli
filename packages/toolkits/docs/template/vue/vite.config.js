@@ -12,7 +12,7 @@ import { MdExt, mdInstall } from './md.extend.config';
 
 export default defineConfig({
   envDir: './env',
-  base: '/tiny-ng', // 此处待改为命令
+  base: '/tiny-ng',
   plugins: [
     vue({
       include: [/\.vue$/, /\.md$/],
@@ -20,11 +20,7 @@ export default defineConfig({
     vueJsx({
       include: [/\.js$/, /\.jsx$/, /\.ts$/, /\.tsx$/],
     }),
-    createHtmlPlugin({
-      inject: {
-        data: {},
-      },
-    }),
+    createHtmlPlugin(),
     // 支持md转为vue组件：   https://github.com/antfu/vite-plugin-md#configuration--options
     Markdown({
       headEnabled: true,
@@ -42,7 +38,6 @@ export default defineConfig({
     // 自动导入和项目组件   https://github.com/antfu/unplugin-vue-components#configuration
     AutoComponents({
       resolvers: [NaiveUiResolver()],
-      // 搜索下面目录中的 *.vue  *.md 都做为vue组件
       extensions: ['vue', 'md'],
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     }),
@@ -59,8 +54,9 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 3104,
+    port: 3101,
     fs: {
+      strict: false,
       allow: ['..'],
     },
   },

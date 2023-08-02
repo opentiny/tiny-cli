@@ -27,7 +27,7 @@ export class ContractsComponent {
         label: this.translate.instant(`${ContractsListHeadI18nPrefix}createContract`),
         color: 'danger',
         click: (): void => {
-          this.showModal(this.modal)
+          this.showModal(this.modal);
           this.operation = 'create';
           this.isRefreshTable = false;
         },
@@ -47,20 +47,17 @@ export class ContractsComponent {
   public rowData: any;
   public showModal(content: TemplateRef<any>): void {
     this.tiModal.open(content, {
-      id: 'modal'
+      id: 'modal',
     });
   }
-  
-  constructor(
-    private translate: TranslateService, 
-    private tiModal: TiModalService
-  ) {}
+
+  constructor(private translate: TranslateService, private tiModal: TiModalService) {}
 
   public openHalfModal($event: any): void {
     this.rowData = $event;
     this.operation = 'edit';
     this.isRefreshTable = false;
-    this.showModal(this.modal)
+    this.showModal(this.modal);
   }
 
   public openAlert(): void {

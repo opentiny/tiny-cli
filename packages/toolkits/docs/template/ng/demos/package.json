@@ -1,0 +1,19 @@
+{
+  "name": "@opentiny/ng-tinydoc",
+  "private": false,
+  "version": "1.0.8",
+  "scripts": {
+    "copy": "node ./build/copy.js",
+    "pub": "npm run copy && npm publish --verbose"
+  },
+  "files": [
+    "app",
+    "webdoc",
+    "scripts",
+    "config.js"
+  ],
+  "devDependencies": {
+    "fs-extra": "^10.1.0",
+    "fancy-log": "^2.0.0"
+  }
+}

@@ -15,7 +15,9 @@ module.exports = {
     project: 'tsconfig.json',
   },
   rules: {
-    // eslint规则
+    // 不必要的转义字符，设置为警告。
+    // 在正则表达式中，特殊字符加个转义字符可以增强可读性。比如 /[\*]/ 一眼看过去知道是只是匹配"*"这个字符的. 而/[*]/可能会让人误解为一个通配符。
+    'no-useless-escape': 1,
     'no-case-declarations': 'off',
     'no-fallthrough': 'off',
     'no-underscore-dangle': 'off',

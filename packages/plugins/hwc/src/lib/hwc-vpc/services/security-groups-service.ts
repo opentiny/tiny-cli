@@ -10,31 +10,50 @@ export const createSecurityGroups = async (ans, cliConfig) => {
 
 export const getSecurityGroupId = async (cliConfig) => {
   let securityGroups = await getSecurityGroups(cliConfig);
-  securityGroups = securityGroups.filter(group => group.name === 'default');
+  securityGroups = securityGroups.filter((group) => group.name === 'default');
 
   return securityGroups[0]['id'];
-}
+};
 
 export const setPortToSecurityGroupRules = async (ans, cliConfig) => {
+  let answer = Object.assign({}, ans);
   const securityGroupId = await getSecurityGroupId(cliConfig);
-  const securityGroupRules = await getSecurityGroupRules(cliConfig, securityGroupId);
+  const securityGroupRules = await getSecurityGroupRules(
+    cliConfig,
+    securityGroupId
+  );
 
   // 当指定端口存在时，不做处理
-  if (!securityGroupRules.some(rules => rules.multiport && rules.multiport.match(ans.port) && rules.ethertype === 'IPv4')) {
+  if (
+    !securityGroupRules.some(
+      (rules) =>
+        rules.multiport &&
+        rules.multiport.match(answer.port) &&
+        rules.ethertype === 'IPv4'
+    )
+  ) {
     if (securityGroupRules.length >= SECURITY_GROUP_RULE_LIMIT) {
-      ans.securityGroupRuleLimit = true;
+      answer.securityGroupRuleLimit = true;
 
-      return ans;
+      return answer;
     }
-    ans = await createSecurityGroupRulesForRDS(ans, cliConfig, securityGroupId);
+    answer = await createSecurityGroupRulesForRDS(
+      answer,
+      cliConfig,
+      securityGroupId
+    );
   }
-  ans.securityGroupRuleLimit = false;
-  ans.security_group_id = securityGroupId;
+  answer.securityGroupRuleLimit = false;
+  answer.security_group_id = securityGroupId;
 
-  return ans;
-}
+  return answer;
+};
 
-export const createSecurityGroupRulesForRDS = async (ans, cliConfig, securityGroupId) => {
+export const createSecurityGroupRulesForRDS = async (
+  ans,
+  cliConfig,
+  securityGroupId
+) => {
   ans.protocol = 'tcp';
   ans.ethertype = 'IPv4';
   ans.multiport = ans.port;
@@ -45,7 +64,7 @@ export const createSecurityGroupRulesForRDS = async (ans, cliConfig, securityGro
   await createSecurityGroupRules(ans, cliConfig);
 
   return ans;
-}
+};
 export const getSecurityGroupRules = async (cliConfig, securityGroupId) => {
   const securityGroupRules = await hcloudClient.execJson(
     `hcloud VPC ListSecurityGroupRules/v3 --cli-region="${cliConfig.region.id}"
@@ -53,7 +72,7 @@ export const getSecurityGroupRules = async (cliConfig, securityGroupId) => {
   );
 
   return securityGroupRules.security_group_rules as Array<SecurityGroupRulesInfo>;
-}
+};
 
 export const getSecurityGroups = async (cliConfig) => {
   const securityGroups = await hcloudClient.execJson(
@@ -61,7 +80,7 @@ export const getSecurityGroups = async (cliConfig) => {
   );
 
   return securityGroups.security_groups as Array<SecurityGroupInfo>;
-}
+};
 
 export const createSecurityGroupRules = async (ans, cliConfig) => {
   return hcloudClient.execJson(
@@ -75,12 +94,15 @@ export const createSecurityGroupRules = async (ans, cliConfig) => {
     --security_group_rule.priority="${ans.priority}"
     --security_group_rule.direction="${ans.direction}"`
   );
-}
+};
 
-export const deleteSecurityGroupRule = async (cliConfig, securityGroupRuleId) => {
-  return  hcloudClient.execJson(
+export const deleteSecurityGroupRule = async (
+  cliConfig,
+  securityGroupRuleId
+) => {
+  return hcloudClient.execJson(
     `hcloud VPC DeleteSecurityGroupRule/v3
     --cli-region="${cliConfig.region.id}"
     --security_group_rule_id="${securityGroupRuleId}"`
   );
-}
+};

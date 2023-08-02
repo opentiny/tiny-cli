@@ -58,4 +58,5 @@ export default {
   'baseForm.form.submit.error': '请先完成必填项',
   'baseForm.form.record': '版本记录',
   'baseForm.form.project': '项目类型',
+  'baseForm.form.get.error': '获取数据失败',
 };

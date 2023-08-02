@@ -42,6 +42,7 @@ export default {
   'searchTable.columns.status': 'Status',
   'searchTable.columns.operations': 'Operations',
   'searchTable.columns.operations.view': 'View',
+  'searchTable.columns.operations.delete': 'Delete',
   'searchTable.collapse.restores': 'restores',
   'searchTable.collapse.full': 'Full',
 };

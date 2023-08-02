@@ -26,10 +26,12 @@ import localeContracts from '@/views/cloud/contracts/locale/en-US';
 
 import localeSettings from './en-US/settings';
 
+import localeHttpError from './en-US/httpError';
+
 export default {
   'menu.board': 'Dashboard Page',
-  'menu.home': 'Monitoring page',
-  'menu.work': 'workbench',
+  'menu.board.home': 'Monitoring page',
+  'menu.board.work': 'workbench',
   'menu.list': 'List',
   'menu.result': 'Result',
   'menu.exception': 'Exception',
@@ -62,4 +64,5 @@ export default {
   ...localekanban,
   ...localeHello,
   ...localeContracts,
+  ...localeHttpError,
 };

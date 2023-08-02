@@ -1,7 +1,7 @@
 export default {
   'login.form.mode': '账号密码登录',
   'login.form.mail': '邮箱登录',
-  'login.form.title': '登录 Arco Design Pro',
+  'login.form.title': '登录 Tiny Pro',
   'login.form.userName.errMsg': '用户名不能为空',
   'login.form.password.errMsg': '密码不能为空',
   'login.form.mailName.errMsg': '邮箱名不能为空',
@@ -40,7 +40,7 @@ export default {
   'login.banner.subSlogan3': '实现灵活的区块式开发',
   'login.icon.language': '语言',
   'login.tip.info': '用户名：admin，密码 admin',
-  'login.tip.mail': '用户名：admin@example.com1，密码 admin',
+  'login.tip.mail': "用户名：admin{'@'}example.com，密码 admin",
   'login.tip.right': '请输入正确的用户名密码',
-  'login.main.text': 'TinyUI Pro 中后台前端解决方案',
+  'login.main.text': 'TinyPro 中后台前端解决方案',
 };

@@ -6,10 +6,10 @@ import { Component, HostBinding } from '@angular/core';
   template: '<ng-content></ng-content>',
   styles: [
     `
-    :host.t-pro-basic-header {
-      flex: 0 0 auto;
-    }
-    `
+      :host.t-pro-basic-header {
+        flex: 0 0 auto;
+      }
+    `,
   ],
 })
 export class HeaderBasicComponent {

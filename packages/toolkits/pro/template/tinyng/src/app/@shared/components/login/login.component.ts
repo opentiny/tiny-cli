@@ -115,9 +115,7 @@ export class LoginComponent implements OnInit {
   }
 
   onClick(tabId: string | number) {
-    const errors: ValidationErrors | null = TiValidators.check(
-      tabId === 'accountTab' ? this.userNameForm : this.emailForm
-    );
+    const errors: ValidationErrors | null = TiValidators.check(tabId === 'accountTab' ? this.userNameForm : this.emailForm);
     // 整体校验后如果需要聚焦到第一个校验不通过元素，请参考以下代码
     if (errors) {
       // 注意：要保证fb.group时各个FormControl的顺序与对应表单元素dom放置顺序一致
@@ -126,12 +124,8 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const account =
-      tabId === 'accountTab' ? this.userNameForm.controls.userAccount.value : this.emailForm.controls.userEmail.value;
-    const password =
-      tabId === 'accountTab'
-        ? this.userNameForm.controls.userAccountPassword.value
-        : this.emailForm.controls.userEmailPassword.value;
+    const account = tabId === 'accountTab' ? this.userNameForm.controls.userAccount.value : this.emailForm.controls.userEmail.value;
+    const password = tabId === 'accountTab' ? this.userNameForm.controls.userAccountPassword.value : this.emailForm.controls.userEmailPassword.value;
 
     this.authService.login(account, password).subscribe(
       (res) => {
@@ -139,10 +133,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       },
       (error) => {
-        this.toastMessage =
-          tabId === 'accountTab'
-            ? this.i18nValues['noticeMessage']['accountContent']
-            : this.i18nValues['noticeMessage']['emailContent'];
+        this.toastMessage = tabId === 'accountTab' ? this.i18nValues['noticeMessage']['accountContent'] : this.i18nValues['noticeMessage']['emailContent'];
         this.typePrompt = 'error';
         this.alertOpen = true;
       }

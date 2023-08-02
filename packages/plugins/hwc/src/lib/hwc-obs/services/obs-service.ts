@@ -19,7 +19,9 @@ export const isBucketExist = (obsClient: any, bucketName: string) => {
       return true;
     })
     .catch((err: any) => {
-      log.error(`${obsMsg.obsTermheadBucketErrMsg}： ${ErrorUtils.getErrorMessage(err)}`);
+      log.error(
+        `${obsMsg.obsTermheadBucketErrMsg}： ${ErrorUtils.getErrorMessage(err)}`
+      );
 
       throw err;
     });
@@ -45,7 +47,9 @@ export const createBucket = (
     })
     .catch((err: any) => {
       // 此处只记录Err，不抛出异常，以免外部重复打印错误
-      log.error(`${obsMsg.obsTermCreateErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+      log.error(
+        `${obsMsg.obsTermCreateErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+      );
     });
 };
 
@@ -75,7 +79,9 @@ export const getBucketsList = (obsClient: any) => {
     })
     .catch((err: any) => {
       // 此处只记录Err，不抛出异常，以免外部重复打印错误
-      log.error(`${obsMsg.obsTermGetListErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+      log.error(
+        `${obsMsg.obsTermGetListErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+      );
     });
 };
 
@@ -94,6 +100,8 @@ export const getBucketMetadata = (obsClient: any, bucketName: string) => {
     })
     .catch((err: any) => {
       // 此处只记录Err，不抛出异常，以免外部重复打印错误
-      log.error(`${obsMsg.obsTermGetListErrMsg}：${ErrorUtils.getErrorMessage(err)}`);
+      log.error(
+        `${obsMsg.obsTermGetListErrMsg}：${ErrorUtils.getErrorMessage(err)}`
+      );
     });
 };

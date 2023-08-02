@@ -1,7 +1,19 @@
-import { mergeConfig } from 'vite';
+import { mergeConfig, loadEnv } from 'vite';
 import eslint from 'vite-plugin-eslint';
-import baseConig from './vite.config.base';
+import baseConfig from './vite.config.base';
 
+const proxyConfig = {
+  [loadEnv('', process.cwd()).VITE_BASE_API]: {
+    target: loadEnv('', process.cwd()).VITE_SERVER_HOST,
+    changeOrigin: true,
+    logLevel: 'debug',
+    rewrite: (path) =>
+      path.replace(
+        new RegExp(`${loadEnv('', process.cwd()).VITE_BASE_API}`),
+        ''
+      ),
+  },
+};
 export default mergeConfig(
   {
     mode: 'development',
@@ -10,6 +22,9 @@ export default mergeConfig(
       fs: {
         strict: true,
       },
+      proxy: {
+        ...proxyConfig,
+      },
     },
     plugins: [
       eslint({
@@ -17,16 +32,6 @@ export default mergeConfig(
         exclude: ['node_modules'],
       }),
     ],
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vue: ['vue', 'vue-router', 'pinia', '@vueuse/core', 'vue-i18n'],
-          },
-        },
-      },
-      chunkSizeWarningLimit: 2000,
-    },
   },
-  baseConig
+  baseConfig
 );

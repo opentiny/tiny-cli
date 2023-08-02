@@ -1,18 +1,10 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Input,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { TProBaseBadgePositionType, TProBaseBadgeStatusType } from './badge.types';
-
 
 @Component({
   selector: 't-pro-base-badge',
   templateUrl: './badge.component.html',
-  styleUrls: ['./badge.component.scss']
+  styleUrls: ['./badge.component.scss'],
 })
 export class TProBaseBadgeComponent implements AfterViewInit {
   hasContent = true;
@@ -49,7 +41,7 @@ export class TProBaseBadgeComponent implements AfterViewInit {
   }
 
   parseCountToNumber() {
-    if(typeof(this.count) === 'number') {
+    if (typeof this.count === 'number') {
       return this.count;
     } else {
       const parseNumber = parseInt(this.count, 10);
@@ -57,13 +49,10 @@ export class TProBaseBadgeComponent implements AfterViewInit {
     }
   }
 
-  constructor(
-    private cdr: ChangeDetectorRef,
-  ) { }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
     this.hasContentProjection();
     this.cdr.detectChanges();
   }
-
 }

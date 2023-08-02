@@ -161,12 +161,14 @@ class HCloudClient {
   // 期望返回的是一个Json时
   execJson(command: string) {
     return new Promise<any>((resolve) => {
-      this.exec(command).then((res) => {
-        res ? resolve(JSON.parse(res)) : resolve(res);
-      }).catch((res) => {
-        log.error(res);
-        process.exit(1);
-      });
+      this.exec(command)
+        .then((res) => {
+          res ? resolve(JSON.parse(res)) : resolve(res);
+        })
+        .catch((res) => {
+          log.error(res);
+          process.exit(1);
+        });
     });
   }
 

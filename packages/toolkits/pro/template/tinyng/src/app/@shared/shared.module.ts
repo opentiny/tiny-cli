@@ -51,7 +51,7 @@ import {
   TiTreeselectModule,
   TiUploadModule,
   TiValidationModule,
-  TiHalfmodalModule
+  TiHalfmodalModule,
 } from '@opentiny/ng';
 
 import {
@@ -63,7 +63,7 @@ import {
   TProBaseBadgeModule,
   TProBaseProgressModule,
   TProBaseDropDownModule,
-  TProBaseWindowRefModule
+  TProBaseWindowRefModule,
 } from './modules';
 import {
   PersonalizeConfigComponent,
@@ -81,7 +81,7 @@ import {
   SideMenuComponent,
   RegisterComponent,
   HeaderNoticeComponent,
-  HelpTipComponent
+  HelpTipComponent,
 } from './components';
 
 import { TProTranslatePipe } from './locale/t-pro-translate.pipe';
@@ -102,7 +102,7 @@ const COMPONENTS = [
   RegisterComponent,
   SideMenuComponent,
   SideSettingsComponent,
-  HelpTipComponent
+  HelpTipComponent,
 ];
 
 // 引入Tiny3相关module
@@ -153,7 +153,7 @@ const TINY_MODULES = [
   TiIntroServiceModule,
   TiLoadingModule,
   TiIconModule,
-  TiHalfmodalModule
+  TiHalfmodalModule,
 ];
 
 const PIPES = [TProTranslatePipe];
@@ -176,7 +176,7 @@ const PIPES = [TProTranslatePipe];
     TProBaseLayoutModule,
     TProBaseGridModule,
     TProBaseTagsModule,
-    ...TINY_MODULES
+    ...TINY_MODULES,
   ],
   exports: [
     CommonModule,
@@ -197,15 +197,15 @@ const PIPES = [TProTranslatePipe];
     TProBaseTagsModule,
     ...TINY_MODULES,
     ...COMPONENTS,
-    ...PIPES
+    ...PIPES,
   ],
-  providers: [...PIPES]
+  providers: [...PIPES],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
-      providers: []
+      providers: [],
     };
   }
 }

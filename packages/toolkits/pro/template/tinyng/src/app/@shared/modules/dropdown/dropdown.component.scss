@@ -1,5 +1,3 @@
-
-
 .cdk-overlay-container,
 .cdk-global-overlay-wrapper {
   pointer-events: none;
@@ -147,15 +145,15 @@
   outline: none;
 }
 
-.open>.t-pro-base-dropdown-menu {
+.open > .t-pro-base-dropdown-menu {
   display: block;
 }
 
-.t-pro-base-dropdown-menu>li {
+.t-pro-base-dropdown-menu > li {
   position: relative;
 }
 
-.t-pro-base-dropdown-menu>li>a {
+.t-pro-base-dropdown-menu > li > a {
   height: 36px;
   padding: 0 10px;
   cursor: pointer;
@@ -164,17 +162,17 @@
   text-decoration: none;
 }
 
-.t-pro-base-dropdown-menu li>input {
+.t-pro-base-dropdown-menu li > input {
   margin: 0 10px;
 }
 
-.t-pro-base-dropdown-menu>.disabled>a {
+.t-pro-base-dropdown-menu > .disabled > a {
   color: #adb0b8;
   cursor: not-allowed;
 }
 
-.t-pro-base-dropdown-menu>.disabled>a:hover,
-.t-pro-base-dropdown-menu>.disabled>a:focus {
+.t-pro-base-dropdown-menu > .disabled > a:hover,
+.t-pro-base-dropdown-menu > .disabled > a:focus {
   cursor: not-allowed;
 }
 
@@ -198,7 +196,7 @@
   color: var(--ti-base-color-brand-7);
 }
 
-.cdk-overlay-pane>div>.t-pro-base-dropdown-menu {
+.cdk-overlay-pane > div > .t-pro-base-dropdown-menu {
   position: relative;
   top: 0; // initial; ie11不认识initial
   left: 0; //initial;
@@ -206,7 +204,6 @@
 }
 
 .t-pro-base-dropdown span {
-
   &.icon-chevron-down,
   &.icon-select-arrow {
     display: inline-block;
@@ -215,7 +212,6 @@
 }
 
 .t-pro-base-dropdown-animation span {
-
   &.icon-chevron-down,
   &.icon-select-arrow {
     transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -223,7 +219,6 @@
 }
 
 .t-pro-base-dropdown.open span {
-
   &.icon-chevron-down,
   &.icon-select-arrow {
     transform: rotate(180deg);

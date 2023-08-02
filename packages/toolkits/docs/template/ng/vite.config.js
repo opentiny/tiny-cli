@@ -12,6 +12,7 @@ import { MdExt, mdInstall } from './md.extend.config';
 
 export default defineConfig({
   envDir: './env',
+  base: '/tiny-ng',
   plugins: [
     vue({
       include: [/\.vue$/, /\.md$/],
@@ -19,12 +20,7 @@ export default defineConfig({
     vueJsx({
       include: [/\.js$/, /\.jsx$/, /\.ts$/, /\.tsx$/],
     }),
-    createHtmlPlugin({
-      inject: {
-        data: {
-        },
-      },
-    }),
+    createHtmlPlugin(),
     // 支持md转为vue组件：   https://github.com/antfu/vite-plugin-md#configuration--options
     Markdown({
       headEnabled: true,
@@ -46,12 +42,14 @@ export default defineConfig({
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     }),
   ],
-  base: '/tiny-ng/', // TODO: 此处待修改为命令行
+  define: {
+    'process.env': { ...process.env },
+  },
   resolve: {
     alias: {
       '@': path.resolve('src'),
-      '@demos': path.resolve('node_modules/@huawei/tinydoc-ng-tiny'),
-      '@style.css': path.resolve('node_modules/@huawei/tinydoc-ng-tiny/scripts/assets/theme/basic-var.min.css'),
+      '@demos': path.resolve('demos'),
+      '@style.css': path.resolve('demos/scripts/styles.css'),
       '@demo': path.resolve('src/views/components/demo.vue'),
     },
   },
@@ -59,6 +57,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3101,
     fs: {
+      strict: false,
       allow: ['..'],
     },
   },

@@ -16,8 +16,4 @@ export const CustomStyle = [
 ];
 
 // 自定义主题下部分显示字体颜色设置为#fff
-export const textWhiteStyle = [
-  '--ti-button-default-color-active',
-  '--ti-leftmenu-item-selected-text-color',
-  '--ti-leftmenu-item-text-color-hover',
-];
+export const textWhiteStyle = ['--ti-button-default-color-active', '--ti-leftmenu-item-selected-text-color', '--ti-leftmenu-item-text-color-hover'];

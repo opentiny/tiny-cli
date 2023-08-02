@@ -7,7 +7,6 @@ import { CliOption } from './interfaces';
 const log = logs('<%=pluginName%>');
 const cwd = process.cwd();
 
-
 export default function (options?: CliOption) {
   log.info('控制台输入的参数为： %o', options.clientArgs);
   log.info('控制台输入的选项为： %o', options.clientOptions);
@@ -18,10 +17,11 @@ export default function (options?: CliOption) {
   }
 
   log.info('项目打包中...');
-  const cli = spawn('./node_modules/.bin/webpack', [
-    '--config',
-    './webpack.config.js'
-  ], { stdio: 'inherit' });
+  const cli = spawn(
+    './node_modules/.bin/webpack',
+    ['--config', './webpack.config.js'],
+    { stdio: 'inherit' }
+  );
 
   cli.on('close', (status) => {
     if (status === 0) {
@@ -30,4 +30,4 @@ export default function (options?: CliOption) {
       log.error('打包失败', status);
     }
   });
-};
+}

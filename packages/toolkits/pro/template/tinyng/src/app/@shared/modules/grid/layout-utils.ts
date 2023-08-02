@@ -4,7 +4,7 @@ import { TProBaseBreakpoint, TProBaseBreakpoints, TProBaseResponseParameter } fr
 function isResponseValue(value: TProBaseResponseParameter<any>) {
   let flag = false;
   if (typeof value === 'object') {
-    TProBaseBreakpoints.forEach(point => {
+    TProBaseBreakpoints.forEach((point) => {
       if (value[point]) {
         flag = true;
       }
@@ -16,7 +16,7 @@ function isResponseValue(value: TProBaseResponseParameter<any>) {
 function runResponse(value: TProBaseResponseParameter<any>, func: (point: TProBaseBreakpoint, value: any) => void) {
   if (value || value === 0) {
     if (isResponseValue(value)) {
-      TProBaseBreakpoints.forEach(point => {
+      TProBaseBreakpoints.forEach((point) => {
         if (value[point] || value[point] === 0) {
           func(point, value[point]);
         }
@@ -64,14 +64,14 @@ function pointAndValueMapToClassName(paramName: string, classList: Array<string>
 
 export function updateClassList(context: any, elementRef: ElementRef, renderer: Renderer2) {
   /**
-    * [tProBaseCols]作用在t-pro-base-row
-    * [tProBaseSpan]、[tProBaseOffset]作用在t-pro-base-col
-    * [tProBaseAlign]、[tProBaseJustify]、[tProBaseAlignSelf]、[tProBaseOrder]作用在[tProBaseFlex]
+   * [tProBaseCols]作用在t-pro-base-row
+   * [tProBaseSpan]、[tProBaseOffset]作用在t-pro-base-col
+   * [tProBaseAlign]、[tProBaseJustify]、[tProBaseAlignSelf]、[tProBaseOrder]作用在[tProBaseFlex]
    */
   const classParamsName = ['tProBaseCols', 'tProBaseSpan', 'tProBaseOffset', 'tProBaseAlign', 'tProBaseJustify', 'tProBaseAlignSelf', 'tProBaseOrder'];
 
   const tempClassList: Array<string> = [];
-  classParamsName.forEach(paramName => {
+  classParamsName.forEach((paramName) => {
     if (context[paramName] || context[paramName] === 0) {
       runResponse(context[paramName], pointAndValueMapToClassName.bind(context, paramName, tempClassList));
     }

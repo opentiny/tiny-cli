@@ -21,11 +21,17 @@ export class TProBaseDropDownMenuDirective implements OnInit, OnDestroy {
   keydownEscapeSub: Subscription;
   popDirectionCache: 'top' | 'bottom';
   private currentValue: any = false;
-  constructor(@Host() private dropdown: TProBaseDropDownDirective, private el: ElementRef, private render: Renderer2,
-              private windowRef: TProBaseWindowRef, private builder: AnimationBuilder, @Inject(DOCUMENT) private doc: any) {
+  constructor(
+    @Host() private dropdown: TProBaseDropDownDirective,
+    private el: ElementRef,
+    private render: Renderer2,
+    private windowRef: TProBaseWindowRef,
+    private builder: AnimationBuilder,
+    @Inject(DOCUMENT) private doc: any
+  ) {
     this.keydownEscapeEvent$ = fromEvent(this.doc.body, 'keydown').pipe(
       // chrome 为 Escape , ie 11为Esc
-      filter(event => (<KeyboardEvent>event).key === 'Escape' || (<KeyboardEvent>event).key === 'Esc')
+      filter((event) => (<KeyboardEvent>event).key === 'Escape' || (<KeyboardEvent>event).key === 'Esc')
     );
   }
 
@@ -48,7 +54,8 @@ export class TProBaseDropDownMenuDirective implements OnInit, OnDestroy {
           this.render.setStyle(this.el.nativeElement, 'display', 'block'); // 立马生效不等host binding绑定
           this.display = 'block';
         }
-        if (this.player) { // 此处保留一个防止点击过快
+        if (this.player) {
+          // 此处保留一个防止点击过快
           this.player.finish();
         }
         if (this.dropdown.showAnimation) {
@@ -116,21 +123,24 @@ export class TProBaseDropDownMenuDirective implements OnInit, OnDestroy {
   @HostListener('mouseleave', ['$event'])
   public mouseLeave(event: MouseEvent) {
     event.stopPropagation();
-    if ((this.dropdown.appendToBody && this.dropdown.trigger === 'hover')
-      || (this.dropdown.trigger === 'click' && this.dropdown.closeOnMouseLeaveMenu)) {
-      if (this.dropdown.toggleEl?.nativeElement.contains(event.relatedTarget)
-        || this.dropdown.dropdownChildren.some(children =>
-          children.menuEl !== this.el
-            && children.menuEl?.nativeElement.parentElement?.contains(event.relatedTarget))) {
+    if ((this.dropdown.appendToBody && this.dropdown.trigger === 'hover') || (this.dropdown.trigger === 'click' && this.dropdown.closeOnMouseLeaveMenu)) {
+      if (
+        this.dropdown.toggleEl?.nativeElement.contains(event.relatedTarget) ||
+        this.dropdown.dropdownChildren.some(
+          (children) => children.menuEl !== this.el && children.menuEl?.nativeElement.parentElement?.contains(event.relatedTarget)
+        )
+      ) {
         return;
       } else {
         if (this.dropdown.trigger === 'hover') {
           this.dropdown.simulateEventDispatch(event);
         } else {
           const relatedTarget = (event as any)['originEvent'] && (event as any)['originEvent'].relatedTarget;
-          if (relatedTarget && (this.dropdown.toggleEl?.nativeElement.contains(relatedTarget) ||
-            this.dropdown.dropdownChildren.some(children => children.menuEl?.nativeElement.contains(relatedTarget))
-          )) {
+          if (
+            relatedTarget &&
+            (this.dropdown.toggleEl?.nativeElement.contains(relatedTarget) ||
+              this.dropdown.dropdownChildren.some((children) => children.menuEl?.nativeElement.contains(relatedTarget)))
+          ) {
             return;
           }
           this.dropdown.isOpen = false;
@@ -142,19 +152,17 @@ export class TProBaseDropDownMenuDirective implements OnInit, OnDestroy {
 
   private fadeIn(direction: any): AnimationMetadata[] {
     switch (direction) {
-    case 'top':
-      return [
-        style({transform: 'scaleY(0.8) translateY(4px)', opacity: 0.8, transformOrigin: '0% 100%'}),
-        animate(`200ms ${AnimationCurves.EASE_IN}`,
-          style({transform: 'scaleY(0.9999) translateY(0)', opacity: 1, transformOrigin: '0% 100%'})),
-      ];
-    case 'bottom':
-    default:
-      return [
-        style({transform: 'scaleY(0.8)  translateY(-4px)', opacity: 0.8, transformOrigin: '0% 0%'}),
-        animate(`200ms ${AnimationCurves.EASE_OUT}`,
-          style({transform: 'scaleY(0.9999)  translateY(0)', opacity: 1, transformOrigin: '0% 0%'})),
-      ];
+      case 'top':
+        return [
+          style({ transform: 'scaleY(0.8) translateY(4px)', opacity: 0.8, transformOrigin: '0% 100%' }),
+          animate(`200ms ${AnimationCurves.EASE_IN}`, style({ transform: 'scaleY(0.9999) translateY(0)', opacity: 1, transformOrigin: '0% 100%' })),
+        ];
+      case 'bottom':
+      default:
+        return [
+          style({ transform: 'scaleY(0.8)  translateY(-4px)', opacity: 0.8, transformOrigin: '0% 0%' }),
+          animate(`200ms ${AnimationCurves.EASE_OUT}`, style({ transform: 'scaleY(0.9999)  translateY(0)', opacity: 1, transformOrigin: '0% 0%' })),
+        ];
     }
   }
 
@@ -164,19 +172,23 @@ export class TProBaseDropDownMenuDirective implements OnInit, OnDestroy {
 
   private fadeOut(direction: any): AnimationMetadata[] {
     switch (direction) {
-    case 'top':
-      return [
-        style({transform: 'scaleY(0.9999)  translateY(0)', opacity: 1, transformOrigin: '0% 100%'}),
-        animate(`${AnimationDuration.BASE} ${AnimationCurves.EASE_IN}`,
-          style({transform: 'scaleY(0.8)  translateY(4px)', opacity: 0.8, transformOrigin: '0% 100%'}))
-      ];
-    case 'bottom':
-    default:
-      return [
-        style({transform: 'scaleY(0.9999)  translateY(0)', opacity: 1, transformOrigin: '0% 0%'}),
-        animate(`${AnimationDuration.BASE} ${AnimationCurves.EASE_IN}`,
-          style({transform: 'scaleY(0.8)  translateY(-4px)', opacity: 0.8, transformOrigin: '0% 0%'}))
-      ];
+      case 'top':
+        return [
+          style({ transform: 'scaleY(0.9999)  translateY(0)', opacity: 1, transformOrigin: '0% 100%' }),
+          animate(
+            `${AnimationDuration.BASE} ${AnimationCurves.EASE_IN}`,
+            style({ transform: 'scaleY(0.8)  translateY(4px)', opacity: 0.8, transformOrigin: '0% 100%' })
+          ),
+        ];
+      case 'bottom':
+      default:
+        return [
+          style({ transform: 'scaleY(0.9999)  translateY(0)', opacity: 1, transformOrigin: '0% 0%' }),
+          animate(
+            `${AnimationDuration.BASE} ${AnimationCurves.EASE_IN}`,
+            style({ transform: 'scaleY(0.8)  translateY(-4px)', opacity: 0.8, transformOrigin: '0% 0%' })
+          ),
+        ];
     }
   }
 }

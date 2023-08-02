@@ -26,10 +26,12 @@ import localeContracts from '@/views/cloud/contracts/locale/zh-CN';
 
 import localeSettings from './zh-CN/settings';
 
+import localeHttpError from './zh-CN/httpError';
+
 export default {
   'menu.board': '看板',
-  'menu.home': '监控页',
-  'menu.work': '工作台',
+  'menu.board.home': '监控页',
+  'menu.board.work': '工作台',
   'menu.list': '列表页',
   'menu.result': '结果页',
   'menu.exception': '异常页',
@@ -62,4 +64,5 @@ export default {
   ...localekanban,
   ...localeHello,
   ...localeContracts,
+  ...localeHttpError,
 };

@@ -1,87 +1,89 @@
 # Tiny CLI
 
-> Tiny CLI是前端工程化命令行工具
+English | [简体中文](README.zh-CN.md)
 
-[Tiny CLI官网](https://opentiny.design/tiny-cli/home)
+> Tiny CLI is a powerful front-end engineering command line tool.
+
+[Tiny CLI Website](https://opentiny.design/tiny-cli/home)
 
 
 ## Installation
 
-打开git bash、zsh等命令行工具，输入如下命令后回车：
+Open git bash, zsh, and other command-line tools, type the following command, and press Enter：
 
 ```bash
-npm i @opentiny/cli npminstall@3 -g
+$ npm i @opentiny/cli -g
 ```
 
-等待片刻，待安装完成之后在终端执行 `$ tiny -v`，正常返回版本信息，表示安装成功。
+Wait for a while. After the installation is complete, run `$tiny -v` on the terminal. If the version information is displayed, the installation is successful.
 
-注意：tiny-cli 依赖 nodejs(12.x以上) 、 npm 环境，在安装tiny时，请确保本机已安装了nodejs和npm
+Note: tiny-cli depends on the nodejs (12.x or later) and npm environments. Before installing Tiny CLI, ensure that nodejs and npm have been installed on the local host.
 
 ## Docs
 
-* [CLI工具设计文档](docs/tool-design.md)
-* 使用者文档
-	* [tiny-cli介绍](docs/use-summary.md)
-	* [安装tiny-cli](docs/use-install.md)
-	* [tiny-cli基础命令详解](docs/use-cli.md)
-	* [使用tiny-cli套件](docs/use-toolkit.md)
-	* [使用tiny-cli插件](docs/use-plugin.md)
-	* [tiny-cli配置文件](docs/use-config.md)
-* 开发者文档
+* [CLI Tool Design Document](docs/tool-design.md)
+* User Documentation
+	* [Introduction to tiny-cli](docs/use-summary.md)
+	* [Install tiny-cli](docs/use-install.md)
+	* [Basic commands of tiny-cli](docs/use-cli.md)
+	* [Using the tiny-cli toolkit](docs/use-toolkit.md)
+	* [Using the tiny-cli plugin](docs/use-plugin.md)
+	* [tiny-cli configuration file](docs/use-config.md)
+* Developer Documentation
 	* [tiny-cli API](docs/api.md)
-	* [套件开发指南](docs/dev-toolkit.md)
-	* [插件开发指南](docs/dev-plugin.md)
+	* [Toolkit development guide](docs/dev-toolkit.md)
+	* [Plugin development guide](docs/dev-plugin.md)
 
 ## Usage
 
-可在终端输入`$ tiny -h` 查看tiny使用帮助
+You can enter `$tiny -h` on the terminal to view the Tiny Help.
 
 ```bash
- tiny 使用帮助:  $ tiny [command] [options]
+ tiny help info:  $ tiny [command] [options]
 
-    $  tiny                     显示tiny帮助信息,若目录下有使用的套件,则会同时显示套件的帮助信息
-    $  tiny init [toolkitName]  初始化套件
-    $  tiny update [name]       更新tiny模块
-    $  tiny list [type]         插件列表
-    $  tiny i                   安装npm模块
-    $  tiny clear               清空 tiny 的本地缓存
-    $  tiny help                显示套件帮助信息
-    $  tiny [name]              其他调用插件命令
+    $  tiny                     The help information is displayed. If a toolkit is used in the directory, the help information of the toolkit is also displayed.
+    $  tiny init [toolkitName]  Initialization Kit
+    $  tiny update [name]       Update module
+    $  tiny list [type]         Plug-in list
+    $  tiny i                   Installing the NPM Module
+    $  tiny clear               Clear the local cache of Tiny.
+    $  tiny help                Displays suite help information.
+    $  tiny [name]              Other Invoking Plug-in Commands
 
    Options:
 
-     -h, --help                显示tiny帮助信息
-     -v, --version             显示tiny版本
+     -h, --help                Displays help information.
+     -v, --version             Show Tiny Version
 
 
- 提示:
-   套件 - 若想查看项目中所使用的套件帮助信息,请在项目根目录执行该命令.
-   插件 - 若想查看插件的帮助信息,请使用 tiny [name] help 命令, eg : tiny git help
+  Hint:
+		Toolkits - To view help information about toolkits used in your project, execute this command in the project root directory.
+		Plugins - To view the help information about the plugin, run the tiny [name] help command, for example, tiny git help.
 ```
 
 ### Quick start
 
-以 `@opentiny/tiny-toolkit-dev` 套件为例，讲解开发流程。
+The `@opentiny/tiny-toolkit-dev` toolkit is used as an example to describe the development process.
 
 
-1. 初始化项目
+1. Initializing a project
 
 	```bash
-	# 创建并进入项目文件夹
+	# Create and enter the project folder
 	$ mkdir my-project && cd $_
 	
-	# 初始化dev的开发环境
+	# Initializing the Dev Development Environment
 	$ tiny init dev
 	```
 	
-3. 开启本地环境
+3. Enable the local environment.
 
 	```bash
-	# 开启dev的开发环境
+	# Enabling the Dev Development Environment
 	$ tiny start
 	```
 
-4. 项目编译及打包
+4. Compile and package the project.
 
 	```bash
 	$ tiny build
@@ -93,36 +95,57 @@ npm i @opentiny/cli npminstall@3 -g
 
 ## Support
 
-开发及使用过程中的问题，可以在代码仓库新建issue
+If problems occur during development and use, create issues in the code repository.
 
-## 开发文档
+## Development Document
 
-### 前置条件
+### Prerequisites
 
-* 确保已安装lerna，未安装可执行命令: `npm install --global lerna`
-* 确保node版本在v12.x及以上
+* Ensure that lerna has been installed: `npm install --global lerna`
+* Ensure that the node version is v12.x or later.
 
-### 本地开发调试命令
+### Local Development and Debugging Commands
 
-首次：`npm run init`
-开发：`npm run dev`
-构建：`npm run build`
-本地验证: `npm run link`
+Initialize：`npm run init`
+Development：`npm run dev`
+Build：`npm run build`
+Verify: `npm run link`
 
-### 构建流程
+### Build Process
 
-根目录执行`npm run build`即可，会打包出lib目录和dist目录。
+Run the `npm run build` command in the root directory. The lib and dist directories are packed.
 
 
-## 参与贡献
+## Participating in contributions
 
-如果你对我们的开源项目感兴趣，欢迎加入我们！
+If you are interested in our open source project, please join us!
 
-参与贡献之前请先阅读[贡献指南](CONTRIBUTING.md)。
+Please read [Contribution Guide] (CONTRIBUTING.md) before participating in a contribution.
 
-- 添加官方小助手微信 opentiny，加入技术交流群
-- 加入邮件列表 opentiny@googlegroups.com
+- Add the official assistant WeChat `opentiny-official` and join the technical exchange group.
+- Join the mailing list opentiny@googlegroups.com
 
-## 开源协议
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fengyon"><img src="https://avatars.githubusercontent.com/u/84690330?v=4?s=100" width="100px;" alt="fengyon"/><br /><sub><b>fengyon</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=fengyon" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/howling-wind"><img src="https://avatars.githubusercontent.com/u/119645349?v=4?s=100" width="100px;" alt="qihe"/><br /><sub><b>qihe</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=howling-wind" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## License
 
 [MIT](LICENSE)

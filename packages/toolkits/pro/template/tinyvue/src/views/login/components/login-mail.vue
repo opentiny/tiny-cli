@@ -116,9 +116,9 @@
       setLoading(true);
 
       try {
-        await userStore.loginMain({
-          mailname: loginMail.mailname,
-          mailpassword: loginMail.mailpassword,
+        await userStore.login({
+          username: loginMail.mailname,
+          password: loginMail.mailpassword,
         });
         Modal.message({
           message: t('login.form.login.success'),

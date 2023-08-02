@@ -1,0 +1,34 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "fengyon",
+      "name": "fengyon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/84690330?v=4",
+      "profile": "https://github.com/fengyon",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "howling-wind",
+      "name": "qihe",
+      "avatar_url": "https://avatars.githubusercontent.com/u/119645349?v=4",
+      "profile": "https://github.com/howling-wind",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "tiny-cli",
+  "projectOwner": "opentiny"
+}

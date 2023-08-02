@@ -19,7 +19,7 @@
             </li>
             <li>
               <span>{{ $t('userInfo.table.columnD') }}：</span>
-              <span>{{ $t(`${data.row.statue}`) }}</span>
+              <span>{{ $t(`${data.row.status}`) }}</span>
             </li>
           </ul>
         </template>
@@ -37,9 +37,9 @@
           <span>{{ $t(`${data.row.type}`) }}</span>
         </template>
       </tiny-grid-column>
-      <tiny-grid-column field="statue" :title="$t('userInfo.table.columnD')">
+      <tiny-grid-column field="status" :title="$t('userInfo.table.columnD')">
         <template #default="data">
-          <span>{{ $t(`${data.row.statue}`) }}</span>
+          <span>{{ $t(`${data.row.status}`) }}</span>
         </template>
       </tiny-grid-column>
     </tiny-grid>

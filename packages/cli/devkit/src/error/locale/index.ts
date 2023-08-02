@@ -16,7 +16,7 @@
 export default {
   zh: {
     // handle-default.js
-    intranetTips: '运行报错, 请在issue中反馈问题：https://codehub-g.huawei.com/Tiny/opentiny/opentiny-cli/issues/new',
+    intranetTips: '运行报错, 请在issue中反馈问题：https://github.com/opentiny/tiny-cli/issues/new',
     winPidTips: `   # 看下是哪个PID占用的端口
    $ lsof -i :{port}
    # 杀进程
@@ -47,7 +47,7 @@ export default {
   en: {
     // handle-default.js
     intranetTips:
-      'Runtime Error, please report the issue: https://codehub-g.huawei.com/Tiny/opentiny/opentiny-cli/issues/new',
+      'Runtime Error, please report the issue: https://github.com/opentiny/tiny-cli/issues/new',
     winPidTips: `   # Look up for the PID which occupies the port
    $ lsof -i :{port}
    # Kill process

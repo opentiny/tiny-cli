@@ -6,16 +6,16 @@ import { AsideComponent } from './elements/aside.component';
   template: '<ng-content></ng-content>',
   styles: [
     `
-    :host.t-pro-basic-layout {
-      display: flex;
-      flex: auto;
-      flex-direction: column;
+      :host.t-pro-basic-layout {
+        display: flex;
+        flex: auto;
+        flex-direction: column;
 
-      &-aside {
-        flex-direction: row;
+        &-aside {
+          flex-direction: row;
+        }
       }
-    }
-    `
+    `,
   ],
 })
 export class LayoutComponent {

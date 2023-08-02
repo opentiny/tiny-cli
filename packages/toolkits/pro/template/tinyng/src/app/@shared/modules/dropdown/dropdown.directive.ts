@@ -1,9 +1,22 @@
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
-  AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, Inject, Input,
-  OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges,
-  SkipSelf
+  AfterContentInit,
+  ChangeDetectorRef,
+  ContentChildren,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Optional,
+  Output,
+  QueryList,
+  SimpleChanges,
+  SkipSelf,
 } from '@angular/core';
 import { addClassToOrigin, formWithDropDown, removeClassFromOrigin } from '../../utils/cdk-origin-handler';
 import { DevConfigService, WithConfig } from '../../utils/globalConfig';
@@ -14,16 +27,17 @@ import { TProBaseDropDownService } from './dropdown.service';
 @Directive({
   selector: '[tProBaseDropDown]',
   exportAs: 't-pro-base-dropdown',
-  providers: [TProBaseDropDownService]
+  providers: [TProBaseDropDownService],
 })
 export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterContentInit {
-  @ContentChildren(TProBaseDropDownDirective, {descendants: true}) dropdownChildren: QueryList<TProBaseDropDownDirective>;
+  @ContentChildren(TProBaseDropDownDirective, { descendants: true }) dropdownChildren: QueryList<TProBaseDropDownDirective>;
   private hoverSubscription: Subscription | null;
   /**
    * 控制是否打开dropdown，绑定一个t-pro-base-dropdown-open class
    */
   @HostBinding('class.t-pro-base-dropdown-open')
-  @Input() set isOpen(value) {
+  @Input()
+  set isOpen(value) {
     this._isOpen = !!value;
     if (this.disabled) {
       return;
@@ -54,7 +68,9 @@ export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterCon
   @HostBinding('class.t-pro-base-dropdown') addClass = true;
   @Input() disabled = false;
   @HostBinding('class.t-pro-base-dropdown-animation')
-  @Input() @WithConfig() showAnimation = true;
+  @Input()
+  @WithConfig()
+  showAnimation = true;
   /**
    * dropdown触发方式
    */
@@ -82,7 +98,7 @@ export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterCon
   document: Document;
 
   public set appendToBody(bool: boolean) {
-    this._appendToBody = (bool === true);
+    this._appendToBody = bool === true;
     this.updateCdkConnectedOverlayOrigin();
   }
   public get appendToBody() {
@@ -112,7 +128,7 @@ export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterCon
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (Object.prototype.hasOwnProperty.call(changes,'trigger')) {
+    if (Object.prototype.hasOwnProperty.call(changes, 'trigger')) {
       this.handleHoverSubscriptionIfTriggerIsHover();
     }
   }
@@ -128,7 +144,7 @@ export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterCon
 
   public toggle(): boolean {
     // eslint-disable-next-line no-return-assign
-    return this.isOpen = !this.isOpen;
+    return (this.isOpen = !this.isOpen);
   }
 
   public focusToggleElement() {
@@ -139,9 +155,7 @@ export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterCon
 
   updateCdkConnectedOverlayOrigin() {
     if (this.toggleEl && this.appendToBody === true) {
-      this.cdkConnectedOverlayOrigin = new CdkOverlayOrigin(
-        formWithDropDown(this.toggleEl) || this.toggleEl.nativeElement
-      );
+      this.cdkConnectedOverlayOrigin = new CdkOverlayOrigin(formWithDropDown(this.toggleEl) || this.toggleEl.nativeElement);
     } else {
       this.cdkConnectedOverlayOrigin = undefined;
     }
@@ -149,9 +163,7 @@ export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterCon
 
   subscribeHoverAction(observable: Observable<boolean>): void {
     if (!this.hoverSubscription) {
-      this.hoverSubscription = observable.pipe(
-        debounceTime(50),
-      ).subscribe(isOpen => {
+      this.hoverSubscription = observable.pipe(debounceTime(50)).subscribe((isOpen) => {
         if (!this.disabled && this.isOpen !== isOpen) {
           this.isOpen = isOpen;
         }
@@ -166,7 +178,7 @@ export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterCon
     }
   }
 
-  handleHoverSubscriptionIfTriggerIsHover () {
+  handleHoverSubscriptionIfTriggerIsHover() {
     if (this.trigger === 'hover') {
       const states: Observable<boolean> = merge(
         fromEvent(this.el.nativeElement, 'mouseenter').pipe(mapTo(true)),
@@ -177,28 +189,30 @@ export class TProBaseDropDownDirective implements OnDestroy, OnChanges, AfterCon
               // menu（子） -> toggle（父） 冒泡模拟的用于离开菜单的时候判断不判断overlay的div层，即只判断menuEl.nativeElement
               // toggle（父） -> menu（子） 离开元素本身的需要判断是否落入了overlay的div层，即只判断menuEl.nativeElement.parentElement
               const relatedTarget = event.relatedTarget || ((event as any)['originEvent'] && (event as any)['originEvent'].relatedTarget);
-              return  !(this.menuEl?.nativeElement && relatedTarget &&
-                  (this.menuEl?.nativeElement.parentElement?.contains(event.relatedTarget)
-                  || this.menuEl?.nativeElement.parentElement?.parentElement?.contains(event.relatedTarget) // 套了两层div增加判断
-                  || this.menuEl?.nativeElement.contains(relatedTarget)
-                  || this.dropdownChildren.some(
-                    children =>
-                      children !== this
+              return !(
+                this.menuEl?.nativeElement &&
+                relatedTarget &&
+                (this.menuEl?.nativeElement.parentElement?.contains(event.relatedTarget) ||
+                  this.menuEl?.nativeElement.parentElement?.parentElement?.contains(event.relatedTarget) || // 套了两层div增加判断
+                  this.menuEl?.nativeElement.contains(relatedTarget) ||
+                  this.dropdownChildren.some(
+                    (children) =>
+                      children !== this &&
                       // appendToBody的时候可能会没有实例化不在document上需要做判断有没有parentElement
-                      && (children.menuEl?.nativeElement.parentElement?.contains(event.relatedTarget)
-                      || children.menuEl?.nativeElement.contains(relatedTarget))
+                      (children.menuEl?.nativeElement.parentElement?.contains(event.relatedTarget) || children.menuEl?.nativeElement.contains(relatedTarget))
                   ))
               );
             } else {
               return true;
             }
           }),
-          tap(event => {
+          tap((event) => {
             if (this.parentDropdown) {
               this.simulateEventDispatch(event, this.parentDropdown.el.nativeElement);
             }
           }),
-          mapTo(false))
+          mapTo(false)
+        )
       );
       this.subscribeHoverAction(states);
     } else {

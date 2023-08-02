@@ -13,11 +13,8 @@
 
 // const pkg = require('../../../package.json')
 
-export default () =>{
-
+export default () => {
   // console.log(pkg)
-
-
   // a({
   //   name: 'shell-quote',
   //   version: '1.6.1',
@@ -63,4 +60,4 @@ export default () =>{
   //     'array-map': '~0.0.0'
   //   }
   // })
-}
+};

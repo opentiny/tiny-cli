@@ -19,13 +19,3 @@
 ## 产品介绍和使用说明
 
 https://opentiny.design/ng-pro/docs/hwcPlugin
-
-## 开发指导
-
-1. 安装tiny cli，请参考 https://opentiny.design/tiny-cli/docs/use-install
-
-2. 执行 npm run watch，会监视源文件的变化
-
-3. 执行 tiny link
-
-4. done，本地执行 tiny hwc 命令，查看效果

@@ -22,7 +22,7 @@ export class HeaderOperationComponent implements OnInit {
   isLeaveModal: boolean = false;
   helpCenter: string = '/ng-pro/docs/';
 
-  constructor(private route: Router, private authService: AuthService, private translate: TranslateService) { }
+  constructor(private route: Router, private authService: AuthService, private translate: TranslateService) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('userinfo')) {
@@ -78,8 +78,7 @@ export class HeaderOperationComponent implements OnInit {
   showNoticeModal(isShow: boolean) {
     if (isShow) {
       this.isShowNoticeModal = true;
-    } 
-    else if (!isShow && !this.isLeaveModal) {
+    } else if (!isShow && !this.isLeaveModal) {
       this.isShowNoticeModal = false;
     }
   }

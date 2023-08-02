@@ -1,6 +1,6 @@
 export function getSimpleDate(standardTime: any) {
   let d = new Date(standardTime);
-  return `${d.getFullYear()}-${d.getMonth() + 1}- ${d.getDate()}`;
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 }
 
 // 按时间正序

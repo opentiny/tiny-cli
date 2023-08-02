@@ -9,7 +9,7 @@
               alt="Tiny Design"
               src="@/assets/images/pro.png"
             />
-            <span class="login-logo-text">TinyUI Pro of Vue</span>
+            <span class="login-logo-text">TinyPro of Vue</span>
           </div>
           <div class="login-desc">{{ $t('login.main.text') }}</div>
         </div>

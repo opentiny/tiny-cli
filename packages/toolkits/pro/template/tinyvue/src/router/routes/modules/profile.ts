@@ -1,3 +1,5 @@
+import { RoleType } from '@/types/roleType';
+
 export default {
   path: 'profile',
   name: 'Profile',
@@ -5,9 +7,10 @@ export default {
   label: 'Profile',
   component: () => import('@/views/profile/index.vue'),
   meta: {
-    locale: 'menu.Profile',
+    locale: 'menu.profile',
     requiresAuth: true,
     order: 4,
+    roles: [RoleType.admin],
   },
   children: [
     {
@@ -19,7 +22,7 @@ export default {
       meta: {
         locale: 'menu.profile.detail',
         requiresAuth: true,
-        roles: ['admin'],
+        roles: [RoleType.admin],
       },
     },
   ],

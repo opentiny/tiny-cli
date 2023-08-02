@@ -6,8 +6,6 @@
   "doc": "文档",
   "component": "组件",
   "common": "常规",
-  "apiPreference": "框架选择",
-  "apiTiny": "Vue",
   "yan-shi": "演示",
   "name": "名称",
   "propType": "类型",
@@ -18,6 +16,5 @@
   "showCode": "显示代码",
   "copyCode": "复制代码",
   "doc-owner": "负责人",
-  "copyCodeOk": "复制成功",
-  "frameAngular": "Angular"
+  "copyCodeOk": "复制成功"
 }

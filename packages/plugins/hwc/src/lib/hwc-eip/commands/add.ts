@@ -9,7 +9,7 @@ import {
   ErrorUtils,
 } from '../../../core';
 import { queryEipList } from '../services/eip-services';
-import { commonMsg } from "../../../assets/i18n";
+import { commonMsg } from '../../../assets/i18n';
 
 export const commandName = '同步弹性公网IP';
 
@@ -56,9 +56,7 @@ export const addEip = async () => {
         colWidths: [6, 20, 20, 20, 15],
       });
     } else {
-      log.info(
-        chalk.magenta(commonMsg.commandAddNullMsg('弹性公网IP', 'eip'))
-      );
+      log.info(chalk.magenta(commonMsg.commandAddNullMsg('弹性公网IP', 'eip')));
     }
     setHwcExports('hwcConfig.eipList', { publicips });
     log.success(`${commandName}成功`);

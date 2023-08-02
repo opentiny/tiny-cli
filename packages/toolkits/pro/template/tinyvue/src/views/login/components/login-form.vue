@@ -7,24 +7,7 @@
       <LoginRegister />
     </div>
     <div v-if="!display">
-      <tiny-tabs v-model="activeName" stretch="true">
-        <tiny-tab-item :title="$t('login.form.mode')" name="first">
-          <template #title>
-            <div>
-              <span>{{ $t('login.form.mode') }}</span>
-            </div>
-          </template>
-          <LoginInfo />
-        </tiny-tab-item>
-        <tiny-tab-item name="second">
-          <template #title>
-            <div>
-              <span>{{ $t('login.form.mail') }}</span>
-            </div>
-          </template>
-          <LoginMail />
-        </tiny-tab-item>
-      </tiny-tabs>
+      <LoginMail />
     </div>
   </div>
 </template>

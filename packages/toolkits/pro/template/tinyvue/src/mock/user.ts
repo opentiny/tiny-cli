@@ -4,22 +4,50 @@ import {
   failResponseWrap,
   initData,
 } from '@/utils/setup-mock';
-
-import { MockParams } from '@/types/mock';
 import { isLogin } from '@/utils/auth';
 
 const positive = JSON.parse(JSON.stringify(initData.tableData));
 const negative = JSON.parse(JSON.stringify(initData.tableData.reverse()));
 const initlist = JSON.parse(JSON.stringify(initData.chartData[0].list));
+const userInfo = JSON.parse(JSON.stringify(initData.userInfo));
 export default [
+  // 注册
+  {
+    url: '/api/user/register',
+    method: 'post',
+    response: (params) => {
+      localStorage.setItem('registerUser', JSON.stringify(params.body));
+      return successResponseWrap({ ...userInfo, role: 'admin' });
+    },
+  },
+
   // 用户信息
   {
-    url: '/api/user/info',
-    method: 'post',
+    url: '/api/user/userInfo',
+    method: 'get',
     response: () => {
       if (isLogin()) {
         const role = window.localStorage.getItem('userRole') || 'admin';
-        return successResponseWrap({ role });
+        return successResponseWrap({
+          ...userInfo,
+          role,
+        });
+      }
+      return successResponseWrap(null);
+    },
+  },
+
+  // 修改用户信息
+  {
+    url: '/api/user/userInfo',
+    method: 'put',
+    response: () => {
+      if (isLogin()) {
+        const role = window.localStorage.getItem('userRole') || 'admin';
+        return successResponseWrap({
+          ...userInfo,
+          role,
+        });
       }
       return successResponseWrap(null);
     },
@@ -29,55 +57,31 @@ export default [
   {
     url: '/api/user/login',
     method: 'post',
-    response: (params: MockParams) => {
+    response: (params) => {
+      const registerUser = JSON.parse(
+        localStorage.getItem('registerUser') || '{}'
+      );
       const { username, password } = JSON.parse(JSON.stringify(params.body));
       if (!username) {
-        return failResponseWrap(null, '用户名不能为空', 50000);
+        return failResponseWrap(null, '邮箱名不能为空', 'InvalidParameter');
       }
       if (!password) {
-        return failResponseWrap(null, '密码不能为空', 50000);
-      }
-      if (username === 'admin' && password === 'admin') {
-        window.localStorage.setItem('userRole', 'admin');
-        return successResponseWrap({
-          token: '12345',
-        });
-      }
-      if (username === 'user' && password === 'user') {
-        window.localStorage.setItem('userRole', 'user');
-        return successResponseWrap({
-          token: '54321',
-        });
-      }
-      return failResponseWrap(null, '账号或者密码错误', 50000);
-    },
-  },
-
-  {
-    url: '/api/mail/login',
-    method: 'post',
-    response: (params: MockParams) => {
-      let registerUser: any = localStorage.getItem('registerUser') || '';
-      const { mailname, mailpassword } = JSON.parse(
-        JSON.stringify(params.body)
-      );
-      if (!mailname) {
-        return failResponseWrap(null, '邮箱名不能为空', 50000);
-      }
-      if (!mailpassword) {
-        return failResponseWrap(null, '密码不能为空', 50000);
+        return failResponseWrap(null, '密码不能为空', 'InvalidParameter');
       }
       if (
-        (mailname === 'admin@example.com' && mailpassword === 'admin') ||
-        (mailname === registerUser!.username &&
-          mailpassword === registerUser.password)
+        (username === 'admin@example.com' && password === 'admin') ||
+        (username === registerUser.username &&
+          password === registerUser.password)
       ) {
         window.localStorage.setItem('userRole', 'admin');
         return successResponseWrap({
           token: '12345',
+          userInfo: {
+            ...userInfo,
+          },
         });
       }
-      return failResponseWrap(null, '账号或者密码错误', 50000);
+      return failResponseWrap(null, '账号或者密码错误', 'InvalidParameter');
     },
   },
 
@@ -95,7 +99,7 @@ export default [
     url: '/api/user/data',
     method: 'post',
     response: (params: any) => {
-      const { sort, startTime, endTime, filterStatue, filterType } = JSON.parse(
+      const { sort, startTime, endTime, filterStatus, filterType } = JSON.parse(
         JSON.stringify(params.body)
       );
       initData.tableData = positive;
@@ -113,7 +117,7 @@ export default [
       if (
         startTime !== '' ||
         endTime !== '' ||
-        filterStatue.length !== 0 ||
+        filterStatus.length !== 0 ||
         (filterType.length !== 0 && sort === undefined)
       ) {
         const start = new Date(JSON.parse(JSON.stringify(startTime))).getTime();
@@ -122,7 +126,7 @@ export default [
         const table = initData.tableData.filter(function (item: any) {
           return (
             filterType.includes(item.bid) &&
-            filterStatue.includes(item.pid) &&
+            filterStatus.includes(item.pid) &&
             new Date(JSON.parse(JSON.stringify(item.time))).getTime() - start >
               0 &&
             new Date(JSON.parse(JSON.stringify(item.time))).getTime() - end < 0
@@ -131,7 +135,7 @@ export default [
         // eslint-disable-next-line func-names
         const chart = initData.chartData[0].list.filter(function (item: any) {
           return (
-            filterType.includes(item.bid) && filterStatue.includes(item.pid)
+            filterType.includes(item.bid) && filterStatus.includes(item.pid)
           );
         });
         initData.tableData = table;

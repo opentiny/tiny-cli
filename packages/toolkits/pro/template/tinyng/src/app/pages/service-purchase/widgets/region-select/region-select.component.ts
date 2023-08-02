@@ -32,5 +32,4 @@ export class RegionSelectComponent {
   ];
 
   public selectedRegion: TiButtonItem = this.regionOptions[0];
-
 }

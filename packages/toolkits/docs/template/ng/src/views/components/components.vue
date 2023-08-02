@@ -1,40 +1,51 @@
 <template>
   <div>
-    <div ref="pageDiv" class="f-r pt48 pl48 pr48">
+    <div class="f-r pt48 pl48 pr48">
       <div class="fi-1 w0 rel cmp-container">
         <!-- 一个组件的文档:  描述md + demos + apis -->
-        <component :is="cmpTopMd" />
+        <n-space vertical>
+          <n-spin :show="cmpTopMdShow">
+            <div class="markdown-body" v-html="cmpTopMd"></div>
+          </n-spin>
+        </n-space>
+
         <template v-if="currJson?.demos?.length > 0">
-          <h2 class="f30 fw-normal !mb20">{{ $t('yan-shi') }}</h2>
-          <n-layout class="f-c f-wrap ofx-auto" :native-scrollbar="true">
-            <template v-if="currJson.column === '2'">
-              <div class="one-demo-col2">
-                <div>
-                  <demo v-for="demo in evenDemo" :key="demo.name" :demo="demo" />
-                </div>
-                <div>
-                  <demo v-for="demo in oddDemo" :key="demo.name" :demo="demo" />
-                </div>
-              </div>
-            </template>
-            <template v-else>
-              <demo v-for="demo in currJson.demos" :key="demo.name" :demo="demo" class="mb16" />
-            </template>
-          </n-layout>
+          <n-space vertical>
+            <n-spin :show="currJsonShow">
+              <h2 class="f30 fw-normal !mb20">{{ $t('yan-shi') }}</h2>
+              <n-layout class="f-c f-wrap ofx-auto" :native-scrollbar="true">
+                <template v-if="currJson.column === '2'">
+                  <div class="one-demo-col2">
+                    <div>
+                      <demo v-for="demo in evenDemo" :key="demo.name" :demo="demo" />
+                    </div>
+                    <div>
+                      <demo v-for="demo in oddDemo" :key="demo.name" :demo="demo" />
+                    </div>
+                  </div>
+                </template>
+                <template v-else>
+                  <demo v-for="demo in currJson.demos" :key="demo.name" :demo="demo" class="mb16" />
+                </template>
+              </n-layout>
+            </n-spin>
+          </n-space>
         </template>
         <template v-if="currJson.apis?.length > 0">
-          <h2 id="API" v-if="cmpId !== 'interfaces'" class="f30 fw-normal mt28">API</h2>
-          <!-- apis 是一个数组 {name,type,properties:[原table内容],events:[] ...........} -->
-          <div class="mt20" v-for="(oneGroup, idx) in currJson.apis" :key="oneGroup.name">
-            <div class="f-r f-pos-start fw-bold">
-              <div :id="oneGroup.name" class="f18">{{ oneGroup.name }}</div>
-              <div class="ml12 b-a-primary c-primary px8 py4">{{ oneGroup.type }}</div>
-            </div>
-            <div v-for="(oneApiArr, key) in oneGroup" :key="key">
-              <template v-if="key !== 'name' && key !== 'type' && oneApiArr.length > 0">
-                <div class="f18 py28">{{ key }}</div>
-                <n-data-table class="api-table" v-bind="getApiTableOpt(oneApiArr)" />
-              </template>
+          <div ref="apiDiv">
+            <h2 id="API" v-if="cmpId !== 'interfaces'" class="f30 fw-normal mt28">API</h2>
+            <!-- apis 是一个数组 {name,type,properties:[原table内容],events:[] ...........} -->
+            <div class="mt20" v-for="(oneGroup, idx) in currJson.apis" :key="oneGroup.name">
+              <div class="f-r f-pos-start fw-bold">
+                <div :id="oneGroup.name" class="f18">{{ oneGroup.name }}</div>
+                <div class="ml12 b-a-primary c-primary px8 py4">{{ oneGroup.type }}</div>
+              </div>
+              <div v-for="(oneApiArr, key) in oneGroup" :key="key">
+                <template v-if="key !== 'name' && key !== 'type' && oneApiArr.length > 0">
+                  <div class="f18 py28">{{ key }}</div>
+                  <n-data-table class="api-table" v-bind="getApiTableOpt(oneApiArr)" />
+                </template>
+              </div>
             </div>
           </div>
         </template>
@@ -43,7 +54,7 @@
           <n-data-table class="types-table mt20" v-bind="getTypesTableOpt(currJson.types)" />
         </template>
         <h2 id="FAQ" v-if="cmpFAQMd" class="f30 fw-normal mt28 mb20">FAQ</h2>
-        <component :is="cmpFAQMd" />
+        <div class="markdown-body" v-html="cmpFAQMd"></div>
         <div v-if="currJson.owner" class="abs right24 top24" @click="copyText(currJson.owner)">{{ $t('doc-owner') }} : {{ currJson.owner }}</div>
       </div>
       <!-- 目录列表 -->
@@ -64,20 +75,24 @@
 </template>
 <script lang="jsx">
 import { defineComponent, reactive, computed, toRefs, watch, onMounted, onUnmounted, effectScope, nextTick, h } from 'vue';
-import { $t, $t2, $clone, $split } from '@/tools';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import demo from '@demo';
-import { allMD, allJson } from './cmpConfig.js';
+import { $t, $t2, $clone, $split, fetchDemosFile } from '@/tools';
 import { router } from '@/router.js';
+import { faqMdConfig } from './cmpConfig';
 
 const state = reactive({
   langKey: $t2('zh-CN', 'en-US'),
   cmpId: '',
   currJson: { column: 1, demos: [], apis: [] },
-  cmpTopMd: computed(() => allMD[`${state.cmpId}.${$t2('cn', 'en')}.md`]),
-  cmpFAQMd: computed(() => allMD[`${state.cmpId}.${$t2('faq.cn', 'faq.en')}.md`]),
+  currJsonShow: true,
+  cmpTopMd: null,
+  cmpTopMdShow: true,
+  cmpFAQMd: null,
   evenDemo: computed(() => state.currJson.demos?.filter((d, i) => i % 2 === 0) || []),
   oddDemo: computed(() => state.currJson.demos?.filter((d, i) => i % 2 === 1) || []),
-  pageDiv: null,
+  apiDiv: null,
 });
 
 const getTypesTableOptFn = typesArr => {
@@ -87,22 +102,23 @@ const getTypesTableOptFn = typesArr => {
         key: 'name',
         title: $t('name'),
         width: '20%',
-        render: row => <div v-html = {row.name}></div>,
+        render: row => <div v-html={row.name}></div>,
       },
       {
         key: 'value',
         title: $t('typeValue'),
         width: '40%',
-        render: row => <div v-html = {row.value}></div>,
+        render: row => <div v-html={row.value}></div>,
       },
       {
         key: 'desc',
         title: $t('desc'),
         width: '40%',
-        render: row => <div v-html = {row.desc[state.langKey]}> </div>,
-      }],
+        render: row => <div v-html={row.desc[state.langKey]}> </div>,
+      },
+    ],
     data: typesArr,
-    };
+  };
 };
 
 const getApiTableOptFn = oneApiArr => {
@@ -112,7 +128,9 @@ const getApiTableOptFn = oneApiArr => {
         key: 'name',
         title: $t('name'),
         width: '20%',
-        render: row => {return row.demoId ? <a href = {'#' + row.demoId}> { row.name} </a> : <span> {row.name} </span>},
+        render: row => {
+          return row.demoId ? <a href={'#' + row.demoId}> {row.name} </a> : <span> {row.name} </span>;
+        },
       },
       {
         key: 'type',
@@ -138,29 +156,76 @@ const getApiTableOptFn = oneApiArr => {
 };
 
 const loadPage = () => {
-  state.cmpId = router.currentRoute.value.params.cmpId;
-  state.currJson = {
-    ...allJson[state.cmpId],
-    demos: $clone(allJson[state.cmpId]['demos'] || []), // 克隆一下,避免保存上次的isOpen
-    column: allJson[state.cmpId].column || '1', // columns可能为空
-  };
-};
+  const lang = $t2('cn', 'en');
 
-const navigatAnchor = () => {
-  state.pageDiv.addEventListener('click', function (ev) {
-    if (ev.target.tagName === 'A' && ev.target.closest('.route-anchor')) {
-      ev.preventDefault();
-      const href = ev.target.getAttribute('href');
-      const hash = $split(href, '#', -1);
-      router.push(href);
+  state.cmpTopMdShow = state.currJsonShow = true;
+  state.cmpId = router.currentRoute.value.params.cmpId;
+
+  fetchDemosFile(`@demos/app/${state.cmpId}/webdoc/${state.cmpId}.${lang}.md`)
+    .then(data => {
+      state.cmpTopMd = marked(DOMPurify.sanitize(data));
+      state.cmpTopMdShow = false;
+    })
+    .catch(error => {
+      state.cmpTopMdShow = false;
+    });
+
+  if (faqMdConfig[state.cmpId]) {
+    fetchDemosFile(`@demos/app/${state.cmpId}/webdoc/${state.cmpId}.faq.${lang}.md`)
+      .then(data => {
+        state.cmpFAQMd = marked(DOMPurify.sanitize(data));
+      })
+      .catch(error => {});
+  } else {
+    state.cmpFAQMd = null;
+  }
+
+  fetchDemosFile(`@demos/app/${state.cmpId}/webdoc/${state.cmpId}.js`)
+    .then(data => {
+      const json = eval('(' + data.slice(15) + ')');
+
+      state.currJson = {
+        ...json,
+        demos: $clone(json['demos'] || []), // 克隆一下,避免保存上次的isOpen
+        column: json.column || '1', // columns可能为空
+      };
+      state.currJsonShow = false;
+
+      // 兼容#hashName和/#hashName两种模式
       setTimeout(() => {
-        const scrollTarget = document.querySelector('#' + hash);
+        let hash = router.currentRoute.value.hash?.slice(1);
+
+        if (!hash) return;
+
+        if (hash.indexOf('/') > -1) {
+          hash = hash.slice(1);
+        }
+
+        const scrollTarget = document.querySelector(`#${hash}`);
+
         if (scrollTarget) {
           scrollTarget.scrollIntoView();
         }
-      }, 16);
-    }
-  }); 
+      }, 0);
+    })
+    .catch(error => {
+      state.currJsonShow = false;
+    });
+};
+
+const handleApiAnchor = ev => {
+  if (ev.target.tagName === 'A' && ev.target.closest('.route-anchor')) {
+    ev.preventDefault();
+    const href = ev.target.getAttribute('href');
+    const hash = $split(href, '#', -1);
+    router.push(href);
+    setTimeout(() => {
+      const scrollTarget = document.querySelector('#' + hash);
+      if (scrollTarget) {
+        scrollTarget.scrollIntoView();
+      }
+    }, 16);
+  }
 };
 
 const fn = {
@@ -179,31 +244,33 @@ export default defineComponent({
   name: 'CmpPage_vue',
   components: { demo },
   setup() {
-  const scope = effectScope();
-  scope.run(() => {
-    watch(() => router.currentRoute.value.params.cmpId, (cmpId) => {
-      if (!cmpId || !allJson[state.cmpId]) {
-        state.currJson = {};
-      } else {
-        loadPage(); 
-      }
+    const scope = effectScope();
+    scope.run(() => {
+      watch(
+        () => router.currentRoute.value.params.cmpId,
+        cmpId => {
+          if (!cmpId) {
+            state.currJson = {};
+          } else {
+            state.cmpFAQMdShow = state.cmpTopMdShow = state.currJsonShow = true;
+            loadPage();
+          }
+        }
+      );
     });
-  });
-  
-  onMounted(() => {
-    loadPage();
-    const common = new window.TDCommon(['#footer'], {});
-    common.renderFooter();
-    nextTick(() => {
-      navigatAnchor(); // 从一个页面的api,跳转到 interface的指定条目。
+
+    onMounted(() => {
+      loadPage();
+      const common = new window.TDCommon(['#footer'], {});
+      common.renderFooter();
+      nextTick(() => {
+        state.apiDiv?.addEventListener('click', handleApiAnchor);
+      });
     });
-    nextTick(() => {
-      if (location.hash) {
-        window.location = location.hash; // 用户手动刷新时，定位到锚点
-      }
+    onUnmounted(() => {
+      scope.stop();
+      state.apiDiv?.removeEventListener('click', handleApiAnchor);
     });
-  });
-  onUnmounted(() => scope.stop());
     return {
       ...toRefs(state),
       ...fn,
