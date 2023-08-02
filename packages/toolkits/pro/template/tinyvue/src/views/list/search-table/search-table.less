@@ -2,10 +2,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 98%;
-  height: inherit;
-  margin: 0 auto;
-  overflow: hidden;
+  height: calc(100% - 60px);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .line {
@@ -17,15 +16,15 @@
 
 .contain {
   flex: 1 1 auto;
-  margin: 0 10px;
-  overflow-y: auto;
+  margin: 8px 10px;
   background: #fff;
   border-radius: 10px;
+  box-shadow: 0 0 8px 8px rgba(169, 174, 184, 0.05);
 
   .contain-head {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
     padding: 30px 30px 0 30px;
 
     hr {
@@ -41,13 +40,16 @@
     }
   }
 
+  .contain-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 52px;
+  }
+
   .contain-img {
     position: relative;
-    top: 20px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 50px;
     cursor: pointer;
 
     img:hover {
@@ -57,7 +59,7 @@
 
   .contain-text {
     padding-left: 10px;
-    color: #ccc;
+    color: #4e5969;
     font-size: 14px;
     cursor: pointer;
   }
@@ -113,19 +115,21 @@
 
   button {
     border-radius: 4px;
+    width: 100px;
+    height: 36px;
   }
 
   .screen {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 80px;
+    justify-content: flex-end;
+    width: 60px;
     text-align: center;
     cursor: pointer;
 
     span {
       margin-left: 10px;
-      color: #1890ff;
+      color: #4e5969;
       font-size: 14px;
     }
   }
@@ -163,7 +167,7 @@
 
 .tiny-fullscreen-wrapper {
   min-height: 710px;
-  padding: 0 14px;
+  padding: 0 30px;
 }
 
 .tiny-fullscreen-scroll {
@@ -173,7 +177,8 @@
 .search-btn {
   display: flex;
   button {
-    height: 35px;
+    height: 36px;
+    width: 100px;
     border-radius: 4px;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <tiny-container :aside-width="210" :pattern="myPattern">
+    <tiny-container :aside-width="250" :pattern="myPattern">
       <template #header>
         <tiny-layout>
           <div class="layout-navbar">
@@ -56,18 +56,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
+  import { ref, watch, onMounted } from 'vue';
   import {
     Container as TinyContainer,
     Layout as TinyLayout,
     Modal as tinyModal,
   } from '@opentiny/vue';
+  import TinyThemeTool from '@opentiny/vue-theme/theme-tool.js';
   import { useAppStore } from '@/store';
+    // eslint-disable-next-line import/extensions
   import Footer from '@/components/footer/index.vue';
   import NavBar from '@/components/navbar/index.vue';
   import Theme from '@/components/theme/index.vue';
   import Menu from '@/components/menu/index.vue';
+  import { DefaultTheme } from '@/components/theme/type';
   import PageLayout from './page-layout.vue';
+  // 动态切换
+  const appStore = useAppStore();
+  const changefooter = ref('#fff');
 
   // 切换简约模式，图标按钮
   const top = ref('10px');
@@ -80,12 +86,9 @@
   // 是否显示切换框架结构
   const myPattern = ref('legend');
 
-  // 动态切换
-  const appStore = useAppStore();
-  const changefooter = ref('#fff');
-
   // 主题配置
   const disTheme = ref(false);
+  const theme = new TinyThemeTool()
   const themeVisible = () => {
     disTheme.value = !disTheme.value;
   };
@@ -109,6 +112,12 @@
     } else {
       changefooter.value = '#fff;';
     }
+  });
+  // 初始化默认主题
+  onMounted(() => {
+    appStore.updateSettings({ theme: 'light' });
+    theme.changeTheme(DefaultTheme);
+    appStore.updateSettings({ themelist: 'default' });
   });
 </script>
 
@@ -153,20 +162,19 @@
   }
 
   .layout :deep(.tiny-container .tiny-container__main) {
-    overflow: hidden;
     color: #ccc;
     background-color: #f5f6f7;
   }
 
   .layout :deep(.layout-content) {
     height: 100%;
-    padding: 10px 0;
+    padding: 0 10px;
     overflow: hidden;
   }
 
   .layout :deep(.tiny-container .tiny-container__footer) {
     display: flex;
-    align-items: center;
+    padding-top: 15px;
     justify-content: center;
     background-color: #f5f6f7;
   }
@@ -174,6 +182,14 @@
   // 组件无法固定非message的modal类型距离顶部距离
   :deep(.tiny-modal__box) {
     top: 8px !important;
+  }
+
+  // 路由子菜单选中后的样式
+  :deep(.tiny-tree-node__children .tiny-tree-node__content) {
+    padding-left: 28px !important;
+    .tree-node-name {
+      padding-left: 6px !important;
+    }
   }
 
   .theme-box {

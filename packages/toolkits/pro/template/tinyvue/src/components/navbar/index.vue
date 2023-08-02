@@ -2,7 +2,11 @@
   <div class="navbar">
     <div class="left-side">
       <div style="display: flex; align-items: center">
-        <img src="@/assets/images/tiny-logo.png" alt="logo" @click="jumpUrl" />
+        <img
+          src="@/assets/images/opentiny-logo.png"
+          alt="logo"
+          @click="jumpUrl"
+        />
         <h5 @click="jumpUrl">OpenTiny</h5>
         <div class="divider"></div>
         <img class="vue-icon" alt="logo" src="@/assets/images/pro.png" />
@@ -43,7 +47,7 @@
       <li class="navbar-user">
         <tiny-user-head type="icon" round min>
           <div class="user-image">
-            <img src="@/assets/images/user-head.png" alt="user" />
+            <img src="@/assets/images/avatar.png" alt="user" />
           </div>
         </tiny-user-head>
         <div class="trigger-user">
@@ -177,10 +181,9 @@
   .divider {
     width: 1px;
     height: 18px;
-    margin: 0 20px;
+    margin: 0 2px;
     margin-top: 1px;
-    background: #7b7e84;
-    opacity: 0.3;
+    background: #dfe1e6;
   }
 
   .left-side {
@@ -188,30 +191,29 @@
     align-items: center;
     justify-content: center;
     height: 60px;
-    padding-left: 20px;
+    padding-left: 10px;
     cursor: pointer;
 
     .vue-icon {
-      width: 18px;
-      height: 18px;
-    }
-
-    img {
-      margin-right: 8px;
+      width: 24px;
+      height: 24px;
+      margin-left: 30px;
     }
 
     h5 {
-      margin: 0 0 0 12px;
-      color: #272727;
+      margin: 0 30px 0 12px;
+      color: var(--ti-base-common-title-color);
       font-weight: 700;
       font-size: 22px;
+      line-height: 32px;
+      letter-spacing: 0.55px;
     }
 
     h4 {
       width: 135px;
       height: 22px;
       margin-left: 10px;
-      color: #8a8e99;
+      color: var(--ti-base-common-title-color);
       font-weight: normal;
       font-size: 16px;
       line-height: 22px;

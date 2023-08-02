@@ -1,72 +1,70 @@
 <template>
-  <div class="container-form">
+  <div class="container">
     <Breadcrumb :items="['menu.form', 'menu.form.base']" />
-    <div class="base-card">
-      <tiny-collapse v-model="activeNames" @change="change">
-        <tiny-collapse-item :title="$t('baseForm.form.project')" name="project">
-          <homefrom
-            :project-data="(projectData.Project as [] | any)"
-          ></homefrom>
-        </tiny-collapse-item>
+    <div class="container-form">
+      <div class="base-card">
+        <tiny-collapse v-model="activeNames" @change="change">
+          <tiny-collapse-item :title="$t('baseForm.form.project')" name="project">
+            <homefrom
+              :project-data="(projectData.Project as [] | any)"
+            ></homefrom>
+          </tiny-collapse-item>
 
-        <tiny-collapse-item
-          :title="$t('baseForm.form.label.people')"
-          name="people"
-        >
-          <peoplefrom
-            ref="peopleFormRef"
-            :project-data="projectData"
-            :people-vis="peopleVis"
-          ></peoplefrom>
-        </tiny-collapse-item>
+          <tiny-collapse-item
+            :title="$t('baseForm.form.label.people')"
+            name="people"
+          >
+            <peoplefrom
+              ref="peopleFormRef"
+              :project-data="projectData"
+              :people-vis="peopleVis"
+            ></peoplefrom>
+          </tiny-collapse-item>
 
-        <tiny-collapse-item
-          :title="$t('baseForm.form.label.Objectives')"
-          name="objectives"
-        >
-          <objectivefrom ref="objectiveRef"></objectivefrom>
-        </tiny-collapse-item>
-        <tiny-collapse-item :title="$t('baseForm.form.label.plan')" name="plan">
-          <planfrom
-            ref="planFromRef"
-            :project-data="projectData"
-            :plan-vis="planVis"
-          ></planfrom>
-        </tiny-collapse-item>
-        <tiny-collapse-item
-          :title="$t('baseForm.form.label.evaluation')"
-          name="evaluation"
-        >
-          <evaluationfrom ref="evaluationRef"></evaluationfrom>
-        </tiny-collapse-item>
-        <tiny-collapse-item
-          :title="$t('baseForm.form.label.mentortitle')"
-          name="mentortitle"
-        >
-          <tiny-scroll-text :hover-stop="true" class="card-tip" :time="10">
-            <InfoCircle></InfoCircle>
-            &nbsp;
-            {{ $t('baseForm.form.label.mentortip') }}
-          </tiny-scroll-text>
-          <mentorfrom ref="mentorRef"></mentorfrom>
-        </tiny-collapse-item>
-        <tiny-collapse-item
-          :title="$t('baseForm.form.label.remindertitle')"
-          name="remindertitle"
-        >
-          <reminderfrom ref="reminderRef"></reminderfrom>
-        </tiny-collapse-item>
-      </tiny-collapse>
-      <div class="base-foot">
-        <tiny-button
-          type="primary"
-          native-type="submit"
-          @click="handleSubmit"
-          >{{ $t('baseForm.form.submit') }}</tiny-button
-        >
-        <tiny-button @click="handleFormReset">
-          {{ $t('baseForm.form.cancel') }}
-        </tiny-button>
+          <tiny-collapse-item
+            :title="$t('baseForm.form.label.Objectives')"
+            name="objectives"
+          >
+            <objectivefrom ref="objectiveRef"></objectivefrom>
+          </tiny-collapse-item>
+          <tiny-collapse-item :title="$t('baseForm.form.label.plan')" name="plan">
+            <planfrom
+              ref="planFromRef"
+              :project-data="projectData"
+              :plan-vis="planVis"
+            ></planfrom>
+          </tiny-collapse-item>
+          <tiny-collapse-item
+            :title="$t('baseForm.form.label.evaluation')"
+            name="evaluation"
+          >
+            <evaluationfrom ref="evaluationRef"></evaluationfrom>
+          </tiny-collapse-item>
+          <tiny-collapse-item
+            :title="$t('baseForm.form.label.mentortitle')"
+            name="mentortitle"
+          >
+            <mentorfrom ref="mentorRef"></mentorfrom>
+            <div class="card-tip">{{ $t('baseForm.form.label.mentortip') }}</div>
+          </tiny-collapse-item>
+          <tiny-collapse-item
+            :title="$t('baseForm.form.label.remindertitle')"
+            name="remindertitle"
+          >
+            <reminderfrom ref="reminderRef"></reminderfrom>
+          </tiny-collapse-item>
+        </tiny-collapse>
+        <div class="base-foot">
+          <tiny-button
+            type="primary"
+            native-type="submit"
+            @click="handleSubmit"
+            >{{ $t('baseForm.form.submit') }}</tiny-button
+          >
+          <tiny-button @click="handleFormReset">
+            {{ $t('baseForm.form.cancel') }}
+          </tiny-button>
+        </div>
       </div>
     </div>
   </div>
@@ -186,38 +184,33 @@
 </script>
 
 <style scoped lang="less">
+  .container {
+    height: 100%;
+  }
   .container-form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 98%;
-    height: inherit;
-    margin: 0 auto;
-    overflow: hidden;
+    height: calc(100% - 60px);
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .base-card {
     flex: 1 1 auto;
-    height: 100%;
-    margin: 0 10px;
-    padding: 10px 15px;
-    overflow: auto;
+    margin: 8px 10px;
+    padding: 22px 20px 60px;
     background: #fff;
     border-radius: 10px;
+    box-shadow: 0 0 8px 8px rgba(169, 174, 184, 0.05);
 
     .card-tip {
-      display: flex;
-      align-items: center;
-      box-sizing: border-box;
-      width: 100%;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      color: rgb(15, 4, 4);
-      font-size: 14px;
-      line-height: 1.5;
+      padding-left: 40px;
+      font-size: 12px;
+      font-weight: normal;
       text-align: left;
-      background: #e6f7ff;
-      border: 1px solid #91d5ff;
+      color: #e37d29;
+      line-height: 18px;
 
       :deep(.tiny-scroll-text) {
         width: 100%;
@@ -235,12 +228,18 @@
   }
 
   .base-foot {
-    padding-top: 20px;
+    padding-top: 10px;
   }
 
   :deep(.tiny-button) {
     width: 100px;
     height: 36px;
     border-radius: 4px;
+  }
+  :deep(.tiny-collapse-item__arrow.is-active, .tiny-collapse-item__arrow:hover){
+    fill: var(--ti-common-color-text-highlight);
+  }
+  :deep(.tiny-collapse-item__header svg){
+    fill: var(--ti-common-color-text-highlight);
   }
 </style>
