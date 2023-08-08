@@ -2,31 +2,37 @@
   justify-content: flex-end;
   display: flex;
   align-items: center;
-  border-right: 1px solid #dfe1e6;
+  border-right: 1px solid #DFE1E6;
   margin-right: 20px;
+  ::ng-deep .ti3-select-dominator-container {
+    border-color: #DFE1E6 !important;
+  }
+  ::ng-deep .ti3-searchbox-container {
+    border-color: #DFE1E6 !important;
+  }
   div {
     padding-right: 20px;
   }
 }
-.contracts-guide-head {
+.contracts-guide-head{
   justify-content: space-between;
 }
 
-.contracts-select {
+.contracts-select{
   margin-right: 20px;
 }
 
-.list-guide-head-container {
-  display: flex;
+.list-guide-head-container{
+  display: flex
 }
 
-.guide-head-content {
-  flex: 1;
-  align-self: center;
+.guide-head-content{
+  flex: 1; 
+  align-self: center
 }
 
 .guide-head-button {
-  margin-right: 10px;
+  margin-right:10px;
   border-radius: 4px;
 }
 
@@ -85,6 +91,7 @@
     display: inline-block;
     font-size: 16px;
     font-weight: 700;
+    color: var(--ti-base-model-text-color);
   }
 
   .guide-head-helptip-icon {
@@ -102,3 +109,4 @@
     margin-left: 8px;
   }
 }
+

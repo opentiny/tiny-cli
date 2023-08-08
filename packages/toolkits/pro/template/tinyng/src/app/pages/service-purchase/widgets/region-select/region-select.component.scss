@@ -12,3 +12,8 @@
   display: inline-block;
   margin-right: 4px;
 }
+::ng-deep .ti3-active .ti3-btn-item-radio {
+  background-color: var(--ti-base-color-brand-6) !important;
+  color: var(--ti-base-color-white) !important;
+  font-weight: 600 !important;
+}

@@ -19,11 +19,7 @@
   }
 
   a {
-    color: #202e54;
-  }
-
-  a:hover {
-    color: var(--ti-base-color-brand-7);
+    color: var(--ti-common-select-color);
   }
 
   .help-center {
@@ -37,7 +33,7 @@
     margin-right: 30px;
     padding: 0 10px;
     border-radius: 16px;
-    background-color: #eff2f8;
+    background-color: var(--ti-base-search-color);
     width: 274px;
     height: 32px;
     border: none;
@@ -127,6 +123,10 @@
   margin: 0 auto;
 }
 
+::ng-deep .ti3-searchbox-search{
+  color: var(--ti-base-search-icon-color) !important;
+}
+ 
 @media only screen and (max-width: 620px) {
   .t-pro-operations-user {
     .t-pro-user-name {

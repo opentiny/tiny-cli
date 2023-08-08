@@ -12,9 +12,9 @@
 
 <script lang="ts" setup>
   import { watch, ref, defineExpose } from 'vue';
+  import { CheckboxGroup as TinyCheckboxGroup } from '@opentiny/vue';
   import { useI18n } from 'vue-i18n';
   import { useUserStore } from '@/store';
-  import { CheckboxGroup as TinyCheckboxGroup } from '@opentiny/vue';
 
   const { t } = useI18n();
   const userStore = useUserStore();

@@ -1,6 +1,6 @@
 .list-content {
   padding: 20px 9px 0 0;
-  background-color: var(--ti-common-color-bg-white-normal);
+  background: var(--ti-base-card-bg-color) !important;
 }
 
 .current-modal-container {
@@ -31,21 +31,21 @@
 
 .delete-warning {
   font-size: 24px;
-  color: #202e54;
+  color: var(--ti-common-color-text-primary);
 }
 
-.constract-name {
+.constract-name{
   font-size: 16px;
   color: #4e5969;
   margin: 20px 0;
 }
 
-.input-prompt {
+.input-prompt{
   margin: 10px 0;
-  color: #4e5969;
+  color: #4e5969;;
 }
 
-.input-alert {
+.input-alert{
   height: 20px;
   color: red;
   margin-bottom: 10px;
@@ -66,10 +66,36 @@
   position: absolute;
 }
 
-.delete-modal-class {
-  .ti3-modal-content {
-    width: 558px;
-    border-radius: 8px !important;
-    box-shadow: 0px 0px 30px 15px rgba(37, 43, 58, 0.15) !important;
-  }
+::ng-deep ti-modal-wrapper .delete-modal-class {
+  width: 558px;
+  margin-top: 250px;
+}
+
+a {
+  color: var(--ti-base-link-a-color) !important;
+}
+
+::ng-deep .ti3-action-menu-item {
+  color: var(--ti-base-link-a-color) !important;
+}
+
+::ng-deep .ti3-action-menu-item {
+  color: var(--ti-base-link-a-color) !important;
+}
+
+::ng-deep .ti3-table>table>thead>tr>th:not(:last-child):after {
+  background: var(--ti-base-table-border-color) !important;
+}
+
+::ng-deep .ti3-table>table>tbody>tr>td {
+  border-bottom-color: var(--ti-base-table-border-bottom-color) !important;
+  color: var(--ti-base-table-text-color) !important;
+}
+
+::ng-deep .ti3-table>table>thead>tr>th {
+  border-bottom-color: var(--ti-base-table-border-bottom-color) !important;
+}
+
+::ng-deep .ti3-table>table>tbody>tr {
+  background: var(--ti-base-card-bg-color) !important;
 }

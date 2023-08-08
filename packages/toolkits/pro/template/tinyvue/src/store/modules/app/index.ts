@@ -32,6 +32,9 @@ const useAppStore = defineStore('app', {
     toggleMenu(value: boolean) {
       this.hideMenu = value;
     },
+    setthemeLightColors(themeLightColors: any) {
+      this.themeLightColors = themeLightColors
+    }
   },
 });
 

@@ -6,14 +6,17 @@
 
 .obs-list {
   @include t-pro-product-card;
-  margin-bottom: 24px;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
-  height: 720px;
+  background: var(--ti-base-card-bg-color);
+  min-height: calc(100vh - 265px);
 }
 
 .alert-head {
   margin-top: 20px;
   width: 100%;
   display: block;
+}
+
+::ng-deep .ti3-alert-prompt-container {
+  border: none !important;
 }

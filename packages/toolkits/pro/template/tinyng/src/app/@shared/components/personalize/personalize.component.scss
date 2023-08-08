@@ -1,101 +1,113 @@
-.t-pro-personalize-config {
-  padding: 0 12px;
-
-  .t-pro-personalize-title {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-
-    .t-pro-title {
-      color: var(--ti-base-color-common-7);
-      transform: translateY(-5px);
-      font-size: var(--ti-common-font-size-5);
-      font-weight: 500;
-    }
-  }
-  .t-pro-item {
+.t-pro-personalize-title {
+  .t-pro-title {
     color: var(--ti-base-color-common-7);
-    text-align: center;
-    background-color: var(--ti-common-color-bg-white-normal);
-    box-shadow: var(--ti-common-shadow-1-down);
-    border-radius: var(--ti-common-border-radius-normal);
-    padding: 24px 16px 20px;
-    margin-bottom: 12px;
-    height: 100%;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 500;
+  }
+}
 
-    &:last-child {
-      margin-right: 0;
-    }
+.t-pro-personalize-config {
+  padding: 8px 48px 0;
+
+  .t-pro-list-title {
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--ti-base-color-common-7);
+    line-height: 22px;
+  }
+
+  .content-space {
+    margin: 40px 0 20px 0;
+  }
+
+  .t-pro-item {
+    width: 436px;
+    height: 64px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 15px 3px rgba(85 ,105 ,173 ,.06); 
+    margin: 20px 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ti-base-color-white);
+    position: relative;
 
     .t-pro-item-title {
+      padding: 10px 0 0 20px;
+    }
+
+    .t-pro-item-content {
+      padding: 3px 0 0 20px;
+    }
+
+    .t-pro-item-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--ti-base-color-white);
       display: flex;
       justify-content: center;
-      flex-direction: column;
       align-items: center;
-      font-size: var(--ti-common-font-size-base);
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
 
-      .t-pro-icon-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 46px;
-        height: 46px;
-        border-radius: var(--ti-common-border-radius-1);
-        background-color: var(--ti-base-color-brand-2);
-        color: var(--ti-base-color-white);
+      .icon-green {
+        color: #7bd06c;
       }
 
-      .t-pro-item-title-text {
-        margin-top: 12px;
-        font-size: var(--ti-common-font-size-base);
-        font-weight: 500;
+      > ti-icon {
+        padding-top: 3px;
+        font-size: 20px;
+        color: #dfe1e6;
       }
     }
-    .t-pro-radio-row {
-      text-align: left;
-      margin-left: 16px;
-      margin-bottom: 16px;
-      width: 100%;
+  }
+
+  .t-pro-theme-box {
+    display: flex;
+    justify-content: space-between;
+    width: 588px;
+    .t-pro-theme-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0 30px 0;
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      box-shadow: 2px 2px 15px 3px rgba(85 ,105 ,173 ,.06); 
+      .t-pro-color {
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+
+        > ti-icon {
+          padding: 3px 0 0 3px;
+          font-size: 20px;
+          color: var(--ti-base-color-white);
+        }
+      }
+    }
+    .t-pro-dark {
+      background: #676868;
     }
   }
+
 }
 
-.t-pro-theme-name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ti-base-color-common-7);
-  font-size: var(--ti-common-font-size-2);
-  font-weight: 600;
-  margin-bottom: 12px;
-  margin-top: 24px;
+::ng-deep ti-modal-wrapper .modal-class-personalize {
+  width: 748px;
+  height: 922px;
+  margin-top: 60px;
 }
 
-.t-pro-theme-colors {
-  .t-pro-theme-color {
-    text-align: center;
-  }
-
-  .t-pro-color-avatar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: var(--ti-common-border-radius-normal);
-    cursor: pointer;
-    margin-left: 12px;
-    transition: box-shadow 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-
-    &:hover {
-      box-shadow: var(--ti-common-shadow-3-down);
-    }
-    &:first-child {
-      margin-left: 0;
-    }
-  }
+::ng-deep .ti3-modal-body {
+  max-height: none !important;
+}
+::ng-deep .ti3-modal-close {
+  color: #8a8e99 !important;
 }
 
 @media only screen and (max-width: 1024px) {

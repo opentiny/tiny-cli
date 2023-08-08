@@ -4,7 +4,6 @@
   height: 80px;
   display: flex;
   flex-direction: row;
-
   a {
     text-decoration: none;
   }
@@ -23,7 +22,7 @@
 
 .panel-number-common {
   font-size: 24px;
-  color: #202e54;
+  color: #fff;
   text-align: left;
   padding: 26px 30px 8px 15px;
   line-height: 28px;
@@ -35,7 +34,7 @@
   top: 45%;
   right: 7px;
   height: 27%;
-  border-right: 1px solid #979797;
+  border-right: 1px solid #fff;
   opacity: 0.2;
 }
 
@@ -44,7 +43,7 @@
 }
 
 .panel-text-common {
-  color: #86909c;
+  color: #dfe1e6;
   font-size: 14px;
   text-align: left;
   white-space: nowrap;

@@ -1,14 +1,15 @@
 .t-pro-footer {
-  height: 80px;
-  padding-top: 8px;
-  background-color: #f6f8f9;
+  height: 60px;
+  background-color: var(--ti-base-content-bg-color);
 
   .t-pro-footer-intro {
+    padding-top: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
+    letter-spacing: 0.5px;
     font-size: 14px;
-
+    
     .t-pro-production-name {
       a {
         color: var(--ti-base-color-common-5);

@@ -1,11 +1,11 @@
-@import 'src/app/@shared/styles/common.scss';
+@import "src/app/@shared/styles/common.scss";
 
 .result-success {
   @include t-pro-product-card;
   text-align: center;
   height: 620px;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
+  background: var(--ti-base-card-bg-color);
 }
 
 .pay-succeed-icon-container {
@@ -30,6 +30,7 @@
     font-size: 24px;
     margin-top: 30px;
     line-height: 36px;
+    color: var(--ti-common-content-text-color);
   }
 
   .pay-succeed-detail {
@@ -46,4 +47,8 @@
   height: 36px;
   border-radius: 4px;
   margin-top: 10px;
+}
+
+.left {
+  color: var(--ti-common-content-text-color);
 }

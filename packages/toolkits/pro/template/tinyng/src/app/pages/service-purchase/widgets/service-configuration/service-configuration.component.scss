@@ -7,7 +7,7 @@
     min-width: 200px;
     flex: 0 0 22%;
     margin-right: 12px;
-    border: 1px solid #adb0b8;
+    border: 1px solid var(--ti-common-color-bg-white-emphasize);
     border-radius: 2px;
     cursor: pointer;
 
@@ -25,7 +25,7 @@
 
     .detail-title {
       text-align: center;
-      background-color: var(--ti-common-color-bg-light-normal);
+      background-color: var(--ti-common-color-bg-white-emphasize);
       height: 52px;
       line-height: 52px;
 
@@ -43,7 +43,7 @@
 
         .detail-item {
           margin-top: 12px;
-          color: #252b3a;
+          color: var(--ti-common-color-text-primary);
 
           span {
             display: inline-block;

@@ -70,7 +70,7 @@
         display: flex;
         justify-content: left;
         margin-bottom: 32px;
-        border-bottom: 2px solid #f6f8f9;
+        border-bottom: 2px solid var(--ti-default-body-bg, #f6f8f9);
 
         .t-pro-tabs-title {
           font-size: var(--ti-common-font-size-2);
