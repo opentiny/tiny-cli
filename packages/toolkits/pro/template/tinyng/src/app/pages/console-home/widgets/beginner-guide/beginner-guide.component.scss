@@ -2,12 +2,14 @@
   padding: 20px 20px;
   margin-top: 20px;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
-  background: var(--ti-common-color-bg-white-normal);
+  background: var(--ti-base-card-bg-color);
   width: 100%;
-
   a {
     text-decoration: none;
+    color: var(--ti-base-notice-content-color);
+    &:hover {
+      font-weight: 600;
+    }
   }
 
   .beginner-title {
@@ -18,7 +20,7 @@
 
     .title {
       font-size: 16px;
-      color: var(--ti-common-color-text-primary);
+      color: var(--ti-base-notice-content-color);
       font-weight: bold;
     }
 
@@ -29,6 +31,11 @@
 
       a {
         font-size: 14px;
+        &:hover {
+          color: var(--ti-common-color-text-primary);
+          text-decoration: underline;
+          font-weight: 600;
+        }
       }
     }
   }
@@ -36,11 +43,11 @@
   .beginner-content {
     a {
       font-size: 12px;
-      color: var(--ti-common-color-text-primary);
+      color: var(--ti-base-notice-content-color);
     }
 
     a span:last-of-type:hover {
-      color: var(--ti-common-color-bg-hover);
+      font-weight: 600;
     }
 
     > li:not(:last-of-type) {

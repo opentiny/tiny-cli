@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { TiTheme } from '@opentiny/ng';
-import { TinyThemeConfigItems, DefaultTheme, ThemeAddrPrefix, ThemeType } from 'src/app/@shared/models/theme';
+import {
+  TinyThemeConfigItems,
+  DefaultTheme,
+  ThemeAddrPrefix,
+  ThemeType,
+} from 'src/app/@shared/models/theme';
 import { CustomStyle } from '@config/tiny-pro';
 import { CustomThemeService } from './custom-theme.service';
 
@@ -13,7 +18,7 @@ export class PersonalizeService {
       items: [],
     },
   ];
-
+  
   constructor(private customThemeService: CustomThemeService) {}
 
   initTheme(): void {
@@ -21,7 +26,9 @@ export class PersonalizeService {
     this.addTinyTheme();
 
     // 主题设置
-    const theme = localStorage.getItem('t-pro-theme') ? JSON.parse(localStorage.getItem('t-pro-theme')!) : DefaultTheme;
+    const theme = localStorage.getItem('t-pro-theme')
+      ? JSON.parse(localStorage.getItem('t-pro-theme')!)
+      : DefaultTheme;
 
     if (theme.id === DefaultTheme.id) {
       this.setDefaultThemeStorage(theme);
@@ -30,12 +37,12 @@ export class PersonalizeService {
 
     // 添加setTimeout原因：页面link的样式会比import加载快
     // 因此loadCss加载的样式会被覆盖，添加setTimeout延迟执行
-    if (theme.id === ThemeType.Custom) {
-      const { brand, isDark } = theme.custom;
-      this.customThemeService.changeCustomTheme(brand, isDark);
-    } else {
+    if (theme.id !== ThemeType.Custom) {
       setTimeout(() => {
-        TiTheme.loadCss(`${ThemeAddrPrefix}/${theme.id}.css`, 'tiny3theme');
+        TiTheme.loadCss(
+          `${ThemeAddrPrefix}/${theme.id}.css`,
+          'tiny3theme'
+        );
       });
     }
   }
@@ -75,19 +82,20 @@ export class PersonalizeService {
       document.body.style.setProperty('--ti-leftmenu-item-selected-border-left-color', '');
     }
 
-    const theme = localStorage.getItem('t-pro-theme') ? JSON.parse(localStorage.getItem('t-pro-theme')!) : DefaultTheme;
+    const theme = localStorage.getItem('t-pro-theme')
+      ? JSON.parse(localStorage.getItem('t-pro-theme')!)
+      : DefaultTheme;
 
     // 需要保存之前设置过的自定义主题相关配置
     this.setDefaultThemeStorage(theme);
 
-    if (themeId === ThemeType.Custom) {
-      const { brand, isDark } = theme.custom;
-      this.customThemeService.changeCustomTheme(brand, isDark);
-    } else {
+    if (themeId !== ThemeType.Custom) {
       TiTheme.loadCss(`${ThemeAddrPrefix}/${themeId}.css`, 'tiny3theme');
     }
-
     const { brand, isDark } = theme.custom;
-    localStorage.setItem('t-pro-theme', JSON.stringify({ id: themeId, custom: { brand, isDark } }));
+    localStorage.setItem(
+      't-pro-theme',
+      JSON.stringify({ id: themeId, custom: { brand, isDark } })
+    );
   }
 }

@@ -90,5 +90,13 @@ export default {
       websiteTutorial: '搭建网站业务',
       uploadTutorial: '快速通过OBS控制台上传文件',
     },
+    iframeDemo: {
+      themeColor: "主题色",
+      fontSize: "字号",
+      fontWeight: "字重",
+      borderRadius: "边框圆角",
+      borderRadius0: "直角",
+      borderRadius1: "圆角"
+    },
   },
 };

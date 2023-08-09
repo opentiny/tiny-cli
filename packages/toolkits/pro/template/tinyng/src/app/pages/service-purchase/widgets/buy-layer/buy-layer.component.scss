@@ -56,3 +56,10 @@
     font-size: 14px;
   }
 }
+
+a {
+  color: var(--ti-base-link-a-color) !important;
+  &:hover{
+    text-decoration: underline;
+  }
+}

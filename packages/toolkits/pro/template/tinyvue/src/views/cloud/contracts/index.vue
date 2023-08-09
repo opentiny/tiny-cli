@@ -1,6 +1,6 @@
 <template>
+  <Breadcrumb :items="['menu.cloud', 'menu.cloud.contracts']" />
   <div class="container-contracts">
-    <Breadcrumb :items="['menu.cloud', 'menu.cloud.contracts']" />
     <div class="contracts-card">
       <tiny-grid
         v-if="update"
@@ -161,24 +161,6 @@
     apigName: 'apig_contract',
     apigGroupName: 'group_contract',
   };
-  // 删除合同
-  async function delContracts(params: { id: string }) {
-    return HwcClientService.apiRequest('delContract', params, contractApigInfo);
-  }
-
-  // 编辑合同
-  async function editContracts(params: {
-    id: string;
-    name: string;
-    customer: string;
-    description: string;
-  }) {
-    return HwcClientService.apiRequest(
-      'editContract',
-      params,
-      contractApigInfo
-    );
-  }
 
   // 获取初始数据
   async function getContractsData(params: { query: string; field: string }) {
@@ -190,27 +172,6 @@
 
     return result?.data;
   }
-
-  // 创建合同
-  async function createContracts(params: {
-    name: string;
-    customer: string;
-    description: string;
-  }) {
-    return HwcClientService.apiRequest('addContract', params, contractApigInfo);
-  }
-
-  const fetchDataOption = reactive({
-    api: ({ page }: any) => {
-      const { currentPage, pageSize } = page;
-      return fetchData({
-        pageIndex: currentPage,
-        pageSize,
-        query: '',
-        field: 'name',
-      });
-    },
-  });
 
   // 请求数据接口方法
   async function fetchData(params: {
@@ -235,6 +196,46 @@
       state.loading = false;
     }
   }
+
+  // 删除合同
+  async function delContracts(params: { id: string }) {
+    return HwcClientService.apiRequest('delContract', params, contractApigInfo);
+  }
+
+  // 编辑合同
+  async function editContracts(params: {
+    id: string;
+    name: string;
+    customer: string;
+    description: string;
+  }) {
+    return HwcClientService.apiRequest(
+      'editContract',
+      params,
+      contractApigInfo
+    );
+  }
+
+  // 创建合同
+  async function createContracts(params: {
+    name: string;
+    customer: string;
+    description: string;
+  }) {
+    return HwcClientService.apiRequest('addContract', params, contractApigInfo);
+  }
+
+  const fetchDataOption = reactive({
+    api: ({ page }: any) => {
+      const { currentPage, pageSize } = page;
+      return fetchData({
+        pageIndex: currentPage,
+        pageSize,
+        query: '',
+        field: 'name',
+      });
+    },
+  });
 
   const disTheme = (item: string, data: any) => {
     init.value = data;
@@ -307,12 +308,13 @@
 </script>
 
 <style scoped lang="less">
+
   .container-contracts {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 98%;
-    height: inherit;
+    width: 100%;
+    height: calc(100% - 60px);
     margin: 0 auto;
     overflow: hidden;
   }
@@ -320,12 +322,6 @@
   // 覆盖组件样式 满足设计图
   :deep(.tiny-grid-button__wrapper) {
     width: 100%;
-  }
-
-  :deep(.tiny-grid-header__column) {
-    height: 35px;
-    color: rgb(139, 137, 137);
-    background-color: #f5f6f7;
   }
 
   :deep(.tiny-pager) {
@@ -340,12 +336,12 @@
 
   .contracts-card {
     flex: 1 1 auto;
-    height: 100%;
-    margin: 0 10px;
+    margin: 8px 10px;
     padding: 0 30px;
     overflow: auto;
     background: #fff;
     border-radius: 10px;
+    box-shadow: 0 0 8px 8px rgba(169, 174, 184, 0.05);
   }
 
   .btn {

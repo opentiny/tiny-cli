@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 7</title>
+    <g id="vue-主题" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Vue-自定义主题-深度主题3" transform="translate(-252.000000, -18.000000)">
+            <g id="编组-7" transform="translate(252.000000, 18.000000)">
+                <rect id="矩形备份" fill="#2F5BEA" x="0" y="0" width="24" height="24" rx="4.31396046"></rect>
+                <g id="编组-2备份" transform="translate(5.201057, 5.191132)">
+                    <polygon id="路径备份" fill="#DFE5FA" points="13.5790507 0 13.5790507 7.98413504 6.80713976 14.7537448 6.80713976 9.17892354 9.51000498 6.45411867 9.51001284 0"></polygon>
+                    <polygon id="路径备份" fill="#FFFFFF" transform="translate(3.403066, 7.376872) scale(-1, 1) translate(-3.403066, -7.376872) " points="6.80613278 0 6.80613278 7.98413504 1.00947784e-15 14.7537448 -7.55632533e-16 9.18388743 2.73708706 6.45411867 2.73709493 0"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

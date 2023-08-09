@@ -1,20 +1,25 @@
 @import 'src/app/@shared/styles/common.scss';
 
 .purchase-box {
-  @include t-pro-product-card;
-  padding: 40px 30px 10px;
-
-  ::ng-deep .ti3-form .ti3-form-label {
-    font-size: 14px !important;
-  }
+    @include t-pro-product-card;
+    padding: 40px 30px 10px;
+    background: var(--ti-base-card-bg-color);
+    ::ng-deep .ti3-form .ti3-form-label {
+        font-size: 14px !important;
+    }
 }
 
 .buy-box {
-  @include t-pro-product-card;
-  margin-top: 20px;
-  padding: 30px 30px;
+    @include t-pro-product-card;
+    margin-top: 20px;
+    padding: 30px 30px;
+    background: var(--ti-base-card-bg-color);
 }
 
 ::ng-deep .ti3-form .ti3-form-content {
-  padding-bottom: 20px !important;
+    padding-bottom: 20px !important; 
+}
+::ng-deep .ti3-btn-item {
+  background-color: var(--ti-common-color-bg-white-emphasize) !important;
+  color: var(--ti-common-color-text-highlight) !important;
 }

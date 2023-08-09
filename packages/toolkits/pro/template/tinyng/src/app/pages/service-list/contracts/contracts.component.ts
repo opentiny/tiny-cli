@@ -27,7 +27,7 @@ export class ContractsComponent {
         label: this.translate.instant(`${ContractsListHeadI18nPrefix}createContract`),
         color: 'danger',
         click: (): void => {
-          this.showModal(this.modal);
+          this.showModal(this.modal)
           this.operation = 'create';
           this.isRefreshTable = false;
         },
@@ -48,16 +48,21 @@ export class ContractsComponent {
   public showModal(content: TemplateRef<any>): void {
     this.tiModal.open(content, {
       id: 'modal',
+      // modalClass接口：接收弹窗的自定义样式
+      modalClass: 'modal-class-create'
     });
   }
-
-  constructor(private translate: TranslateService, private tiModal: TiModalService) {}
+  
+  constructor(
+    private translate: TranslateService, 
+    private tiModal: TiModalService
+  ) {}
 
   public openHalfModal($event: any): void {
     this.rowData = $event;
     this.operation = 'edit';
     this.isRefreshTable = false;
-    this.showModal(this.modal);
+    this.showModal(this.modal)
   }
 
   public openAlert(): void {

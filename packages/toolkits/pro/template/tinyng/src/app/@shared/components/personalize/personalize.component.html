@@ -1,50 +1,48 @@
 <ti-modal-header>
-</ti-modal-header>
-<ti-modal-body>
-<div class="t-pro-personalize-config">
   <div class="t-pro-personalize-title">
     <div class="t-pro-title">{{ 'personalize.title' | translate }}</div>
   </div>
-
-  <t-pro-base-row [tProBaseGutter]="[12, 12]">
-    <t-pro-base-col [tProBaseSpan]="24">
-      <div class="t-pro-item">
-        <div class="t-pro-item-title">
-          <div class="t-pro-icon-content">
-            <ti-icon local name="edit"></ti-icon>
-          </div>
-          <span class="t-pro-item-title-text">{{ 'personalize.' + configs[0].name | translate }}</span>
-        </div>
-        <div *ngFor="let theme of configs[0].items" class="t-pro-radio-row">
-          <input type="radio" tiRadio name="theme" [(ngModel)]="currentValue.themes.id" [value]="theme.id"
-            [label]="'personalize.' + theme.id | translate" (ngModelChange)="onChange('themes', $event)" /><br />
+</ti-modal-header>
+<ti-modal-body>
+  <div class="t-pro-personalize-config">
+    <div class="t-pro-list-title">
+      {{ 'personalize.tiny-recommend-theme' | translate }}
+    </div>
+    <!-- 推荐主题 -->
+    <div *ngFor="let theme of configs[0].items" class="t-pro-item" [style.background]="theme.show"
+      (click)="changeTheme('themes', theme.id)">
+      <div class="t-pro-item-title">{{ theme.name | translate }}</div>
+      <div class="t-pro-item-content">{{ theme.feature | translate }}</div>
+      <div class="t-pro-item-icon">
+        <ti-icon name="checkmark-sharp" [ngClass]="{'icon-green': theme.id === currentTheme}"></ti-icon>
+      </div>
+    </div>
+    <div class="t-pro-list-title content-space">
+      {{ 'personalize.tiny-customize-theme' | translate }}
+    </div>
+    <!-- 自定义主题 -->
+    <div>{{ 'personalize.tiny-light-theme' | translate }}</div>
+    <div class="t-pro-theme-box">
+      <div *ngFor="let themes of LightTheme" class="t-pro-theme-item" [ngClass]="{'t-pro-dark': themes.isDark}">
+        <div [style.backgroundColor]="themes.color" class="t-pro-color" (click)="selectColor('themes', themes)">
+          <ti-icon name="checkmark-sharp" *ngIf="themes.id === currentTheme">
+          </ti-icon>
         </div>
       </div>
-    </t-pro-base-col>
-    <t-pro-base-col [tProBaseSpan]="24">
-      <t-pro-base-row>
-        <t-pro-base-col [tProBaseSpan]="{ ss: 24, xs: 12 }" *ngFor="let theme of themeColors" class="themes">
-          <div class="t-pro-theme-name">
-            <!-- TODO:Tiny3暂没有太阳图标，此处先删除 -->
-            {{ theme?.name }}
+    </div>
+    <div>
+      <div>{{ 'personalize.tiny-dark-theme' | translate }}</div>
+      <div class="t-pro-theme-box">
+        <div *ngFor="let item of ThemeDarkColor" class="t-pro-theme-item" [ngClass]="{'t-pro-dark': item.isDark}">
+          <div [style.backgroundColor]="item.color" class="t-pro-color" (click)="selectDarkColor(item.color, item)">
+            <ti-icon name="checkmark-sharp" *ngIf="
+                customColor === item.color && customDark === item.isDark &&
+                currentTheme === themeType.Custom">
+            </ti-icon>
           </div>
-          <t-pro-base-row class="t-pro-theme-colors">
-            <t-pro-base-col [tProBaseSpan]="3" *ngFor="let color of theme.colors" class="t-pro-theme-color">
-              <div class="t-pro-color-avatar" [ngClass]="{
-                'is-active': customColor === color && customDark === theme.isDark
-              }" [style.backgroundColor]="color" (click)="selectColor(color, theme)">
-                <ti-icon local name="checkmark" *ngIf="
-                  customColor === color &&
-                  customDark === theme.isDark &&
-                  currentValue.themes.id === themeType.Custom
-                "></ti-icon>
-              </div>
-            </t-pro-base-col>
-          </t-pro-base-row>
-        </t-pro-base-col>
-      </t-pro-base-row>
-    </t-pro-base-col>
-  </t-pro-base-row>
-</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ti-modal-body>
 <ti-modal-footer></ti-modal-footer>

@@ -5,11 +5,11 @@
 .my-resource-title {
   font-size: 14px;
   margin-left: 20px;
-  color: var(--ti-common-color-text-primary);
+  color: var(--ti-base-color-common-7);
   line-height: 20px;
   .title {
     font-size: 16px;
-    color: var(--ti-common-color-text-primary);
+    color: var(--ti-base-color-common-7);
     font-weight: bold;
   }
   .cloud-regionName {
@@ -19,10 +19,11 @@
   }
   .my-resources-view-resources-font-set {
     font-size: 14px;
-    color: var(--ti-common-color-text-highlight);
+    color: var(--ti-common-color-text-primary);
     cursor: pointer;
     &:hover {
-      color: var(--ti-common-color-text-link-hover);
+      color: var(--ti-common-color-text-primary);
+      font-weight: 600;
     }
   }
 }
@@ -46,7 +47,7 @@
 }
 
 .my-resource-instance-item {
-  background-color: var(--ti-common-color-bg-light-normal);
+  background-color: var(--ti-common-color-bg-white-emphasize);
   color: var(--ti-common-color-text-highlight);
   line-height: 46px;
   height: 46px;
@@ -55,6 +56,7 @@
   &:hover {
     color: var(--ti-common-color-text-white);
     background-color: var(--ti-base-color-brand-4);
+    font-weight: 600;
   }
   .my-resource-name-font-set {
     display: inline-block;
@@ -139,7 +141,7 @@
   line-height: 14px;
   color: var(--ti-common-color-text-highlight);
   cursor: pointer;
-  background: var(--ti-common-color-bg-light-normal);
+  background: var(--ti-common-color-bg-white-emphasize);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -149,5 +151,6 @@
   &:hover {
     color: var(--ti-common-color-text-white);
     background-color: var(--ti-base-color-brand-4);
+    font-weight: 600;
   }
 }

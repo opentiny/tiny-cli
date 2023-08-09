@@ -12,9 +12,9 @@
 
 <script lang="ts" setup>
   import { watch, ref, defineExpose } from 'vue';
+  import { DatePicker as TinyDatePicker, Modal } from '@opentiny/vue';
   import { useI18n } from 'vue-i18n';
   import { useUserStore } from '@/store';
-  import { DatePicker as TinyDatePicker, Modal } from '@opentiny/vue';
 
   // 变量设置
   const { t } = useI18n();

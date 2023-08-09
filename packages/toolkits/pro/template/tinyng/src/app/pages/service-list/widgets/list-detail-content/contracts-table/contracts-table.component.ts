@@ -9,9 +9,7 @@ import { Filter } from '../../service-list-filter';
 @Component({
   selector: 't-pro-contracts-table',
   templateUrl: './contracts-table.component.html',
-  styleUrls: ['./contracts-table.component.scss'],
-  styles: ['.modal-class { width:450px !important; }'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./contracts-table.component.scss']
 })
 export class ContractsTableComponent implements OnInit {
   @Input() isRefreshTable: Boolean = false;
@@ -86,7 +84,10 @@ export class ContractsTableComponent implements OnInit {
     return function (pre: { [x: string]: any }, next: { [x: string]: any }) {
       const valuePre = pre[property];
       const valueNext = next[property];
-      return new Date(JSON.parse(JSON.stringify(valueNext))).getTime() - new Date(JSON.parse(JSON.stringify(valuePre))).getTime();
+      return (
+        new Date(JSON.parse(JSON.stringify(valueNext))).getTime() -
+        new Date(JSON.parse(JSON.stringify(valuePre))).getTime()
+      );
     };
   }
 
@@ -105,7 +106,7 @@ export class ContractsTableComponent implements OnInit {
     this.totalNumber = data?.count ?? 0;
     this.loading = false;
   }
-
+  
   async onUpdateSrcDate(params: { query: string; field: string }) {
     let interfaceData = await this.contractsService.getContractsData(params);
     let sortData = interfaceData.sort(this.sortTime('updatedAt') as any);
@@ -166,6 +167,7 @@ export class ContractsTableComponent implements OnInit {
       this.open = false;
       this.tiModal.open(this.modal, {
         id: 'myModal1',
+        // modalClass接口：接收弹窗的自定义样式
         modalClass: 'delete-modal-class',
         context: {
           name: 'component',
@@ -191,9 +193,9 @@ export class ContractsTableComponent implements OnInit {
           } else {
             modalRef.destroy(reason);
           }
-        },
+      },
         close: (modalRef: TiModalRef): void => {},
-
+        
         dismiss: (modalRef: TiModalRef): void => {},
       });
     }

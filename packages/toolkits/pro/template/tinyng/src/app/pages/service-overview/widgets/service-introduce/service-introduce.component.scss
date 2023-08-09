@@ -6,7 +6,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-
+  background: var(--ti-base-card-bg-color);
   .head-text {
     width: 72%;
 
@@ -14,6 +14,7 @@
       font-size: 24px;
       font-weight: 400;
       line-height: 33px;
+      color: var(--ti-base-color-common-7);
     }
 
     .head-text-des {

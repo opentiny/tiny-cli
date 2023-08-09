@@ -1,10 +1,10 @@
 .list-content {
   padding: 20px 9px 0 0;
-  background-color: var(--ti-common-color-bg-white-normal);
+  background: var(--ti-base-card-bg-color) !important;
 }
 
 .obs-common-mr8 {
-  color: #5e7ce0;
+  color: #5B96FF;
   margin-right: 15px;
 }
 
@@ -21,8 +21,42 @@
   margin-top: 10px;
 }
 
-::ng-deep .ti3-modal-content {
+::ng-deep ti-modal-wrapper .modal-class-detail {
   width: 589px;
-  border-radius: 8px !important;
-  box-shadow: 0px 0px 30px 15px rgba(37, 43, 58, 0.15) !important;
+  margin-top: 256px;
+}
+
+a {
+  color: var(--ti-base-link-a-color) !important;
+}
+
+::ng-deep .ti3-action-menu-item {
+  color: var(--ti-base-link-a-color) !important;
+}
+
+::ng-deep .ti3-action-menu-item {
+  color: var(--ti-base-link-a-color) !important;
+}
+
+::ng-deep .ti3-table>table>thead>tr>th:not(:last-child):after {
+  background: var(--ti-base-table-border-color) !important;
+}
+
+::ng-deep .ti3-table>table>tbody>tr>td {
+  border-bottom-color: var(--ti-base-table-border-bottom-color) !important;
+  color: var(--ti-base-table-text-color) !important;
+}
+
+::ng-deep .ti3-table>table>thead>tr>th {
+  border-bottom-color: var(--ti-base-table-border-bottom-color) !important;
+}
+
+::ng-deep .ti3-table>table>tbody>tr {
+  background: var(--ti-base-card-bg-color) !important;
+}
+
+::ng-deep .guide-head-button-left-space {
+  color: var(--ti-base-button-default-border-color) !important;
+  background: none !important;
+  border-color: var(--ti-base-button-default-border-color) !important;
 }

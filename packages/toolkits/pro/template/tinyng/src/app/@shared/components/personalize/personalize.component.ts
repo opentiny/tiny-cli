@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonalizeService } from 'src/app/@core/services/personalize.service';
 import { CustomThemeService } from 'src/app/@core/services/custom-theme.service';
-import { ThemeType, ThemeColors, DefaultTheme } from '../../models/theme';
+import { ThemeType, ThemeColors, DefaultTheme, LightTheme, ThemeDarkColor } from '../../models/theme';
 
 @Component({
   selector: 't-pro-personalize',
@@ -15,22 +15,36 @@ export class PersonalizeComponent implements OnInit {
   public currentTheme: any;
   public configs: any[] = [];
   public themeColors: any = ThemeColors;
+  public LightTheme:any = LightTheme;
+  public ThemeDarkColor:any = ThemeDarkColor;
 
   public currentValue: any = {
-    themes: localStorage.getItem('t-pro-theme') ? JSON.parse(localStorage.getItem('t-pro-theme')!) : DefaultTheme,
+    themes: localStorage.getItem('t-pro-theme')
+      ? JSON.parse(localStorage.getItem('t-pro-theme')!)
+      : DefaultTheme,
   };
 
-  constructor(private personalizeService: PersonalizeService, private customThemeService: CustomThemeService) {
+  constructor(
+    private personalizeService: PersonalizeService,
+    private customThemeService: CustomThemeService
+  ) {
     this.customColor = DefaultTheme.brand;
     this.customDark = DefaultTheme.isDark;
   }
 
   ngOnInit() {
+    this.ThemeDarkColor.forEach((item: { isDark: boolean; }) => {
+      item.isDark = true;
+    });
+    this.LightTheme.forEach((item: { isDark: boolean; }) => {
+      item.isDark = false;
+    });
     this.configs = this.personalizeService.configs;
+    this.currentTheme = this.currentValue?.themes.id;
     this.getCustomColor();
   }
 
-  onChange(type: string, value: any) {
+  changeTheme(type: string, value: any) {
     if (type === 'themes') {
       this.currentTheme = value;
       this.personalizeService.changeTheme(value);
@@ -49,12 +63,19 @@ export class PersonalizeComponent implements OnInit {
     }
   }
 
-  selectColor(color: string, theme: any) {
+  selectColor(type: string, value: any) {
+    if (type === 'themes') {
+      this.currentTheme = value.id;
+      this.personalizeService.changeTheme(value.id);
+    }
+  }
+
+  selectDarkColor(color: string, theme: any) {
     this.customColor = color;
     this.customDark = theme.isDark;
     this.currentValue.themes.id = ThemeType.Custom;
     this.currentTheme = ThemeType.Custom;
-
-    this.customThemeService.changeCustomTheme(color, theme.isDark);
+    
+    this.customThemeService.changeCustomTheme(color, theme.isDark, theme.id);
   }
 }

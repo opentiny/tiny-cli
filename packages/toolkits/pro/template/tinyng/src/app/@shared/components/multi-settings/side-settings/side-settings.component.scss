@@ -1,7 +1,7 @@
-::ng-deep ti-halfmodalcontainer.ti3-halfmodal-layout-container {
+::ng-deep ti-halfmodalcontainer.ti3-halfmodal-layout-container{
   padding: 30px;
 }
-
+  
 ::ng-deep ti-icon.ti3-halfmodal-close {
   margin-right: 10px;
   z-index: 100;
@@ -24,11 +24,11 @@
 
     > h3 {
       padding: 10px 0 20px;
-      color: #202e54;
+      color: var(--ti-common-color-text-primary);
       font-size: 18px;
       line-height: 25px;
     }
-    &:nth-child(n + 2) {
+    &:nth-child(n+2) {
       margin-top: 30px;
     }
     &:nth-child(3) {
@@ -42,7 +42,7 @@
       > h4 {
         font-size: 14px;
         line-height: 20px;
-        color: #202e54;
+        color: var(--ti-common-color-text-primary);
       }
     }
 
@@ -69,7 +69,7 @@
           line-height: 20px;
         }
 
-        //导航栏
+        // 导航栏
         &::before {
           background-color: var(--ti-common-color-bg-white-normal);
           content: '';
@@ -80,7 +80,7 @@
           height: 100%;
         }
 
-        //头部区域
+        // 头部区域
         &::after {
           background-color: var(--ti-common-color-bg-white-normal);
           content: '';
@@ -150,6 +150,7 @@
     }
 
     .t-pro-option-multiple {
+
       .t-pro-multiple-item {
         display: flex;
         justify-content: space-between;

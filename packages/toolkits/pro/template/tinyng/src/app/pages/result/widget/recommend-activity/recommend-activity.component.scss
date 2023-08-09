@@ -3,7 +3,7 @@
 .recommend-activity {
   margin-top: 30px;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
+  background: var(--ti-base-card-bg-color) !important;
   height: 240px;
   @include t-pro-product-card;
 }
@@ -11,12 +11,13 @@
 .section-title {
   position: relative;
   width: 100%;
-  color: #252b3a;
+  color: var(--ti-common-color-text-primary);
   padding-bottom: 30px;
   font-size: 16px;
   line-height: 16px;
   font-family: PingFang SC, PingFang SC-PingFang SC;
 }
+
 
 .smart-recommends-wrapper {
   display: flex;

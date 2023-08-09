@@ -2,18 +2,18 @@
 
 .non-support-container {
   @include t-pro-product-card;
-  height: 800px;
-}
-
-.non-support-content {
+  min-height: calc(100vh - 201px);
   display: flex;
-  margin: 140px auto 0;
-  line-height: 1.5;
   justify-content: center;
+  align-items: center;
+  background: var(--ti-base-card-bg-color);
 }
 
-.non-support-content-container {
-  padding-left: 30%;
+.non-support-content-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .non-supportregion-image {
@@ -22,21 +22,21 @@
   height: 240px;
   background: url('/assets/img/background/nonsupportregion.png') no-repeat;
   background-size: 100%;
-  margin-left: 30px;
   margin-bottom: 20px;
 }
 
 .non-supportregion-label {
-  color: #252b3a;
+  color: var(--ti-base-model-text-color);
   font-size: 24px;
   padding-bottom: 8px;
-  font-weight: normal;
+  font-weight: bold;
   line-height: 36px;
   font-family: PingFang SC, PingFang SC-PingFang SC;
 }
 
 .support-regionlist-container {
-  width: 78%;
+  width: 500px;
+  margin-left: 165px;
   margin-bottom: 40px;
   line-height: var(--ti-common-line-height-number);
 }
@@ -50,7 +50,7 @@
 }
 
 .support-regionlist-regions {
-  display: flex;
+  display:flex;
   flex-wrap: wrap;
 }
 
@@ -59,7 +59,7 @@
   background: #e9edfa;
   border-radius: 2px 0px 0px 2px;
   margin-bottom: var(--ti-common-space-base);
-  color: #252b3a;
+  color: #2a2b3a;
   text-align: center;
   line-height: 28px;
   font-size: 14px;
@@ -71,10 +71,10 @@
   cursor: pointer;
   word-break: break-word;
   &:hover {
-    background: #5e7ce0;
+    background: var(--ti-base-color-brand-6);
     color: #ffffff;
     section:after {
-      border-top-color: var(--ti-common-color-text-link-hover);
+        border-top-color: var(--ti-common-color-text-link-hover);
     }
   }
 }
@@ -82,19 +82,19 @@
 .support-regionlist-icon {
   display: inline-block;
   padding-left: var(--ti-common-space-2x);
-  &:after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 5px solid var(--ti-common-color-text-link);
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
+  &:after{
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--ti-common-color-text-link);
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: middle;
   }
 }
 
-.support-regionlist-icon-transform:after {
+.support-regionlist-icon-transform:after{
   transform: rotate(180deg);
 }
