@@ -29,7 +29,9 @@
     "ngx-markdown": "^14.0.1",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "core-js": "^3.29.0",
+    "html-loader": "^1.3.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.1",

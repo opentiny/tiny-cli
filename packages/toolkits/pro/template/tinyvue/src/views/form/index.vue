@@ -4,4 +4,6 @@
 
 <script lang="ts" setup></script>
 
-<style lang="less" scoped></style>
+<style scoped lang="less">
+@import '@/assets/style/menu.less';
+</style>

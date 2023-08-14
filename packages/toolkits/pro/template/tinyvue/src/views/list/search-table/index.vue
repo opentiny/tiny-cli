@@ -274,11 +274,6 @@
 <script lang="ts" setup>
 import {ref, reactive, toRefs} from 'vue';
 import {
-  queryEmployeeList,
-  deleteEmployee,
-  QueryTaskParmas,
-} from '@/api/list';
-import {
   Grid as TinyGrid,
   GridColumn as TinyGridColumn,
   GridToolbar as TinyGridToolbar,
@@ -292,6 +287,11 @@ import {
   Pager as TinyPager,
   Fullscreen as TinyFullscreen, Modal,
 } from '@opentiny/vue';
+import {
+  queryEmployeeList,
+  deleteEmployee,
+  QueryTaskParmas,
+} from '@/api/list';
 
 // 初始化请求数据
 interface FilterOptions {

@@ -15,9 +15,9 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { Button as TinyButton, Tooltip as TinyTooltip } from '@opentiny/vue';
+  import { IconLanguage } from '@opentiny/vue-icon';
   import { LOCALE_OPTIONS } from '@/locale';
   import useLocale from '@/hooks/locale';
-  import { IconLanguage } from '@opentiny/vue-icon';
 
   const locales = [...LOCALE_OPTIONS];
   const { changeLocale } = useLocale();

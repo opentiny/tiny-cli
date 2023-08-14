@@ -26,8 +26,8 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import { getSimpleDate } from '@/utils/time';
   import { Button as TinyButton, Modal } from '@opentiny/vue';
+  import { getSimpleDate } from '@/utils/time';
   import { useUserStore } from '@/store';
   import headtop from '../../form/step/components/head.vue';
   import setFrom from './components/set-from.vue';

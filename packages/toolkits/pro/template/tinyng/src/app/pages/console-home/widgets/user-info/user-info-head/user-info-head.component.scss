@@ -3,8 +3,9 @@
 .user-panel-head {
   position: relative;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
-  background: var(--ti-common-color-bg-white-normal);
+  background-image: url('../../../../../../assets/img/person-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 30px 25px 22px 30px;
 }
 
@@ -24,17 +25,19 @@
   margin-left: 48px;
   width: auto;
   font-size: 12px;
-  color: var(--ti-common-color-text-primary);
+  color: #fff;
   line-height: 16px;
 }
 
 .user-info-expense-center {
+  font-size: 14px;
+  line-height: 20px;
   position: absolute;
   right: 0px;
   display: inline-block;
-
+  
   & > a {
-    color: var(--ti-common-color-text-highlight);
+    color: #fff;
   }
 }
 
@@ -50,24 +53,26 @@
 
 .auth-status-style {
   position: relative;
-  padding: 8px 10px 5px 20px;
-  font-size: 14px;
-  line-height: 20px;
+  padding: 5px 10px 5px 20px;
+  font-size: 16px;
+  line-height: 22px;
   text-align: left;
-  height: 16px;
+  height: 25px;
 
   .real-name {
     position: absolute;
-    top: 8px;
-    left: 70px;
+    top: 4px;
+    left: 88px;
     background-image: url('../../../../../../assets/img/real-name.png');
     background-repeat: no-repeat;
-    height: 16px;
-    width: 54px;
+    height: 20px;
+    width: 76px;
   }
 
   > a {
-    color: var(--ti-common-color-icon-normal);
+    display: inline-block;
+    width: 160px;
+    color: #fff;
     margin-right: 8px;
   }
 
@@ -78,8 +83,8 @@
 }
 
 .hello-lable {
-  color: #86909c;
-  margin: 12px 0 0 20px;
-  line-height: 20px;
+  color: #fff;
+  margin-left: 20px;
+  line-height: 24px;
   font-size: 14px;
 }

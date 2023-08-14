@@ -1,3 +1,5 @@
+
+
 t-pro-layout-header {
   display: flex;
 }
@@ -10,6 +12,7 @@ t-pro-layout-sidebar {
   & > t-pro-navbar {
     flex: 1 1 0%;
     overflow: hidden auto;
+    background-color: var(--ti-common-color-bg-white-normal);
   }
 
   & > t-pro-navbar {
@@ -23,4 +26,14 @@ t-pro-layout-sidebar {
 
 .side-space {
   margin: 0 8px;
+}
+
+
+// 模态框公共样式
+::ng-deep .ti3-modal-content {
+  border-radius: 8px !important;
+  box-shadow: 0px 0px 30px 15px rgba(37, 43, 58, .15) !important;
+}
+::ng-deep .ti3-alert-label {
+  color: var(--ti-common-color-bg-light-normal) !important;
 }

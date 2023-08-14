@@ -6,7 +6,7 @@
     font-family: PingFang SC, PingFang SC-PingFang SC;
     font-weight: normal;
     text-align: left;
-    color: #4e5969;
+    color: var(--ti-common-color-text-primary);
     line-height: 14px;
   }
 }
@@ -26,7 +26,6 @@
 
 @mixin t-pro-product-card {
   padding: 20px 20px;
-  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
   border-radius: 8px;
   background: var(--ti-common-color-bg-white-normal);
 }
@@ -50,5 +49,24 @@
   &.Medium {
     color: var(--ti-common-color-text-gray);
     background-color: var(--ti-common-color-line-normal);
+  }
+}
+::ng-deep .ti3-leftmenu-level2:after {
+  border: none !important;
+}
+
+::ng-deep .ti3-btn-danger {
+  background-color: var(--ti-common-color-bg-light-normal) !important;
+}
+
+::ng-deep .ti3-leftmenu-panel {
+  font-size: 14px;
+  color:var(--ti-base-menu-text) !important;
+}
+
+a {
+  color: var(--ti-base-link-a-color) !important;
+  &:hover{
+    text-decoration: underline;
   }
 }

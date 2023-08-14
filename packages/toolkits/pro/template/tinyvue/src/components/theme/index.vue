@@ -5,7 +5,7 @@
         <h1>{{ $t('theme-title-recommend') }}</h1>
         <template v-for="(item, index) in themeTitle" :key="index">
           <div class="theme-contain">
-            <div :class="item.color" @click="change(item as any)">
+            <div :class="item.color" @click="change(item)">
               <h4>{{ $t(item.title) }}</h4>
               <span>{{ $t(item.content) }}</span>
               <div class="theme-tip">
@@ -26,7 +26,7 @@
         <div>
           <span>{{ $t('theme.title.light') }}</span>
           <div class="theme-line">
-            <div v-for="item in SwitchlightColor" :key="item" class="light">
+            <div v-for="item in SwitchlightColor" :key="item.value" class="light">
               <div
                 class="theme-block"
                 :style="{ 'background-color': item.color }"
@@ -43,7 +43,7 @@
         <div>
           <span>{{ $t('theme.title.deep') }}</span>
           <div class="theme-line">
-            <div v-for="item in SwitchdarkColor" :key="item" class="black">
+            <div v-for="item in SwitchdarkColor" :key="item.value" class="black">
               <div
                 class="theme-block"
                 :style="{ 'background-color': item.color }"
@@ -66,13 +66,14 @@
   import { onMounted, watch } from 'vue';
   // eslint-disable-next-line import/extensions
   import TinyThemeTool from '@opentiny/vue-theme/theme-tool.js';
-  import { useAppStore } from '@/store';
   import { IconYes } from '@opentiny/vue-icon';
+  import { useAppStore } from '@/store';
   import {
     DefaultTheme,
     PeachesTheme,
     VioletTheme,
     DeepnessTheme,
+    DarkTheme,
     SwitchdarkColor,
     SwitchlightColor,
   } from './type';
@@ -110,7 +111,6 @@
       color: 'dark',
     },
   ];
-
   const Yes = IconYes();
   const appStore = useAppStore();
   let divApp = document.documentElement;
@@ -118,8 +118,8 @@
 
   onMounted(() => {
     if (appStore.themelist === 'none') {
-      theme.changeTheme(appStore.themeContent.theme);
-      appStore.theme = appStore.themeContent.dark as string;
+      theme.changeTheme(appStore.themeLightColors.theme);
+      appStore.theme = appStore.themeLightColors.dark as string;
     }
   });
 
@@ -144,6 +144,7 @@
         break;
       case '5':
         appStore.updateSettings({ theme: 'dark' });
+        theme.changeTheme(DarkTheme);
         appStore.updateSettings({ themelist: 'dark' });
         break;
       default:
@@ -156,7 +157,6 @@
   // 暗黑监听
   watch(appStore.$state, (newValue, oldValue) => {
     if (newValue.theme === 'dark') {
-      theme.changeTheme(DefaultTheme);
       divApp!.style.filter = 'invert(0.9) hue-rotate(180deg)';
     } else {
       divApp!.style.filter = 'invert(0) hue-rotate(0deg)';
@@ -174,13 +174,15 @@
     appStore.updateSettings({ themeValue: item.value });
     theme.changeTheme(item.theme);
     appStore.theme = item.dark as string;
-    appStore.updateSettings({ themeContent: item });
+    appStore.setthemeLightColors(item);
   };
 
   // 自定义监听
   watch(
     appStore.$state,
     (newValue, oldValue) => {
+
+      // eslint-disable-next-line default-case
       switch (newValue.themelist) {
         case 'default':
           appStore.updateSettings({ theme: 'light' });
@@ -201,8 +203,6 @@
         case 'dark':
           appStore.updateSettings({ theme: 'dark' });
           break;
-        default:
-          appStore.updateSettings({ themelist: 'none' });
       }
     },
     { immediate: true }

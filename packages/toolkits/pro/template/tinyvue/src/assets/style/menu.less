@@ -1,3 +1,8 @@
+// 菜单宽度
+:deep(.tiny-tree-menu) {
+  width: 250px;
+}
+
 // 去除默认右边竖线
 :deep(.tiny-tree-menu::before) {
   border-right: none;
@@ -22,5 +27,9 @@
       .tree-node-name
       .tiny-svg
   ) {
-  fill: var(--ti-tree-menu-node-current-color);
+    fill: var(--ti-tree-menu-node-current-color);
+}
+:deep(.tiny-collapse-item__header) {
+  background-color: var(--ti-common-color-bg-light-normal);
+  color: var(--ti-common-color-text-highlight); 
 }

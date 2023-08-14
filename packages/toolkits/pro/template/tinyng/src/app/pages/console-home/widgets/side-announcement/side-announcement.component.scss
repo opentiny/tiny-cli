@@ -3,8 +3,7 @@
   padding: 20px 20px 13px 15px;
   margin-top: 20px;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px 8px rgba(169, 174, 184, 0.05);
-  background: var(--ti-common-color-bg-white-normal);
+  background: var(--ti-base-card-bg-color);
   width: 100%;
 
   .side-annoucement-title {
@@ -15,7 +14,7 @@
 
     .title {
       font-size: 16px;
-      color: var(--ti-common-color-text-primary);
+      color: var(--ti-base-notice-content-color);
       font-weight: bold;
       padding-left: 6px;
     }
@@ -26,17 +25,18 @@
       font-size: 14px;
       cursor: pointer;
       text-decoration: none;
-
+      color: var(--ti-base-notice-content-color);
       &:hover {
-        color: var(--ti-common-color-bg-hover);
+        color: var(--ti-base-notice-content-color);
         text-decoration: underline;
+        font-weight: 600;
       }
     }
   }
 
   .side-href {
     display: block;
-    color: #252b3a;
+    color: var(--ti-common-color-text-primary);
     word-break: keep-all;
     height: 14px;
     margin-bottom: 24px;
@@ -47,7 +47,7 @@
 
     span:first-of-type {
       float: left;
-      color: var(--ti-common-color-icon-normal);
+      color: var(--ti-base-notice-tip-color);
     }
 
     .notice-time {
@@ -58,8 +58,8 @@
 
     &:hover,
     &:active {
-      color: var(--ti-common-color-dash-line-hover);
       text-decoration: none;
+      font-weight: 600;
     }
 
     &:link,
@@ -67,12 +67,14 @@
       text-decoration: none;
     }
 
+
     & .side-title {
       display: inline-block;
       width: 55%;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      color: var(--ti-base-notice-content-color);
     }
   }
 }

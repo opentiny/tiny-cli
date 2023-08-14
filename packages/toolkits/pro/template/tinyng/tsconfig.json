@@ -4,23 +4,24 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "declaration": true,
+    "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "target": "es2017",
+    "target": "es2015",
     "module": "es2020",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": true,
     "lib": [
       "es2018",
-      "dom"
+      "dom",
+      "scripthost",
+      "es5",
     ],
     "paths": {
       "@shared/tiny-pro": [
@@ -31,6 +32,9 @@
       ],
       "@shared/home": [
         "home/src/app/@shared/index.ts"
+      ],
+      "@core/personalize": [
+        "src/app/@core/services/personalize.service.ts"
       ]
     }
   },
