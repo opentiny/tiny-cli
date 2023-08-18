@@ -1,10 +1,9 @@
 <template>
-  <div :id="demo.demoId" class="b-a br-sm" :class="currDemoId == demo.demoId ? 'b-a-success' : ''">
-    <div class="px24 py20">
-      <!-- DEMO 的标题 + 说明desc+  示例wcTag -->
-      <div class="f-r f-pos-between f-box-end pb20">
-        <div class="f18 cur-hand">{{ demo.name[langKey] }}</div>
-        <div>
+  <router-view>
+    <div class="container">
+      <div v-if="demo" :id="demo.demoId" class="b-a br-sm">
+        <!-- DEMO 的标题 + 说明desc+  示例wcTag -->
+        <div class="icon-content">
           <n-tooltip trigger="hover">
             <template #trigger>
               <i :class="copyIcon" class="h:c-success w16 h16 cur-hand" @click="copyCode(demo)" @mouseout="resetTip()" />
@@ -18,29 +17,27 @@
             {{ demo.isOpen ? $t('hideCode') : $t('showCode') }}
           </n-tooltip>
         </div>
-      </div>
-      <div v-if="descMd" v-html="descMd" class="markdown-body"></div>
-      <component v-else :is="getDescMd(demo)" class="mb16 f14" />
-      <div v-if="demoConfig.isMobile" class="phone-container">
-        <div class="mobile-view-container">
-          <component :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]" />
+        <div v-if="demoConfig.isMobile" class="phone-container">
+          <div class="mobile-view-container">
+            <component :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]" />
+          </div>
+        </div>
+        <component v-else :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]" />
+        <!-- demo 打开后的示例代码  细滚动时，width:fit-content; -->
+        <div v-if="demo.isOpen" class="px24 py20 b-t-lightless">
+          <n-config-provider :theme-overrides="themeOverrides">
+            <n-tabs v-model:value="tabValue" type="line" size="large" justify-content="space-evenly" @update:value="handleUpdateValue(demo)">
+              <n-tab-pane v-for="(file, idx) in demo.files" :key="file.fileName" :name="'tab' + idx" :tab="file.fileName">
+                <n-layout :native-scrollbar="true" :content-style="`overflow-x:auto; padding: 20px 5px; background-color:#f5f6f8;`">
+                  <n-code :code="file.code" :language="file.language" />
+                </n-layout>
+              </n-tab-pane>
+            </n-tabs>
+          </n-config-provider>
         </div>
       </div>
-      <component v-else :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]" />
     </div>
-    <!-- demo 打开后的示例代码  细滚动时，width:fit-content; -->
-    <div v-if="demo.isOpen" class="px24 py20 b-t-lightless">
-      <n-config-provider :theme-overrides="themeOverrides">
-        <n-tabs v-model:value="tabValue" type="line" size="large" justify-content="space-evenly" @update:value="handleUpdateValue(demo)">
-          <n-tab-pane v-for="(file, idx) in demo.files" :key="file.fileName" :name="'tab' + idx" :tab="file.fileName">
-            <n-layout :native-scrollbar="true" :content-style="`overflow-x:auto; padding: 20px 5px; background-color:#f5f6f8;`">
-              <n-code :code="file.code" :language="file.language" />
-            </n-layout>
-          </n-tab-pane>
-        </n-tabs>
-      </n-config-provider>
-    </div>
-  </div>
+  </router-view>
 </template>
 <script lang="jsx">
 import { defineComponent, reactive, computed, toRefs, onMounted } from 'vue';
@@ -57,14 +54,13 @@ const getDemoCodeFn = demo => {
     demo.files = demo.codeFiles.map(fileName => {
       const ext = $split(fileName, '.', -1);
       const language = languageMap[ext] || '';
-
       return { fileName, language, files: [] };
     });
   }
 };
 
 export default defineComponent({
-  name: 'Demo',
+  name: 'DemoPage',
   props: ['demo'],
   setup(props) {
     const state = reactive({

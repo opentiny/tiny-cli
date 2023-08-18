@@ -19,7 +19,8 @@
           </n-tooltip>
         </div>
       </div>
-      <component :is="getDescMd(demo)" class="mb16 f14" />
+      <div v-if="descMd" v-html="descMd" class="markdown-body"></div>
+      <component v-else :is="getDescMd(demo)" class="mb16 f14" />
       <div v-if="demoConfig.isMobile" class="phone-container">
         <div class="mobile-view-container">
           <component :is="vueComponents[`${cmpId}/${demo.codeFiles[0]}`]" />
@@ -42,7 +43,7 @@
   </div>
 </template>
 <script lang="jsx">
-import { defineComponent, reactive, computed, toRefs } from 'vue';
+import { defineComponent, reactive, computed, toRefs, onMounted } from 'vue';
 import { $t, $t2 } from '@/i18n';
 import { $split, appData, fetchDemosFile } from '@/tools';
 import { languageMap, themeOverrides, vueComponents } from './cmpConfig';
@@ -82,6 +83,7 @@ export default defineComponent({
       copyTip: $t('copyCode'),
       copyIcon: 'i-ti-copy',
       themeOverrides: themeOverrides,
+      descMd: null,
     });
     const fn = {
       getDescMd(demo) {
@@ -99,15 +101,11 @@ export default defineComponent({
         }
       },
       async copyCode(demo) {
-        if (demo.isOpen) {
-          const idx = parseInt(state.tabValue.slice(3));
-
-          navigator.clipboard.writeText(demo.files[idx].code);
-        } else {
+        const idx = demo.isOpen ? parseInt(state.tabValue.slice(3)) : 0;
+        if (!demo.files) {
           const code = await this.getDemoCode(demo);
-
-          navigator.clipboard.writeText(code);
         }
+        navigator.clipboard.writeText(demo.files[idx].code);
         state.copyTip = $t('copyCodeOk');
         state.copyIcon = 'i-ti-check';
       },
@@ -129,20 +127,19 @@ export default defineComponent({
             .catch(error => {});
         }
       },
-      getDemoCode(demo) {
+      async getDemoCode(demo) {
+        await getDemoCodeFn(demo);
         // 获取code代码文本
-        getDemoCodeFn(demo);
-
-        const path = `@demos/app/${state.cmpId}/${demo.files[0].fileName}`;
-
-        return fetchDemosFile(path)
-          .then(code => {
-            demo.files[0].code = code;
-            return code;
-          })
-          .catch(error => {});
+        const idx = demo.isOpen ? parseInt(state.tabValue.slice(3)) : 0;
+        const path = `@demos/app/${state.cmpId}/${demo.files[idx].fileName}`;
+        const code = await fetchDemosFile(path);
+        state.demo.files[idx].code = code;
+        return code;
       },
     };
+    onMounted(() => {
+      getDemoCodeFn(props.demo);
+    });
     return { ...toRefs(state), ...fn, appData, vueComponents, demoConfig };
   },
 });
