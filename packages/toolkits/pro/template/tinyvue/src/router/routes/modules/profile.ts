@@ -4,7 +4,7 @@ export default {
   path: 'profile',
   name: 'Profile',
   id: 'Profile',
-  label: 'Profile',
+  label: 'menu.profile',
   component: () => import('@/views/profile/index.vue'),
   meta: {
     locale: 'menu.profile',
@@ -17,7 +17,7 @@ export default {
       path: 'detail',
       name: 'Detail',
       id: 'Detail',
-      label: 'Detail',
+      label: 'menu.profile.detail',
       component: () => import('@/views/profile/detail/index.vue'),
       meta: {
         locale: 'menu.profile.detail',

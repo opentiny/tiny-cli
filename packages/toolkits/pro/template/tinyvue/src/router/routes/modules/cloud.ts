@@ -4,7 +4,7 @@ export default {
   path: 'cloud',
   name: 'Cloud',
   id: 'Cloud',
-  label: 'Cloud',
+  label: 'menu.cloud',
   component: () => import('@/views/cloud/index.vue'),
   meta: {
     locale: 'menu.cloud',
@@ -17,7 +17,7 @@ export default {
       path: 'hello',
       name: 'Hello',
       id: 'Hello',
-      label: 'Hello',
+      label: 'menu.cloud.hello',
       component: () => import('@/views/cloud/hello/index.vue'),
       meta: {
         locale: 'menu.cloud.hello',
@@ -29,7 +29,7 @@ export default {
       path: 'contracts',
       name: 'Contracts',
       id: 'Contracts',
-      label: 'Contracts',
+      label: 'menu.cloud.contracts',
       component: () => import('@/views/cloud/contracts/index.vue'),
       meta: {
         locale: 'menu.cloud.contracts',

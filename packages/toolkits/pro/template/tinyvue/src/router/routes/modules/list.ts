@@ -4,7 +4,7 @@ export default {
   path: 'list',
   name: 'List',
   id: 'List',
-  label: 'List',
+  label: 'menu.list',
   component: () => import('@/views/list/index.vue'),
   meta: {
     locale: 'menu.list',
@@ -17,7 +17,7 @@ export default {
       path: 'table', // The midline path complies with SEO specifications
       name: 'Table',
       id: 'Table',
-      label: 'Table',
+      label: 'menu.list.searchTable',
       component: () => import('@/views/list/search-table/index.vue'),
       meta: {
         locale: 'menu.list.searchTable',

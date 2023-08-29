@@ -4,7 +4,7 @@ export default {
   path: 'user',
   name: 'User',
   id: 'User',
-  label: 'User',
+  label: 'menu.user',
   component: () => import('@/views/user/index.vue'),
   meta: {
     locale: 'menu.user',
@@ -17,7 +17,7 @@ export default {
       path: 'info',
       name: 'Info',
       id: 'Info',
-      label: 'Info',
+      label: 'menu.user.info',
       component: () => import('@/views/user/info/index.vue'),
       meta: {
         locale: 'menu.user.info',
@@ -29,7 +29,7 @@ export default {
       path: 'setting',
       name: 'Setting',
       id: 'Setting',
-      label: 'Setting',
+      label: 'menu.user.setting',
       component: () => import('@/views/user/setting/index.vue'),
       meta: {
         locale: 'menu.user.setting',

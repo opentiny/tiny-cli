@@ -4,7 +4,7 @@ export default {
   path: 'board',
   name: 'Board',
   id: 'Board',
-  label: 'Board',
+  label: 'menu.board',
   component: () => import('@/views/board/index.vue'),
   meta: {
     locale: 'menu.board',
@@ -17,7 +17,7 @@ export default {
       path: 'home',
       name: 'Home',
       id: 'Home',
-      label: 'Home',
+      label: 'menu.home',
       component: () => import('@/views/board/home/index.vue'),
       meta: {
         locale: 'menu.board.home',
@@ -29,7 +29,7 @@ export default {
       path: 'work',
       name: 'Work',
       id: 'Work',
-      label: 'Work',
+      label: 'menu.work',
       component: () => import('@/views/board/work/index.vue'),
       meta: {
         locale: 'menu.board.work',
