@@ -4,7 +4,7 @@ export default {
   path: 'form',
   name: 'Form',
   id: 'Form',
-  label: 'menu.form',
+  label: 'Form',
   component: () => import('@/views/form/index.vue'),
   meta: {
     locale: 'menu.form',
@@ -17,7 +17,7 @@ export default {
       path: 'base',
       name: 'Base',
       id: 'Base',
-      label: 'menu.form.base',
+      label: 'Base',
       component: () => import('@/views/form/base/index.vue'),
       meta: {
         locale: 'menu.form.base',
@@ -29,7 +29,7 @@ export default {
       path: 'step',
       name: 'Step',
       id: 'Step',
-      label: 'menu.form.step',
+      label: 'Step',
       component: () => import('@/views/form/step/index.vue'),
       meta: {
         locale: 'menu.form.step',

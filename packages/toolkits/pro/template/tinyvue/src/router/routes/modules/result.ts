@@ -4,7 +4,7 @@ export default {
   path: 'result',
   name: 'Result',
   id: 'Result',
-  label: 'menu.result',
+  label: 'Result',
   component: () => import('@/views/result/index.vue'),
   meta: {
     locale: 'menu.result',
@@ -17,7 +17,7 @@ export default {
       path: 'success',
       name: 'Success',
       id: 'Success',
-      label: 'menu.result.success',
+      label: 'Success',
       component: () => import('@/views/result/success/index.vue'),
       meta: {
         locale: 'menu.result.success',
@@ -29,7 +29,7 @@ export default {
       path: 'error',
       name: 'Error',
       id: 'Error',
-      label: 'menu.result.error',
+      label: 'Error',
       component: () => import('@/views/result/error/index.vue'),
       meta: {
         locale: 'menu.result.error',

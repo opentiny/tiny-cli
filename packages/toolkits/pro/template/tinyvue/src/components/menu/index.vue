@@ -10,10 +10,12 @@
       @current-change="currentChange"
     >
       <template #default="slotScope">
-        <span v-if="slotScope.data.icon" class="menu-title">
-          <component :is="slotScope.data.icon.icon"></component>
-          <span>{{ $t(slotScope.data.label) }}</span>
-        </span>
+        <template v-for="(item, index) in routerTitle" :key="index">
+          <span v-if="slotScope.label === item.value" class="menu-title">
+            <component :is="item.icon"></component>
+            <span :class="item.bold">{{ $t(item.name) }}</span>
+          </span>
+        </template>
       </template>
     </tiny-tree-menu>
   </div>
@@ -35,7 +37,7 @@
   import { TreeMenu as tinyTreeMenu } from '@opentiny/vue';
   import router from '@/router';
   import { useUserStore } from '@/store';
-import { TabItem } from '@opentiny/vue';
+  import { TabItem } from '@opentiny/vue';
 
   // icon图标
   const iconDownloadCloud = IconDownloadCloud();
@@ -48,33 +50,147 @@ import { TabItem } from '@opentiny/vue';
   const iconApplication = IconApplication();
   const tree = ref();
   const expandeArr = ref();
-  const iconList = [
+  const routerTitle = [
     {
-      icon: iconApplication
+      value: 'Board',
+      name: 'menu.board',
+      icon: iconApplication,
+      bold: 'main-title',
     },
     {
-      icon: iconFiles
+      value: 'Home',
+      name: 'menu.home',
+      icon: null,
+      bold: 'title',
     },
     {
-      icon: iconSetting
+      value: 'Work',
+      name: 'menu.work',
+      icon: null,
+      bold: 'title',
     },
     {
-      icon: iconFiletext
+      value: 'List',
+      name: 'menu.list',
+      icon: iconFiles,
+      bold: 'main-title',
     },
     {
-      icon: iconSuccessful
+      value: 'Table',
+      name: 'menu.list.searchTable',
+      icon: null,
+      bold: 'title',
     },
     {
-      icon: iconCueL
+      value: 'Form',
+      name: 'menu.form',
+      icon: iconSetting,
+      bold: 'main-title',
     },
     {
-      icon: iconUser
+      value: 'Base',
+      name: 'menu.form.base',
+      icon: null,
+      bold: 'title',
     },
     {
-      icon: iconDownloadCloud
+      value: 'Step',
+      name: 'menu.form.step',
+      icon: null,
+      bold: 'title',
     },
-  ]
-  
+    {
+      value: 'Profile',
+      name: 'menu.profile',
+      icon: iconFiletext,
+      bold: 'main-title',
+    },
+    {
+      value: 'Detail',
+      name: 'menu.profile.detail',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'Result',
+      name: 'menu.result',
+      icon: iconSuccessful,
+      bold: 'main-title',
+    },
+    {
+      value: 'Success',
+      name: 'menu.result.success',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'Error',
+      name: 'menu.result.error',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'Cloud',
+      name: 'menu.cloud',
+      icon: iconDownloadCloud,
+      bold: 'main-title',
+    },
+    {
+      value: 'Hello',
+      name: 'menu.cloud.hello',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'Contracts',
+      name: 'menu.cloud.contracts',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'Exception',
+      name: 'menu.exception',
+      icon: iconCueL,
+      bold: 'main-title',
+    },
+    {
+      value: '403',
+      name: 'menu.exception.403',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: '404',
+      name: 'menu.exception.404',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: '500',
+      name: 'menu.exception.500',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'User',
+      name: 'menu.user',
+      icon: iconUser,
+      bold: 'main-title',
+    },
+    {
+      value: 'Info',
+      name: 'menu.user.info',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'Setting',
+      name: 'menu.user.setting',
+      icon: null,
+      bold: 'title',
+    },
+  ];
+
   // 获取路由数据
   const appRoute = computed(() => {
     return router
@@ -89,18 +205,17 @@ import { TabItem } from '@opentiny/vue';
   const userStore = useUserStore();
   const role = computed(() => userStore.role);
   let treeData = ref(copyRouter);
-  treeData.value.forEach((item, index) => {
-    item.icon = iconList[index]
-  });
-  const treeDataFilter = treeData.value.filter((e) => {
-    if(e.children) {
-      e.children = e.children.filter(v => {
-        return !v.meta.hideInMenu
-      })
+  const treeDataFilter = treeData.value.filter(
+    (e: { children: any[]; meta: { hideInMenu: any } }) => {
+      if (e.children) {
+        e.children = e.children.filter((v: { meta: { hideInMenu: any } }) => {
+          return !v.meta.hideInMenu;
+        });
+      }
+      return !e.meta.hideInMenu;
     }
-    return !e.meta.hideInMenu;
-  });
-  
+  );
+
   watch(
     role,
     (newValue, oldValue) => {
@@ -179,15 +294,15 @@ import { TabItem } from '@opentiny/vue';
       height: 1.3em;
     }
   }
-  :deep(
-      .tiny-tree-menu
-        .tiny-tree
-        .tiny-tree-node.is-current
-        > .tiny-tree-node__content
-    ) {
+  :deep(.tiny-tree-node__wrapper > .is-current >.tiny-tree-node__content) {
+    background: var(--ti-tree-menu-node-hover-bg-color);
+    margin-left: 0 !important;
     &:hover {
       background: var(--ti-tree-menu-node-hover-bg-color) !important;
     }
+  }
+  :deep(.tiny-tree-node > .tiny-tree-node__content) {
+    margin-left: 0 !important;
   }
   .tiny-tree-menu
     .tiny-tree
