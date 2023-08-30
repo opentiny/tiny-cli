@@ -205,16 +205,18 @@
   const userStore = useUserStore();
   const role = computed(() => userStore.role);
   let treeData = ref(copyRouter);
-  const treeDataFilter = treeData.value.filter(
-    (e: { children: any[]; meta: { hideInMenu: any } }) => {
+  const treeDataForEach = (arr: any[]) => {
+    return arr.filter((e: { children: any[]; meta: { hideInMenu: any } }) => {
       if (e.children) {
         e.children = e.children.filter((v: { meta: { hideInMenu: any } }) => {
           return !v.meta.hideInMenu;
         });
+        treeDataForEach(e.children);
       }
       return !e.meta.hideInMenu;
-    }
-  );
+    });
+  };
+  const treeDataFilter = treeDataForEach(treeData.value);
 
   watch(
     role,
@@ -294,7 +296,7 @@
       height: 1.3em;
     }
   }
-  :deep(.tiny-tree-node__wrapper > .is-current >.tiny-tree-node__content) {
+  :deep(.tiny-tree-node__wrapper > .is-current > .tiny-tree-node__content) {
     background: var(--ti-tree-menu-node-hover-bg-color);
     margin-left: 0 !important;
     &:hover {
