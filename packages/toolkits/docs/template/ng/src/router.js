@@ -27,6 +27,12 @@ let routes = [
     name: 'components',
     children: [{ path: '', component: Components }],
   },
+  //单组件示例
+  {
+    path: import.meta.env.VITE_CONTEXT + 'demoPage/:cmpId/:demoId',
+    component: DemoPage,
+    name: 'demoPage',
+  },
   // 未匹配到目标地址时，进行路由重定向
   {
     path: '/:pathMatch(.*)*',

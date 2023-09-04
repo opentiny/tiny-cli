@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Layout from '@/views/layout/layout.vue';
 
 const Components = () => import('@/views/components/components.vue');
+const DemoPage = () => import('@/views/components/demoPage.vue');
 const Docs = () => import('@/views/docs/docs.vue');
 const Overview = () => import('@/views/overview.vue');
 
@@ -26,6 +27,12 @@ let routes = [
     component: Layout,
     name: 'components',
     children: [{ path: '', component: Components }],
+  },
+  //单组件示例
+  {
+    path: import.meta.env.VITE_CONTEXT + 'demoPage/:cmpId/:demoId',
+    component: DemoPage,
+    name: 'demoPage',
   },
   // 未匹配到目标地址时，进行路由重定向
   {
