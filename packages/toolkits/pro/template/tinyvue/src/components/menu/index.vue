@@ -2,7 +2,7 @@
   <div class="menu-router">
     <tiny-tree-menu
       ref="tree"
-      :data="treeData"
+      :data="treeDataFilter"
       :show-filter="false"
       node-key="id"
       wrap
@@ -37,6 +37,7 @@
   import { TreeMenu as tinyTreeMenu } from '@opentiny/vue';
   import router from '@/router';
   import { useUserStore } from '@/store';
+  import { TabItem } from '@opentiny/vue';
 
   // icon图标
   const iconDownloadCloud = IconDownloadCloud();
@@ -204,6 +205,18 @@
   const userStore = useUserStore();
   const role = computed(() => userStore.role);
   let treeData = ref(copyRouter);
+  const treeDataForEach = (arr: any[]) => {
+    return arr.filter((e: { children: any[]; meta: { hideInMenu: any } }) => {
+      if (e.children) {
+        e.children = e.children.filter((v: { meta: { hideInMenu: any } }) => {
+          return !v.meta.hideInMenu;
+        });
+        treeDataForEach(e.children);
+      }
+      return !e.meta.hideInMenu;
+    });
+  };
+  const treeDataFilter = treeDataForEach(treeData.value);
 
   watch(
     role,
@@ -255,7 +268,6 @@
 </script>
 
 <style lang="less" scoped>
-
   .main-title {
     height: 20px;
     font-size: 14px;
@@ -284,12 +296,22 @@
       height: 1.3em;
     }
   }
-  :deep(.tiny-tree-menu .tiny-tree .tiny-tree-node.is-current>.tiny-tree-node__content) {
+  :deep(.tiny-tree-node__wrapper > .is-current > .tiny-tree-node__content) {
+    background: var(--ti-tree-menu-node-hover-bg-color);
+    margin-left: 0 !important;
     &:hover {
-      background: var(--ti-tree-menu-node-hover-bg-color) !important;   
+      background: var(--ti-tree-menu-node-hover-bg-color) !important;
     }
   }
-  .tiny-tree-menu .tiny-tree .tiny-tree-node.is-current > .tiny-tree-node__content .tree-node-name .tiny-svg {
+  :deep(.tiny-tree-node > .tiny-tree-node__content) {
+    margin-left: 0 !important;
+  }
+  .tiny-tree-menu
+    .tiny-tree
+    .tiny-tree-node.is-current
+    > .tiny-tree-node__content
+    .tree-node-name
+    .tiny-svg {
     fill: var(--ti-base-icon-color);
   }
 </style>

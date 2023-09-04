@@ -46,7 +46,7 @@ export default {
   'messageBox.userCenter': 'User Center',
   'messageBox.userSettings': 'User Settings',
   'messageBox.logout': 'Logout',
-  'menu.cloud': 'Cloud service capability display',
+  'menu.cloud': 'Cloud service capability',
   ...localeTheme,
   ...localeSettings,
   ...localeLogin,
