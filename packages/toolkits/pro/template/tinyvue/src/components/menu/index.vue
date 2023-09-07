@@ -37,7 +37,6 @@
   import { TreeMenu as tinyTreeMenu } from '@opentiny/vue';
   import router from '@/router';
   import { useUserStore } from '@/store';
-  import { TabItem } from '@opentiny/vue';
 
   // icon图标
   const iconDownloadCloud = IconDownloadCloud();
@@ -276,6 +275,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
+    color: #000;
   }
 
   .title {
@@ -297,7 +297,18 @@
     }
   }
   :deep(.tiny-tree-node__wrapper > .is-current > .tiny-tree-node__content) {
-    background: var(--ti-tree-menu-node-hover-bg-color);
+    color: #000 !important;
+    background: none !important;
+    margin-left: 0 !important;
+    &:hover {
+      background: #fff !important;
+      color: #fff !important;
+    }
+  }
+  :deep(.tiny-tree-node__wrapper > .is-expanded >  .tiny-tree-node__children
+  > .tiny-tree-node__wrapper > .is-current > .tiny-tree-node__content
+  ) {
+    background-color: var(--ti-tree-menu-node-hover-bg-color) !important;
     margin-left: 0 !important;
     &:hover {
       background: var(--ti-tree-menu-node-hover-bg-color) !important;

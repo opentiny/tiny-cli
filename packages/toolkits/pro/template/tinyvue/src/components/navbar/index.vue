@@ -25,7 +25,8 @@
         <div class="divider"></div>
       </li>
       <li @click="changeLan">
-        <span>{{ i18.locale.value }}</span>
+        <span v-if="i18.locale.value == 'zhCN'">中文</span>
+        <span v-else>English</span>
         <img src="@/assets/images/lan.png" alt="lan" class="navbar-lan" />
         <div v-if="lan" class="trigger-lan">
           <li
@@ -122,6 +123,7 @@
 
   const switchRoles = async () => {
     const res = await userStore.switchRoles();
+    
     Modal.message({
       message: res as string,
       status: 'success',
