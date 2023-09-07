@@ -37,6 +37,7 @@
   import { TreeMenu as tinyTreeMenu } from '@opentiny/vue';
   import router from '@/router';
   import { useUserStore } from '@/store';
+  import { TabItem } from '@opentiny/vue';
 
   // icon图标
   const iconDownloadCloud = IconDownloadCloud();
