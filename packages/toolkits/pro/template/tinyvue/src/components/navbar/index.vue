@@ -25,7 +25,7 @@
         <div class="divider"></div>
       </li>
       <li @click="changeLan">
-        <span v-if="i18.locale.value == 'zhCN'">中文</span>
+        <span v-if="i18.locale.value === 'zhCN'">中文</span>
         <span v-else>English</span>
         <img src="@/assets/images/lan.png" alt="lan" class="navbar-lan" />
         <div v-if="lan" class="trigger-lan">
