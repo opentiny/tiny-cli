@@ -323,7 +323,9 @@ export const installDependencies = (answers: ProjectInfo) => {
     console.log(
       chalk.green(
         `${chalk.yellow(
-          `$ cd ${name}/${serverFramework} && npm run dev`
+          serverFramework === ServerFrameworks.SpringCloud
+            ? `请查看 ${name}/${serverFramework}/README_CN.md `
+            : `$ cd ${name}/${serverFramework} && npm run dev`
         )}    # 开启server开发环境`
       )
     );
