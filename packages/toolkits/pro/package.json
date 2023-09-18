@@ -1,6 +1,6 @@
 {
   "name": "@opentiny/tiny-toolkit-pro",
-  "version": "1.0.10",
+  "version": "1.0.15",
   "description": "TinyPro 开箱即用的中后台前端/设计解决方案",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -101,6 +101,20 @@
     ]
   },
   "changeLog": [
+    {
+      "version": "1.0.15",
+      "log": [
+        "fix: 修复体验类问题5个"
+      ]
+    },
+    {
+      "version": "1.0.14",
+      "log": [
+        "fix: 修复vue模板不能正常启动的问题",
+        "fix: 菜单是否显示优化",
+        "fix: 优化国际化词条"
+      ]
+    },
     {
       "version": "1.0.2",
       "log": [
