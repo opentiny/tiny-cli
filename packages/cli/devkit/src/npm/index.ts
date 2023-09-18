@@ -27,7 +27,7 @@ const TIMEOUT = 5000;
 // 未配置cnpmrc时默认使用淘宝镜像源
 const defaultRegistries = {
   registry: 'https://registry.npmmirror.com/',
-  '@opentiny:registry': 'https://registry.npmmirror.com/'
+  '@opentiny:registry': 'https://registry.npmmirror.com/',
 };
 
 /**
@@ -154,14 +154,14 @@ export function setCnpmrc(config: any) {
  * 获取安装器
  */
 export function getInstaller() {
-  return require.resolve('npminstall/bin/install.js')
+  return require.resolve('npminstall/bin/install.js');
 }
 
 /**
  * 获取卸载器
  */
 export function getUnInstaller() {
-  return require.resolve('npminstall/bin/uninstall.js')
+  return require.resolve('npminstall/bin/uninstall.js');
 }
 
 /**
@@ -200,14 +200,14 @@ export async function installDependencies(options?: NpmOption) {
  * @param options
  */
 export async function runInstall(installer: string, paths: any, options?: NpmOption) {
-  const cwd = process.cwd();
+  const cwd = (options || {}).cwd || process.cwd();
   const cacheDir = getCacheDir();
   // npm默认值
   const option = _.defaults(options || {}, {
     stdio: 'inherit',
     registry: getRegistry(),
     cwd,
-    china: true
+    china: true,
   });
 
   // 支持cnpmrc设置缓存目录
@@ -247,8 +247,8 @@ export async function runInstall(installer: string, paths: any, options?: NpmOpt
         S: '-save',
         D: '-save-dev',
         O: '-save-optional',
-        E: '-save-exact'
-      }
+        E: '-save-exact',
+      },
     })
   );
 
@@ -281,7 +281,7 @@ export async function has(name: string, options?: NpmOption) {
   const registry = getRegistry(name);
   options = {
     registry,
-    ...options
+    ...options,
   };
   const url = `${options.registry}${encodeURIComponent(name)}/latest`;
   log.debug('check module has =%s', url);
@@ -323,7 +323,7 @@ export async function latest(name: string, options?: NpmOption): Promise<Package
   options = {
     registry,
     version: 'latest',
-    ...options
+    ...options,
   };
   const url = `${options.registry}${encodeURIComponent(name)}/${options.version}`;
   let data = null;
@@ -352,5 +352,5 @@ export default {
   has,
   getCnpmrc,
   setCnpmrc,
-  runInstall
+  runInstall,
 };

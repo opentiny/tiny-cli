@@ -19,7 +19,7 @@ export default {
     autoUpdateZ: '检查到您本地版本为 {localVersion} , 自动为您升级到兼容版本 {autoZVersion} 中...',
     autoInstall: '本地尚未安装 {name} ,正在执行自动安装...',
     // install-one.js
-    importPkgError: '您传入的包名有误，请输入正确的包名，如： @opentiny/cli-toolkit-xxx，@opentiny/cli-plugin-xxx',
+    importPkgError: '您传入的包名有误，请输入正确的包名，如： @opentiny/tiny-toolkit-xxx，@opentiny/tiny-plugin-xxx',
     installSuccess: '{name} 安装成功',
     updateSuccess: '{name} 更新成功',
     // utils.js
@@ -32,7 +32,7 @@ export default {
     recommendInstall: '请执行 {icon}  {installTip} 来升级模块',
     includeUpdate: '包含以下更新:',
     installError: '{name} 安装报错，请确认该package是否存在!',
-    getModuleErr: '{modulePath} 文件运行失败，请检查，错误信息如下:'
+    getModuleErr: '{modulePath} 文件运行失败，请检查，错误信息如下:',
   },
   en: {
     autoUpdate: '{name} has set an automatic update and is excuting an update operation...',
@@ -41,7 +41,7 @@ export default {
     autoInstall: '{name} has not been installed, performing an automatic installation...',
     // install-one.js
     importPkgError:
-      'Package name is incorrect. Please re-enter the correct package name，eg: @opentiny/cli-toolkit-xxx， @opentiny/cli-plugin-xxx',
+      'Package name is incorrect. Please re-enter the correct package name, eg: @opentiny/tiny-toolkit-xxx, @opentiny/tiny-plugin-xxx',
     installSuccess: '{name} install completed',
     updateSuccess: '{name} update completed',
     // utils.js
@@ -54,6 +54,6 @@ export default {
     recommendInstall: 'Please execute {icon} {installTip} to upgrade the module',
     includeUpdate: 'Include the following updates:',
     installError: 'Install {name} package error, please confirm whether the package exists!',
-    getModuleErr: '{modulePath} failed to run, more details:'
-  }
+    getModuleErr: '{modulePath} failed to run, more details:',
+  },
 };
