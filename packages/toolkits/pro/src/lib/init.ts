@@ -68,7 +68,9 @@ const getProjectInfo = (): Promise<ProjectInfo> => {
         { name: '暂不配置服务端', value: false },
       ],
       prefix: '*',
-      when: (answers) => answers.serverFramework !== ServerFrameworks.Skip,
+      when: (answers) =>
+        answers.framework === VUE_TEMPLATE_PATH &&
+        answers.serverFramework !== ServerFrameworks.Skip,
     },
     {
       type: 'list',
@@ -255,6 +257,11 @@ const createProjectSync = (answers: ProjectInfo) => {
     log.error('配置项目信息创失败');
   }
 
+  // ng模板不开启mock以及服务
+  if (templatePath === NG_TEMPLATE_PATH) {
+    return;
+  }
+
   // 如果不对接服务端，全部接口采用mock
   if (!serverConfirm) {
     try {
@@ -316,7 +323,9 @@ export const installDependencies = (answers: ProjectInfo) => {
     console.log(
       chalk.green(
         `${chalk.yellow(
-          `$ cd ${name}/${serverFramework} && npm run dev`
+          serverFramework === ServerFrameworks.SpringCloud
+            ? `请查看 ${name}/${serverFramework}/README_CN.md `
+            : `$ cd ${name}/${serverFramework} && npm run dev`
         )}    # 开启server开发环境`
       )
     );
