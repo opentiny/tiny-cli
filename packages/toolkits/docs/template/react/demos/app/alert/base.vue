@@ -10,4 +10,6 @@ customElements.define(
   'alert-base-demo',
   AlertBase      
 )
+export default {
+}
 </script>

@@ -3,14 +3,7 @@
 </template>
 
 <script>
-import ButtonClick from '@/webcomps/button/button-click-webcomp.js'
-
-export default {
-  beforeCreate() {
-    customElements.define(
-      'button-click-demo',
-      ButtonClick      
-    )
-  }
-};
+import ButtonClick from "@/webcomps/button/button-click-webcomp.js";
+customElements.define("button-click-demo", ButtonClick);
+export default {};
 </script>
