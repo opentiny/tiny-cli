@@ -6,12 +6,8 @@
 
 <script lang="jsx">
 import AlertType from '@/webcomps/alert/type.js'
-export default {
-  beforeCreate() {
-    customElements.define(
-      'alert-type-demo',
-      AlertType      
-    )
-  }
-}
+customElements.define(
+  'alert-type-demo',
+  AlertType      
+)
 </script>

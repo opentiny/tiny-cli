@@ -6,12 +6,8 @@
 
 <script>
 import AlertBase from '@/webcomps/alert/base.js'
-export default {
-  beforeCreate() {
-    customElements.define(
-      'alert-base-demo',
-      AlertBase      
-    )
-  }
-}
+customElements.define(
+  'alert-base-demo',
+  AlertBase      
+)
 </script>

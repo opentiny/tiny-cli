@@ -6,12 +6,8 @@
 
 <script lang="jsx">
 import AlertTitle from '@/webcomps/alert/title.js'
-export default {
-  beforeCreate() {
-    customElements.define(
-      'alert-title-demo',
-      AlertTitle      
-    )
-  }
-}
+customElements.define(
+  'alert-title-demo',
+  AlertTitle      
+)
 </script>

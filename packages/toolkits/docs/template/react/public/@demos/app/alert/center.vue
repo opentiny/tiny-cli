@@ -4,14 +4,8 @@
 
 <script lang="jsx">
 import AlertCenter from '@/webcomps/alert/center.js'
-
-
-export default {
-  beforeCreate() {
-    customElements.define(
-      'alert-center-demo',
-      AlertCenter      
-    )
-  }
-}
+customElements.define(
+  'alert-center-demo',
+  AlertCenter      
+)
 </script>

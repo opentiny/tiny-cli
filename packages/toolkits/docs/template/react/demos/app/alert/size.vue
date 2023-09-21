@@ -6,12 +6,8 @@
 
 <script>
 import AlertSize from '@/webcomps/alert/size.js'
-export default {
-  beforeCreate() {
-    customElements.define(
-      'alert-size-demo',
-      AlertSize      
-    )
-  }
-}
+customElements.define(
+  'alert-size-demo',
+  AlertSize      
+)
 </script>

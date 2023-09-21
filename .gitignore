@@ -7,3 +7,4 @@ dist
 /packages/toolkits/docs/template/ng/public/overviewimage
 /packages/toolkits/docs/.npmrc
 /packages/toolkits/docs/template/ng/tinyng
+.DS_Store
