@@ -158,8 +158,8 @@ const createDatabase = async (answers: ProjectInfo) => {
   log.info(`连接成功，准备创建数据库（${database}）和用户数据表...`);
 
   // 新建数据库
-  await connection.query(`CREATE DATABASE IF NOT EXISTS ${database}`);
-  await connection.query(` USE ${database}`);
+  await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\``);
+  await connection.query(`USE \`${database}\``);
 
   // 读取sql文件、新建表
   const serverPath = utils.getDistPath(`${name}/${serverFramework}`);
