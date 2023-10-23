@@ -26,8 +26,7 @@ const TIMEOUT = 5000;
 
 // 未配置cnpmrc时默认使用淘宝镜像源
 const defaultRegistries = {
-  registry: 'https://registry.npmmirror.com/',
-  '@opentiny:registry': 'https://registry.npmmirror.com/',
+  registry: 'https://registry.npmmirror.com/'
 };
 
 /**
@@ -44,7 +43,7 @@ export function getRegistry(name?: string): string {
     scope = name.slice(0, name.indexOf('/'));
   }
   if (scope) {
-    registry = config[`${scope}:registry`] || defaultRegistries[`${scope}:registry`];
+    registry = config[`${scope}:registry`] || defaultRegistries[`${scope}:registry`] || registry;
   }
   // 需要以 "/" 结尾
   if (registry && !registry.endsWith('/')) {
