@@ -148,8 +148,8 @@ const createDatabase = async (answers: ProjectInfo) => {
   const connection = await mysql.createConnection({
     host,
     port,
-    user: username,
     password,
+    user: username,
     multipleStatements: true,
   });
 
@@ -376,7 +376,7 @@ export default async () => {
     await createDatabase(projectInfo);
   } catch (e) {
     log.error(
-      '数据库初始化失败，请确认数据库配置信息正确并手动初始化数据库' + e
+      `数据库初始化失败，请确认数据库配置信息正确并手动初始化数据库${e}`
     );
   }
 
