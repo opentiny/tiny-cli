@@ -1,6 +1,6 @@
 <span class="t-pro-header-collapsed-button" (mouseenter)="SideMenuDrawer(num-1)" (click)="SideMenuDrawer(num+1)"
   [ngStyle]="{ marginLeft: hideLogo?'16px':null }">
-  <ti-icon name="list-outline"></ti-icon>
+  <ti-svg name="list-outline"></ti-svg>
 </span>
 <div class="left-menu-container" [hidden]="collapsed" (mouseleave)="SideMenuDrawer(num)">
   <ti-leftmenu [(active)]="active" [(reloadState)]="reloadState" [toggleable]="toggleable" [(collapsed)]="collapsed"
@@ -8,7 +8,7 @@
     <ti-leftmenu-level1 [item]="m1" *ngFor="let m1 of menu">
       <ti-leftmenu-item *ngIf="m1.title">
         <div class="menu-item">
-          <ti-icon [name]="m1.menuIcon" class="menu-icon"></ti-icon>{{ m1.title }}
+          <ti-svg [name]="m1.menuIcon" class="menu-icon"></ti-svg>{{ m1.title }}
         </div>
       </ti-leftmenu-item>
       <ti-leftmenu-level2 [item]="m2" *ngFor="let m2 of m1.children">

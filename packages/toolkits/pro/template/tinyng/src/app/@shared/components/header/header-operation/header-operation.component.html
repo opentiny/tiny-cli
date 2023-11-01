@@ -11,7 +11,7 @@
     </span>
     <!-- 小分辨率下显示为icon图标 -->
     <span *ngIf="shrink" class="language-icon">
-      <ti-icon *ngIf="shrink" name="language-outline" class="tpicon-translation"></ti-icon>
+      <ti-svg *ngIf="shrink" name="language-outline" class="tpicon-translation"></ti-svg>
     </span>
     <ul tProBaseDropDownMenu class="t-pro-dropdown-menu t-pro-scrollbar item-width" role="menu">
       <li *ngFor="let item of languages" role="menuitem" class="menu-item"
@@ -28,7 +28,7 @@
   <a tiNavigation [href]="helpCenter" target="_blank" rel="noopener noreferrer" class="help-center">
     <span *ngIf="!shrink">{{ 'header.helpCenter' | translate }}</span>
     <!-- 小分辨率下显示为icon图标 -->
-    <ti-icon *ngIf="shrink" name="help-circle-outline" class="tpicon-helping"></ti-icon>
+    <ti-svg *ngIf="shrink" name="help-circle-outline" class="tpicon-helping"></ti-svg>
   </a>
   <!-- 个人中心 -->
   <div class="t-pro-operations-user" tProBaseDropDown [trigger]="'hover'" appendToBody tProBaseDropDownToggle>
@@ -55,7 +55,7 @@
   <div class="t-pro-operations-notice" tProBaseDropDown [trigger]="'click'" tProBaseDropDownToggle appendToBody
     [closeScope]="'blank'" (mouseenter)="showNoticeModal(true)" (mouseleave)="showNoticeModal(false)">
     <t-pro-base-badge [count]="noticeCount">
-      <ti-icon name="mail-outline" class="email-icon"></ti-icon>
+      <ti-svg name="mail-outline" class="email-icon"></ti-svg>
     </t-pro-base-badge>
     <t-pro-header-notice [show]="isShowNoticeModal" (showStatus)="parentStatus($event)" (countEvent)="handleNoticeCount($event)"></t-pro-header-notice>
   </div>

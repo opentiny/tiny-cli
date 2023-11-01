@@ -27,7 +27,7 @@
   </div>
 
   <div class="t-pro-language-wrapper" tProBaseDropDown [trigger]="'hover'" tProBaseDropDownToggle appendToBody>
-    <ti-icon name="language-outline"></ti-icon>
+    <ti-svg name="language-outline"></ti-svg>
     <span class="font-change">{{ 'loginPage.language' | translate }}</span>
     <ul tProBaseDropDownMenu class="t-pro-dropdown-menu t-pro-scrollbar" role="menu" style="width: 120px">
       <li *ngFor="let item of languages" role="menuitem" [ngClass]="{ 't-pro-active-lang': language === item.code }"

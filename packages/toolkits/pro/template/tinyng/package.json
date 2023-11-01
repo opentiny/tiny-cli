@@ -23,15 +23,15 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@opentiny/hwc-client": "^0.0.14",
-    "@opentiny/ng": "^14.0.0-alpha.2",
+    "@opentiny/ng": "^1.0.1",
     "bootstrap": "^5.1.3",
     "color": "^4.2.1",
+    "core-js": "^3.29.0",
+    "html-loader": "^1.3.0",
     "ngx-markdown": "^14.0.1",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "core-js": "^3.29.0",
-    "html-loader": "^1.3.0"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.1",

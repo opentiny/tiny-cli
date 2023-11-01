@@ -31,7 +31,7 @@
   .ti3-leftmenu-level2-active:before {
     background-color: var(--ti-base-color-brand-6);
   }
-
+  
   ::ng-deep .ti3-leftmenu-panel {
     color: var(--ti-common-color-text-primary);
     font-size: 14px;
@@ -39,10 +39,10 @@
 
   ::ng-deep .ti3-leftmenu-level1-item.ti3-leftmenu-level1-active-item {
     background-color: var(--ti-common-color-bg-light-normal);
-
+    color: #fff;
     &:hover {
       background-color: var(--ti-common-color-bg-light-normal);
-      color: var(--ti-common-color-text-highlight);
+      color: #fff;
     }
   }
 
@@ -57,10 +57,10 @@
 
   ::ng-deep .ti3-leftmenu-level2.ti3-leftmenu-level2-active {
     background-color: var(--ti-common-color-bg-light-normal);
-
+    color: #fff;
     &:hover {
       background-color: var(--ti-common-color-bg-light-normal);
-      color: var(--ti-common-color-text-highlight);
+      color: #fff;
     }
   }
 

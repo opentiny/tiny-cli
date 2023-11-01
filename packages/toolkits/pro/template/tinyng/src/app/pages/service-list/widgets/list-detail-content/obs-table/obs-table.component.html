@@ -29,12 +29,12 @@
           <td tiOverflow *ngIf="columns[1].show">
             <div class="icon-list">
               <ng-container *ngFor="let config of featureInfoList">
-                <ti-icon
+                <ti-svg
                   class="obs-common-mr8"
                   [class]="config.extraClass"
                   [name]="config.iconName"
                   [tiTip]="config.tip | translate"
-                ></ti-icon>
+                ></ti-svg>
               </ng-container>
             </div>
           </td>
