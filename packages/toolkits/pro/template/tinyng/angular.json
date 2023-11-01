@@ -34,8 +34,8 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/@opentiny/ng/themes/styles.css",
-              "node_modules/@opentiny/ng/themes/theme-default.css",
+              "node_modules/@opentiny/ng-themes/styles.css",
+              "node_modules/@opentiny/ng-themes/theme-default.css",
               "src/app/@shared/modules/grid/style/grid.scss",
               "src/styles.scss"
             ],

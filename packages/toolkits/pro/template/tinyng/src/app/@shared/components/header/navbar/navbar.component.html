@@ -7,7 +7,7 @@
           [routerLinkActive]="['t-pro-active-link']" [ngClass]="{
             't-pro-active-title': currentUrl.indexOf(item.router) !== -1
           }">
-          <ti-icon [name]="item.menuIcon"></ti-icon>
+          <ti-svg [name]="item.menuIcon"></ti-svg>
           <span *ngIf="showTitle" style="margin-left: 8px">{{ item.title }}</span>
         </span>
         <ul tProBaseDropDownMenu [attr.class]="'t-pro-base-dropdown-menu t-pro-scrollbar t-pro-nav-' + mode"
@@ -32,7 +32,7 @@
           <span tProBaseDropDownToggle class="t-pro-nav-title t-pro-base-dropdown-item" [ngClass]="{
               't-pro-active-link': currentUrl.indexOf(item.router) !== -1
             }">
-            <ti-icon [name]="item.menuIcon"></ti-icon>
+            <ti-svg [name]="item.menuIcon"></ti-svg>
             <span *ngIf="showTitle" style="margin-left: 8px; flex: 1 1 0%">{{ item.title }}</span>
             <ti-icon name="angle-right"></ti-icon>
           </span>

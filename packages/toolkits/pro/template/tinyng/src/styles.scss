@@ -25,6 +25,14 @@ body {
   background-color: var(--ti-common-color-bg-white-normal);
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .t-pro-notice-modal {
   width: 320px;
   max-height: 380px;

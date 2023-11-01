@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { TiLocale, TiIconComponent } from '@opentiny/ng';
+import { TiLocale, TiSvgComponent } from '@opentiny/ng';
 import { DEFAULT_LANG, I18N_LANGUAGES } from '@config/tiny-pro';
 @Component({
   selector: 't-pro-app',
@@ -15,6 +15,6 @@ export class AppComponent {
     this.translate.use(this.currentLang);
     TiLocale.setLocale(this.currentLang === 'zh-cn' ? TiLocale.ZH_CN : TiLocale.EN_US); // tiny3国际化
     // 设置下载地址，全局生效
-    TiIconComponent.setPath('https://unpkg.com/ionicons@5.5.2/dist/svg/');
+    TiSvgComponent.setPath('https://unpkg.com/ionicons@5.5.2/dist/svg/');
   }
 }

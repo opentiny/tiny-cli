@@ -1,7 +1,7 @@
 <div class="common-obs-bucket-guide-head">
   <div class="guide-head-container">
     <span class="guide-head-helptip-label">{{ config.helptip.label }}</span>
-    <ti-icon class="guide-head-helptip-icon" name="help-circle-outline" [tiTip]="config.helptip.iconTip"></ti-icon>
+    <ti-svg class="guide-head-helptip-icon" name="help-circle-outline" [tiTip]="config.helptip.iconTip"></ti-svg>
   </div>
   <div class="guide-head-right">
     <section class="list-guide-head-container">
@@ -19,9 +19,9 @@
           <ng-container *ngFor="let feedback of feedbackList">
             <span class="feedback-container">
               <div>
-              <ti-icon [name]="feedback.icon" class="mr5"></ti-icon>
-              <span>{{ feedback.label | translate }}</span>
-            </div>
+                <ti-svg [name]="feedback.icon" class="mr5"></ti-svg>
+                <span>{{ feedback.label | translate }}</span>
+              </div>
             </span>
           </ng-container>
         </div>
