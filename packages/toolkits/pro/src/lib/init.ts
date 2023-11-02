@@ -291,19 +291,32 @@ export const installDependencies = (answers: ProjectInfo) => {
   // egg服务端 安装依赖并启动
   if (serverConfirm && serverFramework === ServerFrameworks.EggJs) {
     log.info('正在安装服务端 npm 依赖，安装过程需要几十秒，请耐心等待...');
-    spawn.sync('npm', ['install'], {
+    const installServiceResult = spawn.sync('npm', ['install'], {
       cwd: `${name}/${serverFramework}/`,
       stdio: 'inherit',
     });
-    log.success('服务端 npm 依赖安装成功');
+    if(installServiceResult.status === 0) {
+      log.success('服务端 npm 依赖安装成功');
+    }else {
+      log.error('服务端 npm 依赖安装失败');
+      log.info('请手动执行 tiny i 或 npm i');
+      return;
+    }
+    
   }
   // npm 依赖安装
   log.info('正在安装客户端 npm 依赖，安装过程需要几十秒，请耐心等待...');
-  spawn.sync('npm', ['install'], {
+  const installClientResult = spawn.sync('npm', ['install'], {
     cwd: serverConfirm ? `${name}/web` : `${name}/`,
     stdio: 'inherit',
   });
-  log.success('客户端 npm 依赖安装成功');
+  if(installClientResult.status === 0) {
+    log.success('客户端 npm 依赖安装成功');
+  }else {
+    log.error('客户端 npm 依赖安装失败');
+    log.info('请手动执行 tiny i 或 npm i');
+    return;
+  }
 
   /* prettier-ignore-start */
   console.log(
@@ -384,7 +397,6 @@ export default async () => {
   try {
     installDependencies(projectInfo);
   } catch (e) {
-    log.error('npm 依赖安装失败');
-    log.info('请手动执行 tiny i 或 npm i');
+    return;
   }
 };
