@@ -300,7 +300,6 @@ export const installDependencies = (answers: ProjectInfo) => {
     }else {
       throw new Error(installServiceResult.error);
     }
-    
   }
   // npm 依赖安装
   log.info('正在安装客户端 npm 依赖，安装过程需要几十秒，请耐心等待...');
