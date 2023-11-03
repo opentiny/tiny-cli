@@ -298,9 +298,7 @@ export const installDependencies = (answers: ProjectInfo) => {
     if(installServiceResult.status === 0) {
       log.success('服务端 npm 依赖安装成功');
     }else {
-      log.error('服务端 npm 依赖安装失败');
-      log.info('请手动执行 tiny i 或 npm i');
-      return;
+      throw new Error(installServiceResult.error);
     }
     
   }
@@ -313,9 +311,7 @@ export const installDependencies = (answers: ProjectInfo) => {
   if(installClientResult.status === 0) {
     log.success('客户端 npm 依赖安装成功');
   }else {
-    log.error('客户端 npm 依赖安装失败');
-    log.info('请手动执行 tiny i 或 npm i');
-    return;
+    throw new Error(installClientResult.error);
   }
 
   /* prettier-ignore-start */
@@ -397,6 +393,7 @@ export default async () => {
   try {
     installDependencies(projectInfo);
   } catch (e) {
-    return;
+    log.error('npm 依赖安装失败');
+    log.info('请手动执行 tiny i 或 npm i');
   }
 };
