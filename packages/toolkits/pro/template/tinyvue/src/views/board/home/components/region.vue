@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, inject } from 'vue';
+  import { onMounted, inject, ref } from 'vue';
   import RegionTable from './regiontable.vue';
 
   const data = [
@@ -55,6 +55,7 @@
   ];
 
   let echarts = inject<any>('echarts');
+  const echartsDom = ref();
   let options = {
     tooltip: {
       trigger: 'item',
@@ -108,7 +109,7 @@
   };
 
   onMounted(() => {
-    const chartDom = document.getElementById('earth');
+    const chartDom = echartsDom.value;
     const myChart = echarts.init(chartDom as any);
     window.addEventListener('resize', () => {
       myChart.resize();

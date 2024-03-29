@@ -7,13 +7,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, watch, inject } from 'vue';
+  import { onMounted, watch, inject, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
   import useLocale from '@/hooks/locale';
 
   const { t } = useI18n();
   const { currentLocale } = useLocale();
   let echarts = inject<any>('echarts');
+  const echartsDom = ref();
 
   const list = [
     {
@@ -167,7 +168,7 @@
   };
 
   onMounted(() => {
-    const chartDom = document.getElementById('flow');
+    const chartDom = echartsDom.value;
     const myChart = echarts.init(chartDom as any);
     option && myChart.setOption(option);
     window.addEventListener('resize', () => {
@@ -176,7 +177,7 @@
   });
 
   watch(currentLocale, (newValue, oldValue) => {
-    const chartDom = document.getElementById('flow');
+    const chartDom = echartsDom.value;
     const myChart = echarts.init(chartDom as any);
     myChart.setOption(option);
   });
