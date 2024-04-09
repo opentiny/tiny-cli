@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, inject, ref } from 'vue';
+  import { onMounted, inject, ref, nextTick } from 'vue';
   import RegionTable from './regiontable.vue';
 
   const data = [
@@ -115,6 +115,9 @@
       myChart.resize();
     });
     options && myChart.setOption(options);
+    nextTick(() => {
+      myChart.resize()
+    });
   });
 </script>
 

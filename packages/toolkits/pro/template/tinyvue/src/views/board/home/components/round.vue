@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, watch, inject, ref } from 'vue';
+  import { onMounted, watch, inject, ref, nextTick } from 'vue';
   import { useI18n } from 'vue-i18n';
   import useLocale from '@/hooks/locale';
   import RoundTable from './roundtable.vue';
@@ -73,6 +73,9 @@
     option && myChart.setOption(option);
     window.addEventListener('resize', () => {
       myChart.resize();
+    });
+    nextTick(() => {
+      myChart.resize()
     });
   });
 

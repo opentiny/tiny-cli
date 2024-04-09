@@ -35,7 +35,7 @@
     "@vueuse/head": "^2.0.0",
     "axios": "^1.6.0",
     "dayjs": "^1.11.10",
-    "echarts": "^5.4.3",
+    "echarts": "~5.4.3",
     "echarts4": "npm:echarts@4.9.0",
     "fp-ts": "2.16.1",
     "mitt": "^3.0.1",
