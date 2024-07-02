@@ -11,7 +11,21 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@app/db": [
+        "libs/db/src"
+      ],
+      "@app/db/*": [
+        "libs/db/src/*"
+      ],
+      "@app/models": [
+        "libs/models/src"
+      ],
+      "@app/models/*": [
+        "libs/models/src/*"
+      ]
+    }
   },
   "include": ["src/**/*"]
 }

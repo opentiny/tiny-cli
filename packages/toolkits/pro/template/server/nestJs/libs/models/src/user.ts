@@ -1,0 +1,49 @@
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Role } from './role';
+import * as crypto from 'crypto';
+
+export const encry = (value: string, salt: string) =>
+  crypto.pbkdf2Sync(value, salt, 1000, 18, 'sha256').toString('hex');
+
+@Entity('user')
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Column()
+  name: string;
+  @Column()
+  email: string;
+  @Column()
+  password: string;
+  @ManyToMany(() => Role)
+  @JoinTable({ name: 'user_role' })
+  role: Role[];
+  @CreateDateColumn()
+  createTime: Date;
+  @UpdateDateColumn()
+  updateTime: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  create_time: Date;
+  @Column({ nullable: true })
+  salt: string;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  update_time: Date;
+  @DeleteDateColumn()
+  deleteAt: Date;
+  @BeforeInsert()
+  beforeInsert() {
+    this.salt = crypto.randomBytes(4).toString('base64');
+    this.password = encry(this.password, this.salt);
+  }
+}
