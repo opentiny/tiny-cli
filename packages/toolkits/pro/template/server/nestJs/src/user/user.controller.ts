@@ -20,7 +20,7 @@ export class UserController {
   @Post('reg')
   @Permission('user::add')
   async register(@Body() body: CreateUserDto) {
-    return this.userService.create(body);
+    return this.userService.create(body, false);
   }
   @Get('/info/:email')
   async getUserInfo(@Param('email') email: string) {

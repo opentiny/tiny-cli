@@ -13,9 +13,12 @@ export class UserService {
     @InjectRepository(Role)
     private roleRep: Repository<Role>
   ) {}
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto, isInit: boolean) {
     const { email, password, roleIds = [], username } = createUserDto;
     const userInfo = this.getUserInfo(email);
+    if (isInit == true && (await userInfo)) {
+      return userInfo;
+    }
     if (await userInfo) {
       throw new HttpException('用户存在', HttpStatus.BAD_REQUEST);
     }
@@ -71,7 +74,7 @@ export class UserService {
   async deleteUser(email: string) {
     const user = await this.getUserInfo(email);
     if (user) {
-      user.deletedAt = new Date(); // 设置软删除字段
+      user.deleteAt = new Date(); // 设置软删除字段
       await this.userRep.save(user);
     }
   }

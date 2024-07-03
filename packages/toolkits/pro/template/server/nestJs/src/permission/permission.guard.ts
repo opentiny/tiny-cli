@@ -32,7 +32,6 @@ export class PermissionGuard implements CanActivate {
       token,
       req.user
     );
-    console.log(permissionNames);
     const isContainedPermission = requiredPermission.every((item) =>
       permissionNames.includes(item)
     );

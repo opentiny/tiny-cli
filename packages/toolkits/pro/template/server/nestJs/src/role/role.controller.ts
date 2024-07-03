@@ -19,7 +19,7 @@ export class RoleController {
   @Permission('role::add')
   @Post()
   create(@Body() createRoleDto: CreateRoleDto) {
-    return this.roleService.create(createRoleDto);
+    return this.roleService.create(createRoleDto, false);
   }
 
   @Permission('role::get')

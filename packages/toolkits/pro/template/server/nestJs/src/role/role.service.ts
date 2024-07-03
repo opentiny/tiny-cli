@@ -15,13 +15,16 @@ export class RoleService {
     @InjectRepository(Menu)
     private readonly menu: Repository<Menu>
   ) {}
-  async create(createRoleDto: CreateRoleDto) {
+  async create(createRoleDto: CreateRoleDto, isInit: boolean) {
     const { name, permissionIds = [], menuIds = [] } = createRoleDto;
     const roleInfo = this.role.findOne({
       where: {
         name,
       },
     });
+    if (isInit == true && (await roleInfo)) {
+      return roleInfo;
+    }
     if (await roleInfo) {
       throw new HttpException('角色已存在', HttpStatus.BAD_REQUEST);
     }

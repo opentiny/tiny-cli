@@ -11,7 +11,7 @@ export class PermissionController {
   @Permission('permission::create')
   @Post()
   create(@Body() dto: CreatePermissionDto) {
-    return this.permissionService.create(dto);
+    return this.permissionService.create(dto, false);
   }
 
   @Patch()

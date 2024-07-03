@@ -11,12 +11,15 @@ export class PermissionService {
     @InjectRepository(Permission)
     private permission: Repository<Permission>
   ) {}
-  async create(createPermissionDto: CreatePermissionDto) {
+  async create(createPermissionDto: CreatePermissionDto, isInit: boolean) {
     const { name, desc } = createPermissionDto;
     const permissionInfo = this.permission.findOne({
       where: { name },
     });
-    if (await permissionInfo) {
+    if (isInit == true && (await permissionInfo)) {
+      return permissionInfo;
+    }
+    if ((await permissionInfo) && isInit == false) {
       throw new HttpException(
         `权限字段 ${name} 已经存在`,
         HttpStatus.BAD_REQUEST

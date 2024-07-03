@@ -1,5 +1,4 @@
 import { SequelizeModule } from '@nestjs/sequelize';
-//import { EmployeesModule } from './employees/employees.module';
 import { HttpException, Logger, Module, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -18,26 +17,19 @@ import { RoleService } from './role/role.service';
 import { PermissionService } from './permission/permission.service';
 import { Permission } from '@app/models';
 import { MenuModule } from './menu/menu.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    // SequelizeModule.forRoot({
-    //   dialect: 'mysql',
-    //   host: 'localhost',
-    //   port: 3306,
-    //   username: 'root',
-    //   password: 'root',
-    //   database: 'test',
-    //   autoLoadModels: true,
-    //   synchronize: true,
-    // }),
-    //EmployeesModule,
     DbModule,
     UserModule,
     PermissionModule,
     AuthModule,
     RoleModule,
     MenuModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
   ],
   controllers: [AppController],
   providers: [
@@ -69,11 +61,15 @@ export class AppModule implements OnModuleInit {
     const actions = ['add', 'remove', 'update', 'query'];
     const tasks = [];
     let permission;
+    let isInit = true;
     try {
-      permission = await this.permission.create({
-        name: '*',
-        desc: 'super permission',
-      });
+      permission = await this.permission.create(
+        {
+          name: '*',
+          desc: 'super permission',
+        },
+        isInit
+      );
     } catch (e) {
       const err = e as HttpException;
       Logger.error(err.message);
@@ -83,10 +79,13 @@ export class AppModule implements OnModuleInit {
     for (const module of modules) {
       for (const action of actions) {
         tasks.push(
-          this.permission.create({
-            name: `${module}::${action}`,
-            desc: '',
-          })
+          this.permission.create(
+            {
+              name: `${module}::${action}`,
+              desc: '',
+            },
+            isInit
+          )
         );
       }
     }
@@ -103,17 +102,23 @@ export class AppModule implements OnModuleInit {
       Logger.error('Please clear the database and try again');
       process.exit(-1);
     }
-    const role = await this.role.create({
-      name: 'admin',
-      permissionIds: [permission.id],
-      menuIds: [],
-    });
-    const user = await this.user.create({
-      email: 'admin@no-reply.com',
-      password: 'admin',
-      roleIds: [role.id],
-      username: 'admin',
-    });
+    const role = await this.role.create(
+      {
+        name: 'admin',
+        permissionIds: [permission.id],
+        menuIds: [],
+      },
+      isInit
+    );
+    const user = await this.user.create(
+      {
+        email: 'admin@no-reply.com',
+        password: 'admin',
+        roleIds: [role.id],
+        username: 'admin',
+      },
+      isInit
+    );
     Logger.log(`[APP]: create admin user success`);
     Logger.log(`[APP]: email: ${user.email}`);
     Logger.log(`[APP]: password: ${user.password}`);

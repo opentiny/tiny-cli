@@ -8,8 +8,6 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { Observable } from 'rxjs';
-import { SECRET } from './constant';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
