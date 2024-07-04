@@ -88,7 +88,7 @@ export class UserService {
     if (user) {
       user.deleteAt = new Date(); // 设置软删除字段
       await this.userRep.save(user);
-      throw new HttpException('删除成功', HttpStatus.OK);
+      return;
     }
   }
 
@@ -130,7 +130,7 @@ export class UserService {
           ).salt
         );
         await this.userRep.save(await user);
-        throw new HttpException('密码修改成功', HttpStatus.OK);
+        return;
       }
     }
   }
