@@ -121,7 +121,7 @@ export class AppModule implements OnModuleInit {
     );
     Logger.log(`[APP]: create admin user success`);
     Logger.log(`[APP]: email: ${user.email}`);
-    Logger.log(`[APP]: password: ${user.password}`);
+    Logger.log(`[APP]: password: 'admin'`);
     Logger.log('Enjoy!');
     writeFileSync(LOCK_FILE, '');
   }
