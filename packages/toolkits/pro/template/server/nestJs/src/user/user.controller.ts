@@ -26,12 +26,12 @@ export class UserController {
   async getUserInfo(@Param('email') email: string) {
     return this.userService.getUserInfo(email, ['role', 'role.permission']);
   }
-  @Delete('/user/:email')
+  @Delete('/:email')
   @Permission('user::remove')
   async delUser(@Param('email') email: string) {
     return this.userService.deleteUser(email);
   }
-  @Patch('/user')
+  @Patch('/update')
   @Permission('user:update')
   async UpdateUser(@Body() body: UpdateUserDto) {
     return this.userService.updateUserPwd(body);

@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Role, User } from '@app/models';
 import { In, Repository } from 'typeorm';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class UserService {
@@ -70,23 +71,66 @@ export class UserService {
     return [...new Set([...permissionNames])];
   }
 
+  //验证旧密码是否正确
+  async verifyPassword(password: string, storedHash: string, salt: string) {
+    const newHash = crypto
+      .pbkdf2Sync(password, salt, 1000, 18, 'sha256')
+      .toString('hex');
+    return newHash === storedHash;
+  }
+  //修改密码后加密
+  async encry(value: string, salt: string) {
+    return crypto.pbkdf2Sync(value, salt, 1000, 18, 'sha256').toString('hex');
+  }
+
   async deleteUser(email: string) {
     const user = await this.getUserInfo(email);
     if (user) {
       user.deleteAt = new Date(); // 设置软删除字段
       await this.userRep.save(user);
+      throw new HttpException('删除成功', HttpStatus.OK);
     }
   }
 
+  //修改密码
   async updateUserPwd(updateUserDto: UpdateUserDto) {
     const { email, newPassword, oldPassword } = updateUserDto;
-    const user = await this.getUserInfo(email);
+    const user = this.userRep.findOne({
+      where: { email, deleteAt: null },
+      select: [
+        'id',
+        'name',
+        'email',
+        'salt',
+        'password',
+        'createTime',
+        'updateTime',
+        'role',
+        'deleteAt',
+      ],
+    });
     if (user) {
-      if (oldPassword !== user.password) {
+      if (
+        !(await this.verifyPassword(
+          oldPassword,
+          (
+            await user
+          ).password,
+          (
+            await user
+          ).salt
+        ))
+      ) {
         throw new HttpException('旧密码错误', HttpStatus.BAD_REQUEST);
       } else {
-        user.password = newPassword;
-        await this.userRep.save(user);
+        (await user).password = await this.encry(
+          newPassword,
+          (
+            await user
+          ).salt
+        );
+        await this.userRep.save(await user);
+        throw new HttpException('密码修改成功', HttpStatus.OK);
       }
     }
   }
