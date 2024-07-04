@@ -26,6 +26,7 @@ export class AuthService {
 
   async logout(email: string): Promise<void> {
     //退出登录后，将token从Redis删除
+    console.log(email);
     await this.redisClient.del(`user:${email}:token`);
     return;
   }

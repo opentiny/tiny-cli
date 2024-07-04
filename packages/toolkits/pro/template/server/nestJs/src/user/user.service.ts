@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Role, User } from '@app/models';
 import { In, Repository } from 'typeorm';
 import * as crypto from 'crypto';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,8 @@ export class UserService {
     @InjectRepository(User)
     private userRep: Repository<User>,
     @InjectRepository(Role)
-    private roleRep: Repository<Role>
+    private roleRep: Repository<Role>,
+    private readonly authService: AuthService
   ) {}
   async create(createUserDto: CreateUserDto, isInit: boolean) {
     const { email, password, roleIds = [], username } = createUserDto;
@@ -130,6 +132,7 @@ export class UserService {
           ).salt
         );
         await this.userRep.save(await user);
+        await this.authService.logout(email);
         return;
       }
     }

@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
+import { LogoutAuthDto } from './dto/logout-auth.dto';
 import { Public } from '../public/public.decorator';
 import { Permission } from '../public/permission.decorator';
 import { AuthGuard } from './auth.guard';
@@ -17,8 +18,8 @@ export class AuthController {
   }
   @Post('logout')
   @UseGuards(AuthGuard)
-  async logout(email: string) {
-    return this.authService.logout(email);
+  async logout(@Body() body: LogoutAuthDto) {
+    return this.authService.logout(body.email);
   }
 
   @Permission('read')
