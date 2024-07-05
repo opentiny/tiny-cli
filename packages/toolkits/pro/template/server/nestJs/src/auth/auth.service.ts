@@ -5,7 +5,6 @@ import { encry, User } from '@app/models';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { RedisService } from '../../libs/redis/redis.service';
-import { ConfigService } from '../../libs/config/config.service';
 
 @Injectable()
 export class AuthService {
@@ -13,8 +12,7 @@ export class AuthService {
     @InjectRepository(User)
     private user: Repository<User>,
     private jwtService: JwtService,
-    private readonly redisService: RedisService,
-    private readonly configService: ConfigService
+    private readonly redisService: RedisService
   ) {}
 
   async getToken(userId: string): Promise<string | null> {
@@ -41,7 +39,7 @@ export class AuthService {
     await this.redisService.setUserToken(
       `user:${email}:token`,
       await token,
-      await parseInt(this.configService.get('REDIS_SECONDS'))
+      await parseInt(process.env.REDIS_SECONDS)
     );
     return token;
   }
