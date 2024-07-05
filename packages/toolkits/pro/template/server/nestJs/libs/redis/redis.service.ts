@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class RedisService {
   private redisClient: Redis;
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     this.redisClient = new Redis({
-      host: 'localhost',
-      port: 6379,
+      host: this.configService.get('REDIS_HOST'),
+      port: parseInt(this.configService.get('REDIS_PORT')),
     });
   }
   async setUserToken(
