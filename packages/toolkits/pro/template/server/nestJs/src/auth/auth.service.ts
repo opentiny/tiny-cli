@@ -4,30 +4,26 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { encry, User } from '@app/models';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import Redis from 'ioredis';
+import { RedisService } from '../../libs/redis/redis.service';
+import { ConfigService } from '../../libs/config/config.service';
 
 @Injectable()
 export class AuthService {
-  private redisClient: Redis;
   constructor(
     @InjectRepository(User)
     private user: Repository<User>,
-    private jwtService: JwtService
-  ) {
-    this.redisClient = new Redis({
-      host: 'localhost',
-      port: 6379,
-    });
-  }
+    private jwtService: JwtService,
+    private readonly redisService: RedisService,
+    private readonly configService: ConfigService
+  ) {}
 
   async getToken(userId: string): Promise<string | null> {
-    return this.redisClient.get(`user:${userId}:token`);
+    return this.redisService.getUserToken(`user:${userId}:token`);
   }
 
   async logout(email: string): Promise<void> {
     //退出登录后，将token从Redis删除
-    console.log(email);
-    await this.redisClient.del(`user:${email}:token`);
+    await this.redisService.delUserToken(`user:${email}:token`);
     return;
   }
 
@@ -42,11 +38,10 @@ export class AuthService {
     };
     const token = this.jwtService.signAsync(payload);
     //将token设置到Redis中，有效期2h
-    await this.redisClient.set(
+    await this.redisService.setUserToken(
       `user:${email}:token`,
       await token,
-      'EX',
-      60 * 60 * 2
+      await parseInt(this.configService.get('REDIS_SECONDS'))
     );
     return token;
   }

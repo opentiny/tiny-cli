@@ -88,7 +88,7 @@ export class UserService {
   async deleteUser(email: string) {
     const user = await this.getUserInfo(email);
     if (user) {
-      user.deleteAt = new Date(); // 设置软删除字段
+      user.deleteAt = new Date().getTime(); // 设置软删除字段
       await this.userRep.save(user);
       return;
     }

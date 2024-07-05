@@ -39,8 +39,8 @@ export class User {
   salt: string;
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   update_time: Date;
-  @DeleteDateColumn()
-  deleteAt: Date;
+  @Column({ type: 'bigint', nullable: true })
+  deleteAt: number;
   @BeforeInsert()
   beforeInsert() {
     this.salt = crypto.randomBytes(4).toString('base64');

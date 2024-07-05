@@ -6,10 +6,10 @@ import * as fs from 'fs';
 export class ConfigService {
   private envConfig: { [key: string]: string };
 
-  constructor(filePath: string) {
+  constructor() {
     // 读取.env文件，通过dotenv.parse方法形成key-value pairs
     // 存在envConfig变量里
-    this.envConfig = dotenv.parse(fs.readFileSync(filePath));
+    this.envConfig = dotenv.parse(fs.readFileSync(`.env`));
   }
 
   get(key: string) {
