@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { DeleteRoleDto } from './dto/delete-role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu, Permission, Role } from '@app/models';
 import { DataSource, In, Repository } from 'typeorm';
@@ -55,11 +56,26 @@ export class RoleService {
       },
     });
     const { id, name } = data;
-    return this.role.save({
-      id,
-      name,
-      permission: permission.length ? permission : undefined,
-      menus: menus.length ? menus : undefined,
+    const roleInfo = await this.role.find({
+      where: {
+        id: id,
+      },
     });
+    if (roleInfo.length === 0) {
+      throw new HttpException('角色不存在', HttpStatus.BAD_REQUEST);
+    }
+    const role = roleInfo[0];
+    role.name = name;
+    role.permission = permission.length ? permission : undefined;
+    role.menus = menus.length ? menus : undefined;
+    return this.role.save(role);
+  }
+  async delete(data: DeleteRoleDto) {
+    const role = await this.role.find({
+      where: {
+        name: data.name,
+      },
+    });
+    return this.role.remove(role);
   }
 }
