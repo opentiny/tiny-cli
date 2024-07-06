@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import { PermissionService } from './permission.service';
 import { CreatePermissionDto } from './dto/create-permission.dto';
+import { DeletePermissionDto } from './dto/delete-permission.dto';
 import { Permission } from '../public/permission.decorator';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 
@@ -24,5 +25,11 @@ export class PermissionController {
   @Permission('permission::get')
   find() {
     return this.permissionService.findPermission();
+  }
+
+  @Delete()
+  @Permission('permission::remove')
+  del(@Body() dto: DeletePermissionDto) {
+    return this.permissionService.delPermission(dto);
   }
 }
