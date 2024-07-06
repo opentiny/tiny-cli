@@ -28,6 +28,9 @@ export class AuthService {
   async login(dto: CreateAuthDto) {
     const { email, password } = dto;
     const userInfo = await this.user.findOne({ where: { email } });
+    if (userInfo === null || userInfo.deleteAt !== null) {
+      throw new HttpException('该用户不存在', HttpStatus.NOT_FOUND);
+    }
     if (encry(password, userInfo.salt) !== userInfo.password) {
       throw new HttpException('密码或邮箱错误', HttpStatus.BAD_REQUEST);
     }
