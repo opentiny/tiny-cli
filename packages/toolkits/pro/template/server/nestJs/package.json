@@ -33,7 +33,6 @@
     "dotenv": "^16.4.5",
     "ioredis": "^5.4.1",
     "mysql2": "3.4.3",
-    "pg": "^8.12.0",
     "redis": "^4.6.15",
     "reflect-metadata": "0.1.13",
     "rimraf": "5.0.1",
