@@ -20,7 +20,7 @@ import { RedisModule } from '../../libs/redis/redis.module';
         secret: process.env.AUTH_SECRET,
         global: true,
         signOptions: {
-          expiresIn: '2h',
+          expiresIn: process.env.EXPIRES_IN,
         },
       }),
       global: true,
