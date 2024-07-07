@@ -21,10 +21,4 @@ export class AuthController {
   async logout(@Body() body: LogoutAuthDto) {
     return this.authService.logout(body.email);
   }
-
-  @Permission('read')
-  @Get('test')
-  test() {
-    return true;
-  }
 }
