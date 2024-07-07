@@ -4,6 +4,7 @@ import { Menu, User } from '@app/models';
 import { Repository } from 'typeorm';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
+import { DeleteMenuDto } from './dto/delete-menu.dto';
 
 export interface ITreeNodeData {
   // node-key='id' 设置节点的唯一标识
@@ -31,12 +32,12 @@ const toNode = (menu: Menu): ITreeNodeData => {
 
 export const convertToTree = (
   menus: Menu[],
-  parnetId: number | null = null
+  parentId: number | null = null
 ) => {
   const tree: ITreeNodeData[] = [];
   for (let i = 0; i < menus.length; i++) {
     const menu = menus[i];
-    if (menu.parentId === parnetId) {
+    if (menu.parentId === parentId) {
       const children = convertToTree(menus, menu.id);
       const node = toNode(menu);
       node.children = children;
@@ -65,12 +66,11 @@ export class MenuService {
       .orderBy('menus.order', 'ASC')
       .getOne();
     const menus = userInfo.role.flatMap((role) => role.menus);
-    console.log(userInfo);
     const maps: MenuMap = {};
     menus.forEach((menu) => {
       maps[menu.id] = menu;
     });
-    return convertToTree(Object.values(maps));
+    return convertToTree(menus);
   }
   async createMenu(dto: CreateMenuDto) {
     const {
@@ -94,9 +94,23 @@ export class MenuService {
   }
   async updateMenu(newData: UpdateMenuDto) {
     await this.menu.update(newData.id, {
-      ...newData,
-      id: undefined,
+      name: newData.name,
+      path: newData.path,
+      component: newData.component,
+      parentId: newData.parentId,
+      menuType: newData.menuType,
+      icon: newData.icon,
+      order: newData.order,
     });
     return true;
+  }
+  async deleteMenu(dto: DeleteMenuDto) {
+    const menu = this.menu.findOne({
+      where: {
+        id: dto.id,
+        name: dto.name,
+      },
+    });
+    return this.menu.remove(await menu);
   }
 }
