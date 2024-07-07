@@ -1,7 +1,5 @@
 import { SequelizeModule } from '@nestjs/sequelize';
 import { HttpException, Logger, Module, OnModuleInit } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { DbModule } from '@app/db';
 import { PermissionModule } from './permission/permission.module';
@@ -31,9 +29,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       isGlobal: true,
     }),
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
