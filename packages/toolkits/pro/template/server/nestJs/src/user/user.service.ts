@@ -36,6 +36,7 @@ export class UserService {
         password,
         name: username,
         role: await roles,
+        deleteAt: 0,
       });
       return this.userRep.save(user);
     } catch (err) {
@@ -46,9 +47,17 @@ export class UserService {
     }
   }
 
+  //获取所有用户信息
+  async getAllUser() {
+    return this.userRep.find({
+      where: { deleteAt: 0 },
+      select: ['id', 'name', 'email', 'createTime', 'updateTime'],
+    });
+  }
+
   async getUserInfo(email: string, relations: string[] = []) {
     return this.userRep.findOne({
-      where: { email, deleteAt: null },
+      where: { email, deleteAt: 0 },
       select: [
         'id',
         'name',

@@ -32,8 +32,13 @@ export class UserController {
     return this.userService.deleteUser(email);
   }
   @Patch('/update')
-  @Permission('user:update')
+  @Permission('user::update')
   async UpdateUser(@Body() body: UpdateUserDto) {
     return this.userService.updateUserPwd(body);
+  }
+  @Get()
+  @Permission('user::query')
+  async getAllUser() {
+    return this.userService.getAllUser();
   }
 }
