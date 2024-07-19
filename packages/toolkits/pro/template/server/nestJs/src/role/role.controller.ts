@@ -40,4 +40,10 @@ export class RoleController {
   deleteRole(@Body() dto: DeleteRoleDto) {
     return this.roleService.delete(dto);
   }
+
+  @Permission('role::get')
+  @Get('/info/:id')
+  getRoleInfo(@Param('id') id: string) {
+    return this.roleService.findOne(id);
+  }
 }

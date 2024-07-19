@@ -44,6 +44,15 @@ export class RoleService {
   findAll() {
     return this.role.find();
   }
+
+  findOne(id: string){
+    return this.role.find({
+      where: {
+        id: parseInt(id),
+      },
+    });
+  }
+
   async update(data: UpdateRoleDto) {
     const permission = await this.permission.find({
       where: {

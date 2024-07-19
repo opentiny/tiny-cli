@@ -107,7 +107,7 @@ export class UserService {
   async updateUserPwd(updateUserDto: UpdateUserDto) {
     const { email, newPassword, oldPassword } = updateUserDto;
     const user = this.userRep.findOne({
-      where: { email, deleteAt: null },
+      where: { email, deleteAt: 0 },
       select: [
         'id',
         'name',
