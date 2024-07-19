@@ -1,11 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PaginationQueryDto } from "./dto/pagination-query.dto";
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role, User } from '@app/models';
 import { In, Repository } from 'typeorm';
 import * as crypto from 'crypto';
 import { AuthService } from '../auth/auth.service';
+import { paginate, IPaginationOptions } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class UserService {
@@ -48,9 +50,13 @@ export class UserService {
   }
 
   //获取所有用户信息
-  async getAllUser() {
-    return this.userRep.find({
-      where: { deleteAt: 0 },
+  async getAllUser(paginationQuery: PaginationQueryDto): Promise<any> {
+    const { page, limit } = paginationQuery; // 从DTO获取分页参数
+    return await paginate<User>(this.userRep, {
+      page: Number(page) || 1,
+      limit: Number(limit) || 10,
+    },{
+      where: {deleteAt: 0},
       select: ['id', 'name', 'email', 'createTime', 'updateTime'],
     });
   }

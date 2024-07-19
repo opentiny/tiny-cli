@@ -13,6 +13,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Permission } from '../public/permission.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PaginationQueryDto } from './dto/pagination-query.dto'
 
 @Controller('user')
 export class UserController {
@@ -38,7 +39,9 @@ export class UserController {
   }
   @Get()
   @Permission('user::query')
-  async getAllUser() {
-    return this.userService.getAllUser();
+  async getAllUser(
+    @Query() paginationQuery: PaginationQueryDto,
+  ) {
+    return this.userService.getAllUser(paginationQuery);
   }
 }

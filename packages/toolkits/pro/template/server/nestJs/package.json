@@ -33,6 +33,7 @@
     "dotenv": "^16.4.5",
     "ioredis": "^5.4.1",
     "mysql2": "3.4.3",
+    "nestjs-typeorm-paginate": "^4.0.4",
     "redis": "^4.6.15",
     "reflect-metadata": "0.1.13",
     "rimraf": "5.0.1",
