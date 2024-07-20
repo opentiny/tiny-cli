@@ -28,7 +28,6 @@ export class AuthService {
   async login(dto: CreateAuthDto) {
     const { email, password } = dto;
     const userInfo = await this.user.findOne({ where: { email } });
-    console.log(userInfo)
     if (userInfo === null || userInfo.deleteAt != 0) {
       throw new HttpException('该用户不存在', HttpStatus.NOT_FOUND);
     }

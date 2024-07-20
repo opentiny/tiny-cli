@@ -45,12 +45,16 @@ export class RoleService {
     return this.role.find();
   }
 
-  findOne(id: string){
-    return this.role.find({
+  async findOne(id: string) {
+    const roleInfo = await this.role.find({
       where: {
         id: parseInt(id),
       },
     });
+    if (roleInfo.length===0) {
+      throw new HttpException('角色不存在', HttpStatus.NOT_FOUND);
+    }
+    return roleInfo;
   }
 
   async update(data: UpdateRoleDto) {

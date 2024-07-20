@@ -14,9 +14,9 @@ export interface ITreeNodeData {
   // 子节点
   children?: ITreeNodeData[];
   // 链接
-  url?: string;
+  url: string;
   //组件
-  component?: string;
+  component: string;
 }
 
 interface MenuMap {

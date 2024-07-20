@@ -8,6 +8,7 @@ import { In, Repository } from 'typeorm';
 import * as crypto from 'crypto';
 import { AuthService } from '../auth/auth.service';
 import { paginate, IPaginationOptions } from 'nestjs-typeorm-paginate';
+import * as process from "process";
 
 @Injectable()
 export class UserService {
@@ -53,8 +54,8 @@ export class UserService {
   async getAllUser(paginationQuery: PaginationQueryDto): Promise<any> {
     const { page, limit } = paginationQuery; // 从DTO获取分页参数
     return await paginate<User>(this.userRep, {
-      page: Number(page) || 1,
-      limit: Number(limit) || 10,
+      page: Number(page) || Number(process.env.PAGITION_PAGE),
+      limit: Number(limit) || Number(process.env.PAGITION_LIMIT),
     },{
       where: {deleteAt: 0},
       select: ['id', 'name', 'email', 'createTime', 'updateTime'],
