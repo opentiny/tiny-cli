@@ -2,8 +2,15 @@ import axios from 'axios';
 import { UserInfo } from '@/store/modules/user/types';
 
 export interface LoginData {
-  username: string;
+  email: string;
   password: string;
+}
+
+export interface  RegisterData {
+  username: string;
+  email: string;
+  password: string;
+  roleIds: number[];
 }
 
 export interface LoginDataMail {
@@ -28,18 +35,23 @@ export interface UserData {
 }
 
 export function login(data: LoginData) {
-  return axios.post<LoginRes>('/api/user/login', data);
+  return axios.post<LoginRes>('/api/auth/login', data);
 }
 export function loginMail(data: LoginDataMail) {
   return axios.post<LoginRes>('/api/mail/login', data);
 }
 
-export function logout() {
-  return axios.post<LoginRes>('/api/user/logout');
+export function logout(email: string) {
+  return axios.post<LoginRes>(`/api/auth/logout${email}`);
 }
 
+// 获取全部用户
 export function getUserInfo() {
-  return axios.get<UserInfo>(`/api/user/userInfo`);
+  return axios.get<UserInfo>(`/api/user`);
+}
+
+export function delUser(email: string) {
+  return axios.delete<UserInfo>(`/api/user/${email}`);
 }
 
 export function updateUserInfo(data: UserInfo) {

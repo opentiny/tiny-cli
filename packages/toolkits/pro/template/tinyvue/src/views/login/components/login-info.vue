@@ -131,7 +131,7 @@
 
       try {
         await userStore.login({
-          username: loginInfo.username,
+          email: loginInfo.username,
           password: loginInfo.password,
         });
         Modal.message({

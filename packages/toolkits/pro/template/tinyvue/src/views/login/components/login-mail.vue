@@ -96,7 +96,7 @@
   });
 
   const loginMail = reactive({
-    mailname: 'admin@example.com',
+    mailname: 'admin@no-reply.com',
     mailpassword: 'admin',
     rememberPassword: true,
   });
@@ -117,7 +117,7 @@
 
       try {
         await userStore.login({
-          username: loginMail.mailname,
+          email: loginMail.mailname,
           password: loginMail.mailpassword,
         });
         Modal.message({
