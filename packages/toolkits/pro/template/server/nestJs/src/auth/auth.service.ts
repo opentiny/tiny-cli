@@ -44,6 +44,25 @@ export class AuthService {
       await token,
       await parseInt(process.env.REDIS_SECONDS)
     );
-    return token;
+    const roleInfo = await this.user
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.role', 'role')
+      .where({
+        id: userInfo.id,
+      }).getOne();
+    return {
+      data: {
+        token: await token,
+        userInfo: {
+          userid: userInfo.id,
+          username: userInfo.name,
+          email: userInfo.email,
+          createTime: userInfo.createTime,
+          updateTime: userInfo.updateTime,
+          role: roleInfo.name,
+        },
+      },
+      code: '0'
+    };
   }
 }
