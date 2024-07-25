@@ -6,6 +6,10 @@ export interface LoginData {
   password: string;
 }
 
+export interface LogoutData {
+  email: string;
+}
+
 export interface  RegisterData {
   username: string;
   email: string;
@@ -41,13 +45,18 @@ export function loginMail(data: LoginDataMail) {
   return axios.post<LoginRes>('/api/mail/login', data);
 }
 
-export function logout(email: string) {
-  return axios.post<LoginRes>(`/api/auth/logout${email}`);
+export function logout(data: LogoutData) {
+  return axios.post<LoginRes>('/api/auth/logout', data);
 }
 
 // 获取全部用户
-export function getUserInfo() {
+export function getAllUser() {
   return axios.get<UserInfo>(`/api/user`);
+}
+
+// 获取单个用户
+export function getUserInfo(email: string) {
+  return axios.get<UserInfo>(`/api/user/info/${email}`);
 }
 
 export function delUser(email: string) {

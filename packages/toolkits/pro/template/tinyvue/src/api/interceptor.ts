@@ -45,15 +45,15 @@ axios.interceptors.request.use(
 // add response interceptors
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
-    const res = response.data;
-    if (res.code !== '0') {
-      res.errMsg &&
-        Modal.message({
-          message: res.errMsg,
-          status: 'error',
-        });
-      return Promise.reject(new Error(res.errMsg || 'Error'));
-    }
+    const res = response;
+    // if (res.code !== '0') {
+    //   res.errMsg &&
+    //     Modal.message({
+    //       message: res.errMsg,
+    //       status: 'error',
+    //     });
+    //   return Promise.reject(new Error(res.errMsg || 'Error'));
+    // }
     return res;
   },
   (error) => {
