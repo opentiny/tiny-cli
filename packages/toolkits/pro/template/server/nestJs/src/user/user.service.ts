@@ -63,7 +63,7 @@ export class UserService {
   }
 
   async getUserInfo(email: string, relations: string[] = []) {
-    return this.userRep.findOne({
+    return await this.userRep.findOne({
       where: { email, deleteAt: 0 },
       select: [
         'id',
