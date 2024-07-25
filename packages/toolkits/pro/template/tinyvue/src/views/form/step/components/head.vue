@@ -83,9 +83,6 @@
 
   const userStore = useUserStore();
 
-  onMounted(() => {
-    userStore.info();
-  });
 </script>
 
 <style scoped lang="less">

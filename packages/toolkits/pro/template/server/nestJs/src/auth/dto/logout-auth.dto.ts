@@ -2,5 +2,5 @@ import { IsNotEmpty } from 'class-validator';
 
 export class LogoutAuthDto {
   @IsNotEmpty()
-  email: string;
+  token: string;
 }

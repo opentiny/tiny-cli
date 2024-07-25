@@ -20,10 +20,11 @@ export class AuthService {
     return this.redisService.getUserToken(`user:${userId}:token`);
   }
 
-  async logout(email: string): Promise<void> {
-    console.log(email)
+  async logout(token: string): Promise<void> {
+    //通过token解析email
+    const decoded = await this.jwtService.verify(token);
     //退出登录后，将token从Redis删除
-    await this.redisService.delUserToken(`user:${email}:token`);
+    await this.redisService.delUserToken(`user:${decoded.email}:token`);
     return;
   }
 

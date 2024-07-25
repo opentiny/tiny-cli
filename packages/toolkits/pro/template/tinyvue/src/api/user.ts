@@ -7,7 +7,7 @@ export interface LoginData {
 }
 
 export interface LogoutData {
-  email: string;
+  token: string | null;
 }
 
 export interface  RegisterData {

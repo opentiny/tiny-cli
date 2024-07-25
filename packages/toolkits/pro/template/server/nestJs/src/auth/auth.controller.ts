@@ -19,6 +19,6 @@ export class AuthController {
   @Post('logout')
   @UseGuards(AuthGuard)
   async logout(@Body() body: LogoutAuthDto) {
-    return this.authService.logout(body.email);
+    return this.authService.logout(body.token);
   }
 }

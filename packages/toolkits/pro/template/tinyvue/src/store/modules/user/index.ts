@@ -9,7 +9,7 @@ import {
   getUserInfo,
   getAllUser,
 } from '@/api/user';
-import {clearToken, setToken} from '@/utils/auth';
+import {clearToken, getToken, setToken} from '@/utils/auth';
 import {removeRouteListener} from '@/utils/route-listener';
 import {UserInfo, UserState} from './types';
 
@@ -69,12 +69,6 @@ const useUserStore = defineStore('user', {
       this.filterType = [];
     },
 
-    // Get user's information
-    async info() {
-      const res = await getAllUser();
-      this.setInfo(res.data);
-    },
-
     async updateInfo(data: UserInfo) {
       const res = await updateUserInfo(data);
       this.setInfo(res.data);
@@ -114,9 +108,8 @@ const useUserStore = defineStore('user', {
 
     // Logout
     async logout() {
-      const userStore = useUserStore()
       const data = {
-        email:userStore.email
+        token:getToken()
       }
       await userLogout(data);
       this.resetInfo();

@@ -31,7 +31,6 @@ export default function setupPermissionGuard(router: Router) {
         crossroads();
       } else {
         try {
-          await userStore.info();
           crossroads();
         } catch (error) {
           next({
