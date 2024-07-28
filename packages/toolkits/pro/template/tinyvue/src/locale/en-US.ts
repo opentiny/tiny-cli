@@ -24,6 +24,8 @@ import localeHello from '@/views/cloud/hello/locale/en-US';
 
 import localeContracts from '@/views/cloud/contracts/locale/en-US';
 
+import localeUserManager from '@/views/userManager/info/locale/en-US';
+
 import localeSettings from './en-US/settings';
 
 import localeHttpError from './en-US/httpError';
@@ -40,6 +42,9 @@ export default {
   'menu.profile.detail': 'Basic details page',
   'menu.visualization': 'Data Visualization',
   'menu.user': 'User Center',
+  'menu.userManager': 'User Manager',
+  'menu.userManager.info': 'All User Info',
+  'menu.userManager.setting': 'All User Setting',
   'navbar.docs': 'Docs',
   'navbar.action.locale': 'Switch to English',
   'messageBox.switchRoles': 'Switch Roles',
@@ -65,4 +70,5 @@ export default {
   ...localeHello,
   ...localeContracts,
   ...localeHttpError,
+  ...localeUserManager,
 };

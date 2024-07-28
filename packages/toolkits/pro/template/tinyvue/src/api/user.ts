@@ -50,8 +50,8 @@ export function logout(data: LogoutData) {
 }
 
 // 获取全部用户
-export function getAllUser() {
-  return axios.get<UserInfo>(`/api/user`);
+export function getAllUser(page?: number, limit?: number) {
+  return axios.get<UserInfo>(`/api/user?page=${page}&limit=${limit}`);
 }
 
 // 获取单个用户
@@ -59,7 +59,7 @@ export function getUserInfo(email: string) {
   return axios.get<UserInfo>(`/api/user/info/${email}`);
 }
 
-export function delUser(email: string) {
+export function deleteUser(email: string) {
   return axios.delete<UserInfo>(`/api/user/${email}`);
 }
 

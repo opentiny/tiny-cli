@@ -24,9 +24,12 @@ import localeHello from '@/views/cloud/hello/locale/zh-CN';
 
 import localeContracts from '@/views/cloud/contracts/locale/zh-CN';
 
+import localeUserManager from '@/views/userManager/info/locale/zh-CN';
+
 import localeSettings from './zh-CN/settings';
 
 import localeHttpError from './zh-CN/httpError';
+
 
 export default {
   'menu.board': '看板',
@@ -40,6 +43,9 @@ export default {
   'menu.profile.detail': '基础详情页',
   'menu.visualization': '数据可视化',
   'menu.user': '个人中心',
+  'menu.userManager': '用户管理',
+  'menu.userManager.info': '所有用户',
+  'menu.userManager.setting': '修改信息',
   'navbar.docs': '文档中心',
   'navbar.action.locale': '切换为中文',
   'messageBox.switchRoles': '切换角色',
@@ -65,4 +71,5 @@ export default {
   ...localeHello,
   ...localeContracts,
   ...localeHttpError,
+  ...localeUserManager,
 };

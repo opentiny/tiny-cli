@@ -33,6 +33,7 @@
     IconUser,
     IconFiletext,
     IconApplication,
+    IconGroup,
   } from '@opentiny/vue-icon';
   import { TreeMenu as tinyTreeMenu } from '@opentiny/vue';
   import router from '@/router';
@@ -48,6 +49,7 @@
   const iconUser = IconUser();
   const iconFiletext = IconFiletext();
   const iconApplication = IconApplication();
+  const iconGroup = IconGroup();
   const tree = ref();
   const expandeArr = ref();
   const routerTitle = [
@@ -189,6 +191,24 @@
       icon: null,
       bold: 'title',
     },
+    {
+      value: 'UserManager',
+      name: 'menu.userManager',
+      icon: iconGroup,
+      bold: 'main-title',
+    },
+    {
+      value: 'AllInfo',
+      name: 'menu.userManager.info',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'AllSetting',
+      name: 'menu.userManager.setting',
+      icon: null,
+      bold: 'title',
+    },
   ];
 
   // 获取路由数据
@@ -258,6 +278,7 @@
       'Result',
       'User',
       'Cloud',
+      'UserManager',
     ];
     if (filter.indexOf(data.id) === -1) {
       router.push({ name: data.id });
