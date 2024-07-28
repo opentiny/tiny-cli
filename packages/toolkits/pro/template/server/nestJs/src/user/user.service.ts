@@ -20,7 +20,9 @@ export class UserService {
     private readonly authService: AuthService
   ) {}
   async create(createUserDto: CreateUserDto, isInit: boolean) {
-    const { email, password, roleIds = [], username } = createUserDto;
+    const { email, password, roleIds = [], username,
+    department, employeeType, probationStart, probationEnd, probationDuration,
+    protocolStart,protocolEnd,address,status} = createUserDto;
     const userInfo = this.getUserInfo(email);
     if (isInit == true && (await userInfo)) {
       return userInfo;
@@ -40,6 +42,15 @@ export class UserService {
         name: username,
         role: await roles,
         deleteAt: 0,
+        department: department,
+        employeeType: employeeType,
+        protocolStart: protocolStart,
+        protocolEnd: protocolEnd,
+        probationEnd: probationEnd,
+        probationStart: probationStart,
+        probationDuration: probationDuration,
+        address: address,
+        status: status,
       });
       return this.userRep.save(user);
     } catch (err) {
@@ -53,12 +64,15 @@ export class UserService {
   //获取所有用户信息
   async getAllUser(paginationQuery: PaginationQueryDto): Promise<any> {
     const { page, limit } = paginationQuery; // 从DTO获取分页参数
+    const relations = ['role', 'role.permission']
     return await paginate<User>(this.userRep, {
       page: Number(page) || Number(process.env.PAGITION_PAGE),
       limit: Number(limit) || Number(process.env.PAGITION_LIMIT),
     },{
       where: {deleteAt: 0},
-      select: ['id', 'name', 'email', 'createTime', 'updateTime'],
+      select: ['id', 'name', 'email', 'department', 'employeeType', 'protocolStart', 'protocolEnd',
+      'probationEnd', 'probationStart', 'probationDuration', 'address', 'status'],
+      relations,
     });
   }
 

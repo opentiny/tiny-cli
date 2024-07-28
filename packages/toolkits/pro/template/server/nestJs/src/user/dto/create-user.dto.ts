@@ -14,4 +14,13 @@ export class CreateUserDto {
   })
   password: string;
   roleIds: number[] = [];
+  department?: string;
+  employeeType?: string;
+  probationStart?: Date;
+  probationEnd?: Date;
+  probationDuration?: string;
+  protocolStart?: Date;
+  protocolEnd?: Date;
+  address?: string;
+  status?: number;
 }

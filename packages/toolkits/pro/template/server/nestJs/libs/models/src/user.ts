@@ -29,6 +29,24 @@ export class User {
   @ManyToMany(() => Role)
   @JoinTable({ name: 'user_role' })
   role: Role[];
+  @Column({nullable: true})
+  department: string;
+  @Column({nullable: true})
+  employeeType: string;
+  @Column({type: 'timestamp',nullable: true})
+  probationStart: Date;
+  @Column({type: 'timestamp',nullable: true})
+  probationEnd: Date;
+  @Column({nullable: true})
+  probationDuration: string;
+  @Column({type: 'timestamp',nullable: true})
+  protocolStart: Date;
+  @Column({type: 'timestamp',nullable: true})
+  protocolEnd: Date;
+  @Column({nullable: true})
+  address: string;
+  @Column({nullable: true})
+  status: number;
   @CreateDateColumn()
   createTime: Date;
   @UpdateDateColumn()
