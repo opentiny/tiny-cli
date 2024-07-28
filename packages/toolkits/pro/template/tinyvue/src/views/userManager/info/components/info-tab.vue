@@ -1,84 +1,132 @@
 <template>
-  <div id="contain">
-<!--    <infotable :table-data="state.tableData"></infotable>-->
-    <div class="table">
-      <tiny-grid ref="expandGrid"
-                 :fetch-data="fetchDataOption"
-                 :pager="pagerConfig"
-                 :auto-resize="true"
-      >
-        <tiny-grid-column type="index" width="60"></tiny-grid-column>
-        <tiny-grid-column type="expand" width="60">
-          <template #default="data">
-            <ul>
-              <li>
-                <span>{{ $t('userInfo.table.id') }}：</span>
-                <span>{{ data.row.id }}</span>
-              </li>
-              <li>
-                <span>{{ $t('userInfo.table.name') }}：</span>
-                <span>{{ data.row.name }}</span>
-              </li>
-              <li>
-                <span>{{ $t('userInfo.table.email') }}：</span>
-                <span>{{ $t(`${data.row.email}`) }}</span>
-              </li>
-              <li>
-                <span>{{ $t('userInfo.table.createTime') }}：</span>
-                <span>{{ $t(`${data.row.createTime}`) }}</span>
-              </li>
-              <li>
-                <span>{{ $t('userInfo.table.updateTime') }}：</span>
-                <span>{{ $t(`${data.row.updateTime}`) }}</span>
-              </li>
-            </ul>
-          </template>
-        </tiny-grid-column>
-        <tiny-grid-column
-          field="name"
-          :title="$t('userInfo.table.id')"
+  <div class="tiny-fullscreen-scroll">
+    <div class="tiny-fullscreen-wrapper">
+      <!--    <infotable :table-data="state.tableData"></infotable>-->
+      <div class="table">
+        <tiny-grid ref="expandGrid"
+                   :fetch-data="fetchDataOption"
+                   :pager="pagerConfig"
+                   :auto-resize="true"
         >
-          <template #default="data">
-            <span>{{ $t(`${data.row.id}`) }}</span>
-          </template>
-        </tiny-grid-column>
-        <tiny-grid-column
-          field="time"
-          :title="$t('userInfo.table.name')"
-        >
-          <template #default="data">
-            <span>{{ $t(`${data.row.name}`) }}</span>
-          </template>
-        </tiny-grid-column>
-        <tiny-grid-column field="type" :title="$t('userInfo.table.email')">
-          <template #default="data">
-            <span>{{ $t(`${data.row.email}`) }}</span>
-          </template>
-        </tiny-grid-column>
-        <tiny-grid-column field="status" :title="$t('userInfo.table.createTime')">
-          <template #default="data">
-            <span>{{ $t(`${data.row.createTime}`) }}</span>
-          </template>
-        </tiny-grid-column>
-        <tiny-grid-column field="status" :title="$t('userInfo.table.updateTime')">
-          <template #default="data">
-            <span>{{ $t(`${data.row.updateTime}`) }}</span>
-          </template>
-        </tiny-grid-column>
-        <tiny-grid-column
-          :title="$t('userInfo.table.operations')"
-          align="center"
-        >
-          <template  v-slot="data">
-            <a class="operation-update" @click="handleUpdate(data.row.id)">
-              {{ $t( 'userInfo.table.operations.update' ) }}
-            </a>
-            <a class="operation-delete" @click="handleDelete(data.row.email)">
-              {{ $t( 'userInfo.table.operations.delete' ) }}
-            </a>
-          </template>
-        </tiny-grid-column>
-      </tiny-grid>
+          <tiny-grid-column type="index" width="60"></tiny-grid-column>
+          <tiny-grid-column type="expand" width="60">
+            <template #default="data">
+              <ul>
+                <li>
+                  <span>{{ $t('userInfo.table.id') }}：</span>
+                  <span>{{ data.row.id }}</span>
+                </li>
+                <li>
+                  <span>{{ $t('userInfo.table.name') }}：</span>
+                  <span>{{ data.row.name }}</span>
+                </li>
+                <li>
+                  <span>{{ $t('userInfo.table.email') }}：</span>
+                  <span>{{ $t(`${data.row.email}`) }}</span>
+                </li>
+                <li>
+                  <span>{{ $t('userInfo.table.createTime') }}：</span>
+                  <span>{{ $t(`${data.row.createTime}`) }}</span>
+                </li>
+                <li>
+                  <span>{{ $t('userInfo.table.updateTime') }}：</span>
+                  <span>{{ $t(`${data.row.updateTime}`) }}</span>
+                </li>
+              </ul>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column
+            field="name"
+            :title="$t('userInfo.table.id')"
+          >
+            <template #default="data">
+              <span>{{ $t(`${data.row.id}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column
+            field="time"
+            :title="$t('userInfo.table.name')"
+          >
+            <template #default="data">
+              <span>{{ $t(`${data.row.name}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.email')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.email}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.department')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.department}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.employeeType')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.employeeType}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.job')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.role[0].name}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.probationStart')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.probationStart}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.probationEnd')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.probationEnd}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.probationDuration')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.probationDuration}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.protocolStart')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.protocolStart}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.protocolEnd')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.protocolEnd}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.address')">
+            <template #default="data">
+              <span>{{ $t(`${data.row.address}`) }}</span>
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column field="type" :title="$t('userInfo.table.status')">
+            <template #default="data">
+              <div v-if="data.row.status !== 1">
+                <img style="width: 20px" src="@/assets/images/success.png" alt="success" />
+              </div>
+              <div v-if="data.row.status == 1">
+                <img style="width: 20px" src="@/assets/images/error.png" alt="error" />
+              </div>
+<!--              <span>{{ $t(`${data.row.status}`) }}</span>-->
+            </template>
+          </tiny-grid-column>
+          <tiny-grid-column
+            :title="$t('userInfo.table.operations')"
+            align="center"
+          >
+            <template v-slot="data">
+              <a class="operation-update" @click="handleUpdate(data.row.id)">
+                {{ $t('userInfo.table.operations.update') }}
+              </a>
+              <a class="operation-delete" @click="handleDelete(data.row.email)">
+                {{ $t('userInfo.table.operations.delete') }}
+              </a>
+            </template>
+          </tiny-grid-column>
+        </tiny-grid>
+      </div>
     </div>
   </div>
 </template>
@@ -94,7 +142,7 @@ import {
 } from '@opentiny/vue';
 import {IconChevronDown} from '@opentiny/vue-icon';
 import {useUserStore} from '@/store';
-import { getAllUser, deleteUser } from '@/api/user';
+import {getAllUser, deleteUser} from '@/api/user';
 
 
 // 加载效果
@@ -142,7 +190,7 @@ const fetchData = async (
     background: 'rgba(0, 0, 0, 0.7)',
   });
   try {
-    const {data} = await getAllUser(params.pageIndex,params.pageSize);
+    const {data} = await getAllUser(params.pageIndex, params.pageSize);
     const total = data.meta.totalItems;
     return {
       result: data.items,
@@ -163,8 +211,8 @@ const fetchDataOption = reactive({
   },
 });
 
-const handleDelete = (email:string)=>{
-  deleteUser(email).then((res)=>{
+const handleDelete = (email: string) => {
+  deleteUser(email).then((res) => {
     Modal.message({
       message: '已删除',
       status: 'success',
@@ -180,6 +228,7 @@ const handleDelete = (email:string)=>{
   padding: 15px;
   overflow: hidden;
 }
+
 .table {
   padding-bottom: 20px;
   background-color: #fff;
@@ -190,6 +239,7 @@ const handleDelete = (email:string)=>{
   &-delete {
     color: red;
   }
+
   &-update {
     padding-right: 10px;
     color: #1890ff;
