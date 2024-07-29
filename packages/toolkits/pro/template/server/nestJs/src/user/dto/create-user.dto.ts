@@ -16,11 +16,11 @@ export class CreateUserDto {
   roleIds: number[] = [];
   department?: string;
   employeeType?: string;
-  probationStart?: Date;
-  probationEnd?: Date;
+  probationStart?: string;
+  probationEnd?: string;
   probationDuration?: string;
-  protocolStart?: Date;
-  protocolEnd?: Date;
+  protocolStart?: string;
+  protocolEnd?: string;
   address?: string;
   status?: number;
 }

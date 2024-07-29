@@ -1,13 +1,13 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { PaginationQueryDto } from "./dto/pagination-query.dto";
-import { InjectRepository } from '@nestjs/typeorm';
-import { Role, User } from '@app/models';
-import { In, Repository } from 'typeorm';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {CreateUserDto} from './dto/create-user.dto';
+import {UpdateUserDto} from './dto/update-user.dto';
+import {PaginationQueryDto} from "./dto/pagination-query.dto";
+import {InjectRepository} from '@nestjs/typeorm';
+import {Role, User} from '@app/models';
+import {In, Repository} from 'typeorm';
 import * as crypto from 'crypto';
-import { AuthService } from '../auth/auth.service';
-import { paginate, IPaginationOptions } from 'nestjs-typeorm-paginate';
+import {AuthService} from '../auth/auth.service';
+import {paginate, IPaginationOptions} from 'nestjs-typeorm-paginate';
 import * as process from "process";
 
 @Injectable()
@@ -18,11 +18,15 @@ export class UserService {
     @InjectRepository(Role)
     private roleRep: Repository<Role>,
     private readonly authService: AuthService
-  ) {}
+  ) {
+  }
+
   async create(createUserDto: CreateUserDto, isInit: boolean) {
-    const { email, password, roleIds = [], username,
-    department, employeeType, probationStart, probationEnd, probationDuration,
-    protocolStart,protocolEnd,address,status} = createUserDto;
+    const {
+      email, password, roleIds = [], username,
+      department, employeeType, probationStart, probationEnd, probationDuration,
+      protocolStart, protocolEnd, address, status
+    } = createUserDto;
     const userInfo = this.getUserInfo(email);
     if (isInit == true && (await userInfo)) {
       return userInfo;
@@ -63,22 +67,44 @@ export class UserService {
 
   //获取所有用户信息
   async getAllUser(paginationQuery: PaginationQueryDto): Promise<any> {
-    const { page, limit } = paginationQuery; // 从DTO获取分页参数
+    const {page, limit} = paginationQuery; // 从DTO获取分页参数
     const relations = ['role', 'role.permission']
-    return await paginate<User>(this.userRep, {
+    const result = await paginate<User>(this.userRep, {
       page: Number(page) || Number(process.env.PAGITION_PAGE),
       limit: Number(limit) || Number(process.env.PAGITION_LIMIT),
-    },{
+    }, {
       where: {deleteAt: 0},
       select: ['id', 'name', 'email', 'department', 'employeeType', 'protocolStart', 'protocolEnd',
-      'probationEnd', 'probationStart', 'probationDuration', 'address', 'status'],
+        'probationEnd', 'probationStart', 'probationDuration', 'address', 'status'],
       relations,
     });
+    for (const user of result.items) {
+      if (user.probationStart !== null) {
+        user.probationStart = await this.formatDateToDay(new Date(user.probationStart));
+      }
+      if (user.probationEnd !== null) {
+        user.probationEnd = await this.formatDateToDay(new Date(user.probationEnd));
+      }
+      if (user.protocolStart !== null) {
+        user.protocolStart = await this.formatDateToDay(new Date(user.protocolStart));
+      }
+      if (user.protocolEnd !== null) {
+        user.protocolEnd = await this.formatDateToDay(new Date(user.protocolEnd));
+      }
+    }
+    return result;
+  }
+
+  async formatDateToDay(date: { getFullYear: () => any; getMonth: () => number; getDate: () => any; }) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份是从0开始的
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   async getUserInfo(email: string, relations: string[] = []) {
     return await this.userRep.findOne({
-      where: { email, deleteAt: 0 },
+      where: {email, deleteAt: 0},
       select: [
         'id',
         'name',
@@ -93,11 +119,11 @@ export class UserService {
   }
 
   async getUserPermission(token: string, userInfo: User) {
-    const { email } = userInfo;
-    const { role } = (await this.getUserInfo(email, [
+    const {email} = userInfo;
+    const {role} = (await this.getUserInfo(email, [
       'role',
       'role.permission',
-    ])) ?? { role: [] as Role[] };
+    ])) ?? {role: [] as Role[]};
     const permission = role.flatMap((r) => r.permission);
     const permissionNames = permission.map((p) => p.name);
     return [...new Set([...permissionNames])];
@@ -110,6 +136,7 @@ export class UserService {
       .toString('hex');
     return newHash === storedHash;
   }
+
   //修改密码后加密
   async encry(value: string, salt: string) {
     return crypto.pbkdf2Sync(value, salt, 1000, 18, 'sha256').toString('hex');
@@ -126,9 +153,9 @@ export class UserService {
 
   //修改密码
   async updateUserPwd(updateUserDto: UpdateUserDto) {
-    const { email, newPassword, oldPassword } = updateUserDto;
+    const {email, newPassword, oldPassword} = updateUserDto;
     const user = this.userRep.findOne({
-      where: { email, deleteAt: 0 },
+      where: {email, deleteAt: 0},
       select: [
         'id',
         'name',

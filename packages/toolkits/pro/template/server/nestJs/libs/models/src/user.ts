@@ -34,15 +34,15 @@ export class User {
   @Column({nullable: true})
   employeeType: string;
   @Column({type: 'timestamp',nullable: true})
-  probationStart: Date;
+  probationStart: string;
   @Column({type: 'timestamp',nullable: true})
-  probationEnd: Date;
+  probationEnd: string;
   @Column({nullable: true})
   probationDuration: string;
   @Column({type: 'timestamp',nullable: true})
-  protocolStart: Date;
+  protocolStart: string;
   @Column({type: 'timestamp',nullable: true})
-  protocolEnd: Date;
+  protocolEnd: string;
   @Column({nullable: true})
   address: string;
   @Column({nullable: true})

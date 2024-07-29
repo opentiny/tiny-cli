@@ -112,6 +112,7 @@ export class AppModule implements OnModuleInit {
         password: 'admin',
         roleIds: [role.id],
         username: 'admin',
+        status: 1,
       },
       isInit
     );
