@@ -25,13 +25,43 @@
                   <span>{{ $t(`${data.row.email}`) }}</span>
                 </li>
                 <li>
-                  <span>{{ $t('userInfo.table.createTime') }}：</span>
-                  <span>{{ $t(`${data.row.createTime}`) }}</span>
+                  <span>{{ $t('userInfo.table.department') }}：</span>
+                  <span>{{ $t(`${data.row.department}`) }}</span>
                 </li>
                 <li>
-                  <span>{{ $t('userInfo.table.updateTime') }}：</span>
-                  <span>{{ $t(`${data.row.updateTime}`) }}</span>
+                  <span>{{ $t('userInfo.table.employeeType') }}：</span>
+                  <span>{{ $t(`${data.row.employeeType}`) }}</span>
                 </li>
+                <li>
+                  <span>{{ $t('userInfo.table.job') }}：</span>
+                  <span>{{ $t(`${data.row.role[0].name}`) }}</span>
+                </li>
+                <li>
+                  <span>{{ $t('userInfo.table.probationStart') }}：</span>
+                  <span>{{ $t(`${data.row.probationStart}`) }}</span>
+                </li>
+                <li>
+                  <span>{{ $t('userInfo.table.probationEnd') }}：</span>
+                  <span>{{ $t(`${data.row.probationEnd}`) }}</span>
+                </li>
+                <li>
+                  <span>{{ $t('userInfo.table.probationDuration') }}：</span>
+                  <span>{{ $t(`${data.row.probationDuration}`) }}</span>
+                </li>
+                <li>
+                  <span>{{ $t('userInfo.table.protocolStart') }}：</span>
+                  <span>{{ $t(`${data.row.protocolStart}`) }}</span>
+                </li><li>
+                <span>{{ $t('userInfo.table.protocolEnd') }}：</span>
+                <span>{{ $t(`${data.row.protocolEnd}`) }}</span>
+              </li><li>
+                <span>{{ $t('userInfo.table.address') }}：</span>
+                <span>{{ $t(`${data.row.address}`) }}</span>
+              </li><li>
+                <span>{{ $t('userInfo.table.status') }}：</span>
+                <span v-if="data.row.status == 1">已启用</span>
+                <span v-if="data.row.status !== 1">已禁用</span>
+              </li>
               </ul>
             </template>
           </tiny-grid-column>
@@ -103,13 +133,12 @@
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.status')">
             <template #default="data">
-              <div v-if="data.row.status !== 1">
+              <div v-if="data.row.status == 1">
                 <img style="width: 20px" src="@/assets/images/success.png" alt="success" />
               </div>
-              <div v-if="data.row.status == 1">
+              <div v-if="data.row.status !== 1">
                 <img style="width: 20px" src="@/assets/images/error.png" alt="error" />
               </div>
-<!--              <span>{{ $t(`${data.row.status}`) }}</span>-->
             </template>
           </tiny-grid-column>
           <tiny-grid-column
