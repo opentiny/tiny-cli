@@ -1,7 +1,6 @@
 <template>
   <div class="tiny-fullscreen-scroll">
     <div class="tiny-fullscreen-wrapper">
-      <!--    <infotable :table-data="state.tableData"></infotable>-->
       <div class="table">
         <tiny-grid ref="expandGrid"
                    :fetch-data="fetchDataOption"

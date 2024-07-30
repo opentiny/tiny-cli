@@ -4,7 +4,7 @@
     <div class="container-info">
       <div class="general-card">
         <div class="general-content">
-          <infotab></infotab>
+          <info-tab></info-tab>
         </div>
       </div>
     </div>
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-  import infotab from './components/info-tab.vue';
+  import infoTab from './components/info-tab.vue';
 </script>
 
 <style scoped lang="less">
