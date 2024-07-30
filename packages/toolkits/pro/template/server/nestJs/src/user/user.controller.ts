@@ -35,7 +35,7 @@ export class UserController {
   @Patch('/update')
   @Permission('user::update')
   async UpdateUser(@Body() body: UpdateUserDto) {
-    return this.userService.updateUserPwd(body);
+    return this.userService.updateUserInfo(body);
   }
   @Get()
   @Permission('user::query')

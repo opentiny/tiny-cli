@@ -95,7 +95,11 @@ export class UserService {
     return result;
   }
 
-  async formatDateToDay(date: { getFullYear: () => any; getMonth: () => number; getDate: () => any; }) {
+  async formatDateToDay(date: {
+    getFullYear: () => any;
+    getMonth: () => number;
+    getDate: () => any;
+  }) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份是从0开始的
     const day = String(date.getDate()).padStart(2, '0');
@@ -103,19 +107,27 @@ export class UserService {
   }
 
   async getUserInfo(email: string, relations: string[] = []) {
-    return await this.userRep.findOne({
+    const user = await this.userRep.findOne({
       where: {email, deleteAt: 0},
       select: [
-        'id',
-        'name',
-        'email',
-        'createTime',
-        'updateTime',
-        'role',
-        'deleteAt',
+        'id', 'name', 'email', 'department', 'employeeType', 'protocolStart', 'protocolEnd',
+        'probationEnd', 'probationStart', 'probationDuration', 'address', 'status'
       ],
       relations,
     });
+    if (user.probationStart !== null) {
+      user.probationStart = await this.formatDateToDay(new Date(user.probationStart));
+    }
+    if (user.probationEnd !== null) {
+      user.probationEnd = await this.formatDateToDay(new Date(user.probationEnd));
+    }
+    if (user.protocolStart !== null) {
+      user.protocolStart = await this.formatDateToDay(new Date(user.protocolStart));
+    }
+    if (user.protocolEnd !== null) {
+      user.protocolEnd = await this.formatDateToDay(new Date(user.protocolEnd));
+    }
+    return user;
   }
 
   async getUserPermission(token: string, userInfo: User) {
@@ -169,29 +181,40 @@ export class UserService {
       ],
     });
     if (user) {
-      if (
-        !(await this.verifyPassword(
-          oldPassword,
-          (
-            await user
-          ).password,
-          (
-            await user
-          ).salt
-        ))
-      ) {
+      if (!(await this.verifyPassword(oldPassword, (await user).password, (await user).salt))) {
         throw new HttpException('旧密码错误', HttpStatus.BAD_REQUEST);
       } else {
-        (await user).password = await this.encry(
-          newPassword,
-          (
-            await user
-          ).salt
-        );
+        (await user).password = await this.encry(newPassword, (await user).salt);
         await this.userRep.save(await user);
         await this.authService.logout(email);
         return;
       }
     }
   }
+
+  async updateUserInfo(updateUserDto: UpdateUserDto){
+    const {email,roleIds,department,employeeType,probationStart,probationEnd,
+    probationDuration,protocolStart,protocolEnd,address,status,name} = updateUserDto;
+    const user = this.getUserInfo(email);
+    const roles = this.roleRep.find({
+      where: {
+        id: In(roleIds),
+      },
+    });
+    if(user){
+      (await user).name = name;
+      (await user).department = department;
+      (await user).employeeType = employeeType;
+      (await user).probationStart = probationStart;
+      (await user).probationEnd = probationEnd;
+      (await user).probationDuration =probationDuration;
+      (await user).protocolStart = protocolStart;
+      (await user).protocolEnd = protocolEnd;
+      (await user).address = address;
+      (await user).status = status;
+      (await user).role = await roles;
+    }
+    return await this.userRep.save(await user);
+  }
+
 }
