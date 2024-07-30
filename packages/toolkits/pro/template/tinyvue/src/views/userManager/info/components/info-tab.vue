@@ -88,12 +88,12 @@
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.department')">
             <template #default="data">
-              <span>{{ $t(`${data.row.department}`) }}</span>
+              <span v-if="data.row.department !== null">{{ $t(`${data.row.department}`) }}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.employeeType')">
             <template #default="data">
-              <span>{{ $t(`${data.row.employeeType}`) }}</span>
+              <span v-if="data.row.employeeType !== null">{{ $t(`${data.row.employeeType}`) }}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.job')">
@@ -103,32 +103,32 @@
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.probationStart')">
             <template #default="data">
-              <span>{{ $t(`${data.row.probationStart}`) }}</span>
+              <span v-if="data.row.probationStart !== null">{{ $t(`${data.row.probationStart}`) }}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.probationEnd')">
             <template #default="data">
-              <span>{{ $t(`${data.row.probationEnd}`) }}</span>
+              <span v-if="data.row.probationEnd !== null">{{ $t(`${data.row.probationEnd}`) }}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.probationDuration')">
             <template #default="data">
-              <span>{{ $t(`${data.row.probationDuration}`) }}</span>
+              <span v-if="data.row.probationDuration !== null">{{ $t(`${data.row.probationDuration}`) }}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.protocolStart')">
             <template #default="data">
-              <span>{{ $t(`${data.row.protocolStart}`) }}</span>
+              <span v-if="data.row.protocolStart !== null">{{ $t(`${data.row.protocolStart}`) }}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.protocolEnd')">
             <template #default="data">
-              <span>{{ $t(`${data.row.protocolEnd}`) }}</span>
+              <span v-if="data.row.protocolEnd !== null">{{ $t(`${data.row.protocolEnd}`) }}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.address')">
             <template #default="data">
-              <span>{{ $t(`${data.row.address}`) }}</span>
+              <span v-if="data.row.address !== null">{{ $t(`${data.row.address}`) }}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.status')">
@@ -146,7 +146,7 @@
             align="center"
           >
             <template v-slot="data">
-              <a class="operation-update" @click="handleUpdate(data.row.id)">
+              <a class="operation-update" @click="handleUpdate(data.row.email)">
                 {{ $t('userInfo.table.operations.update') }}
               </a>
               <a class="operation-delete" @click="handleDelete(data.row.email)">
@@ -172,7 +172,9 @@ import {
 import {IconChevronDown} from '@opentiny/vue-icon';
 import {useUserStore} from '@/store';
 import {getAllUser, deleteUser} from '@/api/user';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 
 // 加载效果
 const state = reactive<{
@@ -247,6 +249,15 @@ const handleDelete = (email: string) => {
       status: 'success',
     });
   })
+}
+
+const handleUpdate = (email: string) => {
+  router.push({
+    name: 'AllSetting',
+    query: {
+      email,
+    },
+  });
 }
 
 </script>

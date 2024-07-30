@@ -63,8 +63,8 @@ export function deleteUser(email: string) {
   return axios.delete<UserInfo>(`/api/user/${email}`);
 }
 
-export function updateUserInfo(data: UserInfo) {
-  return axios.put<UserInfo>(`/api/user/userInfo`, data);
+export function updateUserInfo(data: any) {
+  return axios.patch('/api/user/update', data);
 }
 
 export function getUserData(data?: UserData) {

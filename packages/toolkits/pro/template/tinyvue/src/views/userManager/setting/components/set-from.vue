@@ -12,6 +12,22 @@
       <tiny-row :flex="true" justify="left">
         <tiny-col :span="5" label-width="100px">
           <tiny-form-item
+            :label="$t('userSetting.name')"
+            prop="department"
+          >
+            <tiny-input v-model="state.filterOptions.name"></tiny-input>
+          </tiny-form-item>
+        </tiny-col>
+        <tiny-col :span="5" label-width="100px">
+          <tiny-form-item :label="$t('userSetting.address')" prop="position">
+            <tiny-input v-model="state.filterOptions.address"></tiny-input>
+          </tiny-form-item>
+        </tiny-col>
+      </tiny-row>
+
+      <tiny-row :flex="true" justify="left">
+        <tiny-col :span="5" label-width="100px">
+          <tiny-form-item
             :label="$t('userSetting.department')"
             prop="department"
           >
@@ -80,13 +96,28 @@
             ></tiny-date-picker>
           </tiny-form-item>
         </tiny-col>
+        <tiny-col :span="5" label-width="100px">
+          <tiny-form-item :label="$t('userSetting.status')" prop="type">
+            <tiny-select
+              v-model="state.filterOptions.status"
+              :placeholder="$t('baseForm.form.label.placeholder')"
+            >
+              <tiny-option
+                v-for="item in (statusData as any)"
+                :key="item.value"
+                :label="$t(item.label)"
+                :value="item.label"
+              ></tiny-option>
+            </tiny-select>
+          </tiny-form-item>
+        </tiny-col>
       </tiny-row>
     </tiny-form>
   </tiny-layout>
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, defineProps, computed, defineExpose } from 'vue';
+import {ref, reactive, defineProps, computed, defineExpose, onMounted} from 'vue';
   import { useI18n } from 'vue-i18n';
   import {
     Select as TinySelect,
@@ -101,6 +132,11 @@
     Modal,
   } from '@opentiny/vue';
 
+
+  const props = defineProps({
+    userData: {} as any
+  })
+
   interface FilterOptions {
     department: string;
     position: Array<object>;
@@ -109,42 +145,53 @@
     during: Array<object>;
     startTime: string;
     endTime: string;
+    name: string;
+    address: string;
+    status: number;
   }
 
   const projectData = [
     {
       value: '1',
-      label: 'social recruitment',
+      label: 'Social Recruitment',
     },
     {
       value: '2',
-      label: 'scholl recruitment',
+      label: 'School Recruitment',
     },
     {
       value: '3',
-      label: 'Job transfer',
+      label: 'Job Transfer',
+    },
+  ];
+
+  const statusData = [
+    {
+      value: 1,
+      label: 'Active',
+    },
+    {
+      value: 2,
+      label: 'Disabled',
     },
   ];
 
   // 加载效果
   const state = reactive<{
     filterOptions: FilterOptions;
-    department: string;
-    position: Array<object>;
-    type: Array<object>;
-    date: Array<object>;
-    during: string;
-    startTime: string;
-    endTime: string;
   }>({
-    filterOptions: {} as FilterOptions,
-    department: '',
-    position: [],
-    type: [],
-    date: [],
-    during: '',
-    startTime: '',
-    endTime: '',
+    filterOptions: {
+      name: props.userData.name,
+      address: props.userData.address,
+      department: props.userData.department,
+      position: '',
+      type: props.userData.employeeType,
+      date: [props.userData.probationStart,props.userData.probationEnd],
+      during: props.userData.probationDuration,
+      startTime: props.userData.protocolStart,
+      endTime: props.userData.protocolEnd,
+      status: '',
+    } as FilterOptions,
   });
 
   // 初始化请求数据
@@ -170,6 +217,9 @@
       during: [rulesType],
       startTime: [rulesType],
       endTime: [rulesType],
+      name:[rulesType],
+      address: [rulesType],
+      status: [rulesSelect],
     };
   });
 

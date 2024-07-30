@@ -11,4 +11,7 @@ export default {
   'userSetting.endTime': '劳动合同结束日期:',
   'userSetting.first': '开始时间',
   'userSetting.last': '结束时间',
+  'userSetting.name': '用户名',
+  'userSetting.address': '地址',
+  'userSetting.status': '状态',
 };

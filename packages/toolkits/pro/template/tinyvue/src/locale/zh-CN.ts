@@ -26,6 +26,8 @@ import localeContracts from '@/views/cloud/contracts/locale/zh-CN';
 
 import localeUserManager from '@/views/userManager/info/locale/zh-CN';
 
+import localeUserManagerSetting from '@/views/userManager/setting/locale/zh-CN';
+
 import localeSettings from './zh-CN/settings';
 
 import localeHttpError from './zh-CN/httpError';
@@ -72,4 +74,5 @@ export default {
   ...localeContracts,
   ...localeHttpError,
   ...localeUserManager,
+  ...localeUserManagerSetting,
 };

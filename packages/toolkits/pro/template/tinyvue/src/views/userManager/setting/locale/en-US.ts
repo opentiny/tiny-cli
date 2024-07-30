@@ -11,4 +11,7 @@ export default {
   'userSetting.endTime': 'Labor Contract End Date:',
   'userSetting.first': 'Start Time',
   'userSetting.last': 'End Time',
+  'userSetting.name': 'UserName',
+  'userSetting.address': 'Address',
+  'userSetting.status': 'Status',
 };

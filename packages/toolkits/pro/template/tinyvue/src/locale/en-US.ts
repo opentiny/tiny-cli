@@ -26,6 +26,8 @@ import localeContracts from '@/views/cloud/contracts/locale/en-US';
 
 import localeUserManager from '@/views/userManager/info/locale/en-US';
 
+import localeUserManagerSetting from '@/views/userManager/setting/locale/en-US';
+
 import localeSettings from './en-US/settings';
 
 import localeHttpError from './en-US/httpError';
@@ -71,4 +73,5 @@ export default {
   ...localeContracts,
   ...localeHttpError,
   ...localeUserManager,
+  ...localeUserManagerSetting,
 };

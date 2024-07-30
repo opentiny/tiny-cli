@@ -3,7 +3,7 @@
     <img src="@/assets/images/user-head.png" alt="user" class="user-image" />
     <div>
       <h3 class="user-name">{{ $t('stepForm.head.admin') }}</h3>
-      <h3 class="user-name">{{ userStore.userInfo.name }}</h3>
+      <h3 class="user-name">{{ userData.name }}</h3>
     </div>
   </div>
   <div class="divider"></div>
@@ -15,7 +15,7 @@
           <div class="col">
             <div>{{ $t('stepForm.recruitment.department') }}</div>
             <div class="space"></div>
-            <div>{{ userStore.userInfo.department }}</div>
+            <div>{{ userData.department }}</div>
           </div>
         </tiny-col>
         <img src="@/assets/images/head-2.png" class="head-image" />
@@ -23,7 +23,7 @@
           <div class="col">
             <div>{{ $t('stepForm.recruitment.type') }}</div>
             <div class="space"></div>
-            <div>{{ userStore.userInfo.employeeType }}</div>
+            <div>{{ userData.employeeType }}</div>
           </div>
         </tiny-col>
         <img src="@/assets/images/head-3.png" class="head-image" />
@@ -31,7 +31,7 @@
           <div class="col">
             <div>{{ $t('stepForm.recruitment.position') }}</div>
             <div class="space"></div>
-            <div>{{ userStore.userInfo.job }}</div>
+            <div v-if="userData.role">{{ userData.role[0].name }}</div>
           </div>
         </tiny-col>
       </tiny-row>
@@ -42,9 +42,9 @@
             <div>{{ $t('stepForm.probation.start') }}</div>
             <div class="space"></div>
             <div>
-              {{ userStore.userInfo.probationStart }}
+              {{ userData.probationStart }}
               ~
-              {{ userStore.userInfo.probationEnd }}
+              {{ userData.probationEnd }}
             </div>
           </div>
         </tiny-col>
@@ -53,7 +53,7 @@
           <div class="col">
             <div>{{ $t('stepForm.start.date') }}</div>
             <div class="space"></div>
-            <div>{{ userStore.userInfo.protocolStart }}</div>
+            <div>{{ userData.protocolStart }}</div>
           </div>
         </tiny-col>
         <img src="@/assets/images/head-6.png" class="head-image" />
@@ -62,7 +62,7 @@
             <div>{{ $t('stepForm.probation.period') }}</div>
             <div class="space"></div>
             <div
-              >{{ userStore.userInfo.probationDuration
+              >{{ userData.probationDuration
               }}{{ $t('stepForm.probation.day') }}</div
             >
           </div>
@@ -73,15 +73,16 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted } from 'vue';
+  import { onMounted,defineProps } from 'vue';
   import {
     Layout as TinyLayout,
     Row as TinyRow,
     Col as TinyCol,
   } from '@opentiny/vue';
-  import { useUserStore } from '@/store';
 
-  const userStore = useUserStore();
+  const props = defineProps({
+    userData: {} as any
+  })
 
 </script>
 
