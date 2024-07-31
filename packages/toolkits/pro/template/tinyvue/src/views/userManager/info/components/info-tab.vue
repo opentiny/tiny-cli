@@ -112,7 +112,7 @@
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.probationDuration')">
             <template #default="data">
-              <span v-if="data.row.probationDuration !== null">{{ $t(`${data.row.probationDuration}`) }}</span>
+              <span v-if="data.row.probationDuration !== null">{{ $t(`${data.row.probationDuration}`) }}{{$t('userInfo.day')}}</span>
             </template>
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('userInfo.table.protocolStart')">

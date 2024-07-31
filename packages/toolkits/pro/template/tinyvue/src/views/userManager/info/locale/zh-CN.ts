@@ -20,4 +20,5 @@ export default {
   'userInfo.table.operations': '操作',
   'userInfo.table.operations.update': '修改',
   'userInfo.table.operations.delete': '删除',
+  'userInfo.day': '天'
 };

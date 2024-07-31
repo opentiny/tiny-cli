@@ -20,4 +20,5 @@ export default {
   'userInfo.table.operations': 'Operation',
   'userInfo.table.operations.update': 'Update',
   'userInfo.table.operations.delete': 'Delete',
+  'userInfo.day': 'Day'
 };
