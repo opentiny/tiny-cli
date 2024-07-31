@@ -37,5 +37,17 @@ export default {
         roles: [RoleType.admin],
       },
     },
+    {
+      path: 'userAdd',
+      name: 'UserAdd',
+      id: 'UserAdd',
+      label: 'UserAdd',
+      component: () => import('@/views/userManager/useradd/index.vue'),
+      meta: {
+        locale: 'menu.userManager.useradd',
+        requiresAuth: true,
+        roles: [RoleType.admin],
+      },
+    },
   ],
 };

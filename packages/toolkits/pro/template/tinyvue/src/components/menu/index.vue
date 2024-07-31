@@ -209,6 +209,12 @@
       icon: null,
       bold: 'title',
     },
+    {
+      value: 'UserAdd',
+      name: 'menu.userManager.useradd',
+      icon: null,
+      bold: 'title',
+    },
   ];
 
   // 获取路由数据

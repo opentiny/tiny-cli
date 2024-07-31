@@ -28,6 +28,8 @@ import localeUserManager from '@/views/userManager/info/locale/zh-CN';
 
 import localeUserManagerSetting from '@/views/userManager/setting/locale/zh-CN';
 
+import localeUserManagerUserAdd from '@/views/userManager/useradd/locale/zh-CN';
+
 import localeSettings from './zh-CN/settings';
 
 import localeHttpError from './zh-CN/httpError';
@@ -48,6 +50,7 @@ export default {
   'menu.userManager': '用户管理',
   'menu.userManager.info': '所有用户',
   'menu.userManager.setting': '修改信息',
+  'menu.userManager.useradd': '添加用户',
   'navbar.docs': '文档中心',
   'navbar.action.locale': '切换为中文',
   'messageBox.switchRoles': '切换角色',
@@ -75,4 +78,5 @@ export default {
   ...localeHttpError,
   ...localeUserManager,
   ...localeUserManagerSetting,
+  ...localeUserManagerUserAdd,
 };

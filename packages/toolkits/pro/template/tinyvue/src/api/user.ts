@@ -71,6 +71,6 @@ export function getUserData(data?: UserData) {
   return axios.post<UserRes>('/api/user/data', data);
 }
 
-export function registerUser(data: LoginData) {
-  return axios.post<UserInfo>('/api/user/register', data);
+export function registerUser(data: any) {
+  return axios.post<UserInfo>('/api/user/reg', data);
 }

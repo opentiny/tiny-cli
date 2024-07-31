@@ -28,6 +28,8 @@ import localeUserManager from '@/views/userManager/info/locale/en-US';
 
 import localeUserManagerSetting from '@/views/userManager/setting/locale/en-US';
 
+import localeUserManagerUserAdd from '@/views/userManager/useradd/locale/en-US';
+
 import localeSettings from './en-US/settings';
 
 import localeHttpError from './en-US/httpError';
@@ -47,6 +49,7 @@ export default {
   'menu.userManager': 'User Manager',
   'menu.userManager.info': 'All User Info',
   'menu.userManager.setting': 'All User Setting',
+  'menu.userManager.useradd': 'Add User',
   'navbar.docs': 'Docs',
   'navbar.action.locale': 'Switch to English',
   'messageBox.switchRoles': 'Switch Roles',
@@ -74,4 +77,5 @@ export default {
   ...localeHttpError,
   ...localeUserManager,
   ...localeUserManagerSetting,
+  ...localeUserManagerUserAdd,
 };

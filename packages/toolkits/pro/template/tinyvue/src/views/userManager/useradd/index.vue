@@ -1,16 +1,12 @@
 <template>
   <div class="container-set">
-    <Breadcrumb :items="['menu.userManager', 'menu.userManager.setting']"/>
+    <Breadcrumb :items="['menu.userManager', 'menu.userManager.useradd']"/>
     <div class="general-card">
-      <div class="general-top">
-        <headtop :userData="state.userData"></headtop>
-      </div>
       <div class="general-contain">
-
         <tiny-layout>
           <tiny-form
             ref="setFormRef"
-            :model="state.filterOptions"
+            :model="state.userData"
             :rules="rules"
             label-width="150px"
             :label-align="true"
@@ -20,14 +16,32 @@
             <tiny-row :flex="true" justify="left">
               <tiny-col :span="5" label-width="100px">
                 <tiny-form-item
-                  :label="$t('userSetting.name')"
+                  :label="$t('userAdd.email')"
+                  prop="email"
+                >
+                  <tiny-input v-model="state.userData.email"></tiny-input>
+                </tiny-form-item>
+              </tiny-col>
+              <tiny-col :span="5" label-width="100px">
+                <tiny-form-item :label="$t('userAdd.password')" prop="password">
+                  <tiny-input v-model="state.userData.password "
+                              type="password"
+                              show-password></tiny-input>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="5" label-width="100px">
+                <tiny-form-item
+                  :label="$t('userAdd.name')"
                   prop="name"
                 >
                   <tiny-input v-model="state.userData.name"></tiny-input>
                 </tiny-form-item>
               </tiny-col>
               <tiny-col :span="5" label-width="100px">
-                <tiny-form-item :label="$t('userSetting.address')" prop="address">
+                <tiny-form-item :label="$t('userAdd.address')" prop="address">
                   <tiny-input v-model="state.userData.address"></tiny-input>
                 </tiny-form-item>
               </tiny-col>
@@ -36,14 +50,14 @@
             <tiny-row :flex="true" justify="left">
               <tiny-col :span="5" label-width="100px">
                 <tiny-form-item
-                  :label="$t('userSetting.department')"
+                  :label="$t('userAdd.department')"
                   prop="department"
                 >
                   <tiny-input v-model="state.userData.department"></tiny-input>
                 </tiny-form-item>
               </tiny-col>
               <tiny-col :span="5" label-width="100px">
-                <tiny-form-item :label="$t('userSetting.position')" prop="roleIds">
+                <tiny-form-item :label="$t('userAdd.position')" prop="roleIds">
                   <tiny-select
                     v-model="state.userData.roleIds"
                     :placeholder="$t('baseForm.form.label.placeholder')"
@@ -61,7 +75,7 @@
 
             <tiny-row :flex="true" justify="left">
               <tiny-col :span="5" label-width="100px">
-                <tiny-form-item :label="$t('userSetting.type')" prop="employeeType">
+                <tiny-form-item :label="$t('userAdd.type')" prop="employeeType">
                   <tiny-select
                     v-model="state.userData.employeeType"
                     :placeholder="$t('baseForm.form.label.placeholder')"
@@ -76,14 +90,14 @@
                 </tiny-form-item>
               </tiny-col>
               <tiny-col :span="5" label-width="100px">
-                <tiny-form-item :label="$t('userSetting.date')" prop="probationDate">
+                <tiny-form-item :label="$t('userAdd.date')" prop="probationDate">
                   <tiny-date-picker
                     v-model="state.userData.probationDate"
                     unlink-panels
                     type="daterange"
                     range-separator="-"
-                    :start-placeholder="$t('userSetting.first')"
-                    :end-placeholder="$t('userSetting.last')"
+                    :start-placeholder="$t('userAdd.first')"
+                    :end-placeholder="$t('userAdd.last')"
                   ></tiny-date-picker>
                 </tiny-form-item>
               </tiny-col>
@@ -91,12 +105,12 @@
 
             <tiny-row :flex="true" justify="left">
               <tiny-col :span="5" label-width="100px">
-                <tiny-form-item :label="$t('userSetting.during')" prop="probationDuration">
+                <tiny-form-item :label="$t('userAdd.during')" prop="probationDuration">
                   <tiny-input v-model="state.userData.probationDuration"></tiny-input>
                 </tiny-form-item>
               </tiny-col>
               <tiny-col :span="5" label-width="100px">
-                <tiny-form-item :label="$t('userSetting.startTime')" prop="protocolStart">
+                <tiny-form-item :label="$t('userAdd.startTime')" prop="protocolStart">
                   <tiny-date-picker
                     v-model="state.userData.protocolStart"
                     @blur="handleBlur"
@@ -107,7 +121,7 @@
 
             <tiny-row :flex="true" justify="left">
               <tiny-col :span="5" label-width="100px">
-                <tiny-form-item :label="$t('userSetting.endTime')" prop="protocolEnd">
+                <tiny-form-item :label="$t('userAdd.endTime')" prop="protocolEnd">
                   <tiny-date-picker
                     v-model="state.userData.protocolEnd"
                     @blur="handleBlur"
@@ -115,7 +129,7 @@
                 </tiny-form-item>
               </tiny-col>
               <tiny-col :span="5" label-width="100px">
-                <tiny-form-item :label="$t('userSetting.status')" prop="status">
+                <tiny-form-item :label="$t('userAdd.status')" prop="status">
                   <tiny-select
                     v-model="state.userData.status"
                     :placeholder="$t('baseForm.form.label.placeholder')"
@@ -138,12 +152,9 @@
             type="primary"
             native-type="submit"
             @click="handleSubmit"
-          >{{ $t('userSetting.save') }}
-          </tiny-button
-          >
-          <tiny-button @click="handleFormReset">
-            {{ $t('userSetting.cancel') }}
+          >{{ $t('userAdd.save') }}
           </tiny-button>
+
         </div>
       </div>
     </div>
@@ -168,22 +179,19 @@ import {
 } from '@opentiny/vue';
 import {getSimpleDate} from '@/utils/time';
 import {useRoute, useRouter} from 'vue-router';
-import {getAllUser, getUserInfo, updateUserInfo} from '@/api/user'
+import { getUserInfo, registerUser} from '@/api/user'
 import {getRoles} from '@/api/role'
-
-import headtop from './components/head.vue';
-import setFrom from './components/set-from.vue';
 
 
 const route = useRoute();
 const router = useRouter();
 
-
 // 初始化请求数据
 onMounted(() => {
-  fecthData();
   fetchRole()
 });
+
+const {t} = useI18n();
 
 // 加载效果
 const state = reactive<{
@@ -230,8 +238,11 @@ const rulesSelect = {
   message: '必选',
   trigger: 'blur',
 };
+
 const rules = computed(() => {
   return {
+    email: [rulesType],
+    password: [rulesType],
     department: [rulesType],
     roleIds: [rulesSelect],
     employeeType: [rulesSelect],
@@ -245,19 +256,13 @@ const rules = computed(() => {
   };
 });
 
-const {t} = useI18n();
-
-// btn操作
-function handleFormReset() {
-  router.back();
-}
-
 async function handleSubmit() {
   let data = state.userData;
   if(data.status === 'Active'){data.status = 1}
   else{ data.status = 2 }
   let newTemp = {
     email: data.email,
+    password: data.password,
     name: data.name,
     address: data.address,
     department: data.department,
@@ -270,39 +275,31 @@ async function handleSubmit() {
     protocolEnd: getSimpleDate(data.protocolEnd),
     status: data.status,
   };
-  await updateUserInfo(newTemp).then((res) =>{
-    Modal.message({
-      message: t('baseForm.form.submit.success'),
-      status: 'success',
-    });
+  await registerUser(newTemp);
+  Modal.message({
+    message: t('baseForm.form.submit.success'),
+    status: 'success',
   });
-
-  handleFormReset();
-
-}
-
-async function fecthData() {
-  if (route.query.email !== undefined || null) {
-    const {data} = await getUserInfo(route.query.email);
-    if (data.status === 1) {
-      data.status = statusData[0].label
-    } else {
-      data.status = statusData[1].label
-    }
-    if(data.role !== null){
-      data.roleIds = data.role[0].id
-      data.roleName = data.role[0].name
-    }
-    state.userData = data;
-    state.userData.probationDate = [data.probationStart, data.probationEnd]
-    console.log(state.userData)
-  }
+  state.userData = {} as any;
 }
 
 async function fetchRole(){
   const {data} = await getRoles();
   state.roleData = data;
 }
+
+// 结束时间校验
+const handleBlur = () => {
+  const start = state.userData.protocolStart?.getTime();
+  const end = state.userData.protocolEnd?.getTime();
+  if (end < start) {
+    state.userData.protocolEnd = '';
+    Modal.message({
+      message: t('userInfo.time.message'),
+      status: 'error',
+    });
+  }
+};
 
 </script>
 
