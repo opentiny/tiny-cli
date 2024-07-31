@@ -23,7 +23,7 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto, isInit: boolean) {
     const {
-      email, password, roleIds = [], username,
+      email, password, roleIds = [], name,
       department, employeeType, probationStart, probationEnd, probationDuration,
       protocolStart, protocolEnd, address, status
     } = createUserDto;
@@ -43,7 +43,7 @@ export class UserService {
       const user = this.userRep.create({
         email,
         password,
-        name: username,
+        name: name,
         role: await roles,
         deleteAt: 0,
         department: department,
@@ -115,17 +115,19 @@ export class UserService {
       ],
       relations,
     });
-    if (user.probationStart !== null) {
-      user.probationStart = await this.formatDateToDay(new Date(user.probationStart));
-    }
-    if (user.probationEnd !== null) {
-      user.probationEnd = await this.formatDateToDay(new Date(user.probationEnd));
-    }
-    if (user.protocolStart !== null) {
-      user.protocolStart = await this.formatDateToDay(new Date(user.protocolStart));
-    }
-    if (user.protocolEnd !== null) {
-      user.protocolEnd = await this.formatDateToDay(new Date(user.protocolEnd));
+    if (user) {
+      if (user.probationStart !== null) {
+        user.probationStart = await this.formatDateToDay(new Date(user.probationStart));
+      }
+      if (user.probationEnd !== null) {
+        user.probationEnd = await this.formatDateToDay(new Date(user.probationEnd));
+      }
+      if (user.protocolStart !== null) {
+        user.protocolStart = await this.formatDateToDay(new Date(user.protocolStart));
+      }
+      if (user.protocolEnd !== null) {
+        user.protocolEnd = await this.formatDateToDay(new Date(user.protocolEnd));
+      }
     }
     return user;
   }
@@ -192,22 +194,24 @@ export class UserService {
     }
   }
 
-  async updateUserInfo(updateUserDto: UpdateUserDto){
-    const {email,roleIds,department,employeeType,probationStart,probationEnd,
-    probationDuration,protocolStart,protocolEnd,address,status,name} = updateUserDto;
+  async updateUserInfo(updateUserDto: UpdateUserDto) {
+    const {
+      email, roleIds, department, employeeType, probationStart, probationEnd,
+      probationDuration, protocolStart, protocolEnd, address, status, name
+    } = updateUserDto;
     const user = this.getUserInfo(email);
     const roles = this.roleRep.find({
       where: {
         id: In(roleIds),
       },
     });
-    if(user){
+    if (user) {
       (await user).name = name;
       (await user).department = department;
       (await user).employeeType = employeeType;
       (await user).probationStart = probationStart;
       (await user).probationEnd = probationEnd;
-      (await user).probationDuration =probationDuration;
+      (await user).probationDuration = probationDuration;
       (await user).protocolStart = protocolStart;
       (await user).protocolEnd = protocolEnd;
       (await user).address = address;

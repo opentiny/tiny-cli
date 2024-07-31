@@ -111,7 +111,7 @@ export class AppModule implements OnModuleInit {
         email: 'admin@no-reply.com',
         password: 'admin',
         roleIds: [role.id],
-        username: 'admin',
+        name: 'admin',
         status: 1,
       },
       isInit

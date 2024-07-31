@@ -4,7 +4,7 @@ export class CreateUserDto {
   @IsNotEmpty({
     message: '用户名不能为空',
   })
-  username: string;
+  name: string;
   @IsNotEmpty({
     message: '邮箱不能为空',
   })
