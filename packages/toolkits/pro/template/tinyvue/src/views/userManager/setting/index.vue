@@ -10,7 +10,7 @@
         <tiny-layout>
           <tiny-form
             ref="setFormRef"
-            :model="state.filterOptions"
+            :model="state.userData"
             :rules="rules"
             label-width="150px"
             :label-align="true"
@@ -270,15 +270,23 @@ async function handleSubmit() {
     protocolEnd: getSimpleDate(data.protocolEnd),
     status: data.status,
   };
-  await updateUserInfo(newTemp).then((res) =>{
+
+  try {
+    await updateUserInfo(newTemp);
     Modal.message({
       message: t('baseForm.form.submit.success'),
       status: 'success',
     });
-  });
-
-  handleFormReset();
-
+    handleFormReset();
+  } catch (error) {
+    if (error.response && error.response.data) {
+      const errorMessage = error.response.data.message || '未知错误';
+      Modal.message({
+        message: errorMessage[0],
+        status: 'error',
+      });
+    }
+  }
 }
 
 async function fecthData() {
@@ -295,7 +303,6 @@ async function fecthData() {
     }
     state.userData = data;
     state.userData.probationDate = [data.probationStart, data.probationEnd]
-    console.log(state.userData)
   }
 }
 

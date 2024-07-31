@@ -179,7 +179,7 @@ import {
 } from '@opentiny/vue';
 import {getSimpleDate} from '@/utils/time';
 import {useRoute, useRouter} from 'vue-router';
-import { getUserInfo, registerUser} from '@/api/user'
+import {getUserInfo, registerUser, updateUserInfo} from '@/api/user'
 import {getRoles} from '@/api/role'
 
 
@@ -275,12 +275,23 @@ async function handleSubmit() {
     protocolEnd: getSimpleDate(data.protocolEnd),
     status: data.status,
   };
-  await registerUser(newTemp);
-  Modal.message({
-    message: t('baseForm.form.submit.success'),
-    status: 'success',
-  });
-  state.userData = {} as any;
+
+  try {
+    await registerUser(newTemp);
+    Modal.message({
+      message: t('baseForm.form.submit.success'),
+      status: 'success',
+    });
+    state.userData = {} as any;
+  } catch (error) {
+    if (error.response && error.response.data) {
+      const errorMessage = error.response.data.message || '未知错误';
+      Modal.message({
+        message: errorMessage[0],
+        status: 'error',
+      });
+    }
+  }
 }
 
 async function fetchRole(){
