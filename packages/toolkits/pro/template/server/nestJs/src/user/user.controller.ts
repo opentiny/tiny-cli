@@ -48,7 +48,7 @@ export class UserController {
   }
 
   @Patch('/admin/updatePwd')
-  @Permission('user::update')
+  @Permission('user::password::force-update')
   async updatePwdAdmin(@Body() body: UpdatePwdAdminDto) {
     return this.userService.updatePwdAdmin(body);
   }
