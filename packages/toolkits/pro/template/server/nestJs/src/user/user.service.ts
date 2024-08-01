@@ -2,6 +2,8 @@ import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {CreateUserDto} from './dto/create-user.dto';
 import {UpdateUserDto} from './dto/update-user.dto';
 import {PaginationQueryDto} from "./dto/pagination-query.dto";
+import {UpdatePwdAdminDto} from "./dto/update-pwd-admin.dto";
+import {UpdatePwdUserDto} from "./dto/update-pwd-user.dto";
 import {InjectRepository} from '@nestjs/typeorm';
 import {Role, User} from '@app/models';
 import {In, Repository} from 'typeorm';
@@ -17,7 +19,7 @@ export class UserService {
     private userRep: Repository<User>,
     @InjectRepository(Role)
     private roleRep: Repository<Role>,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
   ) {
   }
 
@@ -166,8 +168,8 @@ export class UserService {
   }
 
   //修改密码
-  async updateUserPwd(updateUserDto: UpdateUserDto) {
-    const {email, newPassword, oldPassword} = updateUserDto;
+  async updatePwdUser(data: UpdatePwdUserDto) {
+    const {email, newPassword, oldPassword,token} = data;
     const user = this.userRep.findOne({
       where: {email, deleteAt: 0},
       select: [
@@ -176,10 +178,6 @@ export class UserService {
         'email',
         'salt',
         'password',
-        'createTime',
-        'updateTime',
-        'role',
-        'deleteAt',
       ],
     });
     if (user) {
@@ -188,9 +186,27 @@ export class UserService {
       } else {
         (await user).password = await this.encry(newPassword, (await user).salt);
         await this.userRep.save(await user);
-        await this.authService.logout(email);
         return;
       }
+    }
+  }
+
+  async updatePwdAdmin(data: UpdatePwdAdminDto){
+    const {email, newPassword } = data;
+    const user = this.userRep.findOne({
+      where: {email, deleteAt: 0},
+      select: [
+        'id',
+        'name',
+        'email',
+        'salt',
+        'password',
+      ],
+    });
+    if (user) {
+      (await user).password = await this.encry(newPassword, (await user).salt);
+        await this.userRep.save(await user);
+        return;
     }
   }
 
