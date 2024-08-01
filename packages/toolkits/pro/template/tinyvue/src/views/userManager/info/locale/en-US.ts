@@ -20,5 +20,12 @@ export default {
   'userInfo.table.operations': 'Operation',
   'userInfo.table.operations.update': 'Update',
   'userInfo.table.operations.delete': 'Delete',
-  'userInfo.day': 'Day'
+  'userInfo.table.operations.pwdUpdate': 'Password',
+  'userInfo.day': 'Day',
+  'userInfo.modal.title.pwdUpdate': 'Update Password',
+  'userInfo.modal.input.oldPassword': 'Old Password',
+  'userInfo.modal.input.newPassword': 'New Password',
+  'userInfo.modal.input.confirmNewPassword': 'Confirm New Password',
+  'userInfo.modal.message.error': 'Confirm New Password Error',
+  'userInfo.modal.message.notNull': 'Password Is Not Null',
 };

@@ -56,6 +56,7 @@ export default {
   'messageBox.userCenter': 'User Center',
   'messageBox.userSettings': 'User Settings',
   'messageBox.logout': 'Logout',
+  'messageBox.updatePwd': 'Update Password',
   'menu.cloud': 'Cloud service capability',
   ...localeTheme,
   ...localeSettings,

@@ -74,3 +74,12 @@ export function getUserData(data?: UserData) {
 export function registerUser(data: any) {
   return axios.post<UserInfo>('/api/user/reg', data);
 }
+
+export function updatePwdAdmin(data: any) {
+  return axios.patch('/api/user/admin/updatePwd', data);
+}
+
+export function updatePwdUser(data: any) {
+  return axios.patch('/api/user/updatePwd', data);
+}
+

@@ -57,6 +57,7 @@ export default {
   'messageBox.userCenter': '用户中心',
   'messageBox.userSettings': '用户设置',
   'messageBox.logout': '退出登录',
+  'messageBox.updatePwd': '修改密码',
   'menu.cloud': '云服务能力展示',
   ...localeTheme,
   ...localeSettings,

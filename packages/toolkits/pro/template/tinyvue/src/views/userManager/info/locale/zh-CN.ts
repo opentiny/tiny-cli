@@ -20,5 +20,12 @@ export default {
   'userInfo.table.operations': '操作',
   'userInfo.table.operations.update': '修改',
   'userInfo.table.operations.delete': '删除',
-  'userInfo.day': '天'
+  'userInfo.table.operations.pwdUpdate': '密码',
+  'userInfo.day': '天',
+  'userInfo.modal.title.pwdUpdate': '修改密码',
+  'userInfo.modal.input.oldPassword': '旧密码',
+  'userInfo.modal.input.newPassword': '新密码',
+  'userInfo.modal.input.confirmNewPassword': '确认新密码',
+  'userInfo.modal.message.error': '确认新密码错误',
+  'userInfo.modal.message.notNull': '密码不能为空',
 };

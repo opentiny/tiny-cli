@@ -151,39 +151,115 @@
               <a class="operation-delete" @click="handleDelete(data.row.email)">
                 {{ $t('userInfo.table.operations.delete') }}
               </a>
+              <a class="operation-pwd-update" @click="handlePwdUpdate(data.row.email)">
+                {{ $t('userInfo.table.operations.pwdUpdate') }}
+              </a>
             </template>
           </tiny-grid-column>
         </tiny-grid>
       </div>
     </div>
   </div>
+  <div v-if="state.isPwdUpdate">
+    <tiny-modal
+      v-model="state.isPwdUpdate"
+      :lock-scroll="true"
+      show-header
+      show-footer
+      mask-closable="true"
+      height="350"
+      width="600"
+      :title="$t('userInfo.modal.title.pwdUpdate')"
+    >
+      <template #default>
+        <tiny-layout>
+          <tiny-form
+            :model="state.pwdData"
+            :rules="rules"
+            label-width="150px"
+            :label-align="true"
+            label-position="left"
+            size="small"
+          >
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('userInfo.table.email')"
+                >
+                  <label>{{ state.pwdData.email }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('userInfo.modal.input.newPassword')"
+                  prop="newPassword"
+                >
+                  <tiny-input v-model="state.pwdData.newPassword" type="password" show-password></tiny-input>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('userInfo.modal.input.confirmNewPassword')"
+                  prop="confirmNewPassword"
+                >
+                  <tiny-input v-model="state.pwdData.confirmNewPassword" type="password" show-password></tiny-input>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+          </tiny-form>
+        </tiny-layout>
+      </template>
+      <template #footer>
+        <tiny-button type="primary" @click="handlePwdUpdateSubmit">确定</tiny-button>
+        <tiny-button @click="handlePwdUpdateCancel">取消</tiny-button>
+      </template>
+    </tiny-modal>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import {ref, reactive, onMounted, watch} from 'vue';
+import {ref, reactive, onMounted, watch, computed} from 'vue';
+import {useI18n} from 'vue-i18n';
 import {
   Tabs as TinyTabs,
   TabItem as TinyTabItem,
   Loading,
   GridColumn as TinyGridColumn,
-  Grid as TinyGrid, Pager as TinyPager, Modal,
+  Grid as TinyGrid, Pager as TinyPager, Modal as TinyModal,
+  Button as TinyButton,
+  Form as TinyForm,
+  FormItem as TinyFormItem,
+  Row as TinyRow,
+  Col as TinyCol,
+  Input as TinyInput,
 } from '@opentiny/vue';
 import {IconChevronDown} from '@opentiny/vue-icon';
 import {useUserStore} from '@/store';
-import {getAllUser, deleteUser} from '@/api/user';
+import {getAllUser, deleteUser, updatePwdAdmin, registerUser, updatePwdUser} from '@/api/user';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+
+const {t} = useI18n();
 
 // 加载效果
 const state = reactive<{
   loading: any;
   tableData: any;
   pageData: any;
+  isPwdUpdate: boolean;
+  pwdData: any;
 }>({
   loading: null,
   tableData: [] as any,
   pageData: [] as any,
+  isPwdUpdate: false,
+  pwdData: {} as any,
 });
 
 // 变量设置
@@ -204,6 +280,18 @@ const pagerConfig = reactive({
     total: 10,
     layout: 'total, prev, pager, next, jumper, sizes',
   },
+});
+
+// 校验规则
+const rulesType = {
+  required: true,
+  trigger: 'blur',
+};
+const rules = computed(() => {
+  return {
+    newPassword: [rulesType],
+    confirmNewPassword: [rulesType]
+  };
 });
 
 // 请求数据接口方法
@@ -243,7 +331,7 @@ const fetchDataOption = reactive({
 
 const handleDelete = (email: string) => {
   deleteUser(email).then((res) => {
-    Modal.message({
+    TinyModal.message({
       message: '已删除',
       status: 'success',
     });
@@ -257,6 +345,49 @@ const handleUpdate = (email: string) => {
       email,
     },
   });
+}
+
+const handlePwdUpdate = (email: string) => {
+  state.isPwdUpdate = true;
+  state.pwdData.email = email;
+}
+
+const handlePwdUpdateCancel =()=>{
+  state.isPwdUpdate = false;
+  state.pwdData = {} as any;
+}
+
+async function handlePwdUpdateSubmit(){
+  let data = state.pwdData;
+  let newTemp = {
+    email: data.email,
+    newPassword: data.newPassword,
+    confirmNewPassword: data.confirmNewPassword,
+  }
+  if(newTemp.newPassword !== newTemp.confirmNewPassword){
+    TinyModal.message({
+      message: t('userInfo.modal.message.error'),
+      status: 'error',
+    });
+  }else{
+    try {
+      await updatePwdAdmin(newTemp);
+      TinyModal.message({
+        message: t('baseForm.form.submit.success'),
+        status: 'success',
+      });
+      state.pwdData = {} as any;
+      state.isPwdUpdate = false;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message || '未知错误';
+        TinyModal.message({
+          message: errorMessage,
+          status: 'error',
+        });
+      }
+    }
+  }
 }
 
 </script>
@@ -276,13 +407,19 @@ const handleUpdate = (email: string) => {
 .operation {
 
   &-delete {
+    padding-right: 5px;
     color: red;
   }
 
   &-update {
-    padding-right: 10px;
+    padding-right: 5px;
     color: #1890ff;
   }
+
+  &-pwd-update {
+    color: orange;
+  }
 }
+
 
 </style>
