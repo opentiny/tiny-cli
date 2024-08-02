@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
-import { DeletePermissionDto } from './dto/delete-permission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Permission } from '@app/models';
 import { Repository } from 'typeorm';
@@ -42,10 +41,9 @@ export class PermissionService {
   async findPermission() {
     return this.permission.find();
   }
-  async delPermission(deletePermissionDto: DeletePermissionDto) {
-    const { name } = deletePermissionDto;
+  async delPermission(id: number) {
     const permissionInfo = await this.permission.findOne({
-      where: { name },
+      where: { id },
     });
     return this.permission.remove(permissionInfo);
   }

@@ -1,7 +1,14 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post
+} from '@nestjs/common';
 import { PermissionService } from './permission.service';
 import { CreatePermissionDto } from './dto/create-permission.dto';
-import { DeletePermissionDto } from './dto/delete-permission.dto';
 import { Permission } from '../public/permission.decorator';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 
@@ -27,9 +34,9 @@ export class PermissionController {
     return this.permissionService.findPermission();
   }
 
-  @Delete()
+  @Delete('/:id')
   @Permission('permission::remove')
-  del(@Body() dto: DeletePermissionDto) {
-    return this.permissionService.delPermission(dto);
+  del(@Param('id') id: number) {
+    return this.permissionService.delPermission(id);
   }
 }
