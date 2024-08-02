@@ -1,0 +1,16 @@
+export default {
+  'menu.allPermission.info': 'Permission',
+  'permissionInfo.table.id': 'ID',
+  'permissionInfo.table.name': 'Name',
+  'permissionInfo.table.desc': 'Desc',
+  'permissionInfo.table.operations': 'Operation',
+  'permissionInfo.table.operations.update': 'Update',
+  'permissionInfo.table.operations.delete': 'Delete',
+  'permissionInfo.modal.title.update': 'Update Permission',
+  'permissionInfo.modal.title.add': 'Add Permission',
+  'permissionInfo.modal.input.permission': 'Permission',
+  'permissionInfo.modal.input.name': 'Name',
+  'permissionInfo.modal.input.id': 'ID',
+  'permissionInfo.modal.message.error': 'Error',
+  'permissionInfo.modal.message.notNull': 'Not Null',
+};

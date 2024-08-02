@@ -34,6 +34,7 @@
     IconFiletext,
     IconApplication,
     IconGroup,
+    IconFolderOpened,
   } from '@opentiny/vue-icon';
   import { TreeMenu as tinyTreeMenu } from '@opentiny/vue';
   import router from '@/router';
@@ -49,6 +50,7 @@
   const iconUser = IconUser();
   const iconFiletext = IconFiletext();
   const iconApplication = IconApplication();
+  const iconFolderOpened = IconFolderOpened();
   const iconGroup = IconGroup();
   const tree = ref();
   const expandeArr = ref();
@@ -212,6 +214,30 @@
     {
       value: 'UserAdd',
       name: 'menu.userManager.useradd',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'Permission',
+      name: 'menu.permission',
+      icon: iconFolderOpened,
+      bold: 'main-title',
+    },
+    {
+      value: 'AllPermission',
+      name: 'menu.permission.info',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'PermissionSetting',
+      name: 'menu.permission.setting',
+      icon: null,
+      bold: 'title',
+    },
+    {
+      value: 'PermissionAdd',
+      name: 'menu.permission.permissionAdd',
       icon: null,
       bold: 'title',
     },

@@ -181,7 +181,7 @@ const router = useRouter();
 
 // 初始化请求数据
 onMounted(() => {
-  fecthData();
+  fetchData();
   fetchRole()
 });
 
@@ -289,7 +289,7 @@ async function handleSubmit() {
   }
 }
 
-async function fecthData() {
+async function fetchData() {
   if (route.query.email !== undefined || null) {
     const {data} = await getUserInfo(route.query.email);
     if (data.status === 1) {

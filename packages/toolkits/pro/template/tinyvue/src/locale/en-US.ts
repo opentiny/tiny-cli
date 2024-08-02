@@ -30,6 +30,8 @@ import localeUserManagerSetting from '@/views/userManager/setting/locale/en-US';
 
 import localeUserManagerUserAdd from '@/views/userManager/useradd/locale/en-US';
 
+import localePermission from '@/views/permission/info/locale/en-US';
+
 import localeSettings from './en-US/settings';
 
 import localeHttpError from './en-US/httpError';
@@ -50,6 +52,10 @@ export default {
   'menu.userManager.info': 'All User Info',
   'menu.userManager.setting': 'All User Setting',
   'menu.userManager.useradd': 'Add User',
+  'menu.permission':'Permission Manager',
+  'menu.permission.info':'All Permission Info',
+  'menu.permission.setting':'Permission Setting',
+  'menu.permission.permissionAdd':'Add Permission',
   'navbar.docs': 'Docs',
   'navbar.action.locale': 'Switch to English',
   'messageBox.switchRoles': 'Switch Roles',
@@ -79,4 +85,5 @@ export default {
   ...localeUserManager,
   ...localeUserManagerSetting,
   ...localeUserManagerUserAdd,
+  ...localePermission,
 };
