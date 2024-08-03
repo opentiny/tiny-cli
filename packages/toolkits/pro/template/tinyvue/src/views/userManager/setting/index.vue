@@ -169,7 +169,7 @@ import {
 import {getSimpleDate} from '@/utils/time';
 import {useRoute, useRouter} from 'vue-router';
 import {getAllUser, getUserInfo, updateUserInfo} from '@/api/user'
-import {getRoles} from '@/api/role'
+import {getAllRole} from '@/api/role'
 
 import headtop from './components/head.vue';
 import setFrom from './components/set-from.vue';
@@ -307,7 +307,7 @@ async function fetchData() {
 }
 
 async function fetchRole(){
-  const {data} = await getRoles();
+  const {data} = await getAllRole();
   state.roleData = data;
 }
 

@@ -180,7 +180,7 @@ import {
 import {getSimpleDate} from '@/utils/time';
 import {useRoute, useRouter} from 'vue-router';
 import {getUserInfo, registerUser, updateUserInfo} from '@/api/user'
-import {getRoles} from '@/api/role'
+import {getAllRole} from '@/api/role'
 
 
 const route = useRoute();
@@ -295,7 +295,7 @@ async function handleSubmit() {
 }
 
 async function fetchRole(){
-  const {data} = await getRoles();
+  const {data} = await getAllRole();
   state.roleData = data;
 }
 

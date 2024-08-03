@@ -32,6 +32,8 @@ import localeUserManagerUserAdd from '@/views/userManager/useradd/locale/zh-CN';
 
 import localePermission from '@/views/permission/info/locale/zh-CN';
 
+import localeRole from '@/views/role/info/locale/zh-CN';
+
 import localeSettings from './zh-CN/settings';
 
 import localeHttpError from './zh-CN/httpError';
@@ -57,6 +59,8 @@ export default {
   'menu.permission.info':'查看权限',
   'menu.permission.setting':'修改权限',
   'menu.permission.permissionAdd':'添加权限',
+  'menu.role': '角色管理',
+  'menu.role.info':'查看角色',
   'navbar.docs': '文档中心',
   'navbar.action.locale': '切换为中文',
   'messageBox.switchRoles': '切换角色',
@@ -87,4 +91,5 @@ export default {
   ...localeUserManagerSetting,
   ...localeUserManagerUserAdd,
   ...localePermission,
+  ...localeRole,
 };

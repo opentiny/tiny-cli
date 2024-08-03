@@ -35,6 +35,7 @@
     IconApplication,
     IconGroup,
     IconFolderOpened,
+    IconActivation,
   } from '@opentiny/vue-icon';
   import { TreeMenu as tinyTreeMenu } from '@opentiny/vue';
   import router from '@/router';
@@ -52,6 +53,7 @@
   const iconApplication = IconApplication();
   const iconFolderOpened = IconFolderOpened();
   const iconGroup = IconGroup();
+  const iconActivation = IconActivation();
   const tree = ref();
   const expandeArr = ref();
   const routerTitle = [
@@ -230,17 +232,18 @@
       bold: 'title',
     },
     {
-      value: 'PermissionSetting',
-      name: 'menu.permission.setting',
-      icon: null,
-      bold: 'title',
+      value: 'Role',
+      name: 'menu.role',
+      icon: iconActivation,
+      bold: 'main-title',
     },
     {
-      value: 'PermissionAdd',
-      name: 'menu.permission.permissionAdd',
+      value: 'AllRole',
+      name: 'menu.role.info',
       icon: null,
       bold: 'title',
     },
+
   ];
 
   // 获取路由数据
@@ -311,6 +314,8 @@
       'User',
       'Cloud',
       'UserManager',
+      'Permission',
+      'Role'
     ];
     if (filter.indexOf(data.id) === -1) {
       router.push({ name: data.id });

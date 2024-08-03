@@ -2,7 +2,7 @@
   <div class="tiny-fullscreen-scroll">
     <div class="tiny-fullscreen-wrapper">
       <div class="permission-add-btn">
-        <tiny-button type="primary" @click="handleAddPermission">添加权限</tiny-button>
+        <tiny-button type="primary" @click="handleAddPermission">{{ $t('permissionInfo.modal.title.add') }}</tiny-button>
       </div>
       <div class="table">
         <tiny-grid ref="expandGrid"
@@ -291,7 +291,6 @@ function handleAddPermission() {
 async function handlePermissionAddSubmit() {
   let data = state.permissionAddData;
   let newTemp = {
-    id: data.id,
     name: data.name,
     desc: data.desc,
   };
