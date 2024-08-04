@@ -1,0 +1,18 @@
+export default {
+  'menu.allMenu.info': 'All Menu Info',
+  'menuInfo.table.id': 'ID',
+  'menuInfo.table.name': 'Name',
+  'menuInfo.table.order': 'Order',
+  'menuInfo.table.parentId': 'ParentID',
+  'menuInfo.table.menuType': 'MenuType',
+  'menuInfo.table.icon': 'Icon',
+  'menuInfo.table.component': 'Component',
+  'menuInfo.table.path': 'Path',
+  'menuInfo.table.operations': 'Operation',
+  'menuInfo.table.operations.update': 'Update',
+  'menuInfo.table.operations.delete': 'Delete',
+  'menuInfo.modal.title.update': 'Update Menu',
+  'menuInfo.modal.title.add': 'Add Menu',
+  'menuInfo.modal.message.error': 'Error',
+  'menuInfo.modal.message.notNull': 'Not Null',
+};
