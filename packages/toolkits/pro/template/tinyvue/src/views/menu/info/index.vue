@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.role', 'menu.role.info']" />
+    <Breadcrumb :items="['menu.menu', 'menu.menu.info']" />
     <div class="container-info">
       <div class="general-card">
         <div class="general-content">

@@ -9,10 +9,13 @@ export default {
   'menuInfo.table.component': '组件',
   'menuInfo.table.path': '路径',
   'menuInfo.table.operations': '操作',
+  'menuInfo.table.operations.info': '查看',
   'menuInfo.table.operations.update': '修改',
   'menuInfo.table.operations.delete': '删除',
+  'menuInfo.modal.title.info': '查看菜单',
   'menuInfo.modal.title.update': '修改菜单',
   'menuInfo.modal.title.add': '添加菜单',
-  'menuInfo.modal.message.error': '错误',
+  'menuInfo.modal.message.error': 'parentId不能和id相同',
   'menuInfo.modal.message.notNull': '不能为空',
+
 };

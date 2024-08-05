@@ -237,6 +237,7 @@ async function handleDelete (id: string){
     });
     state.isPermissionUpdate = false;
     state.permissionUpdData = {} as any;
+    await fetchData();
   } catch (error) {
     if (error.response && error.response.data) {
       const errorMessage = error.response.data.message || '未知错误';
@@ -273,6 +274,7 @@ async function handlePermissionUpdateSubmit(){
     });
     state.isPermissionUpdate = false;
     state.permissionUpdData = {} as any;
+    await fetchData();
   } catch (error) {
     if (error.response && error.response.data) {
       const errorMessage = error.response.data.message || '未知错误';
@@ -302,6 +304,7 @@ async function handlePermissionAddSubmit() {
     });
     state.isPermissionAdd = false;
     state.permissionAddData = {} as any;
+    await fetchData();
   } catch (error) {
     if (error.response && error.response.data) {
       const errorMessage = error.response.data.message || '未知错误';

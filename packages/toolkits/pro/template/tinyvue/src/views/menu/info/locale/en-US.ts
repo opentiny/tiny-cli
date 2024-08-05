@@ -9,10 +9,12 @@ export default {
   'menuInfo.table.component': 'Component',
   'menuInfo.table.path': 'Path',
   'menuInfo.table.operations': 'Operation',
+  'menuInfo.table.operations.info': 'Detail',
   'menuInfo.table.operations.update': 'Update',
   'menuInfo.table.operations.delete': 'Delete',
+  'menuInfo.modal.title.info': 'Menu Detail',
   'menuInfo.modal.title.update': 'Update Menu',
   'menuInfo.modal.title.add': 'Add Menu',
-  'menuInfo.modal.message.error': 'Error',
+  'menuInfo.modal.message.error': 'ParentId is not as same as id',
   'menuInfo.modal.message.notNull': 'Not Null',
 };

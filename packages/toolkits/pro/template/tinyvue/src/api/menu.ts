@@ -6,12 +6,16 @@ export function getAllMenu() {
   return axios.get('/api/menu');
 }
 
+export function getRoleMenu(data: any) {
+  return axios.get('/api/menu/role',data);
+}
+
 export function updateMenu(data: any) {
   return axios.patch(`/api/menu`, data);
 }
 
-export function deleteMenu(id: number) {
-  return axios.delete(`/api/menu/${id}`);
+export function deleteMenu(data: any) {
+  return axios.delete(`/api/menu`, data);
 }
 
 export function createMenu(data: any) {

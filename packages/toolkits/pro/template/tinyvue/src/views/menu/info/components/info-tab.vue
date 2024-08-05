@@ -5,129 +5,122 @@
         <tiny-button type="primary" @click="handleAddMenu">{{ $t('menuInfo.modal.title.add') }}</tiny-button>
       </div>
       <div class="table">
-        <tiny-grid ref="expandGrid"
-                   :data="state.tableData"
-                   :auto-resize="true"
+        <tiny-tree
+          :data="state.tableData"
+          :size="medium"
+          :indent="18"
+          :show-line="showLine === 'show'"
+          default-expand-all
         >
-          <tiny-grid-column type="index" width="60"></tiny-grid-column>
-          <tiny-grid-column type="expand" width="60">
-            <template #default="data">
-              <ul>
-                <li>
-                  <span>{{ $t('menuInfo.table.id') }}:</span>
-                  <span>{{ $t(`${data.row.id}`) }}</span>
-                </li>
-                <li>
-                  <span>{{ $t('menuInfo.table.name') }}:</span>
-                  <span>{{ $t(`${data.row.name}`) }}</span>
-                </li>
-                <li>
-                  <span>{{ $t('menuInfo.table.order') }}:</span>
-                  <span>{{ $t(`${data.row.order}`) }}:</span>
-                </li>
-                <li>
-                  <span>{{ $t('menuInfo.table.parentId') }}:</span>
-                  <span>{{ $t(`${data.row.parentId}`) }}:</span>
-                </li>
-                <li>
-                  <span>{{ $t('menuInfo.table.menuType') }}:</span>
-                  <span>{{ $t(`${data.row.menuType}`) }}:</span>
-                </li>
-                <li>
-                  <span>{{ $t('menuInfo.table.icon') }}:</span>
-                  <span>{{ $t(`${data.row.icon}`) }}:</span>
-                </li>
-                <li>
-                  <span>{{ $t('menuInfo.table.component') }}:</span>
-                  <span>{{ $t(`${data.row.component}`) }}:</span>
-                </li>
-                <li>
-                  <span>{{ $t('menuInfo.table.path') }}:</span>
-                  <span>{{ $t(`${data.row.path}`) }}:</span>
-                </li>
-              </ul>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            field="name"
-            :title="$t('menuInfo.table.id')"
-          >
-            <template #default="data">
-              <span>{{ $t(`${data.row.id}`) }}</span>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            field="time"
-            :title="$t('menuInfo.table.name')"
-          >
-            <template #default="data">
-              <span>{{ $t(`${data.row.name}`) }}</span>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            field="time"
-            :title="$t('menuInfo.table.order')"
-          >
-            <template #default="data">
-              <span>{{ $t(`${data.row.order}`) }}</span>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            field="time"
-            :title="$t('menuInfo.table.parentId')"
-          >
-            <template #default="data">
-              <span>{{ $t(`${data.row.parentId}`) }}</span>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            field="time"
-            :title="$t('menuInfo.table.menuType')"
-          >
-            <template #default="data">
-              <span>{{ $t(`${data.row.menuType}`) }}</span>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            field="time"
-            :title="$t('menuInfo.table.icon')"
-          >
-            <template #default="data">
-              <span>{{ $t(`${data.row.icon}`) }}</span>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            field="time"
-            :title="$t('menuInfo.table.component')"
-          >
-            <template #default="data">
-              <span>{{ $t(`${data.row.component}`) }}</span>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            field="time"
-            :title="$t('menuInfo.table.path')"
-          >
-            <template #default="data">
-              <span>{{ $t(`${data.row.path}`) }}</span>
-            </template>
-          </tiny-grid-column>
-          <tiny-grid-column
-            :title="$t('menuInfo.table.operations')"
-            align="center"
-          >
-            <template v-slot="data">
-              <a class="operation-update" @click="handleUpdate(data.row.id)">
-                {{ $t('menuInfo.table.operations.update') }}
-              </a>
-              <a class="operation-delete" @click="handleDelete(data.row.id)">
-                {{ $t('menuInfo.table.operations.delete') }}
-              </a>
-            </template>
-          </tiny-grid-column>
-        </tiny-grid>
+          <template #operation="{node}">
+              <a class="operation-info" @click="handleCheck(node)"> {{$t('menuInfo.table.operations.info')}} </a>
+              <a class="operation-update" @click="handleUpdate(node)"> {{$t('menuInfo.table.operations.update')}} </a> &nbsp;
+              <a class="operation-delete" @click="handleDelete(node)"> {{$t('menuInfo.table.operations.delete')}} </a>
+          </template>
+        </tiny-tree>
       </div>
     </div>
+  </div>
+  <div v-if="state.isMenuInfo">
+    <tiny-modal
+      v-model="state.isMenuInfo"
+      :lock-scroll="true"
+      show-header
+      show-footer
+      mask-closable="true"
+      height="auto"
+      width="600"
+      :title="$t('menuInfo.modal.title.info')"
+    >
+      <template #default>
+        <tiny-layout>
+          <tiny-form
+            :model="state.menuInfoData"
+            :rules="rules"
+            label-width="150px"
+            :label-align="true"
+            label-position="left"
+            size="small"
+          >
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.id')"
+                >
+                  <label>{{ state.menuInfoData.id }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.name')"
+                >
+                  <label>{{ state.menuInfoData.label }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.order')"
+                >
+                  <label>{{ state.menuInfoData.order }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.parentId')"
+                >
+                  <label>{{ state.menuInfoData.parentId }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.menuType')"
+                >
+                  <label>{{ state.menuInfoData.menuType }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.icon')"
+                >
+                  <label>{{ state.menuInfoData.icon }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.component')"
+                >
+                  <label>{{ state.menuInfoData.component }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.path')"
+                >
+                  <label>{{ state.menuInfoData.url }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
+          </tiny-form>
+        </tiny-layout>
+      </template>
+      <template #footer>
+        <tiny-button @click="handleMenuInfoCancel">取消</tiny-button>
+      </template>
+    </tiny-modal>
   </div>
   <div v-if="state.isMenuUpdate">
     <tiny-modal
@@ -136,7 +129,7 @@
       show-header
       show-footer
       mask-closable="true"
-      height="350"
+      height="auto"
       width="600"
       :title="$t('menuInfo.modal.title.update')"
     >
@@ -163,9 +156,9 @@
               <tiny-col :span="10" label-width="100px">
                 <tiny-form-item
                   :label="$t('menuInfo.table.name')"
-                  prop="name"
+                  prop="label"
                 >
-                  <tiny-input v-model="state.menuUpdData.name"></tiny-input>
+                  <tiny-input v-model="state.menuUpdData.label"></tiny-input>
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
@@ -185,7 +178,15 @@
                   :label="$t('menuInfo.table.parentId')"
                   prop="parentId"
                 >
-                  <tiny-input v-model="state.menuUpdData.parentId"></tiny-input>
+                  <tiny-select
+                    v-model="state.menuUpdData.parentId"
+                    :placeholder="$t('baseForm.form.label.placeholder')"
+                    value-field="id"
+                    text-field="label"
+                    render-type="tree"
+                    :tree-op="state.menuData"
+                  >
+                  </tiny-select>
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
@@ -223,9 +224,9 @@
               <tiny-col :span="10" label-width="100px">
                 <tiny-form-item
                   :label="$t('menuInfo.table.path')"
-                  prop="path"
+                  prop="url"
                 >
-                  <tiny-input v-model="state.menuUpdData.path"></tiny-input>
+                  <tiny-input v-model="state.menuUpdData.url"></tiny-input>
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
@@ -263,9 +264,9 @@
               <tiny-col :span="10" label-width="100px">
                 <tiny-form-item
                   :label="$t('menuInfo.table.name')"
-                  prop="name"
+                  prop="label"
                 >
-                  <tiny-input v-model="state.menuAddData.name"></tiny-input>
+                  <tiny-input v-model="state.menuAddData.label"></tiny-input>
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
@@ -285,7 +286,15 @@
                   :label="$t('menuInfo.table.parentId')"
                   prop="parentId"
                 >
-                  <tiny-input v-model="state.menuAddData.parentId"></tiny-input>
+                  <tiny-select
+                    v-model="state.menuAddData.parentId"
+                    :placeholder="$t('baseForm.form.label.placeholder')"
+                    value-field="id"
+                    text-field="label"
+                    render-type="tree"
+                    :tree-op="state.menuData"
+                  >
+                  </tiny-select>
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
@@ -323,9 +332,9 @@
               <tiny-col :span="10" label-width="100px">
                 <tiny-form-item
                   :label="$t('menuInfo.table.path')"
-                  prop="path"
+                  prop="url"
                 >
-                  <tiny-input v-model="state.menuAddData.path"></tiny-input>
+                  <tiny-input v-model="state.menuAddData.url"></tiny-input>
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
@@ -344,11 +353,7 @@
 import {ref, reactive, onMounted, watch, computed} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {
-  Tabs as TinyTabs,
-  TabItem as TinyTabItem,
-  Loading,
-  GridColumn as TinyGridColumn,
-  Grid as TinyGrid, Pager as TinyPager, Modal as TinyModal,
+  Modal as TinyModal,
   Button as TinyButton,
   Form as TinyForm,
   FormItem as TinyFormItem,
@@ -358,6 +363,7 @@ import {
   BaseSelect as TinyBaseSelect,
   Select as TinySelect,
   Option as TinyOption,
+  Tree as TinyTree,
 } from '@opentiny/vue';
 import {IconChevronDown} from '@opentiny/vue-icon';
 import {useUserStore} from '@/store';
@@ -371,23 +377,27 @@ const router = useRouter();
 
 const {t} = useI18n();
 
+const treeRef = ref();
+
 // 加载效果
 const state = reactive<{
   tableData: any;
-  permissionData: any;
   menuData:  any;
   menuUpdData: any;
   menuAddData: any;
+  menuInfoData: any;
   isMenuUpdate: boolean;
   isMenuAdd: boolean;
+  isMenuInfo: boolean;
 }>({
   tableData: [] as any,
-  permissionData: [] as any,
   menuData: {} as any,
   menuUpdData: {} as any,
   menuAddData: {} as any,
+  menuInfoData: {} as any,
   isMenuAdd: false,
   isMenuUpdate: false,
+  isMenuInfo: false,
 });
 
 // 变量设置
@@ -405,19 +415,18 @@ const rulesSelect = {
 };
 const rules = computed(() => {
   return {
-    name: [rulesType],
+    label: [rulesType],
     order: [rulesType],
-    parentId: [rulesType],
     menuType: [rulesType],
     icon: [rulesType],
     component: [rulesType],
-    path: [rulesType],
+    url: [rulesType],
   };
 });
 
 // 初始化请求数据
 onMounted(() => {
-  // fetchMenuData();
+  fetchMenuData();
 });
 
 // 请求数据接口方法
@@ -427,15 +436,18 @@ async function fetchMenuData() {
 };
 
 
-async function handleDelete (id: string){
+async function handleDelete (node: any){
+  let newTemp = {
+    id: node.data.id,
+    parentId: node.data.parentId,
+  };
   try {
-    await deleteMenu(id);
+    await deleteMenu(newTemp);
     TinyModal.message({
       message: '已删除',
       status: 'success',
     });
-    state.isMenuUpdate = false;
-    state.menuUpdData = {} as any;
+    await fetchMenuData();
   } catch (error) {
     if (error.response && error.response.data) {
       const errorMessage = error.response.data.message || '未知错误';
@@ -447,9 +459,12 @@ async function handleDelete (id: string){
   }
 }
 
-const handleUpdate = (id: string) => {
+const handleUpdate = (node: any) => {
   state.isMenuUpdate = true;
-  state.menuUpdData = state.tableData[id - 1];
+  state.menuUpdData = node.data;
+  state.menuData = ref({
+    data: state.tableData,
+  })
 }
 
 const handleMenuUpdateCancel =()=>{
@@ -457,43 +472,72 @@ const handleMenuUpdateCancel =()=>{
   state.menuUpdData = {} as any;
 }
 
+const handleCheck = (node: any) => {
+  state.isMenuInfo = true;
+  state.menuInfoData = node.data;
+}
+
+const handleMenuInfoCancel = () => {
+  state.isMenuInfo = false;
+  state.menuInfoData = {} as any;
+}
+
 async function handleMenuUpdateSubmit(){
   let data = state.menuUpdData;
   let newTemp = {
     id: data.id,
-    name: data.name,
-    permissionIds: data.desc,
-    menuIds:data.menu,
+    name: data.label,
+    order: data.order,
+    parentId: data.parentId,
+    menuType: data.menuType,
+    icon: data.icon,
+    component: data.component,
+    path: data.url,
   };
-  try {
-    await updateMenu(newTemp);
+  if(newTemp.id === newTemp.parentId){
     Modal.message({
-      message: t('baseForm.form.submit.success'),
-      status: 'success',
+      message: t('menuInfo.modal.message.error'),
+      status: 'error',
     });
-    state.isMenuUpdate = false;
-    state.menuUpdData = {} as any;
-  } catch (error) {
-    if (error.response && error.response.data) {
-      const errorMessage = error.response.data.message || '未知错误';
+  }else{
+    try {
+      await updateMenu(newTemp);
       Modal.message({
-        message: errorMessage,
-        status: 'error',
+        message: t('baseForm.form.submit.success'),
+        status: 'success',
       });
+      state.isMenuUpdate = false;
+      state.menuUpdData = {} as any;
+      await fetchMenuData();
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message || '未知错误';
+        Modal.message({
+          message: errorMessage,
+          status: 'error',
+        });
+      }
     }
   }
 }
 
 function handleAddMenu() {
   state.isMenuAdd = true;
+  state.menuData = ref({
+    data: state.tableData,
+  })
 }
 
 async function handleMenuAddSubmit() {
   let data = state.menuAddData;
   let newTemp = {
-    name: data.name,
-    permissionIds: data.desc,
-    menuIds:data.menu,
+    name: data.label,
+    order: data.order,
+    parentId: data.parentId,
+    menuType: data.menuType,
+    icon: data.icon,
+    component: data.component,
+    path: data.url,
   };
   try {
     await createMenu(newTemp);
@@ -503,6 +547,7 @@ async function handleMenuAddSubmit() {
     });
     state.isMenuAdd = false;
     state.menuAddData = {} as any;
+    await fetchMenuData();
   } catch (error) {
     if (error.response && error.response.data) {
       const errorMessage = error.response.data.message || '未知错误';
@@ -540,8 +585,8 @@ async function handleMenuAddCancel() {
 .operation {
 
   &-delete {
-    padding-right: 5px;
     color: red;
+    padding-right: 10px;
   }
 
   &-update {
@@ -549,8 +594,9 @@ async function handleMenuAddCancel() {
     color: #1890ff;
   }
 
-  &-pwd-update {
+  &-info {
     color: orange;
+    padding-right: 10px;
   }
 }
 
