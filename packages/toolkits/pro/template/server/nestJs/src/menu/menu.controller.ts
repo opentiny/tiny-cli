@@ -5,7 +5,7 @@ import {
   Body,
   Patch,
   Req,
-  Delete,
+  Delete, Param,
 } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
@@ -17,9 +17,9 @@ import { DeleteMenuDto } from './dto/delete-menu.dto';
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
-  @Get('/role')
-  async getMenus(@Req() req) {
-    return this.menuService.findRoleMenu(req.user);
+  @Get('/role/:email')
+  async getMenus(@Param('email') email: string) {
+    return this.menuService.findRoleMenu(email);
   }
 
   @Get()

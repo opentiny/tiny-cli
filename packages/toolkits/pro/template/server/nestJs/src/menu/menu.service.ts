@@ -70,13 +70,13 @@ export class MenuService {
     @InjectRepository(Menu)
     private menu: Repository<Menu>
   ) {}
-  async findRoleMenu(user: User) {
+  async findRoleMenu(email: string) {
     const userInfo = await this.user
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.role', 'role')
       .leftJoinAndSelect('role.menus', 'menus')
       .where({
-        email: user.email,
+        email: email,
       })
       .orderBy('menus.order', 'ASC')
       .getOne();

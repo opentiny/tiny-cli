@@ -4,6 +4,7 @@ import { UpdateRoleDto } from './dto/update-role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu, Permission, Role } from '@app/models';
 import { DataSource, In, Repository } from 'typeorm';
+import { convertToTree } from "../menu/menu.service";
 
 @Injectable()
 export class RoleService {
@@ -44,12 +45,22 @@ export class RoleService {
     return this.role.find()
   }
 
-  findAllDetail(){
-    return this.role
+  async findAllDetail() {
+    const roleInfo = await this.role
       .createQueryBuilder('role')
-      .leftJoinAndSelect('role.menus','menus')
-      .leftJoinAndSelect('role.permission','permission')
+      .leftJoinAndSelect('role.menus', 'menus')
+      .leftJoinAndSelect('role.permission', 'permission')
       .getMany();
+    const menuTree = [] as any;
+    for(const item of roleInfo){
+      const temp = convertToTree(item.menus);
+      menuTree.push(temp)
+    }
+
+    return {
+      roleInfo: roleInfo,
+      menuTree: menuTree,
+    }
   }
 
   async findOne(id: string) {
