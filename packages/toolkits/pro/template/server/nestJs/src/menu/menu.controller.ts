@@ -17,9 +17,15 @@ import { DeleteMenuDto } from './dto/delete-menu.dto';
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
-  @Get()
+  @Get('/role')
   async getMenus(@Req() req) {
-    return this.menuService.findAll(req.user);
+    return this.menuService.findRoleMenu(req.user);
+  }
+
+  @Get()
+  @Permission('menu::query')
+  async getAllMenus() {
+    return this.menuService.findAllMenu();
   }
 
   @Post()

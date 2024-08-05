@@ -17,6 +17,14 @@ export interface ITreeNodeData {
   url: string;
   //组件
   component: string;
+  //图标
+  icon: string;
+  //类型
+  menuType: string;
+  //父节点
+  parentId: number;
+  //排序
+  order: number;
 }
 
 interface MenuMap {
@@ -30,6 +38,10 @@ const toNode = (menu: Menu): ITreeNodeData => {
     children: [],
     url: menu.path,
     component: menu.component,
+    icon: menu.icon,
+    menuType: menu.menuType,
+    parentId: menu.parentId,
+    order: menu.order,
   };
 };
 
@@ -58,7 +70,7 @@ export class MenuService {
     @InjectRepository(Menu)
     private menu: Repository<Menu>
   ) {}
-  async findAll(user: User) {
+  async findRoleMenu(user: User) {
     const userInfo = await this.user
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.role', 'role')
@@ -75,6 +87,12 @@ export class MenuService {
     });
     return convertToTree(menus);
   }
+
+  async findAllMenu(){
+    const menu = this.menu.find();
+    return convertToTree(await menu)
+  }
+
   async createMenu(dto: CreateMenuDto) {
     const {
       order,
@@ -111,9 +129,15 @@ export class MenuService {
     const menu = this.menu.findOne({
       where: {
         id: dto.id,
-        name: dto.name,
       },
     });
+    const allMenu = await this.menu.find();
+    for (const tmp of allMenu){
+      if(tmp.parentId === dto.id){
+        tmp.parentId = dto.parentId
+        await this.updateMenu(tmp)
+      }
+    }
     return this.menu.remove(await menu);
   }
 }
