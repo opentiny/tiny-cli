@@ -29,13 +29,14 @@
                         {{ $t('permissionInfo.table.desc')}}:{{ $t(`${item.desc}`) }}</span>
                   </div>
                 </li>
-<!--                <li>-->
-<!--                  <div v-for="item in data.row.menus" :key="item.id">-->
-<!--                <span>{{ $t('permissionInfo.table.id')}}:{{ $t(`${item.id}`) }}&nbsp;-->
-<!--                      {{ $t('permissionInfo.table.name')}}:{{ $t(`${item.name}`) }}&nbsp;-->
-<!--                      {{ $t('permissionInfo.table.desc')}}:{{ $t(`${item.desc}`) }}</span>-->
-<!--                  </div>-->
-<!--                </li>-->
+                <li>
+                  <tiny-tree
+                    :data="data.row.menuTree"
+                    :size="medium"
+                    :indent="18"
+                    default-expand-all
+                  ></tiny-tree>
+                </li>
               </ul>
             </template>
           </tiny-grid-column>
@@ -57,22 +58,20 @@
           </tiny-grid-column>
           <tiny-grid-column field="type" :title="$t('roleInfo.table.desc')">
             <template #default="data">
-              <span v-if="data.row.permission">
-                {{ $t('permissionInfo.table.id')}}:{{ $t(`${data.row.permission[0].id}`) }}&nbsp;
-                {{ $t('permissionInfo.table.name')}}:{{ $t(`${data.row.permission[0].name}`) }}&nbsp;
-                {{ $t('permissionInfo.table.desc')}}:{{ $t(`${data.row.permission[0].desc}`) }}
-              </span>
+              <div v-for="item in data.row.permission" :key="item.id">
+                    <span>{{ $t(`${item.name}`) }}&nbsp;</span>
+              </div>
             </template>
           </tiny-grid-column>
-<!--          <tiny-grid-column field="type" :title="$t('roleInfo.table.menu')">-->
-<!--            <template #default="data">-->
-<!--              <span v-if="data.row.menus">-->
-<!--                {{ $t('menuInfo.table.id')}}:{{ $t(`${data.row.menus[0].id}`) }}&nbsp;-->
-<!--                {{ $t('menuInfo.table.name')}}:{{ $t(`${data.row.menus[0].name}`) }}&nbsp;-->
-<!--                {{ $t('menuInfo.table.desc')}}:{{ $t(`${data.row.menus[0].desc}`) }}-->
-<!--              </span>-->
-<!--            </template>-->
-<!--          </tiny-grid-column>-->
+          <tiny-grid-column field="type" :title="$t('roleInfo.table.menu')">
+            <template #default="data">
+              <tiny-tree
+                :data="data.row.menuTree"
+                :size="medium"
+                :indent="18"
+              ></tiny-tree>
+            </template>
+          </tiny-grid-column>
           <tiny-grid-column
             :title="$t('roleInfo.table.operations')"
             align="center"
@@ -97,7 +96,7 @@
       show-header
       show-footer
       mask-closable="true"
-      height="350"
+      height="auto"
       width="600"
       :title="$t('roleInfo.modal.title.update')"
     >
@@ -159,18 +158,16 @@
                   :label="$t('roleInfo.modal.input.menu')"
                   prop="menu"
                 >
-                  <tiny-base-select
-                    v-model="state.roleUpdData.menu"
+                  <tiny-select
+                    v-model="state.roleUpdData.menus"
                     :placeholder="$t('baseForm.form.label.placeholder')"
                     multiple
+                    value-field="id"
+                    text-field="label"
+                    render-type="tree"
+                    :tree-op="state.menuOptionData"
                   >
-                    <tiny-option
-                      v-for="item in (state.menuData as any)"
-                      :key="item.id"
-                      :label="$t(item.name)"
-                      :value="item.id"
-                    ></tiny-option>
-                  </tiny-base-select>
+                  </tiny-select>
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
@@ -190,7 +187,7 @@
       show-header
       show-footer
       mask-closable="true"
-      height="350"
+      height="auto"
       width="600"
       :title="$t('roleInfo.modal.title.add')"
     >
@@ -243,18 +240,16 @@
                   :label="$t('roleInfo.modal.input.menu')"
                   prop="menu"
                 >
-                  <tiny-base-select
-                    v-model="state.roleAddData.menu"
+                  <tiny-select
+                    v-model="state.roleAddData.menus"
                     :placeholder="$t('baseForm.form.label.placeholder')"
                     multiple
+                    value-field="id"
+                    text-field="label"
+                    render-type="tree"
+                    :tree-op="state.menuOptionData"
                   >
-                    <tiny-option
-                      v-for="item in (state.menuData as any)"
-                      :key="item.id"
-                      :label="$t(item.name)"
-                      :value="item.id"
-                    ></tiny-option>
-                  </tiny-base-select>
+                  </tiny-select>
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
@@ -287,6 +282,7 @@ import {
   BaseSelect as TinyBaseSelect,
   Select as TinySelect,
   Option as TinyOption,
+  Tree as TinyTree,
 } from '@opentiny/vue';
 import {IconChevronDown} from '@opentiny/vue-icon';
 import {useUserStore} from '@/store';
@@ -306,6 +302,7 @@ const state = reactive<{
   tableData: any;
   permissionData: any;
   menuData:  any;
+  menuOptionData: any;
   roleUpdData: any;
   roleAddData: any;
   isRoleUpdate: boolean;
@@ -314,6 +311,7 @@ const state = reactive<{
   tableData: [] as any,
   permissionData: [] as any,
   menuData: {} as any,
+  menuOptionData: {} as any,
   roleUpdData: {} as any,
   roleAddData: {} as any,
   isRoleAdd: false,
@@ -351,19 +349,20 @@ onMounted(() => {
 // 请求数据接口方法
 async function fetchRoleData() {
   const {data} = await getAllRoleDetail();
-  state.tableData = data;
+  for(let i = 0; i < data.roleInfo.length; i+=1){
+    data.roleInfo[i].menuTree = data.menuTree[i]
+  }
+  state.tableData = data.roleInfo
 };
 
 async function fetchPermissionData() {
   const {data} = await getAllPermission();
   state.permissionData = data;
-  console.log(state.permissionData)
 };
 
 async function fetchMenuData() {
   const {data} = await getAllMenu();
   state.menuData = data;
-
 };
 
 async function handleDelete (id: string){
@@ -386,9 +385,37 @@ async function handleDelete (id: string){
   }
 }
 
+async function convertMenu(data: any){
+  let menu = [] as any;
+  for (let j = 0; j < data.menus.length; j+=1){
+    menu.push(data.menus[j].id)
+    if(data.menus[j].children !== null){
+      convertMenu(data.menus[j].children)
+    }
+  }
+  return menu;
+}
+
 const handleUpdate = (id: string) => {
   state.isRoleUpdate = true;
-  state.roleUpdData = state.tableData[id - 1];
+  let data = state.tableData[id - 1];
+  let permission = [] as any;
+  for (let i = 0; i < data.permission.length; i+=1){
+    permission.push(data.permission[i].id)
+  }
+  let menu = [] as any;
+  for (let j = 0; j < data.menus.length; j+=1){
+    menu.push(data.menus[j].id)
+  }
+  state.roleUpdData = {
+    id: data.id,
+    name: data.name,
+    menus: menu,
+    desc: permission,
+  }
+  state.menuOptionData = ref({
+    data: state.menuData
+  })
 }
 
 const handleRoleUpdateCancel =()=>{
@@ -402,7 +429,7 @@ async function handleRoleUpdateSubmit(){
     id: data.id,
     name: data.name,
     permissionIds: data.desc,
-    menuIds:data.menu,
+    menuIds:data.menus,
   };
   try {
     await updateRole(newTemp);
@@ -412,6 +439,7 @@ async function handleRoleUpdateSubmit(){
     });
     state.isRoleUpdate = false;
     state.roleUpdData = {} as any;
+    await fetchRoleData();
   } catch (error) {
     if (error.response && error.response.data) {
       const errorMessage = error.response.data.message || '未知错误';
@@ -425,6 +453,9 @@ async function handleRoleUpdateSubmit(){
 
 function handleAddRole() {
   state.isRoleAdd = true;
+  state.menuOptionData = ref({
+    data: state.menuData
+  })
 }
 
 async function handleRoleAddSubmit() {
@@ -432,7 +463,7 @@ async function handleRoleAddSubmit() {
   let newTemp = {
     name: data.name,
     permissionIds: data.desc,
-    menuIds:data.menu,
+    menuIds:data.menus,
   };
   try {
     await createRole(newTemp);
@@ -442,6 +473,7 @@ async function handleRoleAddSubmit() {
     });
     state.isRoleAdd = false;
     state.roleAddData = {} as any;
+    await fetchRoleData();
   } catch (error) {
     if (error.response && error.response.data) {
       const errorMessage = error.response.data.message || '未知错误';

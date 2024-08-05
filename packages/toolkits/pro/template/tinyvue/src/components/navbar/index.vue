@@ -76,7 +76,7 @@
       show-header
       show-footer
       mask-closable="true"
-      height="350"
+      height="auto"
       width="600"
       :title="$t('userInfo.modal.title.pwdUpdate')"
     >
@@ -213,8 +213,8 @@ const state = reactive<{
     { label: 'messageBox.switchRoles', value: 1 },
     { label: 'messageBox.userCenter', value: 2 },
     { label: 'messageBox.userSettings', value: 3 },
-    { label: 'messageBox.logout', value: 4 },
-    { label: 'messageBox.updatePwd',value: 5 },
+    { label: 'messageBox.updatePwd',value: 4 },
+    { label: 'messageBox.logout', value: 5 },
   ];
 
   const switchRoles = async () => {
@@ -238,10 +238,10 @@ const state = reactive<{
         router.push({ name: 'Setting' });
         break;
       case 4:
-        logout();
+        handlePwdUpdate();
         break;
       case 5:
-        handlePwdUpdate();
+        logout();
         break;
       default:
       // eslint-disable-next-line no-console

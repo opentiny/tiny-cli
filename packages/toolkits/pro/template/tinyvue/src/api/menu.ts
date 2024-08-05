@@ -6,8 +6,8 @@ export function getAllMenu() {
   return axios.get('/api/menu');
 }
 
-export function getRoleMenu(data: any) {
-  return axios.get('/api/menu/role',data);
+export function getRoleMenu(email: string) {
+  return axios.get(`/api/menu/role/${email}`);
 }
 
 export function updateMenu(data: any) {

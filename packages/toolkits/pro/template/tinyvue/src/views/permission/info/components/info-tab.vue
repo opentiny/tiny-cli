@@ -54,7 +54,7 @@
       show-header
       show-footer
       mask-closable="true"
-      height="350"
+      height="auto"
       width="600"
       :title="$t('permissionInfo.modal.title.update')"
     >
@@ -114,7 +114,7 @@
       show-header
       show-footer
       mask-closable="true"
-      height="350"
+      height="auto"
       width="600"
       :title="$t('permissionInfo.modal.title.add')"
     >

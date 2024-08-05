@@ -167,7 +167,7 @@
       show-header
       show-footer
       mask-closable="true"
-      height="350"
+      height="auto"
       width="600"
       :title="$t('userInfo.modal.title.pwdUpdate')"
     >
