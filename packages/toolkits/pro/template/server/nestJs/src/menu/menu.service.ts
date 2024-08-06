@@ -4,7 +4,6 @@ import { Menu, User } from '@app/models';
 import { Repository } from 'typeorm';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-import { DeleteMenuDto } from './dto/delete-menu.dto';
 
 export interface ITreeNodeData {
   // node-key='id' 设置节点的唯一标识
@@ -125,16 +124,20 @@ export class MenuService {
     });
     return true;
   }
-  async deleteMenu(dto: DeleteMenuDto) {
+  async deleteMenu(id: number, parentId: number) {
     const menu = this.menu.findOne({
       where: {
-        id: dto.id,
+        id: id,
       },
     });
     const allMenu = await this.menu.find();
     for (const tmp of allMenu){
-      if(tmp.parentId === dto.id){
-        tmp.parentId = dto.parentId
+      if(Number(tmp.parentId) === Number(id)){
+        if(Number(parentId) === -1){
+          tmp.parentId = null;
+        }else {
+          tmp.parentId = parentId;
+        }
         await this.updateMenu(tmp)
       }
     }

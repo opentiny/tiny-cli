@@ -4,14 +4,13 @@ import {
   Post,
   Body,
   Patch,
-  Req,
+  Query,
   Delete, Param,
 } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { Permission } from '../public/permission.decorator';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-import { DeleteMenuDto } from './dto/delete-menu.dto';
 
 @Controller('menu')
 export class MenuController {
@@ -42,7 +41,7 @@ export class MenuController {
 
   @Delete()
   @Permission('menu::remove')
-  async deleteMenu(@Body() dto: DeleteMenuDto) {
-    return this.menuService.deleteMenu(dto);
+  async deleteMenu(@Query('id') id: number, @Query('parentId') parentId: number) {
+    return this.menuService.deleteMenu(id, parentId);
   }
 }
