@@ -1,7 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMenuDto } from './create-menu.dto';
-export class DeleteMenuDto extends PartialType(CreateMenuDto) {
+export class DeleteMenuDto {
   @IsNotEmpty()
   id: number;
+  parentId: number | null;
 }
