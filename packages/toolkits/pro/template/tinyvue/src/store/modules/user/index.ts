@@ -9,9 +9,13 @@ import {
   getUserInfo,
   getAllUser,
 } from '@/api/user';
+import {getRoleMenu} from "@/api/menu";
 import {clearToken, getToken, setToken} from '@/utils/auth';
 import {removeRouteListener} from '@/utils/route-listener';
+import {useRouter} from "vue-router";
 import {UserInfo, UserState} from './types';
+
+const router = useRouter();
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
@@ -98,6 +102,7 @@ const useUserStore = defineStore('user', {
           status: userRes.data.status,
         }
         this.setInfo(userInfo);
+        await handleRoute(userInfo.email);
       } catch (err) {
         clearToken();
         throw err;
@@ -126,5 +131,38 @@ const useUserStore = defineStore('user', {
     },
   },
 });
+
+async function handleRoute(email: string){
+  const {data} = await getRoleMenu(email);
+  console.log(data)
+  addRoutes(data,'')
+}
+
+function addRoutes(menuItems: any[], parentPath = '') {
+  menuItems.forEach(menu => {
+    const fullPath = parentPath + menu.url;
+    const route = {
+      path: fullPath,
+      name: menu.label,
+      id: menu.id,
+      icon: menu.icon,
+      label: menu.label,
+      component: () => import(`${menu.component}`),
+      children: [],
+    };
+    if (menu.children) {
+      addRoutes(menu.children, `${fullPath  }/`);
+      route.children = menu.children.map((child: { url: any; name: any; id: any; icon: any; label: any; component: any}) => ({
+        path: child.url,
+        name: child.label,
+        id: child.id,
+        icon: child.icon,
+        label: child.label,
+        component: () => import(`${child.component}`),
+      }));
+    }
+    router.addRoute(route);
+  });
+}
 
 export default useUserStore;
