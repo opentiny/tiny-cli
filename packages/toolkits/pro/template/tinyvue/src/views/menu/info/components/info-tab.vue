@@ -437,12 +437,11 @@ async function fetchMenuData() {
 
 
 async function handleDelete (node: any){
-  let newTemp = {
-    id: node.data.id,
-    parentId: node.data.parentId,
-  };
+  if(node.data.parentId === null){
+    node.data.parentId = -1
+  }
   try {
-    await deleteMenu(newTemp);
+    await deleteMenu(node.data.id, node.data.parentId);
     TinyModal.message({
       message: '已删除',
       status: 'success',

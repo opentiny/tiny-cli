@@ -14,8 +14,8 @@ export function updateMenu(data: any) {
   return axios.patch(`/api/menu`, data);
 }
 
-export function deleteMenu(data: any) {
-  return axios.delete(`/api/menu`, data);
+export function deleteMenu(id: number, parentId: number) {
+  return axios.delete(`/api/menu?id=${id}&parentId=${parentId}`);
 }
 
 export function createMenu(data: any) {
