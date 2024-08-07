@@ -11,7 +11,9 @@
       <template #aside>
         <tiny-layout class="layout-sider">
           <div class="menu-wrapper">
-            <Menu />
+            <Suspense>
+              <Menu />
+            </Suspense>
           </div>
         </tiny-layout>
       </template>
