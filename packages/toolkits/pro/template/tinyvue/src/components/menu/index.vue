@@ -7,6 +7,7 @@
       node-key="id"
       wrap
       @current-change="currentChange"
+      :default-expanded-keys="expandeArr"
     >
     </tiny-tree-menu>
   </div>
@@ -49,7 +50,13 @@ const filtter = (treeNodeDatas: ITreeNodeData[]) => {
 const MenuData = ref<SideMenuData>(filtter(rawMenuData))
 
 const currentChange = (data: any) => {
-  router.replace({name: data.label})
+  let filter = []
+  for(let i = 0; i < rawMenuData.length; i+=1){
+    filter.push(rawMenuData[i].label)
+  }
+  if (filter.indexOf(data.label) === -1) {
+    router.replace({name: data.label})
+  }
 };
 
 const tree = ref();
