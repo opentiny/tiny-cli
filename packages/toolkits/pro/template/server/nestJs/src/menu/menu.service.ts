@@ -108,9 +108,29 @@ export class MenuService {
     if(menu){
       menu[1].parentId = menuId[0];
       menu[2].parentId = menuId[0];
+      menu[4].parentId = menuId[3];
+      menu[6].parentId = menuId[5];
+      menu[7].parentId = menuId[5];
+      menu[9].parentId = menuId[8];
+      menu[11].parentId = menuId[10];
+      menu[12].parentId = menuId[10];
+      menu[14].parentId = menuId[13];
+      menu[15].parentId = menuId[13];
+      menu[16].parentId = menuId[13];
+      menu[18].parentId = menuId[17];
+      menu[19].parentId = menuId[17];
+      menu[21].parentId = menuId[20];
+      menu[22].parentId = menuId[20];
+      menu[24].parentId = menuId[23];
+      menu[26].parentId = menuId[25];
+      menu[28].parentId = menuId[27];
+      menu[30].parentId = menuId[29];
+      menu[31].parentId = menuId[29];
+      menu[32].parentId = menuId[29];
     }
-    await this.menu.update(menu[1].id,{ parentId: menu[1].parentId })
-    await this.menu.update(menu[2].id,{ parentId: menu[1].parentId })
+    for(const item of menu){
+      await this.menu.update(item.id,{ parentId: item.parentId })
+    }
   }
 
   async createMenu(dto: CreateMenuDto, isInit: boolean) {
