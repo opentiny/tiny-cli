@@ -111,13 +111,13 @@
   onMounted(() => {
     const chartDom = echartsDom.value;
     const myChart = echarts.init(chartDom as any);
+    options && myChart.setOption(options);
     window.addEventListener('resize', () => {
       myChart.resize();
     });
-    options && myChart.setOption(options);
-    nextTick(() => {
-      myChart.resize()
-    });
+    // nextTick(() => {
+    //   myChart.resize()
+    // });
   });
 </script>
 

@@ -70,12 +70,14 @@
   import { useUserStore } from '@/store';
   import useLoading from '@/hooks/loading';
   import { setToken } from '@/utils/auth';
+import { useMenuStore } from '@/store/modules/router';
 
   const router = useRouter();
   const { t } = useI18n();
   const { loading, setLoading } = useLoading();
   const userStore = useUserStore();
   const loginFormInfo = ref();
+  const menuStore = useMenuStore()
 
   const rules = computed(() => {
     return {
@@ -109,6 +111,7 @@
   };
 
   function handleSubmit() {
+    console.log('submit')
     loginFormInfo.value?.validate(async (valid: boolean) => {
       if (!valid) {
         return;
@@ -138,7 +141,9 @@
           message: t('login.form.login.success'),
           status: 'success',
         });
-        const { redirect, ...othersQuery } = router.currentRoute.value.query;
+
+        const { redirect, ...othersQuery } = router.currentRoute.value.query ?? {redirect: 'Home'};
+        router.replace({name: redirect?.toString() ?? 'Home'})
         router.push({
           name: (redirect as string) || 'Home',
           query: {

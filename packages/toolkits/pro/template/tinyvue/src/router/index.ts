@@ -16,11 +16,6 @@ const router = createRouter({
       redirect: `${import.meta.env.VITE_CONTEXT}login`,
     },
     {
-      path: '/' + import.meta.env.VITE_CONTEXT,
-      redirect: `${import.meta.env.VITE_CONTEXT}board/home`,
-    },
-    // 线上地址
-    {
       path: import.meta.env.VITE_CONTEXT,
       redirect: { path: `${import.meta.env.VITE_CONTEXT}login` },
     },
@@ -36,7 +31,8 @@ const router = createRouter({
       name: 'root',
       path: import.meta.env.VITE_CONTEXT,
       component: DefaultLayout,
-      children: appRoutes,
+      children: [],
+      // children: appRoutes,
     },
     {
       path: import.meta.env.VITE_CONTEXT + ':pathMatch(.*)*',
@@ -48,6 +44,11 @@ const router = createRouter({
       name: 'preview',
       component: () => import('@/views/Preview/index.vue'),
     },
+    {
+      name:'redirect',
+      path: import.meta.env.VITE_CONTEXT + 'redirect',
+      component: ()=>import('@/views/redirect.vue')
+    }
   ],
   scrollBehavior() {
     return { top: 0 };

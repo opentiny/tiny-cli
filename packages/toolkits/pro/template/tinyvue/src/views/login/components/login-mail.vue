@@ -55,7 +55,7 @@
 
 <script lang="ts" setup>
   import { inject, ref, reactive, computed } from 'vue';
-  import { useRouter } from 'vue-router';
+  import { RouteParamsRaw, RouteRecordRaw, useRoute, useRouter } from 'vue-router';
   import {
     Form as TinyForm,
     FormItem as TinyFormItem,
@@ -69,12 +69,15 @@
   import { useI18n } from 'vue-i18n';
   import { useUserStore } from '@/store';
   import useLoading from '@/hooks/loading';
+  import { useMenuStore } from '@/store/modules/router';
 
   const router = useRouter();
   const { t } = useI18n();
   const { loading, setLoading } = useLoading();
   const userStore = useUserStore();
   const loginFormMail = ref();
+
+  const views = import.meta.glob('../../**/*.vue');
 
   const rules = computed(() => {
     return {
@@ -101,6 +104,7 @@
     rememberPassword: true,
   });
 
+
   // 切换模式
   const handle: any = inject('handle');
   const typeChange = () => {
@@ -124,14 +128,10 @@
           message: t('login.form.login.success'),
           status: 'success',
         });
-        const { redirect, ...othersQuery } = router.currentRoute.value.query;
-        router.push({
-          name: (redirect as string) || 'Home',
-          query: {
-            ...othersQuery,
-          },
-        });
+
+        router.replace('/vue-pro/redirect?to=Home');
       } catch (err) {
+        console.log(err);
         Notify({
           type: 'error',
           title: t('login.tip.right'),
