@@ -8,5 +8,6 @@ import { Menu, Role, User } from '@app/models';
   imports: [TypeOrmModule.forFeature([Menu, User, Role])],
   controllers: [MenuController],
   providers: [MenuService],
+  exports: [MenuService],
 })
 export class MenuModule {}

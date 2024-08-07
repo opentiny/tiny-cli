@@ -1,0 +1,38 @@
+export const menuData = [
+  {
+    name: 'Board',
+    order: 1,
+    parentId: null,
+    menuType: 'normal',
+    icon: '',
+    component: 'board/index',
+    path: 'board',
+  },
+  {
+    name: 'Home',
+    order: 1,
+    parentId: null,
+    menuType: 'normal',
+    icon: '',
+    component: 'board/home/index',
+    path: 'home',
+  },
+  {
+    name: 'Work',
+    order: 1,
+    parentId: null,
+    menuType: 'normal',
+    icon: '',
+    component: 'board/work/index',
+    path: 'work',
+  },
+  {
+    name: '',
+    order: 1,
+    parentId: null,
+    menuType: '',
+    icon: '',
+    component: '',
+    path: '',
+  },
+]

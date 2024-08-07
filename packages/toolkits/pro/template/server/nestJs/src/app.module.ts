@@ -13,9 +13,11 @@ import { existsSync, writeFileSync } from 'fs';
 import { UserService } from './user/user.service';
 import { RoleService } from './role/role.service';
 import { PermissionService } from './permission/permission.service';
+import { MenuService } from "./menu/menu.service";
 import { Permission } from '@app/models';
 import { MenuModule } from './menu/menu.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import {menuData} from "./menu/init/menuData";
 
 @Module({
   imports: [
@@ -44,7 +46,8 @@ export class AppModule implements OnModuleInit {
   constructor(
     private user: UserService,
     private role: RoleService,
-    private permission: PermissionService
+    private permission: PermissionService,
+    private menu: MenuService,
   ) {}
   async onModuleInit() {
     const ROOT = __dirname;
@@ -52,12 +55,12 @@ export class AppModule implements OnModuleInit {
     if (existsSync(LOCK_FILE)) {
       return;
     }
-    // TODO: menu
+    // TODO: permission
     const modules = ['user', 'permission', 'role', 'menu'];
     const actions = ['add', 'remove', 'update', 'query'];
     const tasks = [];
     let permission;
-    let isInit = true;
+    const isInit = true;
     try {
       permission = await this.permission.create(
         {
@@ -85,6 +88,17 @@ export class AppModule implements OnModuleInit {
         );
       }
     }
+    // TODO Menu
+    try {
+      for (const item of menuData){
+        await this.menu.createMenu(item, isInit)
+      }
+    }catch (e){
+      const err = e as HttpException;
+      Logger.error(err.message);
+      Logger.error(`Please clear the database and try again`);
+      process.exit(-1);
+    }
     const status = Promise.allSettled(tasks);
     const statusData = await status;
     const hasFail = statusData.some((data) => data.status === 'rejected');
@@ -98,11 +112,12 @@ export class AppModule implements OnModuleInit {
       Logger.error('Please clear the database and try again');
       process.exit(-1);
     }
+    const menuId = this.menu.getMenuAllId()
     const role = await this.role.create(
       {
         name: 'admin',
         permissionIds: [permission.id],
-        menuIds: [],
+        menuIds: await menuId,
       },
       isInit
     );

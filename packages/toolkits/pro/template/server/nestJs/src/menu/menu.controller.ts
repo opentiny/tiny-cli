@@ -30,7 +30,7 @@ export class MenuController {
   @Post()
   @Permission('menu::add')
   async createMenu(@Body() dto: CreateMenuDto) {
-    return this.menuService.createMenu(dto);
+    return this.menuService.createMenu(dto, false);
   }
 
   @Patch()

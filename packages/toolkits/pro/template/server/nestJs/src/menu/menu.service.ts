@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu, User } from '@app/models';
 import { Repository } from 'typeorm';
@@ -30,6 +30,7 @@ interface MenuMap {
   [key: number]: Menu;
 }
 
+type NumberArray = number[];
 const toNode = (menu: Menu): ITreeNodeData => {
   return {
     label: menu.name,
@@ -63,11 +64,12 @@ export const convertToTree = (
 
 @Injectable()
 export class MenuService {
+  private menuId: number[] = [];
   constructor(
     @InjectRepository(User)
     private user: Repository<User>,
     @InjectRepository(Menu)
-    private menu: Repository<Menu>
+    private menu: Repository<Menu>,
   ) {}
   async findRoleMenu(email: string) {
     const userInfo = await this.user
@@ -92,7 +94,26 @@ export class MenuService {
     return convertToTree(await menu)
   }
 
-  async createMenu(dto: CreateMenuDto) {
+  async getMenuAllId() {
+    const menu = await this.menu.find();
+    for (const item of menu) {
+      this.menuId.push(item.id)
+    }
+    await this.handleMenuParentId(this.menuId)
+    return this.menuId;
+  }
+
+  async handleMenuParentId (menuId: number[]){
+    const menu = await this.menu.find();
+    if(menu){
+      menu[1].parentId = menuId[0];
+      menu[2].parentId = menuId[0];
+    }
+    await this.menu.update(menu[1].id,{ parentId: menu[1].parentId })
+    await this.menu.update(menu[2].id,{ parentId: menu[1].parentId })
+  }
+
+  async createMenu(dto: CreateMenuDto, isInit: boolean) {
     const {
       order,
       menuType,
@@ -102,6 +123,18 @@ export class MenuService {
       icon,
       parentId = null,
     } = dto;
+    const menuInfo = this.menu.findOne({
+      where: { name,order,menuType,parentId,path,icon,component },
+    });
+    if (isInit == true && (await menuInfo)) {
+      return menuInfo;
+    }
+    if ((await menuInfo) && isInit == false) {
+      throw new HttpException(
+        `菜单字段 ${name} 已经存在`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
     return this.menu.save({
       name,
       path,
