@@ -13,6 +13,8 @@ export class CreateMenuDto {
   component: string;
   @IsNotEmpty()
   icon: string;
+  @IsNotEmpty()
+  locale: string;
 
   parentId: number | null;
 }

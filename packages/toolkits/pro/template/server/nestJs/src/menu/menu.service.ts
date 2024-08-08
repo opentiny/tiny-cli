@@ -17,13 +17,15 @@ export interface ITreeNodeData {
   //组件
   component: string;
   //图标
-  icon: string;
+  customIcon: string;
   //类型
   menuType: string;
   //父节点
   parentId: number;
   //排序
   order: number;
+  //国际化
+  locale: string;
 }
 
 interface MenuMap {
@@ -38,10 +40,11 @@ const toNode = (menu: Menu): ITreeNodeData => {
     children: [],
     url: menu.path,
     component: menu.component,
-    icon: menu.icon,
+    customIcon: menu.icon,
     menuType: menu.menuType,
     parentId: menu.parentId,
     order: menu.order,
+    locale: menu.locale,
   };
 };
 
@@ -142,9 +145,10 @@ export class MenuService {
       component,
       icon,
       parentId = null,
+      locale,
     } = dto;
     const menuInfo = this.menu.findOne({
-      where: { name,order,menuType,parentId,path,icon,component },
+      where: { name,order,menuType,parentId,path,icon,component,locale },
     });
     if (isInit == true && (await menuInfo)) {
       return menuInfo;
@@ -163,6 +167,7 @@ export class MenuService {
       menuType,
       icon,
       order,
+      locale,
     });
   }
   async updateMenu(newData: UpdateMenuDto) {
@@ -174,6 +179,7 @@ export class MenuService {
       menuType: newData.menuType,
       icon: newData.icon,
       order: newData.order,
+      locale: newData.locale,
     });
     return true;
   }

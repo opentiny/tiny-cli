@@ -18,4 +18,6 @@ export class Menu {
   component: string;
   @Column()
   path: string;
+  @Column()
+  locale: string;
 }
