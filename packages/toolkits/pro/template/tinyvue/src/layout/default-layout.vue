@@ -18,6 +18,9 @@
         </tiny-layout>
       </template>
       <tiny-layout class="layout-content">
+        <Tabs v-model="currentTabName" @click="onClick" with-close @close="onClose">
+          <tab-item v-for="(history,idx) of tabsHistory" :key="idx" :title="t(history.name)" :name="history.link"></tab-item>
+        </Tabs>
         <PageLayout />
       </tiny-layout>
       <template #footer>
@@ -58,7 +61,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, onMounted } from 'vue';
+  import { ref, watch, onMounted, computed } from 'vue';
+  import {useI18n} from 'vue-i18n';
   import {
     Container as TinyContainer,
     Layout as TinyLayout,
@@ -72,10 +76,30 @@
   import Theme from '@/components/theme/index.vue';
   import Menu from '@/components/menu/index.vue';
   import { DefaultTheme } from '@/components/theme/type';
+  import {Tabs, TabItem} from '@opentiny/vue';
+  import {useTabStore} from '@/store';
+  import { useRouter } from 'vue-router';
   import PageLayout from './page-layout.vue';
   // 动态切换
+  const router = useRouter();
   const appStore = useAppStore();
   const changefooter = ref('#fff');
+
+  const {t} = useI18n();
+  const tabStore = useTabStore();
+
+  const tabsHistory = computed(() => tabStore.data);
+  const currentTabName = ref();
+  watch(()=>tabStore.current, ()=>{
+    currentTabName.value = tabStore.current?.link;
+  }, {deep: true, immediate: true});
+
+  const onClick = (tab: {name: string, link: string}) => {
+    router.replace(tab.name);
+  }
+  const onClose = (name:string) => {
+    tabStore.delByLink(name);
+  }
 
   // 切换简约模式，图标按钮
   const top = ref('10px');
@@ -195,6 +219,12 @@
   }
    :deep(.tiny-tree-node__children > .tree-node-body) {
     padding-left: 50px;
+   }
+   :deep(.tiny-tabs__content) {
+    display: none;
+   }
+   :deep(.tiny-tabs--top) {
+    padding: 0 16px;
    }
   .theme-box {
     position: fixed;

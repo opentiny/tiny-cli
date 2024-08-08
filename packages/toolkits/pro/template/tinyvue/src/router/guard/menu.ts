@@ -36,7 +36,11 @@ const toRoutes = (menus: ITreeNodeData[]) => {
       name: menu.label,
       path: menu.url,
       component: ()=>views[path](),
-      children: [...toRoutes(menu.children ?? [])]
+      children: [...toRoutes(menu.children ?? [])],
+      meta: {
+        locale: menu.locale,
+        requiresAuth: true,
+      }
     })
   }
   return router;
