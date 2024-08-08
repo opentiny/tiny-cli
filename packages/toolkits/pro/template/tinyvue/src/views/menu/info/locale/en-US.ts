@@ -8,6 +8,7 @@ export default {
   'menuInfo.table.icon': 'Icon',
   'menuInfo.table.component': 'Component',
   'menuInfo.table.path': 'Path',
+  'menuInfo.table.locale': 'Locale',
   'menuInfo.table.operations': 'Operation',
   'menuInfo.table.operations.info': 'Detail',
   'menuInfo.table.operations.update': 'Update',

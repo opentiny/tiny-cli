@@ -14,13 +14,15 @@ export interface ITreeNodeData {
   // 组件
   component: string;
   // 图标
-  icon: string;
+  customIcon: string;
   // 类型
   menuType: string;
   // 父节点
   parentId: number;
   // 排序
   order: number;
+  // 国际化
+  locale: string;
 }
 
 const views = import.meta.glob('../../views/**/*.vue');

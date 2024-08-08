@@ -8,6 +8,7 @@ export default {
   'menuInfo.table.icon': '图标',
   'menuInfo.table.component': '组件',
   'menuInfo.table.path': '路径',
+  'menuInfo.table.locale': '国际化',
   'menuInfo.table.operations': '操作',
   'menuInfo.table.operations.info': '查看',
   'menuInfo.table.operations.update': '修改',

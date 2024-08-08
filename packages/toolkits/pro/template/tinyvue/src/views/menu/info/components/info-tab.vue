@@ -114,6 +114,15 @@
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.locale')"
+                >
+                  <label>{{ state.menuInfoData.locale }}</label>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
           </tiny-form>
         </tiny-layout>
       </template>
@@ -230,6 +239,16 @@
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.locale')"
+                  prop="url"
+                >
+                  <tiny-input v-model="state.menuUpdData.locale"></tiny-input>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
           </tiny-form>
         </tiny-layout>
       </template>
@@ -338,6 +357,16 @@
                 </tiny-form-item>
               </tiny-col>
             </tiny-row>
+            <tiny-row :flex="true" justify="left">
+              <tiny-col :span="10" label-width="100px">
+                <tiny-form-item
+                  :label="$t('menuInfo.table.locale')"
+                  prop="locale"
+                >
+                  <tiny-input v-model="state.menuAddData.locale"></tiny-input>
+                </tiny-form-item>
+              </tiny-col>
+            </tiny-row>
           </tiny-form>
         </tiny-layout>
       </template>
@@ -421,6 +450,7 @@ const rules = computed(() => {
     icon: [rulesType],
     component: [rulesType],
     url: [rulesType],
+    locale: [rulesType],
   };
 });
 
@@ -492,6 +522,7 @@ async function handleMenuUpdateSubmit(){
     icon: data.icon,
     component: data.component,
     path: data.url,
+    locale: data.locale,
   };
   if(newTemp.id === newTemp.parentId){
     Modal.message({
@@ -537,6 +568,7 @@ async function handleMenuAddSubmit() {
     icon: data.icon,
     component: data.component,
     path: data.url,
+    locale: data.locale,
   };
   try {
     await createMenu(newTemp);

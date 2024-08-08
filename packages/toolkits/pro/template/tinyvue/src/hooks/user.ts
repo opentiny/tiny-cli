@@ -14,7 +14,7 @@ export default function useUser() {
       message: t('setting.loginout'),
       status: 'success',
     });
-    router.push({
+    await router.push({
       name: logoutTo && typeof logoutTo === 'string' ? logoutTo : 'login',
       query: {
         ...router.currentRoute.value.query,
