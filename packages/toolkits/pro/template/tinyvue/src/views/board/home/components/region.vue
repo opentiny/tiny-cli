@@ -115,9 +115,9 @@
     window.addEventListener('resize', () => {
       myChart.resize();
     });
-    // nextTick(() => {
-    //   myChart.resize()
-    // });
+    nextTick(() => {
+      myChart.resize()
+    });
   });
 </script>
 

@@ -111,7 +111,6 @@ import { useMenuStore } from '@/store/modules/router';
   };
 
   function handleSubmit() {
-    console.log('submit')
     loginFormInfo.value?.validate(async (valid: boolean) => {
       if (!valid) {
         return;
