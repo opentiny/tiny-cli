@@ -1,6 +1,6 @@
-import { MockMethod } from 'vite-plugin-mock';
+// import {MockMethod} from 'vite-plugin-mock';
 import Mock from 'mockjs';
-import { successResponseWrap } from '@/utils/setup-mock';
+import { successResponseWrap } from '../utils/setup-mock';
 
 const initData = Mock.mock({
   options: [
@@ -95,4 +95,4 @@ export default [
       return result;
     },
   },
-] as MockMethod[];
+] as any;

@@ -7,7 +7,7 @@ export interface QueryTaskParmas {
 }
 
 export function queryEmployeeList(params: QueryTaskParmas) {
-  return axios.post('/api/employee/getEmployee', params);
+  return axios.post(`${import.meta.env.VITE_MOCK_SERVER_HOST}/api/employee/getEmployee`, params);
 }
 export function deleteEmployee(id: string) {
   return axios.delete(`/api/employee/delete?id=${id}`);

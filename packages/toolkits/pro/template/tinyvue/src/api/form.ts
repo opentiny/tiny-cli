@@ -22,15 +22,15 @@ export type UnitStepModel = PersonalModel & CompanyInfoModel;
 
 // 获取base表单的初始数据选项
 export function getBaseData() {
-  return axios.get('/api/base/getdata');
+  return axios.get(`${import.meta.env.VITE_MOCK_SERVER_HOST}/api/base/getdata`);
 }
 
 // 表单的数据提交&&校验
 export function submitStepForm(data: UnitStepModel) {
-  return axios.post('/api/channel-form/submit', { data });
+  return axios.post(`${import.meta.env.VITE_MOCK_SERVER_HOST}/api/channel-form/submit`, { data });
 }
 
 // 获取step表单的初始数据选项
 export function getStepData() {
-  return axios.get('/api/step/getdata');
+  return axios.get(`${import.meta.env.VITE_MOCK_SERVER_HOST}/api/step/getdata`);
 }

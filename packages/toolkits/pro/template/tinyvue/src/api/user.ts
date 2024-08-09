@@ -68,7 +68,7 @@ export function updateUserInfo(data: any) {
 }
 
 export function getUserData(data?: UserData) {
-  return axios.post<UserRes>('/api/user/data', data);
+  return axios.post<UserRes>(`${import.meta.env.VITE_MOCK_SERVER_HOST}/api/user/data`, data);
 }
 
 export function registerUser(data: any) {

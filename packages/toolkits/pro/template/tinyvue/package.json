@@ -10,8 +10,10 @@
     "build": "vite build --config ./config/vite.config.prod.ts",
     "report": "cross-env REPORT=true npm run build",
     "lint-staged": "npx lint-staged",
-    "prepare": "git init && husky install"
+    "prepare": "git init && husky install",
+    "mock": "ts-node ./src/mock/index.ts"
   },
+  "type": "module",
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "prettier --write",
@@ -28,9 +30,11 @@
     ]
   },
   "dependencies": {
+    "@gaonengwww/mock-server": "^1.0.2",
     "@opentiny/hwc-client": "^0.0.14",
     "@opentiny/vue": "^3.11.1",
     "@types/mockjs": "^1.0.9",
+    "@types/node": "^22.1.0",
     "@vueuse/core": "^10.5.0",
     "@vueuse/head": "^2.0.0",
     "axios": "^1.6.0",

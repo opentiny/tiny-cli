@@ -1,6 +1,6 @@
-import { MockMethod } from 'vite-plugin-mock';
+// import {MockMethod} from 'vite-plugin-mock';
 import Mock from 'mockjs';
-import { successResponseWrap } from '@/utils/setup-mock';
+import { successResponseWrap } from '../utils/setup-mock';
 
 const taskList = Mock.mock({
   'list|60': [
@@ -31,7 +31,7 @@ export default [
   {
     url: '/api/employee/getEmployee',
     method: 'post',
-    response: (params) => {
+    response: (params: { body: any; }) => {
       const { pageIndex = 1, pageSize = 10 } = JSON.parse(
         JSON.stringify(params.body)
       );
@@ -49,4 +49,4 @@ export default [
       return successResponseWrap(data);
     },
   },
-] as MockMethod[];
+] as any;

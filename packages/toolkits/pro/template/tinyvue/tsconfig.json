@@ -17,5 +17,9 @@
     "types": ["vite/client"] /* vite ts支持 */
   },
   "include": ["src/**/*", "src/**/*.vue"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
 }

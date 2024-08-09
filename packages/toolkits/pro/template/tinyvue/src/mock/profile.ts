@@ -1,6 +1,6 @@
-import { MockMethod } from 'vite-plugin-mock';
+// import {MockMethod} from 'vite-plugin-mock';
 import Mock from 'mockjs';
-import { successResponseWrap } from '@/utils/setup-mock';
+import { successResponseWrap } from '../utils/setup-mock';
 
 const initData = Mock.mock({
   Project: [
@@ -62,4 +62,4 @@ export default [
       return successResponseWrap(initData);
     },
   },
-] as MockMethod[];
+] as any;
