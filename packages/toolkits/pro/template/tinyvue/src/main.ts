@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import {registerMap} from 'echarts';
-// import * as echarts4 from 'echarts4';
 import { HwcClient } from '@opentiny/hwc-client';
 import globalComponents from '@/components';
 import router from './router';
@@ -13,12 +12,10 @@ import App from './App.vue';
 import '@/api/interceptor';
 import '@/assets/style/global.less';
 import config from '../hwc-exports.json';
-// eslint-disable-next-line import/extensions
-// import 'echarts4/map/js/china.js';
 import chinaMap from './assets/chaina.json';
 
 if(import.meta.env.VITE_USE_MOCK) setupProdMockServer();
-// echarts4.registerMap('china', chinaMap);
+
 registerMap('china', chinaMap as any);
 const app = createApp(App);
 

@@ -87,7 +87,6 @@
         top: '30px',
         itemStyle: {
           normal: {
-            // areaColor: '#000',
             borderColor: 'skyblue',
             borderWidth: 1,
             shadowColor: '#ccc',
