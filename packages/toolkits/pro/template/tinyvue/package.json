@@ -13,7 +13,6 @@
     "prepare": "git init && husky install",
     "mock": "ts-node ./src/mock/index.ts"
   },
-  "type": "module",
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "prettier --write",
