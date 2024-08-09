@@ -7,14 +7,14 @@ export function getUserData() {
 }
 
 export function getUserPractic() {
-  return axios.get(`${import.meta.env.VITE_MOCK_SERVER_HOST}http://127.0.0.1:8848/api/user/getrpractic`);
+  return axios.get(`${import.meta.env.VITE_MOCK_SERVER_HOST}/api/user/getrpractic`);
 }
 
 export function getUserTrain() {
-  return axios.get(`${import.meta.env.VITE_MOCK_SERVER_HOST}http://127.0.0.1:8848/api/user/getrtrain`);
+  return axios.get(`${import.meta.env.VITE_MOCK_SERVER_HOST}/api/user/getrtrain`);
 }
 
 // 切换数据源
 export function getUserChange(data: string) {
-  return axios.post(`${import.meta.env.VITE_MOCK_SERVER_HOST}http://127.0.0.1:8848/api/user/getselect`, data as any);
+  return axios.post(`${import.meta.env.VITE_MOCK_SERVER_HOST}/api/user/getselect`, data as any);
 }

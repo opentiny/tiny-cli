@@ -11,7 +11,7 @@
     "report": "cross-env REPORT=true npm run build",
     "lint-staged": "npx lint-staged",
     "prepare": "git init && husky install",
-    "mock": "ts-node ./src/mock/index.ts"
+    "mock": "tsx ./src/mock/index.ts"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
@@ -29,9 +29,12 @@
     ]
   },
   "dependencies": {
-    "@gaonengwww/mock-server": "^1.0.2",
+    "@gaonengwww/mock-server": "^1.0.5",
     "@opentiny/hwc-client": "^0.0.14",
     "@opentiny/vue": "^3.11.1",
+    "@opentiny/vue-icon": "^3.17.0",
+    "@opentiny/vue-locale": "^3.17.0",
+    "@opentiny/vue-theme": "^3.17.5",
     "@types/mockjs": "^1.0.9",
     "@types/node": "^22.1.0",
     "@vueuse/core": "^10.5.0",
@@ -80,6 +83,8 @@
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.17.0",
     "typescript": "^4.5.5",
     "unplugin-vue-components": "^0.17.21",
     "vite": "^4.4.9",

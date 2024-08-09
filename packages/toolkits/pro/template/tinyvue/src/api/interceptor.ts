@@ -49,7 +49,6 @@ axios.interceptors.response.use(
     return res;
   },
   (error) => {
-    console.log(error)
     const { status, data } = error.response;
     if (status === 401) {
       clearToken();
