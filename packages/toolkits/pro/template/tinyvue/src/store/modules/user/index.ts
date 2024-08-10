@@ -89,10 +89,10 @@ const useUserStore = defineStore('user', {
           id: userRes.data.id,
           name:userRes.data.name,
           email:userRes.data.email,
-          role:userRes.data.role[0].name,
+          role:'',
           department: userRes.data.department,
           employeeType: userRes.data.employeeType,
-          job: userRes.data.role[0].name,
+          job: '',
           probationStart: userRes.data.probationStart,
           probationEnd: userRes.data.probationEnd,
           probationDuration: userRes.data.probationDuration,
@@ -100,6 +100,10 @@ const useUserStore = defineStore('user', {
           protocolEnd: userRes.data.protocolEnd,
           address: userRes.data.address,
           status: userRes.data.status,
+        }
+        if(userRes.data.role){
+          userInfo.role = userRes.data.role[0].name;
+          userInfo.job = userRes.data.role[0].name;
         }
         this.setInfo(userInfo);
       } catch (err) {

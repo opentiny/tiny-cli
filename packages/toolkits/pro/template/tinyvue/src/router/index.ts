@@ -7,6 +7,8 @@ import createRouteGuard from './guard';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
+
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [

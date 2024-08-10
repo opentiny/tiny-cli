@@ -11,7 +11,7 @@ export interface HttpResponse<T = unknown> {
 }
 
 const { VITE_API_BASE_URL, VITE_BASE_API, VITE_MOCK_IGNORE } =
-  import.meta.env || {};
+  import.meta.env || {VITE_BASE_API:'', VITE_MOCK_IGNORE: ''};
 
 if (VITE_API_BASE_URL) {
   axios.defaults.baseURL = VITE_API_BASE_URL;
@@ -19,7 +19,7 @@ if (VITE_API_BASE_URL) {
 
 const ignoreMockApiList = VITE_MOCK_IGNORE?.split(',') || [];
 axios.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: AxiosRequestConfig): any => {
     const isProxy = ignoreMockApiList.includes(config.url);
     if (isProxy) {
       config.url = config.url?.replace(VITE_BASE_API, '/api/v1');
@@ -33,7 +33,7 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    config.headers = { ...config.headers };
+     config.headers = { ...config.headers };
 
     return config;
   },
@@ -49,6 +49,7 @@ axios.interceptors.response.use(
     return res;
   },
   (error) => {
+    console.log(error)
     const { status, data } = error.response;
     if (status === 401) {
       clearToken();
