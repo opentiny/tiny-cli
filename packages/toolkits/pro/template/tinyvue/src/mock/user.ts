@@ -1,4 +1,3 @@
-// import {MockMethod} from 'vite-plugin-mock';
 import {
   successResponseWrap,
   failResponseWrap,

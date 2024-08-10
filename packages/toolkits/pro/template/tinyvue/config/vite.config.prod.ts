@@ -6,7 +6,6 @@ import configVisualizerPlugin from './plugin/visualizer';
 export default mergeConfig(
   {
     mode: 'production',
-    // mock: true,
     plugins: [configCompressPlugin('gzip'), configVisualizerPlugin()],
     build: {
       rollupOptions: {
