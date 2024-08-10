@@ -24,9 +24,9 @@ export interface ITreeNodeData {
   // 国际化
   locale: string;
 }
-
-const views = import.meta.glob('../../views/**/*.vue');
-
+const reg = /\.vue$/gim;
+const views = import.meta.glob ? import.meta.glob('../../views/**/*.vue') : require.context('../../views', true, reg, 'sync');
+console.log(views)
 const toRoutes = (menus: ITreeNodeData[]) => {
   const router: RouteRecordRaw[] = [];
   for (let i=0;i<menus.length;i+=1) {
