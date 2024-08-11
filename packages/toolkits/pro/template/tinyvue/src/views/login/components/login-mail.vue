@@ -77,8 +77,6 @@
   const userStore = useUserStore();
   const loginFormMail = ref();
 
-  // const views = import.meta.glob ? import.meta.glob('../../**/*.vue') : ;
-
   const rules = computed(() => {
     return {
       mailname: [
