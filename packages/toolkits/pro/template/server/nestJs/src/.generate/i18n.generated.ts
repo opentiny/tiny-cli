@@ -44,6 +44,9 @@ export type I18nTranslations = {
             "userNotExists": string;
             "passwordOrEmailError": string;
         };
+        "preview": {
+            "reject-this-request": string;
+        };
     };
     "validation": {
         "NOT_EMPTY": string;

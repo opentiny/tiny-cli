@@ -33,6 +33,7 @@ import {
   I18nModule,
 } from 'nestjs-i18n';
 import { MockModule } from './mock/mock.module';
+import { RejectRequestGuard } from './public/reject.guard';
 
 @Module({
   imports: [
@@ -61,6 +62,10 @@ import { MockModule } from './mock/mock.module';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RejectRequestGuard,
     },
     {
       provide: APP_GUARD,

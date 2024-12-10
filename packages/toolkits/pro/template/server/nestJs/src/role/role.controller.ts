@@ -14,11 +14,13 @@ import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { Permission } from '../public/permission.decorator';
+import { Reject } from '../public/reject.decorator';
 
 @Controller('role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
+  @Reject()
   @Permission('role::add')
   @Post()
   create(@Body() createRoleDto: CreateRoleDto) {
@@ -46,12 +48,14 @@ export class RoleController {
     return this.roleService.findAllDetail(page, limit, name);
   }
 
+  @Reject()
   @Patch()
   @Permission('role::update')
   updateRole(@Body() dto: UpdateRoleDto) {
     return this.roleService.update(dto);
   }
 
+  @Reject()
   @Delete('/:id')
   @Permission('role::remove')
   deleteRole(@Param('id') id: number) {

@@ -5,12 +5,14 @@ import {
   Body,
   Patch,
   Query,
-  Delete, Param,
+  Delete,
+  Param,
 } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { Permission } from '../public/permission.decorator';
 import { UpdateMenuDto } from './dto/update-menu.dto';
+import { Reject } from '../public/reject.decorator';
 
 @Controller('menu')
 export class MenuController {
@@ -27,21 +29,27 @@ export class MenuController {
     return this.menuService.findAllMenu();
   }
 
+  @Reject()
   @Post()
   @Permission('menu::add')
   async createMenu(@Body() dto: CreateMenuDto) {
     return this.menuService.createMenu(dto, false);
   }
 
+  @Reject()
   @Patch()
   @Permission('menu::update')
   async updateMenu(@Body() dto: UpdateMenuDto) {
     return this.menuService.updateMenu(dto);
   }
 
+  @Reject()
   @Delete()
   @Permission('menu::remove')
-  async deleteMenu(@Query('id') id: number, @Query('parentId') parentId: number) {
+  async deleteMenu(
+    @Query('id') id: number,
+    @Query('parentId') parentId: number
+  ) {
     return this.menuService.deleteMenu(id, parentId);
   }
 }

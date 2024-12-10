@@ -36,5 +36,8 @@
   "auth":{
     "userNotExists": "用户不存在",
     "passwordOrEmailError": "密码或邮箱错误"
+  },
+  "preview": {
+    "reject-this-request": "服务器拒绝了本次请求, 因为演示模式下不允许增加, 删除, 修改数据"
   }
 }

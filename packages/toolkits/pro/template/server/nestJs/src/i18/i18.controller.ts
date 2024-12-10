@@ -16,11 +16,13 @@ import { CreateI18Dto } from './dto/create-i18.dto';
 import { UpdateI18Dto } from './dto/update-i18.dto';
 import { I18LangService } from './lang.service';
 import { Permission } from '../public/permission.decorator';
+import { Reject } from '../public/reject.decorator';
 
 @Controller('i18')
 export class I18Controller {
   constructor(private readonly i18Service: I18Service) {}
 
+  @Reject()
   @Permission('i18n::add')
   @Post()
   create(@Body() createI18Dto: CreateI18Dto) {
@@ -58,6 +60,7 @@ export class I18Controller {
     return this.i18Service.findOne(id);
   }
 
+  @Reject()
   @Permission('i18n::update')
   @Patch(':id')
   update(
@@ -67,6 +70,7 @@ export class I18Controller {
     return this.i18Service.update(id, updateI18Dto);
   }
 
+  @Reject()
   @Permission('i18n::remove')
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {

@@ -36,5 +36,8 @@
   "auth":{
     "userNotExists": "User not found",
     "passwordOrEmailError": "Password or email invalid"
+  },
+  "preview": {
+    "reject-this-request": "The server rejected this request, and modification, addition, or deletion of data is not allowed in demonstration mode"
   }
 }
