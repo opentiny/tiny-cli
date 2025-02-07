@@ -145,6 +145,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/wjiangwang"><img src="https://avatars.githubusercontent.com/u/39005591?v=4?s=100" width="100px;" alt="wjiangwang"/><br /><sub><b>wjiangwang</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=wjiangwang" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://kagol.github.io/blogs"><img src="https://avatars.githubusercontent.com/u/9566362?v=4?s=100" width="100px;" alt="Kagol"/><br /><sub><b>Kagol</b></sub></a><br /><a href="#infra-kagol" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     </tr>
   </tbody>
 </table>
