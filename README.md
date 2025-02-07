@@ -141,6 +141,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/GaoNeng-wWw"><img src="https://avatars.githubusercontent.com/u/31283122?v=4?s=100" width="100px;" alt="GaoNeng"/><br /><sub><b>GaoNeng</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=GaoNeng-wWw" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/hello-yezi"><img src="https://avatars.githubusercontent.com/u/75346211?v=4?s=100" width="100px;" alt="yezileyouyou"/><br /><sub><b>yezileyouyou</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=hello-yezi" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/aliceDxr"><img src="https://avatars.githubusercontent.com/u/33685369?v=4?s=100" width="100px;" alt="cecilia"/><br /><sub><b>cecilia</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=aliceDxr" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/h-ivy"><img src="https://avatars.githubusercontent.com/u/119093441?v=4?s=100" width="100px;" alt="huanghh"/><br /><sub><b>huanghh</b></sub></a><br /><a href="https://github.com/opentiny/tiny-cli/commits?author=h-ivy" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
