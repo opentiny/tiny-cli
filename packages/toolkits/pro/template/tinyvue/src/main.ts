@@ -10,7 +10,7 @@ import App from './App.vue';
 import '@/api/interceptor';
 import '@/assets/style/global.less';
 import config from '../hwc-exports.json';
-import chinaMap from './assets/chaina.json';
+import chinaMap from './assets/china.json';
 
 registerMap('china', chinaMap as any);
 const app = createApp(App);

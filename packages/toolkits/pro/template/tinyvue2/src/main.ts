@@ -8,7 +8,7 @@ import '@/api/interceptor';
 import '@/assets/style/global.less';
 import { pinia } from './stores/pinia';
 import 'echarts4/map/js/china.js';
-import chinaMap from './assets/chaina.json';
+import chinaMap from './assets/china.json';
 // import * as echarts4 from 'echarts4';
 import { registerMap } from 'echarts';
 import Breadcrumb from '@/components/breadcrumb/index.vue';
