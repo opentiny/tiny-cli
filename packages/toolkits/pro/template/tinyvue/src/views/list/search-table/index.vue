@@ -5,26 +5,24 @@
       <div class="contain-head">
         <span>{{ $t('searchTable.form.create') }}</span>
         <hr />
-        <div class="contain-img">
+        <div class="contain-img" @click="setCollapse = !setCollapse">
           <img
             v-if="setCollapse"
             src="@/assets/images/collapse.png"
             alt="collapse"
-            @click="collapse"
           />
           <img
-            v-if="!setCollapse"
+            v-else
             src="@/assets/images/expand.png"
             alt="expand"
-            @click="extend"
           />
-        </div>
-        <div class="contain-text">
-          {{
-            setCollapse
-              ? $t('searchTable.form.collapse')
-              : $t('searchTable.form.extend')
-          }}
+          <div class="contain-text">
+            {{
+              setCollapse
+                ? $t('searchTable.form.collapse')
+                : $t('searchTable.form.extend')
+            }}
+          </div>
         </div>
       </div>
       <tiny-form
@@ -32,7 +30,6 @@
         label-position="right"
         label-width="100px"
         class="filter-form"
-        size="small"
       >
         <transition-fade-slide-group>
           <tiny-row :flex="true" justify="center" class="col">

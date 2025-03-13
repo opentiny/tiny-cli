@@ -40,7 +40,7 @@
       padding: 6px;
       text-align: left;
       list-style-type: none;
-      box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+      box-shadow: 0 0 2px 2px var(--tv-common-color-bg-normal);
       cursor: pointer;
     }
 

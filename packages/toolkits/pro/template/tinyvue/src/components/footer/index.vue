@@ -18,9 +18,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--ti-default-font-color);
-    font-size: var(--ti-default-font-size);
-    font-family: var(--ti-default-font-family);
+    color: var(--tv-default-font-color);
+    font-size: var(--tv-default-font-size);
+    font-family: var(--tv-default-font-family);
     text-align: center;
 
     .divider {

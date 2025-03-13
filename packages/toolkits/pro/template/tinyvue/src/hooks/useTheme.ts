@@ -1,14 +1,13 @@
 import { useAppStore } from '@/store';
 import { computed, onMounted, watch } from 'vue';
 import * as Themes from '@/components/theme/type';
-import TinyThemeTool from '@opentiny/vue-theme/theme-tool.js';
-import { tinySmbTheme } from '@opentiny/vue-theme/theme';
+import TinyThemeTool from '@opentiny/vue-theme/theme-tool';
 import useThemes from './themes';
 
 export const useTheme = (themeTool: typeof TinyThemeTool) => {
   const { themelist, $patch } = useAppStore();
   const themeName = computed(() =>
-    themelist.length
+    themelist?.length
       ? `${themelist[0].toUpperCase()}${themelist.slice(1).toLowerCase()}Theme`
       : 'DefaultTheme',
   );
@@ -18,7 +17,7 @@ export const useTheme = (themeTool: typeof TinyThemeTool) => {
     () => {
       themeTool.changeTheme(
         themeName.value === 'DefaultTheme'
-          ? tinySmbTheme
+          ? ''
           : (Themes as any)[themeName.value],
       );
     },

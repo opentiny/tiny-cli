@@ -61,8 +61,8 @@
 
 <style scoped lang="less">
   .margin-bottom {
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   .col > span {

@@ -4,7 +4,6 @@
       label-width="120px"
       :label-align="true"
       label-position="left"
-      size="small"
     >
       <tiny-row :flex="true" justify="left">
         <tiny-col :span="4" label-width="100px">

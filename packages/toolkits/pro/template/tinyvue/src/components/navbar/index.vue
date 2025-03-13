@@ -86,7 +86,6 @@
             label-width="150px"
             :label-align="true"
             label-position="left"
-            size="small"
           >
             <tiny-row :flex="true" justify="left">
               <tiny-col :span="10" label-width="100px">
@@ -366,7 +365,7 @@
 
     h5 {
       margin: 0 30px 0 12px;
-      color: var(--ti-base-common-title-color);
+      color: var(--tv-base-common-title-color);
       font-weight: 700;
       font-size: 22px;
       line-height: 32px;
@@ -377,7 +376,7 @@
       width: 135px;
       height: 22px;
       margin-left: 10px;
-      color: var(--ti-base-common-title-color);
+      color: var(--tv-base-common-title-color);
       font-weight: normal;
       font-size: 16px;
       line-height: 22px;
@@ -425,7 +424,7 @@
       font-size: 2em;
       font-style: oblique;
       cursor: pointer;
-      fill: var(--ti-common-color-line-active);
+      fill: var(--tv-common-color-line-active);
     }
 
     a {
@@ -465,7 +464,7 @@
         text-align: center;
         list-style-type: none;
         background-color: #fff;
-        box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+        box-shadow: 0 0 2px 2px var(--tv-common-color-bg-normal);
         cursor: pointer;
       }
 
@@ -483,7 +482,7 @@
         text-align: center;
         list-style-type: none;
         background-color: #fff;
-        box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+        box-shadow: 0 0 2px 2px var(--tv-common-color-bg-normal);
         cursor: pointer;
       }
 

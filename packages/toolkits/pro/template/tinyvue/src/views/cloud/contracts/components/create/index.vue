@@ -180,13 +180,13 @@
   .contain {
     width: 90%;
     margin-top: 10%;
-    color: var(--ti-common-color-text-secondary);
-    font-size: var(--ti-default-font-size);
-    line-height: var(--ti-formfield-item-required-label-line-height);
+    color: var(--tv-common-color-text-secondary);
+    font-size: var(--tv-default-font-size);
+    line-height: var(--tv-formfield-item-required-label-line-height);
 
     .tip {
       color: #999;
-      font-size: var(--ti-common-font-size-base);
+      font-size: var(--tv-common-font-size-base);
     }
 
     .btn {

@@ -137,12 +137,6 @@
       min-width: 180px;
       margin-left: 210px;
       padding-bottom: 20px;
-
-      :deep(.tiny-button) {
-        width: 100px;
-        height: 36px;
-        border-radius: 4px;
-      }
     }
   }
   @media (max-width: @screen-xs) {
