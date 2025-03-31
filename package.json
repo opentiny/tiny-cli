@@ -6,7 +6,7 @@
   "scripts": {
     "init": "npm i && npx lerna bootstrap",
     "dev": "lerna run watch --stream --parallel",
-    "dev:local": "esno ./packages/cli/core/src/index.ts",
+    "dev:local": "esno ./packages/core/src/index.ts",
     "build": "lerna run build",
     "link": "lerna run link",
     "lint": "eslint . --ext .js,.ts --fix",
@@ -55,5 +55,8 @@
       "prettier --write",
       "eslint --fix"
     ]
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
