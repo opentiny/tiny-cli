@@ -20,7 +20,7 @@
 <style lang="less" scoped>
   .container {
     width: 100%;
-    height: calc(100% - var(--ti-common-size-12x));
+    height: calc(100% - var(--tv-common-size-12x));
   }
 
   .container-info {

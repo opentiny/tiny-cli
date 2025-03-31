@@ -119,7 +119,7 @@
   .user-image {
     font-style: oblique;
     border-radius: 60px;
-    fill: var(--ti-common-color-line-active);
+    fill: var(--tv-common-color-line-active);
   }
 
   .space {
@@ -139,8 +139,8 @@
   }
 
   .margin-bottom {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   .col {

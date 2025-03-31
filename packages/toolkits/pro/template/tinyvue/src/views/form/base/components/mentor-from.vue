@@ -7,7 +7,6 @@
       :responsive-layout="true"
       label-width="220px"
       :label-align="true"
-      size="small"
     >
       <tiny-row :flex="true" justify="left">
         <tiny-col :span="8" label-width="100px">

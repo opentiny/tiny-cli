@@ -82,9 +82,8 @@
     TabItem,
     Modal,
   } from '@opentiny/vue';
-  import TinyThemeTool from '@opentiny/vue-theme/theme-tool.js';
+  import TinyThemeTool from '@opentiny/vue-theme/theme-tool';
   import { useAppStore, useTabStore } from '@/store';
-  // eslint-disable-next-line import/extensions
   import Footer from '@/components/footer/index.vue';
   import NavBar from '@/components/navbar/index.vue';
   import Theme from '@/components/theme/index.vue';

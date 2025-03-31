@@ -164,8 +164,8 @@
   }
 
   .margin-bottom {
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   .col > span {
@@ -176,10 +176,10 @@
       .tiny-collapse-item__arrow.is-active,
       .tiny-collapse-item__arrow:hover
     ) {
-    fill: var(--ti-common-color-text-highlight);
+    fill: var(--tv-common-color-text-highlight);
   }
 
   :deep(.tiny-collapse-item__header svg) {
-    fill: var(--ti-common-color-text-highlight);
+    fill: var(--tv-common-color-text-highlight);
   }
 </style>

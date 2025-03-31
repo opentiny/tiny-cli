@@ -24,7 +24,6 @@ declare module '@opentiny/vue';
 declare module '@opentiny/vue-icon';
 declare module '@opentiny/vue-theme/theme-tool.js';
 declare module '@opentiny/vue-theme/theme';
-declare module 'echarts4';
 declare module 'query-string';
 declare const BUILD_TOOLS: string;
 declare interface NodeRequire {

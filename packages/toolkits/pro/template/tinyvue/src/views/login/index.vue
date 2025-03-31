@@ -69,9 +69,9 @@
     width: 450px;
     height: 550px;
     padding: 60px 40px;
-    font-size: var(--ti-common-font-size-1);
+    font-size: var(--tv-common-font-size-1);
     background: #fff;
-    box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+    box-shadow: 0 0 2px 2px var(--tv-common-color-bg-normal);
 
     &-header {
       display: flex;

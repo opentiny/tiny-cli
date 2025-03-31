@@ -214,7 +214,7 @@
     box-shadow: 0 0 8px 8px rgba(169, 174, 184, 0.05);
 
     .card-tip {
-      padding-left: 40px;
+      padding-left: 23px;
       color: #e37d29;
       font-weight: normal;
       font-size: 12px;
@@ -240,20 +240,14 @@
     padding-top: 10px;
   }
 
-  :deep(.tiny-button) {
-    width: 100px;
-    height: 36px;
-    border-radius: 4px;
-  }
-
   :deep(
       .tiny-collapse-item__arrow.is-active,
       .tiny-collapse-item__arrow:hover
     ) {
-    fill: var(--ti-common-color-text-highlight);
+    fill: var(--tv-common-color-text-highlight);
   }
 
   :deep(.tiny-collapse-item__header svg) {
-    fill: var(--ti-common-color-text-highlight);
+    fill: var(--tv-common-color-text-highlight);
   }
 </style>

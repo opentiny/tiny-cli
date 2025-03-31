@@ -220,7 +220,7 @@
     background: #fff;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
-    box-shadow: 0 0 2px 2px var(--ti-common-color-bg-normal);
+    box-shadow: 0 0 2px 2px var(--tv-common-color-bg-normal);
 
     div {
       padding-top: 3px;
