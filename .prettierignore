@@ -1,6 +1,6 @@
 package.json
 package-lock.json
 dist
-/packages/cli/**/lib/*
+/packages/**/lib/*
 *.md
 assets

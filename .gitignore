@@ -1,6 +1,6 @@
 node_modules/
 package-lock.json
-/packages/cli/**/lib/*
+/packages/**/lib/*
 temp
 dist
 /packages/toolkits/docs/template/ng/public/assets

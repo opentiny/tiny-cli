@@ -1,9 +1,7 @@
 {
 	"packages": [
 		"config/*",
-		"packages/cli/*",
-		"packages/plugins/*",
-		"packages/toolkits/*"
+		"packages/*"
 	],
 	"version": "independent",
 	"$schema": "node_modules/lerna/schemas/lerna-schema.json",

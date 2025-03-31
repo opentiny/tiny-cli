@@ -1,5 +1,0 @@
-{
-  "NOT_EMPTY": "{property} should not to be empty",
-  "IS_ARRAY": "{property} should to be array",
-  "NOT_EMPTY_HUMAN": "{name} should not to be empty"
-}
