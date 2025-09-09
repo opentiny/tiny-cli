@@ -41,7 +41,7 @@ tiny-pro
 
 ### 关闭演示模式
 
-`TinyPro` 提供了一个 `RejectGuard` 的 `Guard`. 如果你需要关闭演示模式, 请在 `nestJs/src/app.module.ts` 中移除 L66~L69. 最终代码应当如下
+`TinyPro` 提供了一个 `RejectGuard` 的 `Guard`. 如果你需要关闭演示模式, 请在 `nestJS/src/app.module.ts` 中移除 L66~L69. 最终代码应当如下
 
 ```diff
 @Module({
