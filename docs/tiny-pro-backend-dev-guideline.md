@@ -60,6 +60,31 @@ Application is running on: http://[::1]:3000
 ```
 
 
+### 关闭演示模式
+
+`TinyPro` 提供了一个 `RejectGuard` 的 `Guard`. 如果你需要关闭演示模式, 请在 `nestJS/src/app.module.ts` 中移除 L66~L69. 最终代码应当如下
+
+```diff
+@Module({
+  ...
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+-   {
+-     provide: APP_GUARD,
+-     useClass: RejectRequestGuard,
+-   },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionGuard,
+    },
+  ],
+})
+export class AppModule implements OnModuleInit {
+```
+
 ## 初始化数据
 
 有些时候我们需要自动初始化一些数据(比如前端的默认国际化字段). 这些逻辑**均需**写在`App.module.ts`中`AppModule`类中的`onModuleInit`函数中。

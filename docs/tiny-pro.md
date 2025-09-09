@@ -39,6 +39,31 @@ tiny-pro
 
 后端服务支持`docker启动`与`命令启动`， 执行操作前请先确保所处位置为`tiny-pro/nestJS`
 
+### 关闭演示模式
+
+`TinyPro` 提供了一个 `RejectGuard` 的 `Guard`. 如果你需要关闭演示模式, 请在 `nestJS/src/app.module.ts` 中移除 L66~L69. 最终代码应当如下
+
+```diff
+@Module({
+  ...
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+-   {
+-     provide: APP_GUARD,
+-     useClass: RejectRequestGuard,
+-   },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionGuard,
+    },
+  ],
+})
+export class AppModule implements OnModuleInit {
+```
+
 ### Docker启动
 
 在运行`docker compose up -d`之前，请先修改`.env`环境变量文件，示例如下
